@@ -11,7 +11,7 @@
  2. id: 중복확인
  3. nicname: 중복확인
  3. password 특수문자 포함 여부 확인 및 동일성 체크
- 4. email 이메일 중복확인.
+ 4. email 이메일 중복확인
  5. 가입하기 버튼
 
 ## MainPage
