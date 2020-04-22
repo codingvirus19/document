@@ -1,12 +1,12 @@
 # 기능정의
 
-## 로그인(id, password)/(동은)/(예은) 
+## 로그인(id, password)/(동은)/(예은) 1 
  1. ID(email 로그인 가능)
  2. password
  3. 로그인 버튼, 회원가입 버튼
  4. 구글 로그인 api 적용 
 
-## 회원가입/(예은)
+## 회원가입/(예은) 1
  1. (id, password, email, nickname) 구성 
  2. id: 중복확인
  3. nicname: 중복확인
@@ -16,10 +16,10 @@
 
 ## MainPage
 
-### Editor
+### Editor 1
  1. Socket 통신을 이용하여 실시간으로 동시 편집 기능 구현 (Sync맞추기)
   
-### Chat
+### Chat 3
  1. Socket 통신을 이용하여 1:n 채팅 구현
  
 ### POST Board
@@ -31,7 +31,7 @@
 ## Header
  ### 알람
  ### 사용자
-  1. 사용자 이미지
+  1. 사용자 이미지ssss
   	1-1. 클릭시 메뉴가 생성됨
   	1-2. 내정보
   	1-3. 로그아웃 	 
