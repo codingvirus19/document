@@ -77,7 +77,6 @@
 						$('#peopleid').val(sId);
 					}
 				}else if(jmsg.type == "message"){
-					$("#chating").scrollTop($("#chating")[0].scrollHeight);
 					
 					if(jmsg.pepleId == $('#peopleid').val()){
 						$("#chating").append("<p class='mychat'>나 : " + jmsg.msg + "</p>");
@@ -85,6 +84,7 @@
 					}else{
 						$("#chating").append("<p class='otherschat'>" + jmsg.username + " : " + jmsg.msg + "</p>");
 					}
+					$("#chating").scrollTop($("#chating")[0].scrollHeight);
 				}else{
 					console.log("채팅 동작 오류");
 				}
