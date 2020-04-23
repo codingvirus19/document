@@ -10,6 +10,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
+	<packaging>war</packaging>
 
 	<dependencyManagement>
 		<dependencies>
@@ -22,7 +23,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<dependencies>
 		<!-- spring boot starter -->
 		<dependency>
@@ -47,7 +48,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
-		
+
 		<!-- Spring boot websocket -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -118,8 +119,8 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-	
-	
+
+
 	<build>
 		<finalName>${artifactId}</finalName>
 		<sourceDirectory>src/main/java</sourceDirectory>
@@ -143,7 +144,7 @@
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<configuration>
 					<url>http://192.168.1.222:8080/manager/text</url>
-					<path>/team</path>
+					<path>/codingvirus19</path>
 					<username>admin</username>
 					<password>admin</password>
 				</configuration>

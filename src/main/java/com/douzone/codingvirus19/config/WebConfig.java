@@ -26,10 +26,11 @@ import com.douzone.security.AuthUserHandlerMethodArgumentResolver;
 import com.douzone.security.LogoutInterceptor;
 
 @Configuration
-@PropertySource("classpath:com/douzone/team/config/config.properties")
+@PropertySource("classpath:com/douzone/codingvirus19/config/config.properties")
 public class WebConfig implements WebMvcConfigurer {
 	@Autowired
 	private Environment env;
+	
 	
 	//Argument Resolver
 	@Bean
