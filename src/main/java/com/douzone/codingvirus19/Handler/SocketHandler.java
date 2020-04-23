@@ -2,6 +2,9 @@ package com.douzone.codingvirus19.Handler;
 
 import java.util.HashMap;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -34,7 +37,15 @@ public class SocketHandler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// 소켓 연결
 		// Map에 session의 id와 시작 session 담기
+		// 생성된 세션을 저장하면 발신메시지 타입은 getId라고 명시 후 생성된 세션ID값을 클라이언트 단으로 발송
+		// 클라이언트 단에서는 type값을 통해 메시지와 초기 설정값을 구분.
 		sessionMap.put(session.getId(), session);
+		
+		// String을 Json객체 형식으로 바꿔서 client단으로 보냄
+		JSONObject object = new JSONObject();
+		object.put("type", "getId");
+		object.put("peopleId", session.getId());
+		session.sendMessage(new TextMessage(object.toJSONString()));
 	}
 	
 	@Override
@@ -42,5 +53,19 @@ public class SocketHandler extends TextWebSocketHandler {
 		// 소켓 종료
 		// Map에 session의 session 취소 시키기
 		sessionMap.remove(session.getId());
+	}
+	
+	// JSONParser을 사용하여 파싱
+	// 메시지 전송시 JSON파싱을 위해서 message.getPayload()를 통해 받은 문자열을 만든 함수 jsonToObjectParser
+	// jsonToObjectParser 넣어서 JSONObject값으로 받아서 강제 문자열 형태로 보냄
+	private static JSONObject jsonToObjectParser(String jsonStr) {
+		JSONParser parser = new JSONParser();
+		JSONObject obj = null;
+		try {
+			obj = (JSONObject) parser.parse(jsonStr);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return obj;
 	}
 }

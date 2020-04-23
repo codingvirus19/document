@@ -28,8 +28,12 @@
 			height: 500px;
 			overflow: auto;
 		}
-		.chating p{
-			color: #fff;
+		.chating .mychat{
+			color: #F6F6F6;
+			text-align: right;
+		}
+		.chating .otherschat{
+			color: #FFE400;
 			text-align: left;
 		}
 		input{
@@ -57,10 +61,33 @@
 		}
 		
 		ws.onmessage = function(data) {
+			// 메시지 받으면 동작
 			var msg = data.data;
 			if(msg != null && msg.trim() != ''){
-				$("#chating").append("<p>" + msg + "</p>");
-				$("#chating").scrollTop($("#chating")[0].scrollHeight);
+				var jmsg = JSON.parse(msg);
+				
+				// 데이터를 JSON형태로 전달 받아서 받은 데이터를 JSON.parse메소드를 활용 하여서 파싱함
+				// 또한, 이 파싱한 객체(jmsg)값이 "getId"값이면 초기 설정된 값이므로 채팅창에 추가한 태그 sessionId에 값을 세팅함.
+				if(jmsg.type == "getId"){
+					var sId;
+					if(jmsg.peopleId != null){
+						sId = jmsg.peopleId;
+					}
+					if(sId != ''){
+						$('#peopleid').val(sId);
+					}
+				}else if(jmsg.type == "message"){
+					$("#chating").scrollTop($("#chating")[0].scrollHeight);
+					
+					if(jmsg.pepleId == $('#peopleid').val()){
+						$("#chating").append("<p class='mychat'>나 : " + jmsg.msg + "</p>");
+						
+					}else{
+						$("#chating").append("<p class='otherschat'>" + jmsg.username + " : " + jmsg.msg + "</p>");
+					}
+				}else{
+					console.log("채팅 동작 오류");
+				}
 			}
 		}
 
@@ -83,15 +110,23 @@
 		}
 	}
 
+	// 메시지를 보낼 때 type값을 message로 구분하여 발송
 	function send() {
-		var msg = $("#chatting").val();
-		ws.send(username+" : "+msg);
-		$('#chatting').val("");
+		var option ={
+				type: "message",
+				pepleId : $("#peopleid").val(),
+				username : $("#userName").val(),
+				msg : $("#chatting").val()
+			}
+			ws.send(JSON.stringify(option))
+			$('#chatting').val("");
 	}
 </script>
 <body>
 	<div id="container" class="container">
-		<h1>채팅</h1>
+		<h1>소켓 채팅 테스트</h1>
+		<input type="hidden" id="peopleid" value=""/>
+		
 		<div id="chating" class="chating">
 		</div>
 		
