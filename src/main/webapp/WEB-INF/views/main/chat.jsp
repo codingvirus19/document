@@ -23,22 +23,29 @@
 			margin-bottom: 20px;
 		}
 		.chating{
-			background-color: #000;
+			background-color: #fff;
 			width: 500px;
 			height: 500px;
 			overflow: auto;
 		}
 		.chating .mychat{
-			background-color: #FDFF7F;
-			width: 60%;
-			color: #F6F6F6;
+			background-color: #FF4268;
+			margin: 5px 1px 0 36%;
+			width: 55%;
+			color: #000;
 			text-align: right;
+			border-radius: 25px;
+			padding: 3%;
 		}
 		.chating .otherschat{
 			background-color: #A3FFEF;
+			margin: 5px 36% 0 1px;
+			width: 55%;
 			width: 60%;
-			color: #FFE400;
+			color: #000;
 			text-align: left;
+			border-radius: 25px;
+			padding: 3%;
 		}
 		input{
 			width: 330px;
