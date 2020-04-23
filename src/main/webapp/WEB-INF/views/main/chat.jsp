@@ -29,10 +29,14 @@
 			overflow: auto;
 		}
 		.chating .mychat{
+			background-color: #FDFF7F;
+			width: 60%;
 			color: #F6F6F6;
 			text-align: right;
 		}
 		.chating .otherschat{
+			background-color: #A3FFEF;
+			width: 60%;
 			color: #FFE400;
 			text-align: left;
 		}
@@ -70,7 +74,7 @@
 				// 또한, 이 파싱한 객체(jmsg)값이 "getId"값이면 초기 설정된 값이므로 채팅창에 추가한 태그 sessionId에 값을 세팅함.
 				if(jmsg.type == "getId"){
 					var sId;
-					if(jmsg.peopleId != null){
+					if(jmsg.peopleId != null && jmsg.peopleId != ''){
 						sId = jmsg.peopleId;
 					}
 					if(sId != ''){
