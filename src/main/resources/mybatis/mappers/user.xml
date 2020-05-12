@@ -34,34 +34,5 @@
 	]]>
 	</delete>
 
-	<update id="update" parameterType="uservo">
-		<choose>
-			<when test='password != ""'>
-			<![CDATA[
-				update user
-					set name =#{name},
-					password = password(#{password}),
-					gender = #{gender}
-				where no = #{no}
-				]]>
-			</when>
-			<otherwise>
-			<![CDATA[
-				update user
-					set name =#{name},
-					gender = #{gender}
-				where no = #{no}
-				]]>
-			</otherwise>
-		</choose>
-	</update>
-	
-	<select id="findByEmail" parameterType="string" resultType="uservo">
-		<![CDATA[
-		select no
-		  from user 
-		 where email = #{email }
-		]]>
-	</select>
 
 </mapper>
