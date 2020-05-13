@@ -30,19 +30,16 @@ export default class Join extends Component {
     this.setState({
       id: e.target.value,
     });
-    console.log(this.state.id);
   }
   onChangeNick(e) {
     this.setState({
       nickname: e.target.value,
     });
-    console.log(this.state.nickname);
   }
   onChangeEmail(e) {
     this.setState({
       email: e.target.value,
     });
-    console.log(this.state.email);
   }
   onChangePassword(e) {
     this.setState({
@@ -52,31 +49,32 @@ export default class Join extends Component {
   }
   setPasswordError() {
     console.log("password틀림");
+    return;
   }
   //비밀번호를 입력할때마다 password 를 검증하는 함수
   onChangePasswordChk(e) {
     this.setState({
       passwordChk: e.target.value,
     });
-    if (this.state.passwordChk !== this.state.password) {
-      setPasswordError();
-    }
-    console.log(this.state.passwordChk);
   }
+
   onChangeName(e) {
     this.setState({
       name: e.target.value,
     });
-    console.log(this.state.name);
   }
   onChangeImage(e) {
     this.setState({
       image: e.target.value,
     });
-    console.log(this.state.image);
   }
 
   Join() {
+    console.log(this.state.password + ":" + this.state.passwordChk);
+    if (this.state.passwordChk !== this.state.password) {
+      alert("password틀림");
+      return;
+    }
     let input_date = {
       id: this.state.id,
       email: this.state.email,
@@ -204,7 +202,10 @@ export default class Join extends Component {
               가입하기
             </button>
             <p className="forgot-password text-right">
-              기존의 아이디가 존재한다면?<a href="/login"> 로그인하기</a>
+              기존의 아이디가 존재한다면?
+              <a onClick={this.props.closePopup} href="/login">
+                로그인하기
+              </a>
             </p>
           </div>
         </div>
