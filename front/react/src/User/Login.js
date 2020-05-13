@@ -1,55 +1,60 @@
 import React from "react";
+import Join from "./Join";
 
-const API_URL = 'http://localhost:8080/codingvirus19';
+const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
-  'Content-Type': 'application/json'
-}
+  "Content-Type": "application/json",
+};
 export default class login extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-      id: '',
-      password: '',
-      result: false
-    }
+      id: "",
+      password: "",
+      result: false,
+      showPopup: false,
+    };
   }
 
-  IdChange(e){
+  IdChange(e) {
     this.setState({
-      id: e.target.value
-    })
+      id: e.target.value,
+    });
   }
 
-  PassWordChange(e){
+  PassWordChange(e) {
     this.setState({
-      password: e.target.value
-    })
+      password: e.target.value,
+    });
   }
 
   Login() {
     let input_date = {
       id: this.state.id,
-      password: this.state.password
+      password: this.state.password,
     };
     console.log(input_date);
     // call api
-    fetch(`${API_URL}/user/auth`, {
-      method: 'post',
+    fetch(`${API_URL}/api/login`, {
+      method: "post",
       headers: API_HEADERS,
-      body: JSON.stringify(input_date)
+      body: JSON.stringify(input_date),
     })
-      .then(response => response.json())
-      .then(json => {
+      .then((response) => response.json())
+      .then((json) => {
         this.setState({
-          result: json.data
+          result: json.data,
         });
       })
-      .catch(err => console.error(err));
-
+      .catch((err) => console.error(err));
   }
 
+  joinPopup() {
+    this.setState({
+      showPopup: !this.state.showPopup,
+    });
+  }
   render() {
-
     return (
       <div className="App">
         <div className="auth-wrapper">
@@ -88,27 +93,33 @@ export default class login extends React.Component {
                     className="custom-control-input"
                     id="customCheck1"
                   />
-                  <label className="custom-control-label" htmlFor="customCheck1">
+                  <label
+                    className="custom-control-label"
+                    htmlFor="customCheck1"
+                  >
                     아이디 저장하기
-                </label>
+                  </label>
                 </div>
               </div>
 
               <div
-               // type="submit"
-               // className="btn btn-primary btn-block"
+                // type="submit"
+                // className="btn btn-primary btn-block"
                 onClick={this.Login.bind(this)}
               >
                 로그인
-            </div>
-              <p className="forgot-password text-right">
-                아이디가 없으신가요?<a href="/join"> 회원가입하기</a>
-              </p>
+              </div>
             </form>
+            <div className="forgot-password text-right">
+              아이디가 없으신가요?
+              <button onClick={this.joinPopup.bind(this)}>회원가입하기</button>
+              {this.state.showPopup ? (
+                <Join closePopup={this.joinPopup.bind(this)} />
+              ) : null}
+            </div>
           </div>
         </div>
       </div>
     );
   }
 }
-

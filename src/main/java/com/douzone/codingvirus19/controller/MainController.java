@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.douzone.codingvirus19.service.MainService;
 
-
-@RestController
+@Controller
 public class MainController {
 	
 	@Autowired

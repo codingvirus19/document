@@ -16,4 +16,16 @@ public class UserService {
 		return userRepository.login(vo);
 	}
 
+	public UserVo findByIdAndPassword(UserVo vo) {
+		System.out.println("Service vo" + vo);
+		UserVo authUser = userRepository.findByIdAndPassword(vo);
+		System.out.println("Service: " + authUser);
+		return authUser;
+	}
+
+	public void joinInsert(UserVo vo) {
+		userRepository.joinInsert(vo);
+	}
+
+
 }
