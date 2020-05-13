@@ -16,6 +16,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		
+		
 		//1. handler 종류 확인
 		if(handler instanceof HandlerMethod == false) {
 			// asset 접근 DefaultServletHandler가 처리하는 경우(보퉁, assets의 정적 자원 접근)

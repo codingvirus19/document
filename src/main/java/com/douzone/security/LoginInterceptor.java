@@ -10,6 +10,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.douzone.codingvirus19.service.UserService;
 import com.douzone.codingvirus19.vo.UserVo;
 
+
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	UserService userService;
@@ -24,11 +25,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		vo.setId(id);
 		vo.setPassword(password);
 		UserVo authUser = null;
-//		= userService.login(vo);
 		if(authUser == null) {
 			request.setAttribute("userVo", vo);
 			request
-			.getRequestDispatcher("/WEB-INF/views/user/login.jsp")
+			.getRequestDispatcher("/WEB-INF/views/main/index.jsp")
 			.forward(request,response);
 			return false;
 		}

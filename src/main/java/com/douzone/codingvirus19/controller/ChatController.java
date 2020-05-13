@@ -20,7 +20,6 @@ public class ChatController {
 //	public String index(Model model) {
 //		return "main/chat";
 //	}
-	
 	@MessageMapping("/message/{room}")
 	@SendTo("192.168.1.27:8080/codingvirus19/topic/testchat/{room}")
 	public void sendMessage(ChatMessageVo message, @DestinationVariable String room) throws Exception{
