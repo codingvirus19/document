@@ -66,8 +66,13 @@ export default class Join extends Component {
 
   render() {
     return (
-      <div className="auth-wrapper">
-        <div className="auth-inner">
+      <div className="join-popup" onClick={this.props.closePopup}>
+        <div
+          className="join-popup_inner"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <form>
             <h3>회원가입</h3>
 

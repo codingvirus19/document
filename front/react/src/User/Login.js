@@ -1,4 +1,5 @@
 import React from "react";
+import Join from "./Join";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
@@ -11,6 +12,7 @@ export default class login extends React.Component {
       id: "",
       password: "",
       result: false,
+      showPopup: false,
     };
   }
 
@@ -45,6 +47,13 @@ export default class login extends React.Component {
         });
       })
       .catch((err) => console.error(err));
+  }
+
+  joinPopup() {
+    this.setState({
+      showPopup: !this.state.showPopup,
+    });
+    console.log(this.state.showPopup);
   }
 
   render() {
@@ -102,10 +111,14 @@ export default class login extends React.Component {
               >
                 로그인
               </div>
-              <p className="forgot-password text-right">
-                아이디가 없으신가요?<a href="/join"> 회원가입하기</a>
-              </p>
             </form>
+            <div className="forgot-password text-right">
+              아이디가 없으신가요?
+              <button onClick={this.joinPopup.bind(this)}>회원가입하기</button>
+              {this.state.showPopup ? (
+                <Join closePopup={this.joinPopup.bind(this)} />
+              ) : null}
+            </div>
           </div>
         </div>
       </div>
