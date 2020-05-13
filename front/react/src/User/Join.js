@@ -8,9 +8,10 @@ export default class Join extends Component {
       id: "",
       email: "",
       password: "",
+      passwordChk: "",
       nickname: "",
-      image: "",
       name: "",
+      image: "",
     };
   }
 
@@ -21,29 +22,46 @@ export default class Join extends Component {
   }
 
   onChangeId(e) {
-    this.setId({
+    this.setState({
       id: e.target.value,
     });
   }
   onChangeNick(e) {
-    this.setNick({
+    this.setState({
       nickname: e.target.value,
     });
   }
   onChangeEmail(e) {
-    this.setEmail({
+    this.setState({
       email: e.target.value,
     });
   }
   onChangePassword(e) {
-    this.setPassword({
+    this.setState({
       password: e.target.value,
     });
   }
+  setPasswordError() {
+    console.log("password틀림");
+  }
+  //비밀번호를 입력할때마다 password 를 검증하는 함수
   onChangePasswordChk(e) {
-    //비밀번호를 입력할때마다 password 를 검증하는 함수
-    setPasswordError(e.target.value !== password);
-    setPasswordCheck(e.target.value);
+    this.setState({
+      passwordChk: e.target.value,
+    });
+    if (this.state.passwordChk !== this.state.password) {
+      setPasswordError();
+    }
+  }
+  onChangeName(e) {
+    this.setState({
+      name: e.target.value,
+    });
+  }
+  onChangeImage(e) {
+    this.setState({
+      image: e.target.value,
+    });
   }
 
   render() {
@@ -61,7 +79,7 @@ export default class Join extends Component {
                 value={this.state.id}
                 placeholder="아이디"
                 required
-                onChange={this.onChangeId}
+                onChange={this.onChangeId.bind(this)}
               />
             </div>
 
@@ -73,7 +91,7 @@ export default class Join extends Component {
                 value={this.state.nickname}
                 placeholder="닉네임"
                 required
-                onChange={this.onChangeNick}
+                onChange={this.onChangeNick.bind(this)}
               />
             </div>
 
@@ -85,7 +103,7 @@ export default class Join extends Component {
                 value={this.state.email}
                 placeholder="이메일"
                 required
-                onChange={this.onChangeEmail}
+                onChange={this.onChangeEmail.bind(this)}
               />
             </div>
 
@@ -97,7 +115,7 @@ export default class Join extends Component {
                 value={this.state.password}
                 placeholder="비밀번호"
                 required
-                onChange={this.onChangePassword}
+                onChange={this.onChangePassword.bind(this)}
               />
             </div>
 
@@ -106,10 +124,32 @@ export default class Join extends Component {
               <input
                 type="password"
                 className="form-control"
-                value={this.state.password}
+                value={this.state.passwordChk}
                 placeholder="비밀번호 재입력"
                 required
-                onChange={this.onChangePasswordChk}
+                onChange={this.onChangePasswordChk.bind(this)}
+              />
+            </div>
+            <div className="form-group">
+              <label>이름</label>
+              <input
+                type="text"
+                className="form-control"
+                value={this.state.password}
+                placeholder="이름 입력"
+                required
+                onChange={this.onChangeName.bind(this)}
+              />
+            </div>
+            <div className="form-group">
+              <label>이미지</label>
+              <input
+                type="text"
+                className="form-control"
+                value={this.state.password}
+                placeholder="이미지 입력"
+                required
+                onChange={this.onChangeImage.bind(this)}
               />
             </div>
 
