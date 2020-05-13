@@ -53,9 +53,7 @@ export default class login extends React.Component {
     this.setState({
       showPopup: !this.state.showPopup,
     });
-    console.log(this.state.showPopup);
   }
-
   render() {
     return (
       <div className="App">

@@ -10,4 +10,10 @@
 			and password=#{password}
  		]]>
 	</select>
+	<insert id="joinInsert" parameterType="uservo">
+		<![CDATA[
+			insert into user values (
+				null, #{id}, #{email}, #{password}, #{nickname}, #{image}, #{name});
+ 		]]>
+	</insert>
 </mapper>

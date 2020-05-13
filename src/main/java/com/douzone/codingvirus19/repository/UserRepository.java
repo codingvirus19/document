@@ -28,6 +28,11 @@ public class UserRepository {
 		System.out.println("Repository: " + authUser);
 		return authUser;
 	}
+
+	public void joinInsert(UserVo vo) {
+		sqlSession.insert("user.joinInsert", vo);
+		
+	}
 	
 
 }

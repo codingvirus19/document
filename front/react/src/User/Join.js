@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import ApiService from "../ApiService";
 
+const API_URL = "http://localhost:8080/codingvirus19";
+const API_HEADERS = {
+  "Content-Type": "application/json",
+};
+
 export default class Join extends Component {
   constructor() {
     super(...arguments);
@@ -15,31 +20,35 @@ export default class Join extends Component {
     };
   }
 
-  componentDidMount() {
-    ApiService.fetchJoin().catch((err) => {
-      console.log("error", err);
-    });
-  }
+  // componentDidMount() {
+  //   ApiService.fetchJoin().catch((err) => {
+  //     console.log("error", err);
+  //   });
+  // }
 
   onChangeId(e) {
     this.setState({
       id: e.target.value,
     });
+    console.log(this.state.id);
   }
   onChangeNick(e) {
     this.setState({
       nickname: e.target.value,
     });
+    console.log(this.state.nickname);
   }
   onChangeEmail(e) {
     this.setState({
       email: e.target.value,
     });
+    console.log(this.state.email);
   }
   onChangePassword(e) {
     this.setState({
       password: e.target.value,
     });
+    console.log(this.state.password);
   }
   setPasswordError() {
     console.log("password틀림");
@@ -52,16 +61,44 @@ export default class Join extends Component {
     if (this.state.passwordChk !== this.state.password) {
       setPasswordError();
     }
+    console.log(this.state.passwordChk);
   }
   onChangeName(e) {
     this.setState({
       name: e.target.value,
     });
+    console.log(this.state.name);
   }
   onChangeImage(e) {
     this.setState({
       image: e.target.value,
     });
+    console.log(this.state.image);
+  }
+
+  Join() {
+    let input_date = {
+      id: this.state.id,
+      email: this.state.email,
+      password: this.state.password,
+      nickname: this.state.nickname,
+      name: this.state.name,
+      image: this.state.image,
+    };
+    console.log(input_date);
+    // call api
+    fetch(`${API_URL}/api/join`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(input_date),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        this.setState({
+          result: json.data,
+        });
+      })
+      .catch((err) => console.error(err));
   }
 
   render() {
@@ -140,7 +177,7 @@ export default class Join extends Component {
               <input
                 type="text"
                 className="form-control"
-                value={this.state.password}
+                value={this.state.name}
                 placeholder="이름 입력"
                 required
                 onChange={this.onChangeName.bind(this)}
@@ -151,20 +188,25 @@ export default class Join extends Component {
               <input
                 type="text"
                 className="form-control"
-                value={this.state.password}
+                value={this.state.image}
                 placeholder="이미지 입력"
                 required
                 onChange={this.onChangeImage.bind(this)}
               />
             </div>
-
-            <button type="submit" className="btn btn-primary btn-block">
+          </form>
+          <div>
+            <button
+              onClick={this.Join.bind(this)}
+              type="submit"
+              className="btn btn-primary btn-block"
+            >
               가입하기
             </button>
             <p className="forgot-password text-right">
               기존의 아이디가 존재한다면?<a href="/login"> 로그인하기</a>
             </p>
-          </form>
+          </div>
         </div>
       </div>
     );

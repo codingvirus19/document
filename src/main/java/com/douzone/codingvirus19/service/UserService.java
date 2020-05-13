@@ -23,5 +23,9 @@ public class UserService {
 		return authUser;
 	}
 
+	public void joinInsert(UserVo vo) {
+		userRepository.joinInsert(vo);
+	}
+
 
 }

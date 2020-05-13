@@ -22,12 +22,22 @@ public class LoginApiController {
 	private UserService userService;
 	
 	@PostMapping("/login")
-	public JsonResult addCategory(HttpSession httpSession, @RequestBody UserVo vo) {
+	public JsonResult login(HttpSession httpSession, @RequestBody UserVo vo) {
 
 		System.out.println("Controller vo" + vo);
 		UserVo authUser = userService.findByIdAndPassword(vo);
 		httpSession.setAttribute("authUser", authUser);
 		
+		
+		return JsonResult.success(true);
+	}
+	
+	@PostMapping("/join")
+	public JsonResult join(HttpSession httpSession, @RequestBody UserVo vo) {
+		
+		System.out.println("Controller vo" + vo);
+		userService.joinInsert(vo);
+//		
 		
 		return JsonResult.success(true);
 	}
