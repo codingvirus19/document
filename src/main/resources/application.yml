@@ -55,9 +55,9 @@ spring:
    # datasource
    datasource:
       driver-class-name: org.mariadb.jdbc.Driver
-      url: jdbc:mysql://192.168.1.117:3307/webdb
-      username: webdb
-      password: webdb
+      url: jdbc:mysql://192.168.1.222:3307/coding19
+      username: coding19
+      password: coding19
       initialSize: 10
       maxActive: 100
 

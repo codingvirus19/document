@@ -2,6 +2,18 @@ import React, { Component } from "react";
 import ApiService from "../ApiService";
 
 export default class Join extends Component {
+  constructor() {
+    super(...arguments);
+    this.state = {
+      id: "",
+      email: "",
+      password: "",
+      nickname: "",
+      image: "",
+      name: "",
+    };
+  }
+
   componentDidMount() {
     ApiService.fetchJoin().catch((err) => {
       console.log("error", err);
@@ -9,16 +21,24 @@ export default class Join extends Component {
   }
 
   onChangeId(e) {
-    setId(e.target.value);
+    this.setId({
+      id: e.target.value,
+    });
   }
   onChangeNick(e) {
-    setNick(e.target.value);
+    this.setNick({
+      nickname: e.target.value,
+    });
   }
   onChangeEmail(e) {
-    setEmail(e.target.value);
+    this.setEmail({
+      email: e.target.value,
+    });
   }
   onChangePassword(e) {
-    setPassword(e.target.value);
+    this.setPassword({
+      password: e.target.value,
+    });
   }
   onChangePasswordChk(e) {
     //비밀번호를 입력할때마다 password 를 검증하는 함수
@@ -38,6 +58,7 @@ export default class Join extends Component {
               <input
                 type="text"
                 className="form-control"
+                value={this.state.id}
                 placeholder="아이디"
                 required
                 onChange={this.onChangeId}
@@ -49,6 +70,7 @@ export default class Join extends Component {
               <input
                 type="text"
                 className="form-control"
+                value={this.state.nickname}
                 placeholder="닉네임"
                 required
                 onChange={this.onChangeNick}
@@ -60,6 +82,7 @@ export default class Join extends Component {
               <input
                 type="email"
                 className="form-control"
+                value={this.state.email}
                 placeholder="이메일"
                 required
                 onChange={this.onChangeEmail}
@@ -71,6 +94,7 @@ export default class Join extends Component {
               <input
                 type="password"
                 className="form-control"
+                value={this.state.password}
                 placeholder="비밀번호"
                 required
                 onChange={this.onChangePassword}
@@ -82,6 +106,7 @@ export default class Join extends Component {
               <input
                 type="password"
                 className="form-control"
+                value={this.state.password}
                 placeholder="비밀번호 재입력"
                 required
                 onChange={this.onChangePasswordChk}
