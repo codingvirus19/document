@@ -1,129 +1,85 @@
 package com.douzone.codingvirus19.vo;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
-
 public class UserVo {
-	private Long no;
-	
-	@NotEmpty
-	@Length(min=2, max=8)
-	private String name;
-	
-	@NotEmpty
-	@Email
-	private String email;
+	public String getRole() {
+		return role;
+	}
 
-	@NotEmpty
-	@Length(min=4, max=16)
-	private String password;
-	
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
+	private Long no;
 	private String id;
+	private String email;
+	private String password;
+	private String nickname;
+	private String image;
+	private String name;
+	private String role;
+
+	public Long getNo() {
+		return no;
+	}
+
+	public void setNo(Long no) {
+		this.no = no;
+	}
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	private String gender;
- 	private String joinDate;
- 	private String role;
-	/**
-	 * @return the no
-	 */
-	public Long getNo() {
-		return no;
-	}
-	/**
-	 * @param no the no to set
-	 */
-	public void setNo(Long no) {
-		this.no = no;
-	}
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	/**
-	 * @return the email
-	 */
 	public String getEmail() {
 		return email;
 	}
-	/**
-	 * @param email the email to set
-	 */
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	/**
-	 * @return the password
-	 */
+
 	public String getPassword() {
 		return password;
 	}
-	/**
-	 * @param password the password to set
-	 */
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	/**
-	 * @return the gender
-	 */
-	public String getGender() {
-		return gender;
+
+	public String getNickname() {
+		return nickname;
 	}
-	/**
-	 * @param gender the gender to set
-	 */
-	public void setGender(String gender) {
-		this.gender = gender;
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
-	/**
-	 * @return the joinDate
-	 */
-	public String getJoinDate() {
-		return joinDate;
+
+	public String getImage() {
+		return image;
 	}
-	/**
-	 * @param joinDate the joinDate to set
-	 */
-	public void setJoinDate(String joinDate) {
-		this.joinDate = joinDate;
+
+	public void setImage(String image) {
+		this.image = image;
 	}
-	
-	
-	
-	/**
-	 * @return the role
-	 */
-	public String getRole() {
-		return role;
+
+	public String getName() {
+		return name;
 	}
-	/**
-	 * @param role the role to set
-	 */
-	public void setRole(String role) {
-		this.role = role;
+
+	public void setName(String name) {
+		this.name = name;
 	}
+
+
 	@Override
 	public String toString() {
-		return "UserVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", id=" + id
-				+ ", gender=" + gender + ", joinDate=" + joinDate + ", role=" + role + "]";
+		return "UserVo [no=" + no + ", id=" + id + ", email=" + email + ", password=" + password + ", nickname="
+				+ nickname + ", image=" + image + ", name=" + name + "]";
 	}
-	
-	
-	
 
 }

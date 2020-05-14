@@ -7,7 +7,7 @@
 <title>chat page</title>
 <style>
 		*{
-			margin:0;
+			margin:0; 
 			padding:0;
 		}
 		.container{

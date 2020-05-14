@@ -1,56 +1,90 @@
 import React from "react";
+import Join from "./Join";
 
-const API_URL = 'http://localhost:8080/codingvirus19';
+const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
-  'Content-Type': 'application/json'
-}
+  "Content-Type": "application/json",
+};
 export default class login extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
+<<<<<<< HEAD
       email: '',
       password: '',
       result: false
     }
+=======
+      id: "",
+      password: "",
+      result: false,
+      showPopup: false,
+    };
+>>>>>>> branch 'master' of https://github.com/codingvirus19/document.git
   }
 
+<<<<<<< HEAD
   EmailChange(e){
+=======
+  IdChange(e) {
+>>>>>>> branch 'master' of https://github.com/codingvirus19/document.git
     this.setState({
+<<<<<<< HEAD
       email: e.target.value
     })
+=======
+      id: e.target.value,
+    });
+>>>>>>> branch 'master' of https://github.com/codingvirus19/document.git
   }
 
-  PassWordChange(e){
+  PassWordChange(e) {
     this.setState({
-      password: e.target.value
-    })
+      password: e.target.value,
+    });
   }
 
   Login() {
     let input_date = {
+<<<<<<< HEAD
       email: this.state.email,
       password: this.state.password
+=======
+      id: this.state.id,
+      password: this.state.password,
+>>>>>>> branch 'master' of https://github.com/codingvirus19/document.git
     };
     console.log(input_date);
     // call api
-    fetch(`${API_URL}/user/auth`, {
-      method: 'post',
+    fetch(`${API_URL}/api/login`, {
+      method: "post",
       headers: API_HEADERS,
-      body: JSON.stringify(input_date)
+      body: JSON.stringify(input_date),
     })
+<<<<<<< HEAD
       .then(response => console.log(response))
       .then(json => {
         console.log(json);
         // this.setState({
         //   result: json.data
         // });
+=======
+      .then((response) => response.json())
+      .then((json) => {
+        this.setState({
+          result: json.data,
+        });
+>>>>>>> branch 'master' of https://github.com/codingvirus19/document.git
       })
-      .catch(err => console.error(err));
-
+      .catch((err) => console.error(err));
   }
 
+  joinPopup() {
+    this.setState({
+      showPopup: !this.state.showPopup,
+    });
+  }
   render() {
-
     return (
       <div className="App">
         <div className="auth-wrapper">
@@ -97,27 +131,33 @@ export default class login extends React.Component {
                     className="custom-control-input"
                     id="customCheck1"
                   />
-                  <label className="custom-control-label" htmlFor="customCheck1">
+                  <label
+                    className="custom-control-label"
+                    htmlFor="customCheck1"
+                  >
                     아이디 저장하기
-                </label>
+                  </label>
                 </div>
               </div>
 
               <div
-               // type="submit"
-               // className="btn btn-primary btn-block"
+                // type="submit"
+                // className="btn btn-primary btn-block"
                 onClick={this.Login.bind(this)}
               >
                 로그인
-            </div>
-              <p className="forgot-password text-right">
-                아이디가 없으신가요?<a href="/join"> 회원가입하기</a>
-              </p>
+              </div>
             </form>
+            <div className="forgot-password text-right">
+              아이디가 없으신가요?
+              <button onClick={this.joinPopup.bind(this)}>회원가입하기</button>
+              {this.state.showPopup ? (
+                <Join closePopup={this.joinPopup.bind(this)} />
+              ) : null}
+            </div>
           </div>
         </div>
       </div>
     );
   }
 }
-
