@@ -30,16 +30,13 @@ export default class login extends React.Component {
   }
 
   Login() {
-    let input_date = {
-      id: this.state.id,
-      password: this.state.password,
-    };
-    console.log(input_date);
-    // call api 
-    fetch(`${API_URL}/api/login`, {
+    const formData = new FormData();
+    formData.append("email", this.state.email);
+    formData.append("password", this.state.password);
+    console.log(formData);
+    fetch(`${API_URL}/user/auth`, {
       method: "post",
-      headers: API_HEADERS,
-      body: JSON.stringify(input_date),
+      body: formData,
     })
       .then((response) => response.json())
       .then((json) => {
@@ -51,6 +48,7 @@ export default class login extends React.Component {
       })
       .catch((err) => console.error(err));
   }
+  
   render() {
     console.log(this.state.result);
     if(this.state.result === true){
