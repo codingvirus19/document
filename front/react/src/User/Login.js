@@ -31,19 +31,19 @@ export default class login extends React.Component {
 
   Login() {
     const formData = new FormData();
-    formData.append("email", this.state.email);
+    formData.append("id", this.state.id);
     formData.append("password", this.state.password);
     console.log(formData);
     fetch(`${API_URL}/user/auth`, {
       method: "post",
       body: formData,
     })
-      .then((response) => response.json())
+      .then((response) => console.log(response))
       .then((json) => {
         console.log(json);
-        this.setState({
-          result: json.data,
-        });
+        // this.setState({
+        //   result: json.data,
+        // });
         
       })
       .catch((err) => console.error(err));
