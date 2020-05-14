@@ -12,8 +12,9 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
-	public boolean login(UserVo vo) {
-		return userRepository.login(vo);
+	public UserVo findById(String id) {
+		UserVo authUser = userRepository.findByName(id); 
+		return authUser;
 	}
 
 	public UserVo findByIdAndPassword(UserVo vo) {

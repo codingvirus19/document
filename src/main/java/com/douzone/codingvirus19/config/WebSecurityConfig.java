@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.douzone.codingvirus19.security.LoginSuccessHandler;
 
@@ -30,9 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.formLogin().loginPage("/") // default
 				.loginProcessingUrl("/user/auth").failureUrl("/error/?error") // default
-//				.successHandler(new LoginSuccessHandler())
 				.defaultSuccessUrl("/?login", true) // 로그인 성공시
-				.usernameParameter("id").passwordParameter("password").permitAll();
+				.usernameParameter("email").passwordParameter("password")
+				.successHandler(authenticationSuccessHandler()).permitAll();
 
 		http.logout().logoutUrl("/logout") // default
 				.logoutSuccessUrl("/").permitAll();
@@ -42,6 +43,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	}
+	
+	@Bean
+	public AuthenticationSuccessHandler authenticationSuccessHandler(){
+	    return new LoginSuccessHandler();
 	}
 	
 	

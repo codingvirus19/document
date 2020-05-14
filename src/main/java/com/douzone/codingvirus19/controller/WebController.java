@@ -9,7 +9,6 @@ public class WebController implements ErrorController {
 	
 	@GetMapping({"/","/error"})
 	public String index() {
-		System.out.println("error");
 		return "user/login";
 	}
 	

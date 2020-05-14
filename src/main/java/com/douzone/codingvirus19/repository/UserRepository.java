@@ -33,6 +33,10 @@ public class UserRepository {
 		sqlSession.insert("user.joinInsert", vo);
 		
 	}
+
+	public UserVo findByName(String name) {
+		return sqlSession.selectOne("user.findById", name);
+	}
 	
 
 }

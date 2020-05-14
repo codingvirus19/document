@@ -12,13 +12,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.douzone.codingvirus19.service.UserService;
 import com.douzone.codingvirus19.vo.UserVo;
 
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
     
     @Autowired
     
@@ -26,14 +27,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserVo userVo = userDao.get(username);
+        UserVo userVo = userService.findById(username);
+        userVo.setRole("GUEST");
         SecurityUser securityUser = new SecurityUser();
-        System.out.println(username);
         if ( userVo != null ) {
             securityUser.setName(userVo.getName());         
-            securityUser.setUsername(userVo.getEmail());     // principal
+            securityUser.setUsername(userVo.getId());     // principal
             securityUser.setPassword(passwordEncoder.encode(userVo.getPassword()));  // credetial
-            System.out.println(securityUser.getPassword());
+            System.out.println(securityUser.getUsername()+":"+securityUser.getPassword());
             List<GrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(userVo.getRole()));
             securityUser.setAuthorities(authorities);
