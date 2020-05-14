@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserVo userVo = userDao.get(username);
         SecurityUser securityUser = new SecurityUser();
-
+        System.out.println(username);
         if ( userVo != null ) {
             securityUser.setName(userVo.getName());         
             securityUser.setUsername(userVo.getEmail());     // principal
