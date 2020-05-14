@@ -8,15 +8,15 @@ export default class login extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-      id: '',
+      email: '',
       password: '',
       result: false
     }
   }
 
-  IdChange(e){
+  EmailChange(e){
     this.setState({
-      id: e.target.value
+      email: e.target.value
     })
   }
 
@@ -28,7 +28,7 @@ export default class login extends React.Component {
 
   Login() {
     let input_date = {
-      id: this.state.id,
+      email: this.state.email,
       password: this.state.password
     };
     console.log(input_date);
@@ -38,11 +38,12 @@ export default class login extends React.Component {
       headers: API_HEADERS,
       body: JSON.stringify(input_date)
     })
-      .then(response => response.json())
+      .then(response => console.log(response))
       .then(json => {
-        this.setState({
-          result: json.data
-        });
+        console.log(json);
+        // this.setState({
+        //   result: json.data
+        // });
       })
       .catch(err => console.error(err));
 
@@ -62,8 +63,8 @@ export default class login extends React.Component {
                 <input
                   type="email"
                   className="form-control"
-                  value={this.state.id}
-                  onChange={this.IdChange.bind(this)}
+                  value={this.state.email}
+                  onChange={this.EmailChange.bind(this)}
                   type="text"
                   placeholder="아이디/이메일"
                 />
@@ -80,6 +81,14 @@ export default class login extends React.Component {
                   placeholder="비밀번호"
                 />
               </div>
+              <form method="post" action="http://localhost:8080/codingvirus19/user/auth">
+              <input type="text" name="email"></input>
+              <input type="password" name="password"></input>
+              <input type="submit" ></input>
+
+
+              </form>
+
 
               <div className="form-group">
                 <div className="custom-control custom-checkbox">

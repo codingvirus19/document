@@ -1,6 +1,5 @@
 package com.douzone.codingvirus19.controller.api;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +17,7 @@ public class LoginApiController {
 	@PostMapping("/login")
 	public JsonResult addCategory(@RequestBody UserVo vo) {
 		System.out.println(vo);
+		
 		return JsonResult.success(true);
 	}
 	

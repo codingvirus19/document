@@ -11,7 +11,7 @@ export default class Router1 extends React.Component {
     return (
       <Router>
         <Switch>
-          <Route exact path="/" render={props => (
+          <Route exact path="http://localhost:8080/codingvirus19/" render={props => (
             <Login />
           )} />
           <Route exact path="/login" render={props => (

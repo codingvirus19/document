@@ -22,9 +22,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.douzone.security.AuthInterceptor;
-import com.douzone.security.AuthUserHandlerMethodArgumentResolver;
-import com.douzone.security.LogoutInterceptor;
+import com.douzone.codingvirus19.security.AuthInterceptor;
 
 @Configuration
 @PropertySource("classpath:com/douzone/codingvirus19/config/config.properties")
@@ -32,46 +30,18 @@ public class WebConfig implements WebMvcConfigurer {
 	@Autowired
 	private Environment env;
 	
-	
-	//Argument Resolver
-	@Bean
-	public HandlerMethodArgumentResolver authUserHandlerMethodArgumentResolver() {
-		return new AuthUserHandlerMethodArgumentResolver();
-	}
-	@Override
-	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-		resolvers.add(authUserHandlerMethodArgumentResolver());
-	}
 
-	// Interceptors
-	@Bean
-	public HandlerInterceptor logoutInterceptor() {
-		return new LogoutInterceptor();
-	}
 	@Bean
 	public HandlerInterceptor authInterceptor() {
 		return new AuthInterceptor();
 	}
+	
 	@Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:8090");
     }
-	
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry
-			.addInterceptor(logoutInterceptor())
-			.addPathPatterns(env.getProperty("security.logout-url"));
-	
-		registry
-			.addInterceptor(authInterceptor())
-			.addPathPatterns("/**")
-			.excludePathPatterns(env.getProperty("security.auth-url"))//login url
-			.excludePathPatterns(env.getProperty("security.logout-url")) //logout url
-			.excludePathPatterns("/assets/**");	
-	}
-	
+
 	
 	// Message Converters
 	@Bean
@@ -91,8 +61,6 @@ public class WebConfig implements WebMvcConfigurer {
 
 		return messageConverter;
 	}
-	
-	
 	
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
