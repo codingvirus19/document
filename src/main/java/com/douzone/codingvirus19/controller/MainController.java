@@ -11,10 +11,10 @@ public class MainController {
 //	@Autowired
 //	MainService mainService;
 	
-	@RequestMapping({"","/login"})
-	public String index(Model model) {
-		return "main/index";
-	}
+//	@RequestMapping({"","/login"})
+//	public String index(Model model) {
+//		return "main/index";
+//	}
 //	
 //	@PostMapping("/user/auth")
 //	public void abcd() {

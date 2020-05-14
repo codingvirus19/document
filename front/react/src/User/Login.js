@@ -1,5 +1,7 @@
 import React from "react";
-import Join from "./Join";
+import Container from "../Container";
+import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom';
+import Router1 from "../Router1";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
@@ -9,33 +11,16 @@ export default class login extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-<<<<<<< HEAD
-      email: '',
-      password: '',
-      result: false
-    }
-=======
       id: "",
       password: "",
       result: false,
-      showPopup: false,
     };
->>>>>>> branch 'master' of https://github.com/codingvirus19/document.git
   }
 
-<<<<<<< HEAD
-  EmailChange(e){
-=======
   IdChange(e) {
->>>>>>> branch 'master' of https://github.com/codingvirus19/document.git
     this.setState({
-<<<<<<< HEAD
-      email: e.target.value
-    })
-=======
       id: e.target.value,
     });
->>>>>>> branch 'master' of https://github.com/codingvirus19/document.git
   }
 
   PassWordChange(e) {
@@ -46,45 +31,33 @@ export default class login extends React.Component {
 
   Login() {
     let input_date = {
-<<<<<<< HEAD
-      email: this.state.email,
-      password: this.state.password
-=======
       id: this.state.id,
       password: this.state.password,
->>>>>>> branch 'master' of https://github.com/codingvirus19/document.git
     };
     console.log(input_date);
-    // call api
+    // call api 
     fetch(`${API_URL}/api/login`, {
       method: "post",
       headers: API_HEADERS,
       body: JSON.stringify(input_date),
     })
-<<<<<<< HEAD
-      .then(response => console.log(response))
-      .then(json => {
-        console.log(json);
-        // this.setState({
-        //   result: json.data
-        // });
-=======
       .then((response) => response.json())
       .then((json) => {
+        console.log(json);
         this.setState({
           result: json.data,
         });
->>>>>>> branch 'master' of https://github.com/codingvirus19/document.git
+        
       })
       .catch((err) => console.error(err));
   }
-
-  joinPopup() {
-    this.setState({
-      showPopup: !this.state.showPopup,
-    });
-  }
   render() {
+    console.log(this.state.result);
+    if(this.state.result === true){
+      return(
+        <Redirect to="/main" />
+      );
+    }
     return (
       <div className="App">
         <div className="auth-wrapper">
@@ -97,8 +70,8 @@ export default class login extends React.Component {
                 <input
                   type="email"
                   className="form-control"
-                  value={this.state.email}
-                  onChange={this.EmailChange.bind(this)}
+                  value={this.state.id}
+                  onChange={this.IdChange.bind(this)}
                   type="text"
                   placeholder="아이디/이메일"
                 />
@@ -115,14 +88,6 @@ export default class login extends React.Component {
                   placeholder="비밀번호"
                 />
               </div>
-              <form method="post" action="http://localhost:8080/codingvirus19/user/auth">
-              <input type="text" name="email"></input>
-              <input type="password" name="password"></input>
-              <input type="submit" ></input>
-
-
-              </form>
-
 
               <div className="form-group">
                 <div className="custom-control custom-checkbox">
@@ -133,28 +98,18 @@ export default class login extends React.Component {
                   />
                   <label
                     className="custom-control-label"
-                    htmlFor="customCheck1"
-                  >
+                    htmlFor="customCheck1">
                     아이디 저장하기
                   </label>
                 </div>
               </div>
-
-              <div
-                // type="submit"
-                // className="btn btn-primary btn-block"
-                onClick={this.Login.bind(this)}
-              >
-                로그인
+              <div>
+                <div onClick={this.Login.bind(this)}> 로그인</div>
               </div>
+              <p className="forgot-password text-right">
+                아이디가 없으신가요?<a href="/join"> 회원가입하기</a>
+              </p>
             </form>
-            <div className="forgot-password text-right">
-              아이디가 없으신가요?
-              <button onClick={this.joinPopup.bind(this)}>회원가입하기</button>
-              {this.state.showPopup ? (
-                <Join closePopup={this.joinPopup.bind(this)} />
-              ) : null}
-            </div>
           </div>
         </div>
       </div>
