@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class WebController implements ErrorController {
 	
-	@GetMapping({"/","/error"})
+	@GetMapping({"/","/error","/main"})
 	public String index() {
-		System.out.println("error");
-		return "user/login";
+		return "main/index";
 	}
 	
 	@Override
