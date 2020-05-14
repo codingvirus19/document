@@ -11,7 +11,7 @@
 	</appender>
 
 	<appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>\Users\이상휘\eclipse-workspace\log\codingvirus19\exception.log</file>
+	<!-- 	<file>/usr/local/douzone/log\Users\이상휘\eclipse-workspace\log\codingvirus19\exception.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>
 				%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n
@@ -25,7 +25,7 @@
 		<triggeringPolicy
 			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
 			<MaxFileSize>50KB</MaxFileSize>
-		</triggeringPolicy>
+		</triggeringPolicy> -->
 	</appender>
 	
 

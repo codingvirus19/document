@@ -11,7 +11,7 @@ export default class login extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-      id: "",
+      email: "",
       password: "",
       result: false,
     };
@@ -19,7 +19,7 @@ export default class login extends React.Component {
 
   IdChange(e) {
     this.setState({
-      id: e.target.value,
+      email: e.target.value,
     });
   }
 
@@ -31,7 +31,7 @@ export default class login extends React.Component {
 
   Login() {
     const formData = new FormData();
-    formData.append("id", this.state.id);
+    formData.append("email", this.state.email);
     formData.append("password", this.state.password);
     console.log(formData);
     fetch(`${API_URL}/user/auth`, {
@@ -68,7 +68,7 @@ export default class login extends React.Component {
                 <input
                   type="email"
                   className="form-control"
-                  value={this.state.id}
+                  value={this.state.email}
                   onChange={this.IdChange.bind(this)}
                   type="text"
                   placeholder="아이디/이메일"
@@ -86,6 +86,12 @@ export default class login extends React.Component {
                   placeholder="비밀번호"
                 />
               </div>
+              <form method="post" action="http://localhost:8080/codingvirus19/user/auth">
+                <input type="text" name="email"/>
+                <input type="password" name="password"/>
+                <input type="submit"/>
+
+              </form>
 
               <div className="form-group">
                 <div className="custom-control custom-checkbox">
