@@ -1,27 +1,21 @@
 package com.douzone.codingvirus19.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
-import com.douzone.codingvirus19.service.MainService;
-
-//@Controller
-public class MainController {
+@Controller
+public class MainController implements ErrorController {
 	
-//	@Autowired
-//	MainService mainService;
+	@GetMapping({"/","/error","/main"})
+	public String index() {
+		return "main/index";
+	}
 	
-//	@RequestMapping({"","/login"})
-//	public String index(Model model) {
-//		return "main/index";
-//	}
-//	
-//	@PostMapping("/user/auth")
-//	public void abcd() {
-//		
-//	}
+	@Override
+	public String getErrorPath() {
+		return "/error";
+	}
 	
 	
 

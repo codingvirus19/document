@@ -1,11 +1,12 @@
 import React from "react";
+import Join from "./Join";
 import Container from "../Container";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import Router1 from "../Router1";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
-  "accept": "application/json" 
+  "accept": "application/json"
 };
 export default class login extends React.Component {
   constructor() {
@@ -14,6 +15,7 @@ export default class login extends React.Component {
       email: "",
       password: "",
       result: false,
+      showPopup: false,
     };
   }
 
@@ -40,17 +42,24 @@ export default class login extends React.Component {
     })
       .then((response) => response.json())
       .then(response => {
-        if(response.result== "success"){this.setState({result:true})}
-      } )
+        if (response.result == "success") { this.setState({ result: true }) }
+      })
       .catch((err) => console.error(err));
   }
 
-  
+  /* 05.14 수정 건들지말 것!! */
+  joinPopup() {
+    this.setState({
+      showPopup: !this.state.showPopup,
+    });
+  }
+  /* 05.14 수정 건들지말 것!! */
+
   render() {
     console.log(this.state.result);
-    if(this.state.result === true){
-      return(
-        <Redirect to="/main" />
+    if (this.state.result === true) {
+      return (
+        <Redirect to="main" />
       );
     }
     return (
@@ -65,7 +74,7 @@ export default class login extends React.Component {
                 <input
                   type="email"
                   className="form-control"
-                  value={this.state.email}
+                  value={this.state.id}
                   onChange={this.IdChange.bind(this)}
                   type="text"
                   placeholder="아이디/이메일"
@@ -83,6 +92,7 @@ export default class login extends React.Component {
                   placeholder="비밀번호"
                 />
               </div>
+
               <div className="form-group">
                 <div className="custom-control custom-checkbox">
                   <input
@@ -92,18 +102,25 @@ export default class login extends React.Component {
                   />
                   <label
                     className="custom-control-label"
-                    htmlFor="customCheck1">
+                    htmlFor="customCheck1"
+                  >
                     아이디 저장하기
                   </label>
                 </div>
               </div>
-              <div>
-                <div onClick={this.Login.bind(this)}> 로그인</div>
-              </div>
-              <p className="forgot-password text-right">
-                아이디가 없으신가요?<a href="/join"> 회원가입하기</a>
-              </p>
             </form>
+            {/* 05.14 수정 건들지말 것!! */}
+            <div>
+              <div onClick={this.Login.bind(this)}> 로그인</div>
+            </div>
+            <div className="forgot-password text-right">
+              아이디가 없으신가요?
+              <button onClick={this.joinPopup.bind(this)}>회원가입하기</button>
+              {this.state.showPopup ? (
+                <Join closePopup={this.joinPopup.bind(this)} />
+              ) : null}
+            </div>
+            {/* 05.14 수정 */}
           </div>
         </div>
       </div>

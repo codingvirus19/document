@@ -1,9 +1,10 @@
 /* footer*/
 .footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 89%;
-  right: 0px;
-  bottom: 0px;
-  float: right;
+  bottom: 0;
   height: auto;
-  height: 3%;
 }

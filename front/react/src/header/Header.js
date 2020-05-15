@@ -2,6 +2,8 @@ import React from "react";
 import Userbell from "./userbell";
 import HeaderProfile from "./headerprofile";
 import HeaderAddMemo from "./headeraddmemo";
+import Serach from "./Serach";
+import Chatting from "../contents/chatting/chat.js";
 
 export default class header extends React.Component {
   render() {
@@ -17,28 +19,13 @@ export default class header extends React.Component {
               <p className="logo-header-title">ShareEditor.Md</p>
             </div>
           </div>
-          <div className="search_div">
-            <form className="search-form" action="">
-              <div className="search">
-                <input
-                  className="input-search"
-                  type="text"
-                  name="input-search"
-                  placeholder="검색어를 입력하세요"
-                />
-                <button type="submit" className="search-submit" value="검색">
-                  <i className="fas fa-hashtag"></i>
-                </button>
-              </div>
-            </form>
-          </div>
+          <Serach />
 
           <div className="right-header">
             <HeaderAddMemo />
-
             <HeaderProfile />
-
             <Userbell />
+            <Chatting />
           </div>
         </div>
       </div>

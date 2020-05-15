@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ApiService from "../ApiService";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
