@@ -445,7 +445,6 @@ input.profile_input:not(:last-child) {
   margin-right: 1.8rem;
 }
 
-
 /*header-bell*/
 
 /* header btn */
@@ -466,17 +465,17 @@ input.profile_input:not(:last-child) {
 }
 /*///////////right-header////////////*/
 
-
 [aria-label]:after {
   content: attr(aria-label);
   display: none;
   /* top: 340px; */
   position: absolute;
   background-color: hsla(64, 73%, 39%, 0.725);
-  box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.2);
+  box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
 }
 
-[aria-label]:hover:after, [aria-label]:focus:after {
+[aria-label]:hover:after,
+[aria-label]:focus:after {
   display: block;
   padding: 1px;
-  }
+}

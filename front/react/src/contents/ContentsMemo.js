@@ -18,7 +18,7 @@ export default class Contents extends React.Component {
       content: "",
       color: "",
       date: "",
-      hash: ""
+      hash: "",
       // result: "",
     };
   }
@@ -39,7 +39,7 @@ export default class Contents extends React.Component {
     console.log(input_date);
     // call api
     fetch(`${API_URL}/main/api/memo`, {
-      method: "get",
+      method: "post",
       headers: API_HEADERS,
       body: JSON.parse(input_date),
     })
@@ -65,16 +65,16 @@ export default class Contents extends React.Component {
           value={this.state.no}
         >
           <div className="container_memo-form">
-            <Memo content={this.state.content}/>
+            <Memo content={this.state.content} />
             <HashList hash={this.state.hash} />
-            <Toolbar hash={this.state.hash}/>
+            <Toolbar hash={this.state.hash} />
           </div>
         </div>
         {/* <div>
           <form className="contents-memo_momo-form">
             <input className="snip1535 hover" type="textarea"></input>
           </form>
-        </div> */} 
+        </div> */}
       </div>
     );
   }
