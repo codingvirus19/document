@@ -74,7 +74,7 @@ export default class Contents extends React.Component {
           <form className="contents-memo_momo-form">
             <input className="snip1535 hover" type="textarea"></input>
           </form>
-        </div> */}
+        </div> */} 
       </div>
     );
   }
