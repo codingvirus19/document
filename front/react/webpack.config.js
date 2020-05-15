@@ -7,17 +7,21 @@ module.exports = {
     filename: "bundle.js",
   },
   module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: "babel-loader",
-      },
-      {
-        test: /\.css$/,
-        loader: ["style-loader", "css-loader"],
-      },
-    ],
+    rules: [{
+      test: /\.js$/i,
+      exclude: /node_modules/,
+      loader: 'babel-loader'
+  },{
+      test: /\.css$/i,
+      loader: [{
+          loader: 'style-loader'
+      }, {
+          loader: 'css-loader',
+          options: {
+              modules: true
+          }
+      }]
+  }]
   },
   devServer: {
     contentBase: path.resolve("public"),
