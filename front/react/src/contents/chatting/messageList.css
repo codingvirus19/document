@@ -1,0 +1,11 @@
+.chat__messagelist li{
+    border-radius: 10px;
+    margin: 0 4rem 10px 0;
+    list-style: none;
+    padding-left: 0px;
+    text-align: left;
+    background-color: aqua;
+}
+.chat__messagelist li div{
+    word-break: break-all;
+}

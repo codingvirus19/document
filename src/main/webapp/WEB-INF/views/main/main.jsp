@@ -66,7 +66,8 @@
 				<form class=''></form>
 			</div>
 		</div>
-		<c:import url="/WEB-INF/views/includes/footer.jsp" />
+	<div id="footer">
+		<p>(c)opyright 2015, 2016, 2017, 2018, 2019, 2020</p>
 	</div>
 </body>
 </html>

@@ -3,7 +3,6 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="uservo" type="com.douzone.codingvirus19.vo.UserVo"/>
-		<typeAlias alias="mainvo" type="com.douzone.codingvirus19.vo.MainVo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />

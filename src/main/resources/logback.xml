@@ -11,21 +11,21 @@
 	</appender>
 
 	<appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>/Users/jun/log-mysite/mysite/exception.log</file>
+	<!-- 	<file>/usr/local/douzone/log\Users\이상휘\eclipse-workspace\log\codingvirus19\exception.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>
 				%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n
 			</Pattern>
 		</encoder>
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-			<FileNamePattern>/Users/jun/log-mysite/exception.%i.log.zip</FileNamePattern>
+			<FileNamePattern>\Users\이상휘\eclipse-workspace\log\codingvirus19\exception.%i.log.zip</FileNamePattern>
 			<MinIndex>1</MinIndex>
 			<MaxIndex>10</MaxIndex>
 		</rollingPolicy>
 		<triggeringPolicy
 			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
 			<MaxFileSize>50KB</MaxFileSize>
-		</triggeringPolicy>
+		</triggeringPolicy> -->
 	</appender>
 	
 

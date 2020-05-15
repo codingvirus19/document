@@ -1,0 +1,10 @@
+/* footer*/
+.footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 89%;
+  bottom: 0;
+  height: auto;
+}
