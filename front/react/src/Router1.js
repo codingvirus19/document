@@ -10,20 +10,9 @@ export default class Router1 extends React.Component {
   render() {
     return (
       <Router>
-        <Route path="/" component={Login }/>
-        <Route path="/main" component={Container}/>
-        <Route path="/join" component={Join}/>
+        <Route path="/" exact component={Login }/>
+        <Route path="/main" exact component={Container}/>
       </Router>
-      // <Router> 
-      //   <Switch>
-      //     <Route exact path="/login" >
-      //       <Login/>
-      //     </Route>
-      //     <Route path="/main">
-      //       <Container/>
-      //     </Route>
-      //     </Switch>
-      // </Router>
     );
   }
 }
