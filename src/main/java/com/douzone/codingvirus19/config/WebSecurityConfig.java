@@ -27,12 +27,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().cors();
-		http.authorizeRequests().antMatchers("/assets/**").permitAll().antMatchers("/auth/admin/**").hasRole("ADMIN")
-				.antMatchers("/auth/**").hasAnyRole("ADMIN", "USER") // 내부적으로 접두어 "ROLE_"가 붙는다.
+		http.authorizeRequests().antMatchers("/assets/**","/api/join").permitAll()
+//				.antMatchers("/auth/admin/**").hasRole("ADMIN")
+//				.antMatchers("/auth/**").hasAnyRole("ADMIN", "USER") // 내부적으로 접두어 "ROLE_"가 붙는다.
 				.anyRequest().authenticated();
 
 		http.formLogin().loginPage("/") // default
-				.loginProcessingUrl("/user/auth").failureUrl("/error/?error") // default
+				.loginProcessingUrl("/user/auth")
+				.failureUrl("/error") // default
 				.defaultSuccessUrl("/main", true) // 로그인 성공시
 				.usernameParameter("email").passwordParameter("password").successHandler(authenticationSuccessHandler())
 				.permitAll();
