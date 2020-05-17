@@ -8,7 +8,6 @@ export default class HeaderAddMemo extends React.Component {
     this.state = {
       showPopup: false,
     };
-    console.log(this.state);
   }
   // togglePopup 메소드 실행 시 showPopup이 true로 변환된다.
   togglePopup() {
