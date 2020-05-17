@@ -2,13 +2,12 @@
 
 .contents {
     background-color: #f5f5f5;
-    display: block;
-    position: relative;
+    display: inline-block;
+    position: absolute;
     float: right;
     width: 89%;
     height: 100%;
   }
-  
   /* contents-header */
   .fa-bars:before,
   .fa-folder-plus:before,
