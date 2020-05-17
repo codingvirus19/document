@@ -15,6 +15,7 @@ export default class Toolbar extends React.Component {
             showColorSheet: false,
             showHashSheet: false,
             click: false,
+            click2: false
         }
         this.toggleContainer = React.createRef();
         this.toggleGroupShareSheet = this.toggleGroupShareSheet.bind(this);
@@ -38,9 +39,15 @@ export default class Toolbar extends React.Component {
         else if (this.state.showGroupShareSheet && !this.toggleContainer.current.contains(event.target)) {
             this.setState({ showGroupShareSheet: false });
         }
-        // else if (this.state.showHashSheet && !this.toggleContainer.current.contains(event.target)) {
-        //     this.setState({ showHashSheet: false });
-        // }
+
+        if(this.state.click2) {
+            this.setState({
+                click2: !this.state.click2
+            })
+        }
+        else if (this.state.showHashSheet && !this.toggleContainer.current.contains(event.target)) {
+            this.setState({ showHashSheet: false });
+        }
     }
 
     toggleGroupShareSheet(e) {
@@ -64,7 +71,7 @@ export default class Toolbar extends React.Component {
         e.preventDefault();
         this.setState({
             showHashSheet: !this.state.showHashSheet,
-            // click: !this.state.click
+            click2: !this.state.click
         })
     }
 
@@ -121,7 +128,7 @@ export default class Toolbar extends React.Component {
                 </button>
                 {this.state.showHashSheet ? (
                     <HashSheet
-                        // refChange={this.toggleContainer}
+                        refChange={this.toggleContainer}
                         hash={this.props.hash} />
                 ) : null}
 
