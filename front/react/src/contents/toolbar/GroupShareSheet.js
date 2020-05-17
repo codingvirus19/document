@@ -30,7 +30,7 @@ export default class GroupShareSheet extends React.Component {
                         className="groupShare_confirm-btn">확인</button>
                     <button
                         className="groupShare_cancel-btn"
-                        onClick={this.props.closePopup}>
+                        onClick={this.props.closeGroupShareSheet}>
                         취소
               </button>
                 </div>
