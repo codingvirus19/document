@@ -1,6 +1,6 @@
 import React from "react";
 
-import GroupAddOrInvite from "./GroupAddOrInvite";
+import Popup2 from "../Popup2"
 
 export default class ContentsHeader extends React.Component {
   constructor() {
@@ -46,8 +46,11 @@ export default class ContentsHeader extends React.Component {
             onClick={this.toggleGroupAddOrInvite.bind(this)}>
             <i className="fas fa-user-plus"></i>
           </button>
-          {this.state.ShowGroupAddOrInvite ? (
-            <GroupAddOrInvite
+          {/* {this.state.ShowGroupAddOrInvite ? ( */}
+          { true ? (
+            <Popup2
+              inner_header="그룹생성 및 초대"
+              contents={'groupAddOrInvite'}
               closePopup={this.toggleGroupAddOrInvite.bind(this)} />
           ) : null}
         </div>

@@ -1,41 +1,52 @@
 import React from "react";
 
+import CreatableSelect from 'react-select/creatable';
 export default class GroupAddOrInvite extends React.Component {
+
     render() {
+        const groups = [
+            { value: '그룹1', label: '그룹1' },
+            { value: '그룹2', label: '그룹2' },
+            { value: '그룹3', label: '그룹3' }
+        ]
+        const users = [
+            { value: '사용자1', label: '사용자1' },
+            { value: '사용자2', label: '사용자2' },
+            { value: '사용자3', label: '사용자3' },
+            { value: '사용자4', label: '사용자4' }
+        ]
+
         return (
-            <div
-                className="popup-groupAddOrInvite"
-                onClick={this.props.closePopup}>
-                <div
-                    className="popup-groupAddOrInvite_inner"
-                    onClick={(e) => e.stopPropagation()}>
-                    <div className="inner_profile-header">
-                        <h1 className="profile_h1">프로필 정보</h1>
-                        <div >
-                            그룹생성 / 그룹초대
-                            그룹이름
-                        <select
-                                multiple>
-                                <option value="그룹1">그룹1</option>
-                                <option value="그룹2">그룹2</option>
-                                <option value="그룹3">그룹3</option>
-                                <option value="그룹4">그룹4</option>
-                                <option value="그룹5">그룹5</option>
-                            </select>
-                                <input
-                                    type="text"
-                                    placeholder="새로운 그룹 생성"
-                                ></input>
-                                <button>+</button>
-                                <input
-                                    type="text"
-                                    placeholder="초대할 사용자"
-                                ></input>
-                                <button>+</button>
-                        </div>
-                    </div>
+            <>
+                <div className="inner_form-component">
+                    <span className="inner_form-container-title">그룹이름</span>
+                    <CreatableSelect
+                        autoFocus={true}
+                        className="popup2_inner_select"
+                        defaultMenuIsOpen={true}
+                        closeMenuOnSelect={false}
+                        menuIsOpen={true}
+                        onChange={this.handleChange}
+                        maxMenuHeight={120}
+                        options={groups}
+                        placeholder="그룹선택"
+                    />
                 </div>
-            </div>
+                <div className="inner_form-component">
+                    <span className="inner_form-container-title">초대할 사용자</span>
+                    <CreatableSelect
+                        className="popup2_inner_select"
+                        isMulti
+                        defaultMenuIsOpen={true}
+                        closeMenuOnSelect={false}
+                        menuIsOpen={true}
+                        onChange={this.handleChange}
+                        maxMenuHeight={120}
+                        options={users}
+                        placeholder="사용자 선택"
+                    />
+                </div>
+            </>
         );
     }
 }
