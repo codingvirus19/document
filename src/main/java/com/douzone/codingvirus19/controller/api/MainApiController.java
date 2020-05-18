@@ -15,12 +15,12 @@ import com.douzone.codingvirus19.service.MainService;
 import com.douzone.codingvirus19.vo.MemoVo;
 
 @RestController
-@RequestMapping("/main/api")
+@RequestMapping("/api")
 public class MainApiController {
 	@Autowired
 	private MainService mainService;
 	
-	@GetMapping("/memo")
+	@PostMapping("/memo")
 	public JsonResult getMemo(Model model,@RequestBody MemoVo vo) {
 		System.out.println(vo);
 		List<MemoVo> memoList = mainService.findAllMemo(vo);
