@@ -5,7 +5,7 @@ import Contents from "./contents/Contents";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
-  "accept": "application/json"
+  "Content-Type": "application/json",
 };
 
 export default class Container extends React.Component {
@@ -14,16 +14,19 @@ export default class Container extends React.Component {
     this.state = {
       g_no: '',
       g_noUpdate: '',
-      no : 1
+      uNo : 2
     }
   }
   componentDidMount() {
-    console.log(this.state.no);
+    let data = {
+      uNo : this.state.uNo
+    }
+    console.log(this.state.uNo);
     // call api
     fetch(`${API_URL}/api/container`, {
       method: "post",
       headers: API_HEADERS,
-      body: JSON.stringify(this.state.no),
+      body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((json) => {
@@ -40,8 +43,7 @@ export default class Container extends React.Component {
       g_no: update
     })
   }
-
-
+  
   render() {
     return (
       <div className="container">

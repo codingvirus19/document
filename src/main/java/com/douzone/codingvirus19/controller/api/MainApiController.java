@@ -1,18 +1,20 @@
 package com.douzone.codingvirus19.controller.api;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.douzone.codingvirus19.dto.JsonResult;
 import com.douzone.codingvirus19.service.MainService;
-import com.douzone.codingvirus19.vo.UserVo;
+import com.douzone.codingvirus19.vo.GroupVo;
 
-@Controller
+@RestController
 @RequestMapping("/api")
 public class MainApiController {
 
@@ -20,13 +22,13 @@ public class MainApiController {
 	private MainService mainService;
 	
 	@PostMapping("/container")
-		
-	public JsonResult login(HttpSession httpSession, @RequestBody UserVo vo) {
+	public JsonResult login(HttpSession httpSession, @RequestBody GroupVo vo) {
+		System.out.println("test");
 
 		System.out.println("Container vo" + vo);
-//		GroupVo groupVo = mainService.findByGroupList(vo);
+		List<GroupVo> list = mainService.findByGroupList(vo);
 //		httpSession.setAttribute("authUser", authUser);
 		
-		return JsonResult.success(false);
+		return JsonResult.success(list);
 	}
 }
