@@ -6,7 +6,7 @@ export default class Popup extends React.Component {
   constructor(props) {
     super(props);
     this.md = new Remarkable();
-    this.state = { value: '', cursor: '', textSize: 0, memoNo: 0, key: "a" };
+    this.state = { value: '', cursor: '', textSize: 0, memoNo: 0, version: 0 };
   }
   hevent(hsize) {
     let input_index = this.getSnapshotBeforeUpdate(this.state.cursor);
@@ -32,20 +32,22 @@ export default class Popup extends React.Component {
       }
     }
     b.splice(textLastLine[textLastLine.length - 1], 0, pushText);
+    this.send(textLastLine[textLastLine.length - 1],state3.length + hsize + 1,pushText,(this.state.version),"hevent");
     this.setState({
       value: b.join(''),
       textSize: (state3.length + hsize + 1)
     })
   }
-  send(input_index, size, key) {
+  send(input_index, size, key, version,type) {
     this.clientRef
     .sendMessage('/app/memo/' + this.state.memoNo,
      JSON.stringify({ 
        inputIndex: input_index,
        size: size,
-       key: key }))
+       key: key,
+       type: type,
+       version: version}))
   }
-
   viewSet(text) {
     this.setState({
       value: text.join(''),
@@ -61,7 +63,6 @@ export default class Popup extends React.Component {
   keyInput(cursorPosition, key) {
     let text = this.getSnapshotBeforeUpdate(this.state.value);
     text = text.split('');
-
     text.splice(cursorPosition - 1, 0, key);
     this.viewSet(text);
   }
@@ -72,8 +73,13 @@ export default class Popup extends React.Component {
     this.viewSet(text);
   }
   deleteInput(cursorPosition, textSize, keyAll) {
-    let text = keyAll.split('');
-    text.splice(cursorPosition, textSize - (keyAll.split('').length + 1));
+    let text = this.getSnapshotBeforeUpdate(this.state.value);
+    console.log("delete");
+    text = text.split('');
+    keyAll = keyAll.split(''); 
+    console.log(text.length-keyAll.length);
+    text.splice(cursorPosition,text.length-keyAll.length);
+    console.log(text);
     this.viewSet(text);
   }
   copyInput(cursorPosition, textsize, key) {
@@ -96,25 +102,30 @@ export default class Popup extends React.Component {
     let key = e.target.value.substring(input_index - 1, input_index);
     let temp = this.getSnapshotBeforeUpdate(this.state.textSize);
 
-    this.send(input_index,textsize,key);
-
+    // this.send(input_index,textsize,key,(this.state.version));
     // console.log("temp",temp,"textsize",textsize)
     if (temp > textsize) {
       this.deleteInput(input_index, temp, e.target.value);
+      this.send(input_index,(temp-(e.target.value.split('').length + 1)),"",(this.state.version),"delete");
       // console.log("글자지우기");
     } else if (temp == textsize) {
       // console.log("한글입력")
+      this.send(input_index,textsize,key,(this.state.version),"korean");
       this.koreanInput(input_index, key, e.target.value);
       //한글입력 오류 잡기~
     } else if ((temp + 1) < textsize) {
       let key = e.target.value.substring((input_index - ((textsize) - temp)), input_index);
+      let text = this.getSnapshotBeforeUpdate(this.state.value);
+      text = text.split('');
+      this.send(input_index,(textsize-text.length),key,(this.state.version),"copy");
       this.copyInput(input_index, textsize, key);
       // console.log("복사");
     } else {
       // console.log("기본입력",input_index);
+      this.send(input_index,textsize,key,(this.state.version),"basic");
       this.keyInput(input_index, key);
     }
-    this.setState({ cursor: input_index, textSize: e.target.value.split('').length }); //변경값을 표출한다.
+    this.setState({ cursor: input_index, textSize: e.target.value.split('').length, version :this.state.version+1 }); //변경값을 표출한다.
   }
 
   getReMarkDown() {
@@ -123,6 +134,10 @@ export default class Popup extends React.Component {
 
   getSnapshotBeforeUpdate(prevState) {
     return prevState;
+  }
+
+  receive(){
+
   }
 
   render() {
