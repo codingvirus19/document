@@ -1,8 +1,11 @@
 import React from "react";
 
 import CreatableSelect from 'react-select/creatable';
+import Select from 'react-select'
 export default class GroupAddOrInvite extends React.Component {
-
+    handleChange(event){
+        console.log(event);
+    }
     render() {
         const groups = [
             { value: '그룹1', label: '그룹1' },
@@ -26,15 +29,17 @@ export default class GroupAddOrInvite extends React.Component {
                         defaultMenuIsOpen={true}
                         closeMenuOnSelect={false}
                         menuIsOpen={true}
-                        onChange={this.handleChange}
+                        onChange={this.handleChange.bind(this)}
                         maxMenuHeight={120}
+                        
                         options={groups}
+                        // onCreateOption 그룹 만들면 option에 추가
                         placeholder="그룹선택"
                     />
                 </div>
                 <div className="inner_form-component">
                     <span className="inner_form-container-title">초대할 사용자</span>
-                    <CreatableSelect
+                    <Select
                         className="popup2_inner_select"
                         isMulti
                         defaultMenuIsOpen={true}
