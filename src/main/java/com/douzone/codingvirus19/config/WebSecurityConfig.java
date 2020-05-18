@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.formLogin().loginPage("/") // default
 				.loginProcessingUrl("/user/auth")
 				.failureUrl("/error") // default
-				.defaultSuccessUrl("/codingvirus19/main", true) // 로그인 성공시
+				.defaultSuccessUrl("/main", true) // 로그인 성공시
 				.usernameParameter("email").passwordParameter("password").successHandler(authenticationSuccessHandler())
 				.permitAll();
 
@@ -43,7 +43,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutSuccessUrl("/").permitAll();
 
 	}
-
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
