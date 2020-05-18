@@ -48,7 +48,7 @@ export default class ChatRoomList extends React.Component {
     }
 
     render() {
-        const wsSourceUrl = "http://localhost:8080/codingvirus19/chat/";
+        const wsSourceUrl = "./codingvirus19/chat/";
         return (
             <Fragment>
                 <div id="Chatting" className={styles.Chatting}>
