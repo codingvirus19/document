@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().cors();
-		http.authorizeRequests().antMatchers("/assets/**","/api/**","/chat/**").permitAll()
+		http.authorizeRequests().antMatchers("/assets/**","/api/**","/chat/**","/api/memo/**").permitAll()
 //				.antMatchers("/auth/admin/**").hasRole("ADMIN")
 //				.antMatchers("/auth/**").hasAnyRole("ADMIN", "USER") // 내부적으로 접두어 "ROLE_"가 붙는다.
 				.anyRequest().authenticated();

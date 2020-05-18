@@ -21,7 +21,7 @@ public class ChatController {
 //		return "main/chat";
 //	}
 	@MessageMapping("/message/{room}")
-	@SendTo("192.168.1.27:8080/codingvirus19/topic/testchat/{room}")
+	@SendTo("192.168.1.27:8090/codingvirus19/api/message/{room}")
 	public void sendMessage(ChatMessageVo message, @DestinationVariable String room) throws Exception{
 		
 		System.out.println(message.getGroup_no());
@@ -30,6 +30,6 @@ public class ChatController {
 		System.out.println("웹 소켓 controller 들어 왔습니다.");
 		System.out.println(room);
 		
-		webSocket.convertAndSend("/topic/testchat/"+room, message);
+		webSocket.convertAndSend("/api/message/"+room, message);
 	}
 }

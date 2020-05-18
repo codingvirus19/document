@@ -30,7 +30,7 @@ export default class ChatRoomList extends React.Component {
         // this.setState({
         //   message: mg
         // })
-        this.clientRef.sendMessage("/app/message/" + this.state.g_no, JSON.stringify({group_no:(this.state.g_no), nickname: `유저` + (this.state.randomName), message: mg }));
+        this.clientRef.sendMessage("/api/message/" + this.state.g_no, JSON.stringify({group_no:(this.state.g_no), nickname: `유저` + (this.state.randomName), message: mg }));
     }
 
     onMessageReceive(msg, topic) {
@@ -48,7 +48,7 @@ export default class ChatRoomList extends React.Component {
     }
 
     render() {
-        const wsSourceUrl = "./codingvirus19/chat/";
+        const wsSourceUrl = "./codingvirus19/api/message";
         return (
             <Fragment>
                 <div id="Chatting" className={styles.Chatting}>
@@ -56,11 +56,11 @@ export default class ChatRoomList extends React.Component {
                         <MessageList contents={this.state.contents} g_no={this.state.g_no} />
                     </div>
                     <div id="chatInput" className="chatInput">
-                        <MessageSend sendMessage={this.sendMessage.bind(this)} topic={`/topic/testchat/${this.state.g_no}`} />
+                        <MessageSend sendMessage={this.sendMessage.bind(this)} topic={`/api/testchat/${this.state.g_no}`} />
                     </div>
                     <SockJsClient
                         url={wsSourceUrl}
-                        topics={[`/topic/testchat/${this.state.g_no}`]}
+                        topics={[`/api/message/${this.state.g_no}`]}
                         onMessage={this.onMessageReceive.bind(this)}
                         ref={(client) => { this.clientRef = client; }}
                         onConnect={() => { this.setState({ clientConnected: true }) }} />
