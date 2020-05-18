@@ -12,11 +12,11 @@ export default class ChatRoomList extends React.Component {
            // clientConnected: true,
            contents: this.props.chatMessages,
            g_no: this.props.group_no,
-           randomName: Math.round(Math.random()*100)
+           randomName: Math.round(Math.random()*100),
         }
-     }
-
+    }
     sendMessage(mg) {
+        this.outoscroll();
         // console.log(this.state.contents);
         if (!mg.trim()) {
             return;
@@ -42,21 +42,27 @@ export default class ChatRoomList extends React.Component {
         //alert(JSON.stringify(msg) + " @ " +  JSON.stringify(this.state.messages)+" @ " + JSON.stringify(topic));
     }
 
-    outoscroll() {
-        var scrollBottom = document.getElementById("chatOutput");
-        scrollBottom.scrollTop = scrollBottom.scrollHeight;
+    outoscroll(e) {
+        let scrollBottom = document.getElementById(`chatOutput`);
+        scrollBottom.scrollTop = scrollBottom.scrollHeight - scrollBottom.clientHeight;
     }
 
     render() {
-        const wsSourceUrl = "./codingvirus19/api/message";
+
+        console.log(this.scrollBottom);
+        const wsSourceUrl = "http://localhost:8080/codingvirus19/chat/";
+
         return (
             <Fragment>
                 <div id="Chatting" className={styles.Chatting}>
-                    <div id="chatOutput" className={styles.chatOutput} ref={this.outoscroll.bind(this)}>
-                        <MessageList contents={this.state.contents} g_no={this.state.g_no} />
+                    <div id="chatOutput" className={styles.chatOutput}>
+                        <MessageList contents={this.state.contents} g_no={this.state.g_no} ref={this.outoscroll.bind(this)} />
                     </div>
                     <div id="chatInput" className="chatInput">
-                        <MessageSend sendMessage={this.sendMessage.bind(this)} topic={`/api/testchat/${this.state.g_no}`} />
+
+                        <MessageSend sendMessage={this.sendMessage.bind(this)}
+                                    topic={`/topic/testchat/${this.state.g_no}`} />
+
                     </div>
                     <SockJsClient
                         url={wsSourceUrl}
