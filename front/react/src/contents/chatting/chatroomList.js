@@ -9,7 +9,6 @@ export default class ChatRoomList extends React.Component {
   
 
     render() {
-       this.ab
         return (
 
             <Card>

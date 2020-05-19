@@ -14,9 +14,8 @@ public class MainService {
 	@Autowired
 	private MainRepository mainRepository;
 	
-	public List<GroupVo> findByGroupList(GroupVo vo) {
-		List<GroupVo> list = mainRepository.findByGroupList(vo);
+	public List<GroupVo> findByGroupList() {
+		List<GroupVo> list = mainRepository.findByGroupList();
 		return list;
 	}
-
 }

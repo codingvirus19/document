@@ -16,10 +16,10 @@ public class MainRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<GroupVo> findByGroupList(GroupVo vo) {
-		return sqlSession.selectList("groups.findByGroupList", vo);
+	public List<GroupVo> findByGroupList() {
+		return sqlSession.selectList("groups.findByGroupList");
 	}
-	
+
 //	public MainVo find() { 
 //		return  sqlSession.selectOne("main.find");
 //	}

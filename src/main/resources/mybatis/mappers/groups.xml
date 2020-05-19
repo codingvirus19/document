@@ -2,11 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="groups">
 	
-	<select id="findByGroupList" parameterType="groupvo" resultType="groupvo">
+	<select id="findByGroupList" resultType="groupvo">
 		<![CDATA[
 			select 	no, name 
-			  from 	groups
-			 where  u_no=#{uNo} 
+			  from 	groups 
 		  order by  no;
  		]]>
 	</select>

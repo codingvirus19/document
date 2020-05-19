@@ -22,11 +22,10 @@ public class MainApiController {
 	private MainService mainService;
 	
 	@PostMapping("/container")
-	public JsonResult login(HttpSession httpSession, @RequestBody GroupVo vo) {
+	public JsonResult login(HttpSession httpSession) {
 		System.out.println("test");
 
-		System.out.println("Container vo" + vo);
-		List<GroupVo> list = mainService.findByGroupList(vo);
+		List<GroupVo> list = mainService.findByGroupList();
 //		httpSession.setAttribute("authUser", authUser);
 		
 		return JsonResult.success(list);
