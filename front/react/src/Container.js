@@ -5,50 +5,77 @@ import Contents from "./contents/Contents";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
-  "Content-Type": "application/json"
+  "Content-Type": "application/json",
 };
 
 export default class Container extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-      g_no: '',
+      g_no: [],
+      g_name: [],
       g_noUpdate: '',
-      no : 1
     }
   }
   componentDidMount() {
-    let input_data={
-      no:'',
-    }
-    // console.log(this.state.no);
+
+    let gno = [];
+    let gname=[];
     // call api
     fetch(`${API_URL}/api/container`, {
       method: "post",
-      headers: API_HEADERS,
-      body: JSON.stringify(input_data),
+      headers: API_HEADERS
     })
       .then((response) => response.json())
       .then((json) => {
         this.setState({
           result: json.data,
         });
-        console.log(json.data);
+        json.data.map((temp)=>{
+          gno.push(temp.no);
+          gname.push(temp.name);
+        });
+        this.Update(gno, gname);
       })
       .catch((err) => console.error(err));
   }
 
-  g_noUpdate(update) {
+  // abcd(){
+  //   fetch(`${API_URL}/api/container`, {
+  //     method: "post",
+  //     headers: API_HEADERS,
+  //     body: JSON.stringify(data),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((json) => {
+  //       this.setState({
+  //         result: json.data,
+  //       });
+  //       json.data.map((temp)=>{
+  //         gno.push(temp.no);
+  //         gname.push(temp.name);
+  //       });
+  //       this.Update(gno, gname);
+  //     })
+  //     .catch((err) => console.error(err));
+
+  // }
+
+  Update(gno, gname) {
     this.setState({
-      g_no: update
+      g_no: gno,
+      g_name: gname
     })
   }
 
   render() {
+    // console.log(this.state.g_name);
+    // console.log(this.state.g_no);
     return (
+      
       <div className="container">
         <Header />
-        <Sidebar  />
+        <Sidebar group_no={this.state.g_no} group_name={this.state.g_name} />
         <Contents />
       </div>
     );

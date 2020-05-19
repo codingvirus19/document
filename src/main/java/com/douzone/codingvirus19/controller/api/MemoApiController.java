@@ -11,11 +11,11 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
 import com.douzone.codingvirus19.vo.EditorVo;
 
-@RestController
+@Controller
 public class MemoApiController {
 	@Autowired
 	private SimpMessagingTemplate webSocket;
