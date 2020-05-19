@@ -52,7 +52,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 			return;
 		}
 		HttpSession session = request.getSession();
-		System.out.println(authentication.getPrincipal());
 		session.setAttribute("auth",authentication.getPrincipal());
 //		 application/json(ajax) 요청일 경우 아래의 처리!
 		securityUser.setPassword("");
