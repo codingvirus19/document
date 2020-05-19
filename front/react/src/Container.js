@@ -5,7 +5,7 @@ import Contents from "./contents/Contents";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
-  "accept": "application/json"
+  "Content-Type": "application/json"
 };
 
 export default class Container extends React.Component {
@@ -18,12 +18,15 @@ export default class Container extends React.Component {
     }
   }
   componentDidMount() {
-    console.log(this.state.no);
+    let input_data={
+      no:'',
+    }
+    // console.log(this.state.no);
     // call api
     fetch(`${API_URL}/api/container`, {
       method: "post",
       headers: API_HEADERS,
-      body: JSON.stringify(this.state.no),
+      body: JSON.stringify(input_data),
     })
       .then((response) => response.json())
       .then((json) => {

@@ -92,7 +92,7 @@ export default class login extends React.Component {
 
         {/* <form> */}
       <input type="text" id="login"  className={`${styles.fadeIn} ${styles.second}`} name="email" value={this.state.email} onChange={this.handleChange.bind(this)}placeholder="login" ></input>
-        <input type="text" id="password" className={`${styles.fadeIn} ${styles.third}`} name="password"  value={this.state.password}  onChange={this.handleChange.bind(this)} placeholder="password" />
+        <input type="password" id="password" className={`${styles.fadeIn} ${styles.third}`} name="password"  value={this.state.password}  onChange={this.handleChange.bind(this)} placeholder="password" />
         <input type="submit" className={`${styles.fadeIn} ${styles.fourth}`} value="Log In" onClick={this.Login.bind(this)} />
         {/* </form> */}
 
