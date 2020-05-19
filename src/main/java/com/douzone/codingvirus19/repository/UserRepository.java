@@ -23,9 +23,7 @@ public class UserRepository {
 //	}
 
 	public UserVo findByIdAndPassword(UserVo vo) {
-		System.out.println("Repository vo" + vo);
 		UserVo authUser = sqlSession.selectOne("user.findByIdAndPassword", vo);
-		System.out.println("Repository: " + authUser);
 		return authUser;
 	}
 

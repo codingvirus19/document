@@ -16,7 +16,6 @@ public class SecurityUser implements UserDetails {
 	private Collection<? extends GrantedAuthority> authorities;
     private String username;  // principal - biz name : email
     private String password;  // credential
-
     // etc
     private String name;  // biz data
 

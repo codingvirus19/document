@@ -16,11 +16,12 @@ export default class ChatRoomList extends React.Component {
         }
     }
     sendMessage(mg) {
-        this.outoscroll();
-        // console.log(this.state.contents);
-        if (!mg.trim()) {
-            return;
-        }
+
+        // this.outoscroll();
+        // // console.log(this.state.contents);
+        // if (!mg.trim()) {
+        //     return;
+        // }
         // this.state.contents.push({
         //    group_no: 1,
         //    name: 'hi',
@@ -30,7 +31,8 @@ export default class ChatRoomList extends React.Component {
         // this.setState({
         //   message: mg
         // })
-        this.clientRef.sendMessage("/api/message/" + this.state.g_no, JSON.stringify({group_no:(this.state.g_no), nickname: `유저` + (this.state.randomName), message: mg }));
+        console.log(mg);
+        this.clientRef.sendMessage("/api/chat/0", JSON.stringify({group_no:0, nickname: `유저` + (this.state.randomName), message: mg }));
     }
 
     onMessageReceive(msg, topic) {
@@ -50,7 +52,7 @@ export default class ChatRoomList extends React.Component {
     render() {
 
         console.log(this.scrollBottom);
-        const wsSourceUrl = "http://localhost:8080/codingvirus19/chat/";
+        const wsSourceUrl = "http://192.168.1.132:8080/codingvirus19/api/memo";
 
         return (
             <Fragment>
@@ -60,15 +62,14 @@ export default class ChatRoomList extends React.Component {
                     </div>
                     <div id="chatInput" className="chatInput">
 
-                        <MessageSend sendMessage={this.sendMessage.bind(this)}
-                                    topic={`/topic/testchat/${this.state.g_no}`} />
+                        <MessageSend sendMessage={this.sendMessage.bind(this)} />
 
                     </div>
                     <SockJsClient
                         url={wsSourceUrl}
-                        topics={[`/api/message/${this.state.g_no}`]}
+                        topics={[`/api/chat/0`]}
                         onMessage={this.onMessageReceive.bind(this)}
-                        ref={(client) => { this.clientRef = client; }}
+                        ref={(client) => { this.clientRef = client }}
                         onConnect={() => { this.setState({ clientConnected: true }) }} />
                 </div>
             </Fragment>
