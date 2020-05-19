@@ -1,4 +1,5 @@
 import React from "react";
+
 import Memo from "./Memo";
 import HashList from "./HashList";
 import Toolbar from "./toolbar/Toolbar";
@@ -55,26 +56,43 @@ export default class Contents extends React.Component {
   render() {
     return (
       <div className="contents-memo">
-        <div
-          onClick={() => {
-            this.onGetMemoData.bind(this);
-            this.noChange.bind(this);
-          }}
-          className="memo_container"
-          value={this.state.no}
-        >
-          <div className="container_memo-form">
-            <Memo content={this.state.content}/>
-            <HashList hash={this.state.hash} />
-            <Toolbar hash={this.state.hash}/>
-          </div>
-        </div>
-        {/* <div>
-          <form className="contents-memo_momo-form">
-            <input className="snip1535 hover" type="textarea"></input>
+        <div className="memo_container">
+          <form className="container_memo-form">
+            <Memo find={this.props.find} />
+            <HashList />
+            <Toolbar />
           </form>
-        </div> */}
+        </div>
       </div>
     );
   }
 }
+
+// import React from "react";
+// import Memo from "./Memo";
+// import HashList from "./HashList";
+// import Toolbar from "./toolbar/Toolbar";
+
+// const API_URL = "http://localhost:8080/codingvirus19";
+// const API_HEADERS = {
+//   "Content-Type": "application/json",
+// };
+
+// export default class ContentsMemo extends React.Component {
+//   render() {
+//     console.log(2);
+//     return (
+//       <div className="contents-memo">
+//         <div className="memo_container">
+//           <div className="container_memo-form">
+//             {/* {this.state.result.map((re) => {
+//               <div className="container_memo-form memo">{re.id};</div>;
+//             })} */}
+
+//             {/* 0517 수정 */}
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   }
+// }
