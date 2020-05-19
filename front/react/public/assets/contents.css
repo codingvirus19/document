@@ -1,194 +1,177 @@
 /* ///////////contents/////////////*/
 
 .contents {
-  background-color: #f5f5f5;
-  display: inline-block;
-  position: absolute;
-  float: right;
-  width: 89%;
-  height: 100%;
-}
-
-/* contents-header */
-.fa-bars:before,
-.fa-folder-plus:before,
-.fa-user-plus:before {
-  font-size: xx-large;
-  color: #3a3b45;
-  background-color: #f5f5f5;
-  width: 28px;
-  height: 32px;
-}
-
-.contents-header {
-  height: 10%;
-  min-height: 57px;
-  display: flex;
-  align-items: center;
-  margin-left: 4%;
-  z-index: 0;
-  min-width: 370px;
-}
-
-.contents-header-title {
-  margin-right: 1.5rem;
-}
-
-.contents-header__btns {
-  border: none;
-}
-
-.contents-header-showinglist,
-.contents-header-addgroup,
-.contents-header-invite {
-  margin-right: 1rem;
-}
-.contents-header__btns {
-  cursor: pointer;
-}
-/* contents-header */
-
-/*contentsMemo*/
-.contents-memo {
-  height: 67%;
-  width: 91%;
-  display: inline-block;
-  border: 0.5px solid black;
-  padding: 5% 4%;
-}
-
-.memo_container {
-  border: 0.1px solid black;
-  margin: 10px;
-}
-
-.container_memo-form {
-  padding: 10px;
-}
-
-/*contentsMemo*/
-
-/*Memo*/
-.memo {
-  border: 0.4px solid rgb(170, 155, 155);
-  width: 220px;
-  height: 160px;
-  border-radius: 8px;
-  display: inline-block;
-  background-color: #fff;
-}
-/*Memo*/
-
-/*HashList*/
-.hashlist {
-  padding: 3px 0px;
-  display: flex;
-}
-
-.hash {
-  margin: auto 4px;
-  width: 70px;
-  max-width: 150px;
-  height: 18px;
-  display: inline-block;
-  padding: 3px 5px;
-  border: 1px solid rgba(170, 155, 155, 0.452);
-  background-color: rgb(226, 226, 226);
-  border-radius: 8px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-/*HashList*/
-
-/*Toolbar*/
-.toolbar {
-  height: 30px;
-}
-
-button.tool {
-  margin: 3px 5px 0px 5px;
-  cursor: pointer;
-}
-
-.fa-slideshare:before,
-.fa-share-square:before,
-.fa-palette:before,
-.fa-slack-hash:before,
-.fa-save:before,
-.fa-file-upload:before,
-.fa-trash-alt:before {
-  font-size: large;
-  width: 32px;
-  height: 32px;
-}
-/*Toolbar*/
-
-/*Sheet*/
-.groupShareSheet,
-.shareSheet,
-.colorSheet,
-.hashSheet {
-  position: absolute;
-  background-color: #f5f5f5;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-}
-/*Sheet*/
-
-/* 238x160 */
-/* @import url(https://fonts.googleapis.com/css?family=BenchNine:700);
-  .snip1535 {
-    background-color: #c47135;
-    border: none;
-    color: #ffffff;
+    background-color: #f5f5f5;
     display: inline-block;
-    font-family: "BenchNine", Arial, sans-serif;
-    font-size: 1em;
-    font-size: 22px;
-    line-height: 1em;
-    margin: 15px 40px;
-    outline: none;
-    padding: 12px 40px 10px;
-    position: relative;
-    text-transform: uppercase;
-    font-weight: 700;
-  }
-  .snip1535:before,
-  .snip1535:after {
-    border-color: transparent;
-    -webkit-transition: all 0.25s;
-    transition: all 0.25s;
-    border-style: solid;
-    border-width: 0;
-    content: "";
-    height: 24px;
     position: absolute;
-    width: 24px;
-  }
-  .snip1535:before {
-    border-color: #c47135;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    right: -5px;
-    top: -5px;
-  }
-  .snip1535:after {
-    border-bottom-width: 2px;
-    border-color: #c47135;
-    border-left-width: 2px;
-    bottom: -5px;
-    left: -5px;
-  }
-  .snip1535:hover,
-  .snip1535.hover {
-    background-color: #c47135;
-  }
-  .snip1535:hover:before,
-  .snip1535.hover:before,
-  .snip1535:hover:after,
-  .snip1535.hover:after {
+    float: right;
+    width: 89%;
     height: 100%;
-    width: 100%;
-  } */
+  }
 
-/* ///////////contents/////////////*/
+  
+
+  /* contents-header */
+  .fa-bars:before,
+  .fa-folder-plus:before,
+  .fa-user-plus:before{
+    font-size: xx-large;
+    color: #3a3b45;
+    background-color: #f5f5f5;
+    width: 28px;
+    height: 32px;
+  }
+  
+  .contents-header {
+    height: 10%;
+    min-height: 57px;
+    display: flex;
+    align-items: center;
+    margin-left: 4%;
+    z-index: 0;
+    min-width: 370px;
+  }
+  
+  .contents-header-title {
+    margin-right: 1.5rem;
+  }
+  
+  .contents-header__btns {
+    border: none;
+  }
+  
+  .contents-header-showinglist,
+  .contents-header-addgroup,
+  .contents-header-invite {
+    margin-right: 1rem;
+  }
+  .contents-header__btns {
+    cursor: pointer;
+  }
+  /* contents-header */
+
+  /*groupAddOrInvite*/
+  .popup-groupAddOrInvite {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .popup-groupAddOrInvite_inner {
+    background: #f5f5f5;
+    margin: auto;
+    width: 100%;
+    max-width: 40%;
+    min-width: 340px;
+    height: 28.125rem;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /*contentsMemo*/
+  .contents-memo {
+    height: 67%;
+    width: 91%;
+    display: inline-block;
+    border: 0.5px solid black;
+    padding: 5% 4%;
+  }
+  
+  .memo_container {
+    border: 0.1px solid black;
+    margin: 10px;
+  }
+  
+  .container_memo-form {
+    padding: 10px;
+  }
+  /*contentsMemo*/
+  
+  /*Memo*/
+  .memo {
+    border: 0.4px solid rgb(170, 155, 155);
+    width: 220px;
+    height: 160px;
+    border-radius: 8px;
+    display: inline-block;
+    background-color: #fff;
+  }
+  /*Memo*/
+  
+  /*HashList*/
+  .hashlist {
+    padding: 3px 0px;
+    display: flex;
+  }
+  
+  .hash {
+    margin: auto 4px;
+    width: 70px;
+    max-width: 150px;
+    height: 18px; 
+    display: inline-block;
+    padding: 3px 5px;
+    border: 1px solid rgba(170, 155, 155, 0.452);
+    background-color: rgb(226, 226, 226);
+    border-radius: 8px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  /*HashList*/
+  
+  /*Toolbar*/
+  .toolbar {
+    height: 30px;
+  }
+  
+  button.tool {
+    margin: 3px 5px 0px 5px;
+    cursor: pointer;
+  }
+  
+  .fa-slideshare:before,
+  .fa-share-square:before,
+  .fa-palette:before,
+  .fa-slack-hash:before,
+  .fa-save:before,
+  .fa-file-upload:before,
+  .fa-trash-alt:before
+  {
+    font-size: large;
+    width: 32px;
+    height: 32px;
+  }
+  /*Toolbar*/
+  
+  /*Sheets*/
+  .groupShareSheet,
+  .shareSheet,
+  .colorSheet,
+  .hashSheet{
+    position: absolute;
+    padding: 5px;
+    background-color: #f5f5f5;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  }
+  /*Sheets*/
+
+  /*GroupShareSheet*/
+  .groupShareSheet {
+  }
+  .select_group {
+    display: block;
+    width: 90%;
+  }
+  /*GroupShareSheet*/

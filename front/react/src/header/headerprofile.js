@@ -1,6 +1,6 @@
 import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
-import Profile from "./Profile";
+import Popup2 from "../Popup2";
 
 export default class HeaderProfile extends React.Component {
   constructor() {
@@ -9,11 +9,13 @@ export default class HeaderProfile extends React.Component {
       showPopup: false,
     };
   }
+
   togglePopup() {
     this.setState({
       showPopup: !this.state.showPopup,
     });
   }
+  
   render() {
     return (
       <Dropdown className="header-profile">
@@ -37,7 +39,10 @@ export default class HeaderProfile extends React.Component {
           <Dropdown.Item href="#/action-3">로그아웃</Dropdown.Item>
         </Dropdown.Menu>
         {this.state.showPopup ? (
-          <Profile closePopup={this.togglePopup.bind(this)} />
+          <Popup2 
+          inner_header="프로필정보"
+          contents={'profile'} 
+          closePopup={this.togglePopup.bind(this)}/>
         ) : null}
       </Dropdown>
     );

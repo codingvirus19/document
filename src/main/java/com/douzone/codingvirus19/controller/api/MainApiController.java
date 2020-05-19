@@ -15,6 +15,7 @@ import com.douzone.codingvirus19.dto.JsonResult;
 import com.douzone.codingvirus19.service.MainService;
 import com.douzone.codingvirus19.vo.MemoVo;
 import com.douzone.codingvirus19.vo.UserVo;
+import com.douzone.codingvirus19.vo.GroupVo;
 
 @RestController
 @RequestMapping("/api")
@@ -35,5 +36,17 @@ public class MainApiController {
 		List<MemoVo> memoList = mainService.findAllMemo(authUser);
 		System.out.println("[memoList]"+memoList);
 		return JsonResult.success(memoList);
+
+// 	@Autowired
+// 	private MainService mainService;
+	
+// 	@PostMapping("/container")
+// 	public JsonResult login(HttpSession httpSession) {
+// 		System.out.println("test");
+
+// 		List<GroupVo> list = mainService.findByGroupList();
+// //		httpSession.setAttribute("authUser", authUser);
+		
+// 		return JsonResult.success(list);
 	}
 }

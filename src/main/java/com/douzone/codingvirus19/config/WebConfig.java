@@ -29,7 +29,6 @@ import com.douzone.codingvirus19.security.AuthInterceptor;
 public class WebConfig implements WebMvcConfigurer {
 	@Autowired
 	private Environment env;
-	
 
 	@Bean
 	public HandlerInterceptor authInterceptor() {
@@ -40,8 +39,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:8090");
+//                .allowedOrigins("http://localhost:8080");
     }
-
 	
 	// Message Converters
 	@Bean

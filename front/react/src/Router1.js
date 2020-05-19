@@ -6,12 +6,12 @@ import Container from './Container';
 import NotFound from './NotFound';
 
 export default class Router1 extends React.Component {
-
+  
   render() {
     return (
       <Router>
-        <Route path="/" exact component={Login }/>
-        <Route path="/main" exact component={Container}/>
+        <Route path="/"  component={Login }/>
+        <Route path="/main"  component={Container}/>
       </Router>
     );
   }

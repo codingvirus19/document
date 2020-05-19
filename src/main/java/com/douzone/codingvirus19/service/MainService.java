@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.douzone.codingvirus19.repository.MainRepository;
 import com.douzone.codingvirus19.vo.MemoVo;
 import com.douzone.codingvirus19.vo.UserVo;
+import com.douzone.codingvirus19.vo.GroupVo;
 
 @Service
 public class MainService {
@@ -22,4 +23,8 @@ public class MainService {
 
 	
 
+// 	public List<GroupVo> findByGroupList() {
+// 		List<GroupVo> list = mainRepository.findByGroupList();
+// 		return list;
+// 	}
 }
