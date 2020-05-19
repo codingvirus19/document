@@ -4,14 +4,11 @@
 	<typeAliases>
 		<typeAlias alias="uservo" type="com.douzone.codingvirus19.vo.UserVo"/>
 		<typeAlias alias="memovo" type="com.douzone.codingvirus19.vo.MemoVo"/>
+		<typeAlias alias="groupvo" type="com.douzone.codingvirus19.vo.GroupVo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/main.xml" />
-<!-- 		<typeAlias alias="groupvo" type="com.douzone.codingvirus19.vo.GroupVo"/>
-	</typeAliases>
-	<mappers>
-		<mapper resource="mybatis/mappers/user.xml" />
-		<mapper resource="mybatis/mappers/groups.xml" /> -->
+		<mapper resource="mybatis/mappers/groups.xml" />
 	</mappers>
 </configuration>

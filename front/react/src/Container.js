@@ -18,6 +18,7 @@ export default class Container extends React.Component {
     }
   }
   componentDidMount() {
+
     let gno = [];
     let gname=[];
     // call api

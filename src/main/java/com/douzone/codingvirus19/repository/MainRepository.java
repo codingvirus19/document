@@ -23,18 +23,10 @@ public class MainRepository {
 		return memoList;
 	}
 	
-// 	public List<GroupVo> findByGroupList() {
-// 		return sqlSession.selectList("groups.findByGroupList");
-// 	}
+ 	public List<GroupVo> findByGroupList() {
+ 		return sqlSession.selectList("groups.findByGroupList");
+ 	}
 
-//	public MainVo find() { 
-//		return  sqlSession.selectOne("main.find");
-//	}
-//
-//	public void update(MainVo vo) {
-//		System.out.println("Repository"+vo);
-//		sqlSession.update("main.update",vo);
-//	}
-//	
+
 
 }
