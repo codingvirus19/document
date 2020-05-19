@@ -66,7 +66,7 @@ export default class Container extends React.Component {
       g_name: gname
     })
   }
-  
+
   render() {
     // console.log(this.state.g_name);
     // console.log(this.state.g_no);

@@ -1,14 +1,23 @@
 package com.douzone.codingvirus19.vo;
 
 public class EditorVo {
-	@Override
-	public String toString() {
-		return "EditorVo [inputIndex=" + inputIndex + ", size=" + size + ", key=" + key + ", version=" + version + "]";
+	private int inputIndex;
+	private Long size;
+	private String key;
+	private Long version;
+	private String type;
+
+	
+	public String getType() {
+		return type;
 	}
-	public Long getInputIndex() {
+	public void setType(String type) {
+		this.type = type;
+	}
+	public int getInputIndex() {
 		return inputIndex;
 	}
-	public void setInputIndex(Long inputIndex) {
+	public void setInputIndex(int inputIndex) {
 		this.inputIndex = inputIndex;
 	}
 	public Long getSize() {
@@ -29,9 +38,11 @@ public class EditorVo {
 	public void setVersion(Long version) {
 		this.version = version;
 	}
-	private Long inputIndex;
-	private Long size;
-	private String key;
-	private Long version;
+	@Override
+	public String toString() {
+		return "EditorVo [inputIndex=" + inputIndex + ", size=" + size + ", key=" + key + ", version=" + version
+				+ ", type=" + type + "]";
+	}
+	
 
 }

@@ -65,8 +65,9 @@ export default class Sidebar extends React.Component {
               showGroupList: true,
               showHashtagList: false
             })}
-            className="sidebar-nav-menu"> 그룹메모
-          </Nav.Link>
+
+            className="sidebar-nav-menu"> 그룹메모 </Nav.Link>
+
         </Nav>
         <div className="sidebar-nav-menu">
           {this.state.hashtagList}

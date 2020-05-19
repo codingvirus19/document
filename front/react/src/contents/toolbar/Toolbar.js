@@ -14,13 +14,48 @@ export default class Toolbar extends React.Component {
             showShareSheet: false,
             showColorSheet: false,
             showHashSheet: false,
+            clickGroupShareButton: false,
+            clickHashButton: false
+        }
+        this.toggleContainer = React.createRef();
+        this.toggleContainer2 =  React.createRef();
+        this.toggleGroupShareSheet = this.toggleGroupShareSheet.bind(this);
+        this.onClickOutsideHandler = this.onClickOutsideHandler.bind(this);
+    }
+
+    componentDidMount() {
+        window.addEventListener('click', this.onClickOutsideHandler);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('click', this.onClickOutsideHandler);
+    }
+
+    onClickOutsideHandler(event) {
+        if (this.state.clickGroupShareButton) {
+            this.setState({
+                clickGroupShareButton: !this.state.clickGroupShareButton
+            })
+        }
+        else if (this.state.showGroupShareSheet && !this.toggleContainer.current.contains(event.target)) {
+            this.setState({ showGroupShareSheet: false });
+        }
+
+        if (this.state.clickHashButton) {
+            this.setState({
+                clickHashButton: !this.state.clickHashButton
+            })
+        }
+        else if (this.state.showHashSheet && !this.toggleContainer2.current.contains(event.target)) {
+            this.setState({ showHashSheet: false });
         }
     }
 
-    toggleGroupShare(e) {
+    toggleGroupShareSheet(e) {
         e.preventDefault();
         this.setState({
-            showGroupShareSheet: !this.state.showGroupShareSheet
+            showGroupShareSheet: !this.state.showGroupShareSheet,
+            clickGroupShareButton: !this.state.clickGroupShareButton
         });
     }
     toggleShareSheet(showShareSheet) {
@@ -36,7 +71,8 @@ export default class Toolbar extends React.Component {
     toggleHashSheet(e) {
         e.preventDefault();
         this.setState({
-            showHashSheet: !this.state.showHashSheet
+            showHashSheet: !this.state.showHashSheet,
+            clickHashButton: !this.state.clickHashButton
         })
     }
 
@@ -50,15 +86,16 @@ export default class Toolbar extends React.Component {
     render() {
         return (
             <div className="toolbar">
-
                 <button
                     className="tool"
-                    aria-label="그룹 공유"
-                    onClick={this.toggleGroupShare.bind(this)}>
+                    aria-label="그룹공유"
+                    onClick={this.toggleGroupShareSheet.bind(this)}>
                     <i className="fab fa-slideshare" />
                 </button>
                 {this.state.showGroupShareSheet ? (
-                    <GroupShareSheet />
+                    <GroupShareSheet
+                        refChange={this.toggleContainer}
+                        closeGroupShareSheet={this.toggleGroupShareSheet.bind(this)} />
                 ) : null}
 
                 <button
@@ -68,8 +105,10 @@ export default class Toolbar extends React.Component {
                     onMouseLeave={() => this.setState({ showShareSheet: false })}>
                     <i className="far fa-share-square" />
                 </button>
-                {this.state.showShareSheet ?
-                    <ShareSheet toggleShareSheetHandler={this.toggleShareSheet.bind(this)} /> : null}
+                {this.state.showShareSheet ? (
+                    <ShareSheet
+                        toggleShareSheetHandler={this.toggleShareSheet.bind(this)} />
+                ) : null}
 
                 <button
                     className="tool"
@@ -78,8 +117,10 @@ export default class Toolbar extends React.Component {
                     onMouseLeave={() => this.setState({ showColorSheet: false })}>
                     <i className="fas fa-palette" />
                 </button>
-                {this.state.showColorSheet ?
-                    <ColorSheet toggleColorSheetHandler={this.toggleColorSheet.bind(this)} /> : null}
+                {this.state.showColorSheet ? (
+                    <ColorSheet
+                        toggleColorSheetHandler={this.toggleColorSheet.bind(this)} />
+                ) : null}
 
                 <button
                     className="tool"
@@ -87,10 +128,11 @@ export default class Toolbar extends React.Component {
                     onClick={this.toggleHashSheet.bind(this)}>
                     <i className="fab fa-slack-hash" />
                 </button>
-                {this.state.showHashSheet ?
+                {this.state.showHashSheet ? (
                     <HashSheet
-                        toggleHashSheetHandler={this.toggleHashSheet.bind(this)}
-                        hash={this.props.hash} /> : null}
+                        refChange={this.toggleContainer2}
+                        hash={this.props.hash} />
+                ) : null}
 
                 <button
                     className="tool"
