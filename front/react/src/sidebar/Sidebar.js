@@ -51,21 +51,20 @@ export default class Sidebar extends React.Component {
     return (
       <div className="sidebar">
         <Nav className="sidebar-nav">
-          <Nav.Link
-            href="#"
-            onClick={() => this.setState({
+          <Nav.Link href="#" onClick={() => this.setState({
               showHashtagList: true,
               g_no: 0,
               g_name: "개인"
             })}
-            className="sidebar-nav-menu"> 개인메모 </Nav.Link>
-          <Nav.Link
-            href="#"
-            onClick={() => this.setState({
+            className="sidebar-nav-menu"> 개인메모 
+          </Nav.Link>
+          <Nav.Link href="#" onClick={() => this.setState({
               showGroupList: true,
               showHashtagList: false
             })}
+
             className="sidebar-nav-menu"> 그룹메모 </Nav.Link>
+
         </Nav>
         <div className="sidebar-nav-menu">
           {this.state.hashtagList}
