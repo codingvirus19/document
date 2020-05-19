@@ -12,17 +12,7 @@ export default class Contents extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-      // hash: "",
-      result: [
-        {
-          no: "",
-          gNo: "",
-          uNo: "",
-          content: "",
-          color: "",
-          date: "",
-        },
-      ],
+      result: null,
     };
   }
 
@@ -35,9 +25,8 @@ export default class Contents extends React.Component {
       color: "",
       date: "",
     };
-    // console.log(input_date);
     // call api
-    fetch(`${API_URL}/api/memo`, {
+    fetch(`${API_URL}/api/main`, {
       method: "post",
       headers: API_HEADERS,
       body: JSON.stringify(input_date),
@@ -45,7 +34,11 @@ export default class Contents extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         let newResult = json.data;
+        // if (newResult.result == "success") {
+        //   console.log("성공!");
+        // }
         console.log(json);
+        console.log(json.data);
         this.setState({
           result: newResult,
         });
@@ -58,7 +51,15 @@ export default class Contents extends React.Component {
     return (
       <div className="contents">
         <ContentsHeader />
-        <ContentsMemo />
+        <ContentsMemo
+          find={this.onGetMemoData.bind(this)}
+          listMemo={
+            this.state.result &&
+            this.state.result.filter((re) => console.log(re))
+          }
+        />
+        {this.onGetMemoData.bind(this)}
+
         <Footer />
       </div>
     );

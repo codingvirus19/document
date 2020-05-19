@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.douzone.codingvirus19.repository.MainRepository;
 import com.douzone.codingvirus19.vo.MemoVo;
+import com.douzone.codingvirus19.vo.UserVo;
 
 @Service
 public class MainService {
@@ -14,8 +15,8 @@ public class MainService {
 	@Autowired
 	private MainRepository mainRepository;
 	
-	public List<MemoVo> findAllMemo(MemoVo vo) {
-		List<MemoVo> memoList = mainRepository.findAllMemo(vo);
+	public List<MemoVo> findAllMemo(UserVo authUser) {
+		List<MemoVo> memoList = mainRepository.findAllMemo(authUser);
 		return memoList;
 	}
 

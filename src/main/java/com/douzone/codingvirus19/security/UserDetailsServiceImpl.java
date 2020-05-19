@@ -34,7 +34,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             securityUser.setName(userVo.getName());         
             securityUser.setUsername(userVo.getId());     // principal
             securityUser.setPassword(passwordEncoder.encode(userVo.getPassword()));  // credetial
-            System.out.println(securityUser.getUsername()+":"+securityUser.getPassword());
             List<GrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(userVo.getRole()));
             securityUser.setAuthorities(authorities);

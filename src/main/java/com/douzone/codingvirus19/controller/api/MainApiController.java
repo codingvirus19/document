@@ -2,9 +2,10 @@ package com.douzone.codingvirus19.controller.api;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.douzone.codingvirus19.dto.JsonResult;
 import com.douzone.codingvirus19.service.MainService;
 import com.douzone.codingvirus19.vo.MemoVo;
+import com.douzone.codingvirus19.vo.UserVo;
 
 @RestController
 @RequestMapping("/api")
@@ -20,11 +22,18 @@ public class MainApiController {
 	@Autowired
 	private MainService mainService;
 	
-	@PostMapping("/memo")
-	public JsonResult getMemo(Model model,@RequestBody MemoVo vo) {
-		System.out.println(vo);
-		List<MemoVo> memoList = mainService.findAllMemo(vo);
-		System.out.println(memoList);
+	@PostMapping("/main")
+	public JsonResult getMemo(HttpSession httpSession, Model model,@RequestBody MemoVo vo) {
+		UserVo authUser = (UserVo) httpSession.getAttribute("SecurityUser");
+		System.out.println("[authUser]"+authUser);
+//		System.out.println(vo);
+//		System.out.println(authUser.getId());
+		UserVo userVo = new UserVo();
+//		userVo.setId();
+		
+		
+		List<MemoVo> memoList = mainService.findAllMemo(authUser);
+		System.out.println("[memoList]"+memoList);
 		return JsonResult.success(memoList);
 	}
 }

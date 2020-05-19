@@ -4,7 +4,7 @@
 	
 	<select id="findByIdAndPassword" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-			select id, password
+			select no,id,email,password,nickname,image,name
 			from user
 			where id=#{id}
 			and password=#{password}

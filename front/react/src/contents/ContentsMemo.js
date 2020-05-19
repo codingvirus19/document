@@ -10,7 +10,7 @@ export default class ContentsMemo extends React.Component {
       <div className="contents-memo">
         <div className="memo_container">
           <form className="container_memo-form">
-            <Memo />
+            <Memo find={this.props.find} />
             <HashList />
             <Toolbar />
           </form>

@@ -18,9 +18,7 @@ public class UserService {
 	}
 
 	public UserVo findByIdAndPassword(UserVo vo) {
-		System.out.println("Service vo" + vo);
 		UserVo authUser = userRepository.findByIdAndPassword(vo);
-		System.out.println("Service: " + authUser);
 		return authUser;
 	}
 
