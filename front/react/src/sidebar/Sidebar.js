@@ -16,10 +16,10 @@ export default class Sidebar extends React.Component {
   }
 
   render() {
-    console.log(this.state.g_name);
-    console.log(this.state.g_no);
-    console.log(this.props.group_name);
-    console.log(this.props.group_no);
+    // console.log(this.state.g_name);
+    // console.log(this.state.g_no);
+    // console.log(this.props.group_name);
+    // console.log(this.props.group_no);
 
     if (this.state.showGroupList) {
       this.state.hash = this.props.hashs.filter(hash => hash.g_no === this.props.group_no);
@@ -59,15 +59,12 @@ export default class Sidebar extends React.Component {
               showHashtagList: true,
               g_name: "개인"
             })}
-            className="sidebar-nav-menu"> 개인메모 
-          </Nav.Link>
+            className="sidebar-nav-menu"> 개인메모 </Nav.Link>
           <Nav.Link href="#" onClick={() => this.setState({
               showGroupList: true,
               showHashtagList: false
             })}
-
             className="sidebar-nav-menu"> 그룹메모 </Nav.Link>
-
         </Nav>
         <div className="sidebar-nav-menu">
           {this.state.hashtagList}

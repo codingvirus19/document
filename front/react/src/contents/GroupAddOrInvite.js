@@ -2,16 +2,28 @@ import React from "react";
 
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select'
+
 export default class GroupAddOrInvite extends React.Component {
-    handleChange(event){
+    constructor() {
+        super(...arguments);
+        this.state = {
+            g_noUpdate: '',
+            currentG_no: null
+        }
+    }
+
+    handleChange(event) {
         console.log(event);
     }
     render() {
-        const groups = [
-            { value: '그룹1', label: '그룹1' },
-            { value: '그룹2', label: '그룹2' },
-            { value: '그룹3', label: '그룹3' }
-        ]
+        let groups = [];
+        groups= this.props.g_name.map(element=> {
+            return {   
+                value: element,
+                label : element
+            }
+        });
+   
         const users = [
             { value: '사용자1', label: '사용자1' },
             { value: '사용자2', label: '사용자2' },
@@ -31,7 +43,6 @@ export default class GroupAddOrInvite extends React.Component {
                         menuIsOpen={true}
                         onChange={this.handleChange.bind(this)}
                         maxMenuHeight={120}
-                        
                         options={groups}
                         // onCreateOption 그룹 만들면 option에 추가
                         placeholder="그룹선택"

@@ -6,7 +6,7 @@ export default class ContentsHeader extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-      ShowGroupAddOrInvite: false
+      ShowGroupAddOrInvite: false,
     }
   }
 
@@ -50,7 +50,8 @@ export default class ContentsHeader extends React.Component {
             <Popup2
               inner_header="그룹생성 및 초대"
               contents={'groupAddOrInvite'}
-              closePopup={this.toggleGroupAddOrInvite.bind(this)} />
+              closePopup={this.toggleGroupAddOrInvite.bind(this)} 
+              g_no={this.props.g_no} g_name={this.props.g_name}/>
           ) : null}
         </div>
 

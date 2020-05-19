@@ -9,16 +9,18 @@ const API_HEADERS = {
 };
 
 export default class Container extends React.Component {
+
   constructor() {
     super(...arguments);
     this.state = {
       g_no: [],
       g_name: [],
       g_noUpdate: '',
+      currentG_no: null
     }
   }
-  componentDidMount() {
 
+  componentDidMount() {
     let gno = [];
     let gname=[];
     // call api
@@ -40,27 +42,6 @@ export default class Container extends React.Component {
       .catch((err) => console.error(err));
   }
 
-  // abcd(){
-  //   fetch(`${API_URL}/api/container`, {
-  //     method: "post",
-  //     headers: API_HEADERS,
-  //     body: JSON.stringify(data),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       this.setState({
-  //         result: json.data,
-  //       });
-  //       json.data.map((temp)=>{
-  //         gno.push(temp.no);
-  //         gname.push(temp.name);
-  //       });
-  //       this.Update(gno, gname);
-  //     })
-  //     .catch((err) => console.error(err));
-
-  // }
-
   Update(gno, gname) {
     this.setState({
       g_no: gno,
@@ -71,12 +52,12 @@ export default class Container extends React.Component {
   render() {
     // console.log(this.state.g_name);
     // console.log(this.state.g_no);
+    // console.log(this.state.currentG_no)
     return (
-      
       <div className="container">
-        <Header />
+        <Header/>
         <Sidebar group_no={this.state.g_no} group_name={this.state.g_name} />
-        <Contents />
+        <Contents g_no={this.state.g_no} g_name={this.state.g_name}/>
       </div>
     );
   }
