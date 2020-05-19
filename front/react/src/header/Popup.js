@@ -152,7 +152,7 @@ export default class Popup extends React.Component {
         <div className="popup_inner" onClick={(e) => { e.stopPropagation() }}>
           <div>
             <SockJsClient url='http://localhost:8080/codingvirus19/api/memo' topics={[`/api/memo/${this.state.memoNo}`]}
-              onMessage={(msg) => { console.log(msg); }}
+              onMessage={this.receive.bind(this)}
               ref={(client) => { this.clientRef = client }} />
           </div>
 

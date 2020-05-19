@@ -48,7 +48,6 @@ public class MemoApiController {
 		str = String.join("", arrData);
 		System.out.println(str);
 //		System.out.println(str);
-//		 
 ////		ab[message.getInputIndex()-1] = message.getKey();
 ////		String str = String.join("", ab);
 ////		key = str;
