@@ -2,7 +2,6 @@ package com.douzone.codingvirus19.vo;
 
 public class GroupVo {
 	private Long no;
-	private Long uNo;
 	private String name;
 
 	public Long getNo() {
@@ -11,14 +10,6 @@ public class GroupVo {
 
 	public void setNo(Long no) {
 		this.no = no;
-	}
-
-	public Long getuNo() {
-		return uNo;
-	}
-
-	public void setuNo(Long uNo) {
-		this.uNo = uNo;
 	}
 
 	public String getName() {
@@ -31,7 +22,7 @@ public class GroupVo {
 
 	@Override
 	public String toString() {
-		return "GroupVo [no=" + no + ", uNo=" + uNo + ", name=" + name + "]";
+		return "GroupVo [no=" + no + ", name=" + name + "]";
 	}
 
 }

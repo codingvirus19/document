@@ -24,5 +24,4 @@ public class MainController implements ErrorController {
 	public String getErrorPath() {
 		return "/error";
 	}
-
 }

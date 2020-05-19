@@ -17,7 +17,7 @@ onInputChange(e) {
 
   render() {
     return (
-      <div className="hashSheet">
+      <div className="hashSheet" ref={this.props.refChange}>
         <input
           className="searchHash"
           type='text'

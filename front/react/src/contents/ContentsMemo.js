@@ -19,7 +19,6 @@ export default class Contents extends React.Component {
       color: "",
       date: "",
       hash: ""
-      // result: "",
     };
   }
   noChange(e) {
