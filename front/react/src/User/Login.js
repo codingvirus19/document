@@ -11,7 +11,7 @@ import {
 import Router1 from "../Router1";
 import styles from './Login.css';
 
-const API_URL = "http://192.168.1.132:8080/codingvirus19";
+const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
   accept: "application/json",
 };
@@ -35,7 +35,7 @@ export default class login extends React.Component {
   Login() {
     console.log(this.state);
     const formData = new FormData();
-    formData.append("email", this.state.email);
+    formData.append("username", this.state.email);
     formData.append("password", this.state.password);
     fetch(`${API_URL}/user/auth`, {
       method: "post",
