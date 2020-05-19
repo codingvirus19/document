@@ -4,25 +4,26 @@ package com.douzone.codingvirus19.controller.api;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javax.sql.rowset.Joinable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.douzone.codingvirus19.vo.ChatMessageVo;
 import com.douzone.codingvirus19.vo.EditorVo;
 
 @RestController
 public class MemoApiController {
+	
 	@Autowired
 	private SimpMessagingTemplate webSocket;
+	
 	static ArrayList<Long> version = new ArrayList<>();
 	static String str = "";
+	
 	@MessageMapping("/memo/{memo}")
-	@SendTo("192.168.1.27:8090/codingvirus19/api/{memo}")
 	public void sendmemo(EditorVo message, @DestinationVariable String memo) throws Exception {
 		ArrayList<String> arrData = new ArrayList<String>();
 		Collections.addAll(arrData, str.split(""));
@@ -47,19 +48,9 @@ public class MemoApiController {
 		}
 		str = String.join("", arrData);
 		System.out.println(str);
-//		System.out.println(str);
-////		ab[message.getInputIndex()-1] = message.getKey();
-////		String str = String.join("", ab);
-////		key = str;
-//		
-////		System.out.println(key);
-//		 
-//		
-////		System.out.println(key);
-////		System.out.println(key);
-		
-//		message.setVersion(message.getVersion()+1);
-		System.out.println(message);
+		System.out.println(message); 
 		webSocket.convertAndSend("/api/memo/" + memo, message);
 	}
+	
+
 }

@@ -8,11 +8,11 @@ export default class MessageList extends React.Component{
             <ul className={styles.chat__messagelist} ref="messageBox" >
                 { this.props.contents.map((message,index) =>{
                     return(
-                    <li key={index} >
-                        <div>
-                            {message.nickname} : {message.message}
-                        </div>
-                    </li>
+                        <li key={index} >
+                            <div>
+                                {message.nickname} : {message.message}
+                            </div>
+                        </li>
                 ) } ) }
             </ul>
         )

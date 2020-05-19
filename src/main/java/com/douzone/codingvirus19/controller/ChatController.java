@@ -15,21 +15,16 @@ public class ChatController {
 	
 	@Autowired
 	private SimpMessagingTemplate webSocket;
-	
-//	@RequestMapping({"/chat"})
-//	public String index(Model model) {
-//		return "main/chat";
-//	}
-	@MessageMapping("/message/{room}")
-	@SendTo("192.168.1.27:8090/codingvirus19/api/message/{room}")
+
+	@MessageMapping("/chat/{room}")
 	public void sendMessage(ChatMessageVo message, @DestinationVariable String room) throws Exception{
-		
+		System.out.println("접속");
 		System.out.println(message.getGroup_no());
 		System.out.println(message.getNickname());
 		System.out.println(message.getMessage());
 		System.out.println("웹 소켓 controller 들어 왔습니다.");
 		System.out.println(room);
 		
-		webSocket.convertAndSend("/api/message/"+room, message);
+		webSocket.convertAndSend("/api/chat/"+room, message);
 	}
 }
