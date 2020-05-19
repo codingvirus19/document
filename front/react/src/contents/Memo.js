@@ -6,7 +6,6 @@ export default class Memo extends React.Component {
       <input
         className="container_memo-form memo"
         type="textarea"
-        value={this.props.내용}
       />
     );
   }
