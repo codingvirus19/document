@@ -23,8 +23,8 @@ public class MainService {
 
 	
 
-// 	public List<GroupVo> findByGroupList() {
-// 		List<GroupVo> list = mainRepository.findByGroupList();
-// 		return list;
-// 	}
+ 	public List<GroupVo> findByGroupList() {
+ 		List<GroupVo> list = mainRepository.findByGroupList();
+ 		return list;
+ 	}
 }
