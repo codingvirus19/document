@@ -9,7 +9,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import Router1 from "../Router1";
-import styles from './Login.css';
+import styles from "./Login.css";
 
 const API_URL = "http://192.168.1.132:8080/codingvirus19";
 const API_HEADERS = {
@@ -23,14 +23,13 @@ export default class login extends React.Component {
       password: "",
       result: false,
       showJoin: false,
-      nickname:'',
-      Email:'',
-      JoinPassword:'',
-      JoinPassword2:'',
-      ID:''
+      nickname: "",
+      Email: "",
+      JoinPassword: "",
+      JoinPassword2: "",
+      ID: "",
     };
   }
-
 
   Login() {
     console.log(this.state);
@@ -51,7 +50,6 @@ export default class login extends React.Component {
       .catch((err) => console.error(err));
   }
 
-
   /* 05.14 수정 건들지말 것!! */
   ViewChange() {
     this.setState({
@@ -61,7 +59,7 @@ export default class login extends React.Component {
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
@@ -69,7 +67,13 @@ export default class login extends React.Component {
     if (this.state.showJoin) {
       return (
         <div className={styles.formContent}>
-          <h2 className={`${styles.inactive} ${styles.underlineHover}`} onClick={this.ViewChange.bind(this)}> Sign In </h2>
+          <h2
+            className={`${styles.inactive} ${styles.underlineHover}`}
+            onClick={this.ViewChange.bind(this)}
+          >
+            {" "}
+            Sign In{" "}
+          </h2>
           <h2 className={styles.active}>Sign Up </h2>
           <div className={`${styles.fadeIn} ${styles.first}`}>
             {/* <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" /> */}
@@ -77,55 +81,116 @@ export default class login extends React.Component {
 
           {/* <form> */}
           <form method="post" action="/">
-          <input type="text" className={`${styles.fadeIn} `} value={this.state.nickname} onChange={this.handleChange.bind(this)}  name="nickname" placeholder="nickname" />
-          <input type="text" className={`${styles.fadeIn} ${styles.second}`} value={this.state.ID} onChange={this.handleChange.bind(this)} name="ID" placeholder="ID" />
-          <input type="text" className={`${styles.fadeIn} ${styles.third}`} value={this.state.Email} onChange={this.handleChange.bind(this)} name="Email" placeholder="Email" />
-          <input type="text" className={`${styles.fadeIn} ${styles.third}`} value={this.state.JoinPassword} onChange={this.handleChange.bind(this)} name="JoinPassword" placeholder="Password" />
-          <input type="text" className={`${styles.fadeIn} ${styles.fourth}`} value={this.state.JoinPassword2} onChange={this.handleChange.bind(this)} name="JoinPassword2" placeholder="Password" />
-          <input type="submit" className={`${styles.fadeIn} ${styles.fourth}`} value="Join" onClick={(e)=>e.preventDefault()} />
+            <input
+              type="text"
+              className={`${styles.fadeIn} `}
+              value={this.state.nickname}
+              onChange={this.handleChange.bind(this)}
+              name="nickname"
+              placeholder="nickname"
+            />
+            <input
+              type="text"
+              className={`${styles.fadeIn} ${styles.second}`}
+              value={this.state.ID}
+              onChange={this.handleChange.bind(this)}
+              name="ID"
+              placeholder="ID"
+            />
+            <input
+              type="text"
+              className={`${styles.fadeIn} ${styles.third}`}
+              value={this.state.Email}
+              onChange={this.handleChange.bind(this)}
+              name="Email"
+              placeholder="Email"
+            />
+            <input
+              type="text"
+              className={`${styles.fadeIn} ${styles.third}`}
+              value={this.state.JoinPassword}
+              onChange={this.handleChange.bind(this)}
+              name="JoinPassword"
+              placeholder="Password"
+            />
+            <input
+              type="text"
+              className={`${styles.fadeIn} ${styles.fourth}`}
+              value={this.state.JoinPassword2}
+              onChange={this.handleChange.bind(this)}
+              name="JoinPassword2"
+              placeholder="Password"
+            />
+            <input
+              type="submit"
+              className={`${styles.fadeIn} ${styles.fourth}`}
+              value="Join"
+              onClick={(e) => e.preventDefault()}
+            />
           </form>
           {/* </form> */}
 
-          <div className={styles.formFooter}>
+          <div className={styles.formFooter}></div>
+        </div>
+      );
+    } else {
+      return (
+        <div className={styles.formContent}>
+          <h2 className={styles.active}> Sign In </h2>
+          <h2
+            className={`${styles.inactive} ${styles.underlineHover}`}
+            onClick={this.ViewChange.bind(this)}
+          >
+            Sign Up{" "}
+          </h2>
+          <div className={`${styles.fadeIn} ${styles.first}`}>
+            {/* <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" /> */}
           </div>
 
-        </div>)
-    } else {
-      return (<div className={styles.formContent}>
-        <h2 className={styles.active} > Sign In </h2>
-        <h2 className={`${styles.inactive} ${styles.underlineHover}`} onClick={this.ViewChange.bind(this)} >Sign Up </h2>
-        <div className={`${styles.fadeIn} ${styles.first}`}>
-          {/* <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" /> */}
+          {/* <form> */}
+          <input
+            type="text"
+            id="login"
+            className={`${styles.fadeIn} ${styles.second}`}
+            name="email"
+            value={this.state.email}
+            onChange={this.handleChange.bind(this)}
+            placeholder="login"
+          ></input>
+          <input
+            type="password"
+            id="password"
+            className={`${styles.fadeIn} ${styles.third}`}
+            name="password"
+            value={this.state.password}
+            onChange={this.handleChange.bind(this)}
+            placeholder="password"
+          />
+          <input
+            type="submit"
+            className={`${styles.fadeIn} ${styles.fourth}`}
+            value="Log In"
+            onClick={this.Login.bind(this)}
+          />
+          {/* </form> */}
+
+          <div className={styles.formFooter}>
+            {/* <a className={styles.underlineHover} href="#">Forgot Password?</a> */}
+          </div>
         </div>
-
-        {/* <form> */}
-      <input type="text" id="login"  className={`${styles.fadeIn} ${styles.second}`} name="email" value={this.state.email} onChange={this.handleChange.bind(this)}placeholder="login" ></input>
-        <input type="password" id="password" className={`${styles.fadeIn} ${styles.third}`} name="password"  value={this.state.password}  onChange={this.handleChange.bind(this)} placeholder="password" />
-        <input type="submit" className={`${styles.fadeIn} ${styles.fourth}`} value="Log In" onClick={this.Login.bind(this)} />
-        {/* </form> */}
-
-        <div className={styles.formFooter}>
-          {/* <a className={styles.underlineHover} href="#">Forgot Password?</a> */}
-        </div>
-
-      </div>)
+      );
     }
   }
   /* 05.14 수정 건들지말 것!! */
 
-
-
   render() {
     if (this.state.result === true) {
-      return (
-        <Redirect to="./main" />
-      );
+      return <Redirect to="./main" />;
     }
     return (
       <div className={`${styles.wrapper} ${styles.fadeInDown}`}>
         {this.View()}
       </div>
-
     );
   }
 }

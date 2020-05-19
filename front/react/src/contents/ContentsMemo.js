@@ -11,17 +11,14 @@ const API_HEADERS = {
 export default class Contents extends React.Component {
   constructor() {
     super(...arguments);
-    
   }
-  
- 
 
   render() {
     return (
       <div className="contents-memo">
-        <div className="memo_container">
+        <div key={this.props.group_no} className="memo_container">
           <form className="container_memo-form">
-            <Memo  />
+            <Memo />
             <HashList />
             <Toolbar />
           </form>

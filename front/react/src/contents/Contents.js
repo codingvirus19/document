@@ -16,43 +16,36 @@ export default class Contents extends React.Component {
     };
   }
 
-  // onGetMemoData() {
-  //   let input_date = {
-  //     no: "",
-  //     gNo: "",
-  //     uNo: "",
-  //     content: "",
-  //     color: "",
-  //     date: "",
-  //   };
-  //   // call api
-  //   fetch(`${API_URL}/api/main`, {
-  //     method: "post",
-  //     headers: API_HEADERS,
-  //     body: JSON.stringify(input_date),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       let newResult = json.data;
-  //       // if (newResult.result == "success") {
-  //       //   console.log("성공!");
-  //       // }
-  //       console.log(json);
-  //       console.log(json.data);
-  //       this.setState({
-  //         result: newResult,
-  //       });
-  //     })
-  //     .catch((err) => console.error(err));
-  // }
+  componentDidMount() {
+    let input_date = {
+      no: this.props.group_no,
+      name: this.props.group_name,
+    };
+    console.log(input_date);
+    // call api
+    fetch(`${API_URL}/api/contents`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(input_date),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        let newResult = json.data;
+        console.log(json);
+        console.log(json.data);
+        this.setState({
+          result: newResult,
+        });
+      })
+      .catch((err) => console.error(err));
+  }
 
   render() {
-    // this.onGetMemoData();
+    console.log(this.props.group_name[0]);
     return (
       <div className="contents">
         <ContentsHeader />
-        <ContentsMemo />
-
+        <ContentsMemo group_no={this.props.group_no} />
         <Footer />
       </div>
     );

@@ -18,8 +18,8 @@ public class MainRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<MemoVo> findAllMemo(UserVo authUser) {
-		List<MemoVo> memoList = sqlSession.selectList("main.findAllMemo", authUser);
+	public List<MemoVo> findAllMemo(GroupVo vo) {
+		List<MemoVo> memoList = sqlSession.selectList("main.findAllMemo", vo);
 		return memoList;
 	}
 	
