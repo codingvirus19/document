@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserVo userVo = new UserVo();
-        userVo.setRole("GUEST");
+        userVo.setRole("ROLE_GUEST");
         userVo.setName("test");
         userVo.setId("test");
         userVo.setPassword("1234");
