@@ -17,8 +17,8 @@ export default class Sidebar extends React.Component {
   render() {
     // console.log(this.state.g_name);
     // console.log(this.state.g_no);
-    console.log(this.props.group_name);
-    console.log(this.props.group_no);
+    // console.log(this.props.group_name);
+    // console.log(this.props.group_no);
 
     if (this.state.showGroupList) {
       this.state.hash = this.props.hashs.filter(

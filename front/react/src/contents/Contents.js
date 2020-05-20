@@ -12,14 +12,18 @@ export default class Contents extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-      result: null,
+      memoArr: [],
     };
   }
 
   componentDidMount() {
-    let input_date = {
-      no: this.props.group_no,
-      name: this.props.group_name,
+    let group = this.props.group;
+    let input_date = {};
+    let _memoArr = null;
+
+    input_date = {
+      no: group.no,
+      name: group.name,
     };
     console.log(input_date);
     // call api
@@ -30,22 +34,27 @@ export default class Contents extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        let newResult = json.data;
-        console.log(json);
-        console.log(json.data);
-        this.setState({
-          result: newResult,
-        });
+        _memoArr = json.data;
+        this.UpdateMemo(_memoArr);
+        console.log(_memoArr);
       })
       .catch((err) => console.error(err));
   }
 
+  UpdateMemo(_memoArr) {
+    this.setState({
+      memoArr: _memoArr,
+    });
+  }
+
   render() {
-    console.log(this.props.group_name[0]);
     return (
       <div className="contents">
         <ContentsHeader />
-        <ContentsMemo group_no={this.props.group_no} />
+        {/* <ContentsMemo memoArr={this.state.memoArr} /> */}
+        {this.state.memoArr.map((memo) => {
+          <ContentsMemo key={memo.no} content={memo.content} />;
+        })}
         <Footer />
       </div>
     );

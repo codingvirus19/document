@@ -12,14 +12,17 @@ export default class Container extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
+      group: {},
       g_no: [],
       g_name: [],
       g_noUpdate: "",
     };
   }
   componentDidMount() {
-    let gno = [];
-    let gname = [];
+    let _g_no = [];
+    let _g_name = [];
+    let groupDatas = null;
+
     // call api
     fetch(`${API_URL}/api/container`, {
       method: "post",
@@ -27,33 +30,42 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        this.setState({
-          result: json.data,
+        groupDatas = json.data;
+
+        groupDatas.map((data) => {
+          this.UpdateGroup(data);
+          console.log(data);
         });
+
         json.data.map((temp) => {
-          gno.push(temp.no);
-          gname.push(temp.name);
+          _g_no.push(temp.no);
+          _g_name.push(temp.name);
         });
-        this.Update(gno, gname);
+        this.Update(_g_no);
+        this.Update(_g_name);
       })
       .catch((err) => console.error(err));
   }
 
-  Update(gno, gname) {
+  UpdateGroup(_group) {
     this.setState({
-      g_no: gno,
-      g_name: gname,
+      group: _group,
+    });
+  }
+
+  Update(_g_no, _g_name) {
+    this.setState({
+      g_no: _g_no,
+      g_name: _g_name,
     });
   }
 
   render() {
-    // console.log(this.state.g_name);
-    // console.log(this.state.g_no);
     return (
       <div className="container">
         <Header />
         <Sidebar group_no={this.state.g_no} group_name={this.state.g_name} />
-        <Contents />
+        <Contents group={this.state.group} />
       </div>
     );
   }
