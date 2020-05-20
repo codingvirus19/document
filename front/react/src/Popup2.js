@@ -14,7 +14,7 @@ export default class Popup2 extends React.Component {
       popup2_confirm_btn = "수정"
     }
     if (this.props.contents === 'groupAddOrInvite') {
-      contents = <GroupAddOrInvite />
+      contents = <GroupAddOrInvite g_no={this.props.g_no} g_name={this.props.g_name}/>
     }
 
     return (
