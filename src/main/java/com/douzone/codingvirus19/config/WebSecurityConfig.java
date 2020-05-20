@@ -38,7 +38,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl("/user/auth")
 				.failureUrl("/error") // default
 				.defaultSuccessUrl("/main", true) // 로그인 성공시
-				.successHandler(authenticationSuccessHandler());
+				.successHandler(authenticationSuccessHandler())
+				.usernameParameter("username")
+				.passwordParameter("password");
+		
+		
 		http.logout().logoutUrl("/logout") // default
 				.logoutSuccessUrl("/").permitAll();
 
