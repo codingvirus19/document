@@ -32,7 +32,7 @@ export default class ChatRoomList extends React.Component {
         //   message: mg
         // })
         console.log(mg);
-        this.clientRef.sendMessage("/api/chat/0", JSON.stringify({group_no:0, nickname: `유저` + (this.state.randomName), message: mg }));
+        this.clientRef.sendMessage("/app/chat/"+this.state.g_no, JSON.stringify({group_no:this.state.g_no, nickname: `유저` + (this.state.randomName), message: mg }));
     }
 
     onMessageReceive(msg, topic) {
@@ -52,7 +52,7 @@ export default class ChatRoomList extends React.Component {
     render() {
 
         console.log(this.scrollBottom);
-        const wsSourceUrl = "http://192.168.1.132:8080/codingvirus19/api/memo";
+        const wsSourceUrl = "http://localhost:8080/codingvirus19/api/chat";
 
         return (
             <Fragment>
@@ -67,7 +67,7 @@ export default class ChatRoomList extends React.Component {
                     </div>
                     <SockJsClient
                         url={wsSourceUrl}
-                        topics={[`/api/chat/0`]}
+                        topics={[`/api/chat/${this.state.g_no}`]}
                         onMessage={this.onMessageReceive.bind(this)}
                         ref={(client) => { this.clientRef = client }}
                         onConnect={() => { this.setState({ clientConnected: true }) }} />

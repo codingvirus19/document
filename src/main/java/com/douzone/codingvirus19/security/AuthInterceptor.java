@@ -71,9 +71,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		// @Auth의 role => "ADMIN"
 		// authUser의 role => "ADMIN"
 		// 관리자 권한으로 실행
-		return true;
-		
-		
+		return true;			
 	}
 	
 }
