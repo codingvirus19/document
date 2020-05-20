@@ -28,4 +28,10 @@ public class MainApiController {
 //		httpSession.setAttribute("authUser", authUser);
 		return JsonResult.success(list);
 	}
+	
+	@PostMapping("/addGroup")
+	public JsonResult addGroup(@RequestBody GroupVo vo) {
+		System.out.println(vo);
+		return JsonResult.success(vo);
+	}
 }

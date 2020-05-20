@@ -47,6 +47,7 @@ export default class ContentsHeader extends React.Component {
             <i className="fas fa-user-plus"></i>
           </button>
           {this.state.ShowGroupAddOrInvite ? (
+          // { true ? (
             <Popup2
               inner_header="그룹생성 및 초대"
               contents={'groupAddOrInvite'}

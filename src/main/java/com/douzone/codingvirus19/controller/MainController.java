@@ -13,10 +13,7 @@ public class MainController implements ErrorController {
 
 	@GetMapping({"/","/error"})
 	public String index(HttpSession session) {
-		Object auth = session.getAttribute("auth");
-		if(auth == null) {
-			return "main/index";
-		}
+
 		return "redirect:/main"; 
 	}
 
