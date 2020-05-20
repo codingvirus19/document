@@ -18,10 +18,11 @@ import com.douzone.codingvirus19.vo.UserVo;
 @RestController
 @RequestMapping("/api")
 public class MainApiController {
- 	@Autowired
+	@Autowired
  	private MainService mainService;
  	
  	@PostMapping("/container")
+
 
  	public JsonResult login(@AuthUser SecurityUser securityUser, @RequestBody UserVo authUser) {
  		List<GroupVo> list = mainService.findByGroupList(authUser);

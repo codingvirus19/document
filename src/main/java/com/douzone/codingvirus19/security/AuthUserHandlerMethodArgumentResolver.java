@@ -1,3 +1,4 @@
+
 package com.douzone.codingvirus19.security;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;
@@ -15,11 +16,9 @@ public class AuthUserHandlerMethodArgumentResolver implements HandlerMethodArgum
         ModelAndViewContainer mavContainer,
         NativeWebRequest webRequest, 
         WebDataBinderFactory binderFactory) throws Exception {
-
         Object principal = null;
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+        
         if(authentication != null ) {
             principal = authentication.getPrincipal();
         }
