@@ -40,7 +40,7 @@ export default class MessageList extends React.Component{
     render(){
         return(
             <form onSubmit={this.onChatSubmit.bind(this)} className={styles.inputTable}>
-                <input name='chat' type="text" id="Message" className={styles.Message} placeholder="내용을 입력하세요"
+                <input name='chat' type="text" className={styles.Message} placeholder="내용을 입력하세요"
                     value={this.state.message}
                     onChange={this.onInputChanged.bind(this)}
                     onKeyPress={this.chatKeyPress.bind(this)} />

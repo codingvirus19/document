@@ -25,14 +25,14 @@
 //		
 //	public JsonResult login(HttpSession httpSession, @RequestBody UserVo vo) {
 //
-//		System.out.println("Controller vo" + vo);
+//		System.out.println("Controller" + vo);
 //		UserVo authUser = userService.findByIdAndPassword(vo);
 //		httpSession.setAttribute("authUser", authUser);
-//		
-//		if(authUser != null) {
-//			return JsonResult.success(true);
-//		}
-//		return JsonResult.success(false);
+////		
+////		if(authUser != null) {
+////			return JsonResult.success(authUser);
+////		}
+//		return JsonResult.success(authUser);
 //	}
 //	
 //	@PostMapping("/join")

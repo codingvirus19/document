@@ -1,6 +1,7 @@
 package com.douzone.codingvirus19.security;
 
 import java.io.IOException;
+import java.security.Principal;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		SavedRequest savedRequest = requestCache.getRequest(request, response);
+		System.out.println("로그인성공 핸들러");
 		if (savedRequest != null) {
 			requestCache.removeRequest(request, response);
 			clearAuthenticationAttributes(request);
@@ -39,20 +41,19 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if (principal != null && principal instanceof UserDetails) {
 				securityUser = (SecurityUser) principal;
+				System.out.println(securityUser);
 			}
 		}
-	
 		// 일반 응답일 경우
 		if (accept == null || accept.matches(".*application/json.*") == false) {
-
+			System.out.println("error");
 			request.getSession(true).setAttribute("loginNow", true);
-			getRedirectStrategy().sendRedirect(request, response, "/");
+//			getRedirectStrategy().sendRedirect(request, response, "/");
 			// 메인으로 돌아가!
 			// 이전페이지로 돌아가기 위해서는 인증페이지로 가기 전 URL을 기억해 놓았다가
 			return;
 		}
 		HttpSession session = request.getSession();
-		System.out.println(authentication.getPrincipal());
 		session.setAttribute("auth",authentication.getPrincipal());
 //		 application/json(ajax) 요청일 경우 아래의 처리!
 		securityUser.setPassword("");

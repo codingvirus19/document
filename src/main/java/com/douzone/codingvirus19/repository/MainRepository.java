@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.douzone.codingvirus19.vo.MemoVo;
+import com.douzone.codingvirus19.vo.UserVo;
 import com.douzone.codingvirus19.vo.GroupVo;
 
 
@@ -16,18 +18,15 @@ public class MainRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<GroupVo> findByGroupList() {
-		return sqlSession.selectList("groups.findByGroupList");
+	public List<MemoVo> findAllMemo(UserVo authUser) {
+		List<MemoVo> memoList = sqlSession.selectList("main.findAllMemo", authUser);
+		return memoList;
 	}
+	
+ 	public List<GroupVo> findByGroupList() {
+ 		return sqlSession.selectList("groups.findByGroupList");
+ 	}
 
-//	public MainVo find() { 
-//		return  sqlSession.selectOne("main.find");
-//	}
-//
-//	public void update(MainVo vo) {
-//		System.out.println("Repository"+vo);
-//		sqlSession.update("main.update",vo);
-//	}
-//	
+
 
 }

@@ -16,13 +16,11 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.douzone.codingvirus19.security.AuthInterceptor;
+import com.douzone.codingvirus19.security.AuthUserHandlerMethodArgumentResolver;
 
 @Configuration
 @PropertySource("classpath:com/douzone/codingvirus19/config/config.properties")
@@ -30,10 +28,6 @@ public class WebConfig implements WebMvcConfigurer {
 	@Autowired
 	private Environment env;
 
-	@Bean
-	public HandlerInterceptor authInterceptor() {
-		return new AuthInterceptor();
-	}
 	
 	@Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -41,6 +35,16 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:8090");
 //                .allowedOrigins("http://localhost:8080");
     }
+	
+	@Bean
+	public AuthUserHandlerMethodArgumentResolver authUserHandlerMethodArgumentResolver() {
+		return new AuthUserHandlerMethodArgumentResolver();
+	}
+	
+	@Override
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+		argumentResolvers.add(authUserHandlerMethodArgumentResolver());
+	}
 	
 	// Message Converters
 	@Bean

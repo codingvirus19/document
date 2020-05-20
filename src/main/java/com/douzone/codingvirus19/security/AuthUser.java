@@ -12,5 +12,4 @@ import javax.servlet.http.HttpSession;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface AuthUser {
-	
-}
+} 
