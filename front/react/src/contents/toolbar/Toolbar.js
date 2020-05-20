@@ -144,6 +144,7 @@ export default class Toolbar extends React.Component {
                 <button
                     className="tool"
                     aria-label="파일 올리기">
+                        {/* <input type="file"></input> */}
                     <i className="fas fa-file-upload" />
                 </button>
 
