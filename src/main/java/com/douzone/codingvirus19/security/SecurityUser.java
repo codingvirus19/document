@@ -7,15 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class SecurityUser implements UserDetails {
 
-    @Override
-	public String toString() {
-		return "SecurityUser [authorities=" + authorities + ", username=" + username + ", password=" + password
-				+ ", name=" + name + "]";
-	}
 
 	private Collection<? extends GrantedAuthority> authorities;
     private String username;  // principal - biz name : email
     private String password;  // credential
+    private Long no;
     // etc
     private String name;  // biz data
 
@@ -76,6 +72,20 @@ public class SecurityUser implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
+
+	public Long getNo() {
+		return no;
+	}
+
+	public void setNo(Long no) {
+		this.no = no;
+	}
+
+	@Override
+	public String toString() {
+		return "SecurityUser [authorities=" + authorities + ", username=" + username + ", password=" + password
+				+ ", no=" + no + ", name=" + name + "]";
+	}
     
     
 }
