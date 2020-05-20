@@ -31,6 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         userVo.setRole("ROLE_GUEST");
         SecurityUser securityUser = new SecurityUser();
         if ( userVo != null ) {
+        	securityUser.setNo(userVo.getNo());
             securityUser.setName(userVo.getNickname());         
             securityUser.setUsername(userVo.getId());     // principal
             securityUser.setPassword(passwordEncoder.encode(userVo.getPassword()));  // credetial

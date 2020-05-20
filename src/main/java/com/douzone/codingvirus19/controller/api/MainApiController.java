@@ -16,13 +16,12 @@ import com.douzone.codingvirus19.vo.GroupVo;
 @RestController
 @RequestMapping("/api")
 public class MainApiController {
- 	@Autowired
+	@Autowired
  	private MainService mainService;
 	
  	@PostMapping("/container")
  	public JsonResult login(@AuthUser SecurityUser securityUser) {
  		List<GroupVo> list = null;
-		System.out.println(securityUser);
  		return JsonResult.success(list);
 	}
 }

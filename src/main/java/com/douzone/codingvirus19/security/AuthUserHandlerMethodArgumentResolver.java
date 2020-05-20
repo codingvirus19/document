@@ -15,11 +15,9 @@ public class AuthUserHandlerMethodArgumentResolver implements HandlerMethodArgum
         ModelAndViewContainer mavContainer,
         NativeWebRequest webRequest, 
         WebDataBinderFactory binderFactory) throws Exception {
-
         Object principal = null;
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+        
         if(authentication != null ) {
             principal = authentication.getPrincipal();
         }
