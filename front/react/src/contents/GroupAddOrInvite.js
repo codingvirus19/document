@@ -1,7 +1,8 @@
 import React from "react";
 
 import CreatableSelect from 'react-select/creatable';
-import Select from 'react-select'
+import Select from 'react-select';
+import styles from '../Popup2.css';
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
@@ -44,7 +45,7 @@ export default class GroupAddOrInvite extends React.Component {
             fetch(`${API_URL}/api/addGroup`, {
                 method: "post",
                 headers: API_HEADERS,
-                data:JSON.stringify(data)
+                body: JSON.stringify(data)
               })
                 .then((response) => response.json())
                 .then((json) => {
@@ -77,11 +78,11 @@ export default class GroupAddOrInvite extends React.Component {
         // console.log(this.state.addElement)
         return (
             <>
-                <div className="inner_form-component">
-                    <span className="inner_form-container-title">그룹이름</span>
+                <div className={styles.inner_form_component}>
+                    <span className={styles.inner_form_container_title}>그룹이름</span>
                     <CreatableSelect
                         autoFocus={true}
-                        className="popup2_inner_select"
+                        className={styles.inner_select}
                         defaultMenuIsOpen={true}
                         closeMenuOnSelect={false}
                         menuIsOpen={true}
@@ -91,10 +92,10 @@ export default class GroupAddOrInvite extends React.Component {
                         placeholder="그룹선택"
                     />
                 </div>
-                <div className="inner_form-component">
-                    <span className="inner_form-container-title">초대할 사용자</span>
+                <div className={styles.inner_form_component}>
+                    <span className={styles.inner_form_container_title}>초대할 사용자</span>
                     <Select
-                        className="popup2_inner_select"
+                        className={styles.popup2_inner_select}
                         isMulti
                         defaultMenuIsOpen={true}
                         closeMenuOnSelect={false}

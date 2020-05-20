@@ -1,14 +1,16 @@
 import React from "react";
 
+import styles from "./Sheets.css";
+
 export default class GroupShareSheet extends React.Component {
 
     render() {
         return (
-            <div className="groupShareSheet" ref={this.props.refChange}>
+            <div className={styles.groupShareSheet} ref={this.props.refChange}>
                 공유할 그룹이름
                 <select
                     multiple
-                    className="select_group">
+                    className={styles.select_group}>
                     <option value="그룹1">그룹1</option>
                     <option value="그룹2">그룹2</option>
                     <option value="그룹3">그룹3</option>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Join from './User/Join';
-import Login from './User/Login';
+import Join from './user/Join';
+import Login from './user/Login';
 import Container from './Container';
 import NotFound from './NotFound';
 

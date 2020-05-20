@@ -1,9 +1,10 @@
 import React from "react";
 
-import GroupShareSheet from "./GroupShareSheet"
-import ShareSheet from "./ShareSheet"
-import ColorSheet from "./ColorSheet"
-import HashSheet from "./HashSheet"
+import GroupShareSheet from "./GroupShareSheet";
+import ShareSheet from "./ShareSheet";
+import ColorSheet from "./ColorSheet";
+import HashSheet from "./HashSheet";
+import styles from "./Toolbar.css";
 
 export default class Toolbar extends React.Component {
 
@@ -85,9 +86,9 @@ export default class Toolbar extends React.Component {
 
     render() {
         return (
-            <div className="toolbar">
+            <div className={styles.toolbar}>
                 <button
-                    className="tool"
+                    className={styles.tool}
                     aria-label="그룹공유"
                     onClick={this.toggleGroupShareSheet.bind(this)}>
                     <i className="fab fa-slideshare" />
@@ -99,7 +100,7 @@ export default class Toolbar extends React.Component {
                 ) : null}
 
                 <button
-                    className="tool"
+                    className={styles.tool}
                     aria-label="외부 공유"
                     onMouseEnter={() => this.setState({ showShareSheet: true })}
                     onMouseLeave={() => this.setState({ showShareSheet: false })}>
@@ -111,19 +112,20 @@ export default class Toolbar extends React.Component {
                 ) : null}
 
                 <button
-                    className="tool"
+                    className={styles.tool}
                     aria-label="색상 변경"
                     onMouseEnter={() => this.setState({ showColorSheet: true })}
                     onMouseLeave={() => this.setState({ showColorSheet: false })}>
                     <i className="fas fa-palette" />
                 </button>
-                {this.state.showColorSheet ? (
+                {/* {this.state.showColorSheet ? ( */}
+                {true ? (
                     <ColorSheet
                         toggleColorSheetHandler={this.toggleColorSheet.bind(this)} />
                 ) : null}
 
                 <button
-                    className="tool"
+                    className={styles.tool}
                     aria-label="해시 추가"
                     onClick={this.toggleHashSheet.bind(this)}>
                     <i className="fab fa-slack-hash" />
@@ -135,23 +137,23 @@ export default class Toolbar extends React.Component {
                 ) : null}
 
                 <button
-                    className="tool"
+                    className={styles.tool}
                     aria-label="내 컴퓨터에 저장"
-                    onClick={this.saveLocal}>
+                    onClick={this.saveLocal.bind(this)}>
                     <i className="far fa-save" />
                 </button>
 
                 <button
-                    className="tool"
+                    className={styles.tool}
                     aria-label="파일 올리기">
                         {/* <input type="file"></input> */}
                     <i className="fas fa-file-upload" />
                 </button>
 
                 <button
-                    className="tool"
+                    className={styles.tool}
                     aria-label="메모 삭제"
-                    onClick={this.delete}>
+                    onClick={this.delete.bind(this)}>
                     <i className="far fa-trash-alt" />
                 </button>
 

@@ -1,6 +1,8 @@
 import React from "react";
 
-import Table from "react-bootstrap/Table"
+import Table from "react-bootstrap/Table";
+
+import styles from "./Sheets.css";
 
 export default class ShareSheet extends React.Component {
 
@@ -10,7 +12,7 @@ export default class ShareSheet extends React.Component {
 
     render() {
         return (
-            <div className="shareSheet"
+            <div className={styles.shareSheet}
             onMouseEnter={this.onMouseChange.bind(this, true)}
             onMouseLeave={this.onMouseChange.bind(this, false)}>
                     <Table>

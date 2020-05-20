@@ -1,10 +1,13 @@
 import React from "react";
+
 import Dropdown from "react-bootstrap/Dropdown";
+
+import styles from "./Userbell.css";
 
 export default class Userbell extends React.Component {
   render() {
     return (
-      <Dropdown className="header-bell">
+      <Dropdown className={styles.userbell}>
         <Dropdown.Toggle
           className="header-bell__icon"
           variant="success"

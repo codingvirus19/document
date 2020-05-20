@@ -3,6 +3,8 @@ import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import Contents from "./contents/Contents";
 
+import styles from "./Container.css"
+
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
   "Content-Type": "application/json",
@@ -50,11 +52,8 @@ export default class Container extends React.Component {
   }
 
   render() {
-    // console.log(this.state.g_name);
-    // console.log(this.state.g_no);
-    // console.log(this.state.currentG_no)
     return (
-      <div className="container">
+      <div className={styles.container}>
         <Header/>
         <Sidebar group_no={this.state.g_no} group_name={this.state.g_name} />
         <Contents g_no={this.state.g_no} g_name={this.state.g_name}/>
