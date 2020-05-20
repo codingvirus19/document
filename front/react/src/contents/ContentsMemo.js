@@ -16,9 +16,11 @@ export default class Contents extends React.Component {
     };
   }
   render() {
-    // console.log(this.state.memoArr.no);
+    // console.log(this.props.content);
+
     return (
       <div className="contents-memo">
+        {/* {this.props.memo_bigArr.memo_no.map()} */}
         <div className="memo_container">
           <form className="container_memo-form">
             <Memo />
