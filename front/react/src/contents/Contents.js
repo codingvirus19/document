@@ -50,7 +50,7 @@ export default class Contents extends React.Component {
     // this.onGetMemoData();
     return (
       <div className="contents">
-        <ContentsHeader />
+        <ContentsHeader  g_no={this.props.g_no} g_name={this.props.g_name}/>
         <ContentsMemo />
 
         <Footer />

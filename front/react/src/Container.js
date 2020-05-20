@@ -9,9 +9,11 @@ const API_HEADERS = {
 };
 
 export default class Container extends React.Component {
+
   constructor() {
     super(...arguments);
     this.state = {
+
       group:{no:[],gname:[]},
       g_noUpdate: false,
       g_no:null
@@ -22,6 +24,7 @@ export default class Container extends React.Component {
     let user_data = {
       no : 1
     };
+
     // call api
     fetch(`${API_URL}/api/container`, {
       method: "post",
@@ -46,6 +49,7 @@ export default class Container extends React.Component {
   }
 
 
+
   // abcd(){
   //   fetch(`${API_URL}/api/container`, {
   //     method: "post",
@@ -68,6 +72,7 @@ export default class Container extends React.Component {
   // }
 
   Update(group) {
+
     this.setState({
       group: group 
     })
@@ -92,6 +97,7 @@ export default class Container extends React.Component {
         <Header />
         <Sidebar group={this.state.group} group_update={this.SidebarGroupUpdate.bind(this)} />
         <Contents />
+
       </div>
     );
   }

@@ -15,11 +15,13 @@ export default class Sidebar extends React.Component {
     }
   }
 
+
   onInputChange(e) {
     this.setState({
       keyword: e.target.value
     })
   };
+
 
   update(g_no,g_name) {
     this.setState({
@@ -52,6 +54,7 @@ export default class Sidebar extends React.Component {
     return (
       <div className="sidebar">
         <Nav className="sidebar-nav">
+
           <Nav.Link href="#"
             onClick={() => this.update(null)}
             className="sidebar-nav-menu"> 개인메모 </Nav.Link>
@@ -63,6 +66,7 @@ export default class Sidebar extends React.Component {
                   className="sidebar-nav-menu-groupmenu"> {name} </NavDropdown.Item>
               ))}
             </NavDropdown>
+
         </Nav>
         <div className="sidebar-nav-menu">
           {hashtagList}

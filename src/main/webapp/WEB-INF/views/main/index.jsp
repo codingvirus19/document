@@ -12,5 +12,5 @@
 <body>
 	<div id ='container'>
 	</div>
-	<script src="./assets/js/bundle.js"></script>
+	<script src="http://localhost:8090/bundle.js"></script>
 </body>
