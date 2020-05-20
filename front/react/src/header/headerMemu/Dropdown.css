@@ -1,14 +1,14 @@
 .menu {
-    background-color: #fff;
-    width: 10rem;
-    background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 0.25rem;
-    text-align: center;
-    right: auto;
-    bottom: auto;
-    top: 0px;
-    left: 0px;
-    transform: translate(-133.6px, 60.8px);
-    z-index: 1;
-  }
+  background-color: #fff;
+  width: 10rem;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  text-align: center;
+  right: auto;
+  bottom: auto;
+  top: 0px;
+  left: 0px;
+  transform: translate(-133.6px, 60.8px);
+  z-index: 1;
+}

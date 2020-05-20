@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import Accordion from 'react-bootstrap/Accordion'
 import Dropdown from "react-bootstrap/Dropdown";
 import content from "./chat.json";
@@ -16,7 +16,7 @@ export default class Chatting extends React.Component {
    }
    render() {
       return (
-         <Dropdown className="header-chat" >
+         <Dropdown className={styles.chat} >
             <Dropdown.Toggle variant="success" id="dropdown-basic">
                <i className="fas fa-sms"></i>
                <img src="" />

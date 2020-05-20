@@ -1,5 +1,9 @@
 import React from "react";
+
 import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
+import styles from "./Sidebar.css";
 
 export default class Sidebar extends React.Component {
 
@@ -10,8 +14,10 @@ export default class Sidebar extends React.Component {
       showGroupList: false,
       hashtagList: null,
       hash: null,
-      g_name: this.props.group_name,
-      g_no: this.props.group_no
+      // g_name: this.props.group_name,
+      // g_no: this.props.group_no
+      g_name: "그룹1",
+      g_no: 1
     }
   }
 
@@ -25,14 +31,14 @@ export default class Sidebar extends React.Component {
       this.state.hash = this.props.hashs.filter(hash => hash.g_no === this.props.group_no);
       this.state.hashtagList = (<div>
         {this.props.users.map(({ g_no, g_name }) => (
-          <Nav.Link href="#"
+          <Nav.Link
             key={this.props.group_no}
             onClick={() => this.setState({
               showHashtagList: true,
               g_no: parseInt(`${this.props.group_no}`),
               g_name: `${this.props.group_name}`
             })}
-            className="sidebar-nav-menu"> {this.props.group_name} </Nav.Link>
+            className={styles.menu}> {this.props.group_name} </Nav.Link>
         ))}
       </div>
       )
@@ -43,9 +49,11 @@ export default class Sidebar extends React.Component {
         {this.props.group_name}
         <br /><br />
         <h5>해시태그</h5>
-        <Nav className="sidebar-nav">
+        <Nav className={styles.nav}>
           {this.state.hash.map(({ no, hash_name }) => (
-            <Nav.Link href="#" key={no} className="sidebar-nav-menu">{hash_name}</Nav.Link>
+            <Nav.Link 
+            key={no} 
+            className={styles.menu}>{hash_name}</Nav.Link>
           ))}
         </Nav>
       </div>
@@ -53,20 +61,22 @@ export default class Sidebar extends React.Component {
     }
 
     return (
-      <div className="sidebar">
-        <Nav className="sidebar-nav">
-          <Nav.Link href="#" onClick={() => this.setState({
+      <div className={styles.sidebar}>
+        <Nav className={styles.nav}>
+          <Nav.Link
+            onClick={() => this.setState({
               showHashtagList: true,
               g_name: "개인"
             })}
-            className="sidebar-nav-menu"> 개인메모 </Nav.Link>
-          <Nav.Link href="#" onClick={() => this.setState({
+            className={styles.menu}> 개인메모 </Nav.Link>
+          <Nav.Link
+            onClick={() => this.setState({
               showGroupList: true,
               showHashtagList: false
             })}
-            className="sidebar-nav-menu"> 그룹메모 </Nav.Link>
+            className={styles.menu}> 그룹메모 </Nav.Link>
         </Nav>
-        <div className="sidebar-nav-menu">
+        <div className={styles.menu}>
           {this.state.hashtagList}
         </div>
       </div>

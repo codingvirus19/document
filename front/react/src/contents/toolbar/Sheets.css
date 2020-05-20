@@ -8,7 +8,56 @@
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
-.select_group {
-    display: block;
-    width: 90%;
-  }
+.groupShareSheet {
+  padding: 1rem;
+  width: 15rem;
+}
+
+.container {
+  height: 80%;
+}
+
+.select {
+  display: block;
+  width: 100%;
+}
+
+tr {
+  border-top: 1px solid #c6cbd1;
+  background: #fff;
+}
+
+th,
+td {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+table tr:nth-child(2n) {
+  background: #f6f8fa;
+}
+
+.btns {
+  height: 20%;
+}
+
+.confirm_btn,
+.cancel_btn {
+  height: 100%;
+  width: 30%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 0.25rem;
+  border: none;
+  color: #fff;
+}
+
+.confirm_btn {
+  background-color: #3498db;
+  margin-right: 35%;
+}
+
+.cancel_btn {
+  background-color: #ea232c;
+}

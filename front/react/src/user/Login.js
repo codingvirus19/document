@@ -113,8 +113,6 @@ export default class login extends React.Component {
   }
   /* 05.14 수정 건들지말 것!! */
 
-
-
   render() {
     if (this.state.result === true) {
       return (

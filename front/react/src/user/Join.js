@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import styles from "./Join.css";
+
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
   "Content-Type": "application/json",
@@ -100,9 +102,9 @@ export default class Join extends Component {
 
   render() {
     return (
-      <div className="join-popup" onClick={this.props.closePopup}>
+      <div className={styles.popup} onClick={this.props.closePopup}>
         <div
-          className="join-popup_inner"
+          className={styles.inner}
           onClick={(e) => {
             e.stopPropagation();
           }}

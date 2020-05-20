@@ -219,7 +219,7 @@ blockquote {
   border-left: 0.5em #eee solid;
 }
 
-tr {
+/* tr {
   border-top: 1px solid #c6cbd1;
   background: #fff;
 }
@@ -232,7 +232,7 @@ td {
 
 table tr:nth-child(2n) {
   background: #f6f8fa;
-}
+} */
 /* right-header_addmemo */
 
 
@@ -346,9 +346,9 @@ table tr:nth-child(2n) {
   border: 0;
 } */
 
-.header-chat {
+/* .header-chat {
   margin-right: 1.8rem;
-}
+} */
 
 /* react Bootstrap 각 방 클릭시 채팅창 오픈 */
 .collapse:not(.show) {

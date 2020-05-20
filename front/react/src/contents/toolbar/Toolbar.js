@@ -94,6 +94,7 @@ export default class Toolbar extends React.Component {
                     <i className="fab fa-slideshare" />
                 </button>
                 {this.state.showGroupShareSheet ? (
+                // {/* {true ? ( */}
                     <GroupShareSheet
                         refChange={this.toggleContainer}
                         closeGroupShareSheet={this.toggleGroupShareSheet.bind(this)} />
@@ -118,8 +119,7 @@ export default class Toolbar extends React.Component {
                     onMouseLeave={() => this.setState({ showColorSheet: false })}>
                     <i className="fas fa-palette" />
                 </button>
-                {/* {this.state.showColorSheet ? ( */}
-                {true ? (
+                {this.state.showColorSheet ? (
                     <ColorSheet
                         toggleColorSheetHandler={this.toggleColorSheet.bind(this)} />
                 ) : null}
