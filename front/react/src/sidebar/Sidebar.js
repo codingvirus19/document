@@ -28,12 +28,13 @@ export default class Sidebar extends React.Component {
     return (
       <div className={styles.sidebar}>
         <Nav className={styles.nav}>
-          <Nav.Link href="#"
+          <Nav.Link
             onClick={() => this.update(null)}
             className={styles.menu}> 개인메모 </Nav.Link>
           <NavDropdown title="그룹메모" className={styles.menu} drop="right">
             {this.props.group.gname.map((name, index) => (
-              <NavDropdown.Item href="#" key={index}
+              <NavDropdown.Item
+                key={index}
                 onClick={() => this.update(this.props.group.no[index], name)}
                 className={styles.groupmenu}> {name} </NavDropdown.Item>
             ))}

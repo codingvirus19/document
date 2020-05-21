@@ -25,14 +25,17 @@
   color: #3a3b45;
   text-decoration:none;
   text-align: center;
-  z-index: 10000;
+  z-index: 1;
   border-bottom: 1px solid rgba(255,255,255,0.15);
 }
+.menu a {
+    color: #3a3b45;
+}
 
-.dropdown_menu{
+/* .dropdown_menu{
   position: fixed!important;
   left: -15px!important;
-}
+} */
 
 .groupmenu {
   background-color: #fff;
@@ -41,5 +44,6 @@
 }
 
 .hashtagList {
+  margin: 0.3rem;
   background-color: #fff;
 }

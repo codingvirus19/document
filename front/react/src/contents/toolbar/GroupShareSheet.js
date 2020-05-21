@@ -16,23 +16,18 @@ export default class GroupShareSheet extends React.Component {
         this.state = {
             g_noUpdate: '',
             currentG_no: null,
-            groups: this.props.g_name.map(element => {
+            groups: this.props.group.gname.map(element => {
                 return {
                     value: element,
                     label: element
                 }
             }),
-            addElement: null
             // 다 삭제 안되는 오류
         }
     }
 
     addGroup(event) {
         if (event.__isNew__) {
-            this.setState({
-                addElement: event.label
-            })
-            console.log(event.label);
             let data = {
                 name: event.label
             };
@@ -67,7 +62,7 @@ export default class GroupShareSheet extends React.Component {
                             closeMenuOnSelect={false}
                             menuIsOpen={true}
                             onChange={this.addGroup.bind(this)}
-                            maxMenuHeight={50}
+                            maxMenuHeight={100}
                             options={this.state.groups}
                             placeholder="공유할 그룹 선택"
                         />

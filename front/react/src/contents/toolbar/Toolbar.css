@@ -7,15 +7,13 @@
     cursor: pointer;
   }
   
-  .fa-slideshare:before,
-  .fa-share-square:before,
-  .fa-palette:before,
-  .fa-slack-hash:before,
-  .fa-save:before,
-  .fa-file-upload:before,
-  .fa-trash-alt:before
-  {
+  .faExternalLinkAlt,
+  .faShareSquare,
+  .faPalette,
+  .faHashtag,
+  .faSave,
+  .faFileUpload,
+  .faTrashAlt {
     font-size: large;
-    width: 32px;
-    height: 32px;
+    color: #24252b;
   }

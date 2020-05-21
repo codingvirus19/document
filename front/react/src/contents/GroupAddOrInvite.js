@@ -34,12 +34,8 @@ export default class GroupAddOrInvite extends React.Component {
 
     addGroup(event) {
         if (event.__isNew__) {
-            this.setState({
-                addElement: event.label
-            })
-            console.log(event.label);
             let data={
-                name:event.label
+                name: event.label
             };
             console.log(data);
             fetch(`${API_URL}/api/addGroup`, {
@@ -58,24 +54,9 @@ export default class GroupAddOrInvite extends React.Component {
     }
 
     addUser(event) {
-        // console.log(event);
-        // // console.log(event.label);
-        // this.setState({
-        //     addElement: event.label
-        // })
-        // this.setState({
-        //     users: event.map(element => {
-        //         return {
-        //             value: element.label,
-        //             label: element.label
-        //         }
-        //     })
-        // })
     }
 
     render() {
-        // console.log(this.state.groups)
-        // console.log(this.state.addElement)
         return (
             <>
                 <div className={styles.inner_form_component}>

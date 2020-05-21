@@ -26,4 +26,8 @@ public class MainRepository {
  	public List<GroupVo> findByGroupList(UserVo vo) {
  		return sqlSession.selectList("groups.findByGroupList", vo);
  	}
+ 	
+	public int addGroup(GroupVo vo) {
+		return sqlSession.insert("groups.insert", vo);
+	}
 }

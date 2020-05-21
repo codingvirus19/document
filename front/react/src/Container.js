@@ -15,7 +15,6 @@ export default class Container extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-
       group:{no:[],gname:[]},
       g_noUpdate: false,
       g_no:null
@@ -37,37 +36,12 @@ export default class Container extends React.Component {
           group.no.push(json.no);
           group.gname.push(json.name);
         })
-        console.log(group);
         this.Update(group);
       })
       .catch((err) => console.error(err));
   }
 
-
-
-  // abcd(){
-  //   fetch(`${API_URL}/api/container`, {
-  //     method: "post",
-  //     headers: API_HEADERS,
-  //     body: JSON.stringify(data),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       this.setState({
-  //         result: json.data,
-  //       });
-  //       json.data.map((temp)=>{
-  //         gno.push(temp.no);
-  //         gname.push(temp.name);
-  //       });
-  //       this.Update(gno, gname);
-  //     })
-  //     .catch((err) => console.error(err));
-
-  // }
-
   Update(group) {
-
     this.setState({
       group: group 
     })
@@ -77,14 +51,7 @@ export default class Container extends React.Component {
     this.setState({
       g_no : no
     })
-    console.log(no)
-    // let a = this.getSnapshotBeforeUpdate(gno);
-    // console.log(a);
   }
-
-  // getSnapshotBeforeUpdate(e){
-  //   return e;
-  // }
 
   render() {
     return (
