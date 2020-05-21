@@ -38,6 +38,7 @@ public class MainApiController {
 		UserVo userVo = new UserVo();
 		userVo.setNo(securityUser.getNo());
 		List<GroupVo> list = mainService.findByGroupList(userVo);
+		System.out.println(list);
 		return JsonResult.success(list);
 	}
 
