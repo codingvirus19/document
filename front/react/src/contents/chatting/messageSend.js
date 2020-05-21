@@ -31,7 +31,7 @@ export default class MessageList extends React.Component{
     onChatSubmit(event) {
         event.preventDefault()
         //this.state.messageBox.push(this.state.message);
-        this.props.sendMessage(this.state.message);
+        this.props.sendMessage(this.state.message,this.props.group_no);
         this.setState({
             message: ''
         })

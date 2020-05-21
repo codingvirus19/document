@@ -46,8 +46,8 @@ public class MainApiController {
  	@PostMapping("/addGroup")
 	public JsonResult addGroup(@RequestBody GroupVo vo) {
 		System.out.println(vo);
-		
-		return JsonResult.success(true);
+		mainService.addGroup(vo);
+		return JsonResult.success(vo);
 	}
  	
 // 	@PostMapping("/container")

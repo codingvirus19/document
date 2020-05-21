@@ -10,7 +10,7 @@
 <script src="https://kit.fontawesome.com/e2284cc738.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div id ='container'>
+	<div id ='container' style="width: 100%; height:100%">
 	</div>
-	<script src="http://192.168.1.132:8090/bundle.js"></script>
+	<script src="http://192.168.1.27:8090/bundle.js"></script>
 </body>

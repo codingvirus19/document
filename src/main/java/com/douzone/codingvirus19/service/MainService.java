@@ -15,16 +15,23 @@ public class MainService {
 
 	@Autowired
 	private MainRepository mainRepository;
-	
-	public List<MemoVo> findAllMemo(GroupVo vo) {
-		List<MemoVo> memoList = mainRepository.findAllMemo(vo);
+
+	public List<MemoVo> findAllMemo(UserVo authUser) {
+		List<MemoVo> memoList = mainRepository.findAllMemo(authUser);
 		return memoList;
 	}
 
-	
+	public List<GroupVo> findByGroupList(UserVo vo) {
+		List<GroupVo> list = mainRepository.findByGroupList(vo);
+		return list;
+	}
 
- 	public List<GroupVo> findByGroupList(UserVo vo) {
- 		List<GroupVo> list = mainRepository.findByGroupList(vo);
- 		return list;
- 	}
+	public boolean addGroup(GroupVo vo) {
+		int count = mainRepository.addGroup(vo);
+		return count== 1;
+	}
 }
+
+// 0521 dongeun 수정예정
+// 	public List<MemoVo> findAllMemo(GroupVo vo) {
+// 		List<MemoVo> memoList = mainRepository.findAllMemo(vo);

@@ -4,6 +4,8 @@ import GroupShareSheet from "./GroupShareSheet";
 import ShareSheet from "./ShareSheet";
 import ColorSheet from "./ColorSheet";
 import HashSheet from "./HashSheet";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExternalLinkAlt, faShareSquare, faPalette, faHashtag, faSave, faFileUpload, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import styles from "./Toolbar.css";
 
 export default class Toolbar extends React.Component {
@@ -19,7 +21,7 @@ export default class Toolbar extends React.Component {
             clickHashButton: false
         }
         this.toggleContainer = React.createRef();
-        this.toggleContainer2 =  React.createRef();
+        this.toggleContainer2 = React.createRef();
         this.toggleGroupShareSheet = this.toggleGroupShareSheet.bind(this);
         this.onClickOutsideHandler = this.onClickOutsideHandler.bind(this);
     }
@@ -91,26 +93,14 @@ export default class Toolbar extends React.Component {
                     className={styles.tool}
                     aria-label="그룹공유"
                     onClick={this.toggleGroupShareSheet.bind(this)}>
-                    <i className="fab fa-slideshare" />
+                    <FontAwesomeIcon className={styles.faShareSquare} icon={faShareSquare} />
                 </button>
                 {this.state.showGroupShareSheet ? (
-                //  {true ? (
+                    //  {true ? (
                     <GroupShareSheet
                         refChange={this.toggleContainer}
-                        closeGroupShareSheet={this.toggleGroupShareSheet.bind(this)} 
-                        g_no={this.props.g_no} g_name={this.props.g_name} />
-                ) : null}
-
-                <button
-                    className={styles.tool}
-                    aria-label="외부 공유"
-                    onMouseEnter={() => this.setState({ showShareSheet: true })}
-                    onMouseLeave={() => this.setState({ showShareSheet: false })}>
-                    <i className="far fa-share-square" />
-                </button>
-                {this.state.showShareSheet ? (
-                    <ShareSheet
-                        toggleShareSheetHandler={this.toggleShareSheet.bind(this)} />
+                        closeGroupShareSheet={this.toggleGroupShareSheet.bind(this)}
+                        group={this.props.group} />
                 ) : null}
 
                 <button
@@ -118,7 +108,7 @@ export default class Toolbar extends React.Component {
                     aria-label="색상 변경"
                     onMouseEnter={() => this.setState({ showColorSheet: true })}
                     onMouseLeave={() => this.setState({ showColorSheet: false })}>
-                    <i className="fas fa-palette" />
+                    <FontAwesomeIcon className={styles.faPalette} icon={faPalette} />
                 </button>
                 {this.state.showColorSheet ? (
                     <ColorSheet
@@ -129,7 +119,7 @@ export default class Toolbar extends React.Component {
                     className={styles.tool}
                     aria-label="해시 추가"
                     onClick={this.toggleHashSheet.bind(this)}>
-                    <i className="fab fa-slack-hash" />
+                    <FontAwesomeIcon className={styles.faHashtag} icon={faHashtag} />
                 </button>
                 {this.state.showHashSheet ? (
                     <HashSheet
@@ -141,21 +131,35 @@ export default class Toolbar extends React.Component {
                     className={styles.tool}
                     aria-label="내 컴퓨터에 저장"
                     onClick={this.saveLocal.bind(this)}>
-                    <i className="far fa-save" />
+                    <FontAwesomeIcon className={styles.faSave} icon={faSave} />
                 </button>
 
                 <button
                     className={styles.tool}
                     aria-label="파일 올리기">
-                        {/* <input type="file"></input> */}
-                    <i className="fas fa-file-upload" />
+                    {/* <input type="file"></input> */}
+                    <FontAwesomeIcon className={styles.faFileUpload} icon={faFileUpload} />
                 </button>
+
+                <button
+                    className={styles.tool}
+                    aria-label="외부 공유"
+                    onMouseEnter={() => this.setState({ showShareSheet: true })}
+                    onMouseLeave={() => this.setState({ showShareSheet: false })}>
+
+                    <FontAwesomeIcon className={styles.faExternalLinkAlt} icon={faExternalLinkAlt} />
+                </button>
+                {this.state.showShareSheet ? (
+                // {/* {true ? ( */}
+                    <ShareSheet
+                        toggleShareSheetHandler={this.toggleShareSheet.bind(this)} />
+                ) : null}
 
                 <button
                     className={styles.tool}
                     aria-label="메모 삭제"
                     onClick={this.delete.bind(this)}>
-                    <i className="far fa-trash-alt" />
+                    <FontAwesomeIcon className={styles.faTrashAlt} icon={faTrashAlt} />
                 </button>
 
             </div>

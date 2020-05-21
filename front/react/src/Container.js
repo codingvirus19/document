@@ -15,10 +15,6 @@ export default class Container extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-
-      
-     
-      
 	  group:{no:[],gname:[]},
       groups: null,
       g_no:null,
@@ -93,7 +89,6 @@ export default class Container extends React.Component {
   }
 
   Update(group) {
-
     this.setState({
       group: group 
     })
@@ -103,19 +98,13 @@ export default class Container extends React.Component {
     this.setState({
       g_no : no
     })
-    console.log(no)
-    // let a = this.getSnapshotBeforeUpdate(gno);
-    // console.log(a);
+    console.log(no);
   }
-
-  // getSnapshotBeforeUpdate(e){
-  //   return e;
-  // }
 
   render() {
     return (
-      <div className="container">
-        <Header />
+      <div className={styles.container}>
+       <Header group={this.state.group}/>
 		<Sidebar group={this.state.group} group_update={this.SidebarGroupUpdate.bind(this)} />
         {this.state.memo_bigArr ? (
           <Contents memo_bigArr={this.state.memo_bigArr} />

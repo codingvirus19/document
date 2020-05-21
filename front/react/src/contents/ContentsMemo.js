@@ -27,13 +27,12 @@ export default class Contents extends React.Component {
         {this.props.memo_bigArr &&
           this.props.memo_bigArr.map((memos) =>
             memos.map((memo, index) => (
-              <li key={memos[index].no} className={styles.container_memo_form}>
-                <form className="container_memo-form">
+              <li key={memos[index].no} className={styles.memo_container}>
+                <form className={styles.container_memo_form}>
                   <Memo content={memos[index].content} />
                   <HashList />
                   <Toolbar
-                    g_no={this.props.g_no}
-                    g_name={this.props.g_name}
+                   group={this.props.group}
                     color={memos[index].color}
                   />
                 </form>

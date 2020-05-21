@@ -31,7 +31,6 @@ public class MemoApiController {
 		if(message.getType().equals("basic")) { 
 			//기본입력
 			arrData.add(message.getInputIndex()-1, message.getKey());
-			
 		}else if(message.getType().equals("korean")) {
 			//한글입력
 			arrData.set(message.getInputIndex()-1,message.getKey());
