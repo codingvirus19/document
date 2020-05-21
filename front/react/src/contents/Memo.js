@@ -6,6 +6,7 @@ export default class Memo extends React.Component {
     return (
       <input
         value={this.props.content}
+        // onChange={}
         className="container_memo-form memo"
         type="textarea"
       ></input>
