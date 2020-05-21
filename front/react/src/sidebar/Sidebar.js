@@ -1,73 +1,75 @@
 import React from "react";
-
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import styles from "./Sidebar.css";
 
 export default class Sidebar extends React.Component {
 
   constructor() {
     super(...arguments);
     this.state = {
-      showHashtagList: false,
-      hashs: null,
+      showDetails: false,
+      keyword: "",
       hash: null,
-      g_name: null,
-      g_no: null
+      g_no: null,
+      g_name: null
     }
   }
 
-  hashsFilter() {
+  onInputChange(e) {
     this.setState({
-      hash: this.state.hashs.filter(hash => hash.g_no === this.props.g_no)
+      keyword: e.target.value
     })
+  };
+
+  update(g_no,g_name) {
+    this.setState({
+      showDetails: true,
+      g_no: `${g_no}`
+    })
+    console.log(g_no,g_name);
+    this.props.group_update(g_no);
   }
 
   render() {
-    console.log(this.state.g_name);
-    console.log(this.state.g_no);
-    console.log(this.props.group_name);
-    console.log(this.props.group_no);
-
+    // console.log(this.props.group);
     let hashtagList;
-    // hashtagList = (
-    //   <div>
-    //     {this.props.group_name}
-    //     <br /><br />
-    //     <h5>해시태그</h5>
-    //     <Nav className={styles.nav}>
-    //       {this.state.hash.map(({ no, hash_name }) => (
-    //         <Nav.Link
-    //           key={no}
-    //           className={styles.menu}>{hash_name}</Nav.Link>
-    //       ))}
-    //     </Nav>
-    //   </div>
-    // )
-
+    if (this.state.showDetails) {
+      // this.state.hash = this.props.hashs.filter(hash => hash.g_no === this.state.g_no);
+      hashtagList = (
+        <div>
+          <h5>해시태그</h5>
+          <input type='text' value={this.keyword} placeholder="해" onChange={this.onInputChange.bind(this)} />
+          <Nav className="sidebar-nav">
+            {this.state.hash && this.state.hash
+              .filter(element => element.hash_name.indexOf(this.state.keyword) != -1)
+              .map(({ no, hash_name }) => (
+                <Nav.Link href="#" key={no} className="sidebar-nav-menu">{hash_name}</Nav.Link>
+              ))}
+          </Nav>
+        </div>
+      )
+    }
     return (
-      <div className={styles.sidebar}>
-        <Nav className={styles.nav}>
-          <Nav.Link
-            onClick={() => this.setState({
-              showHashtagList: true,
-              g_name: "개인"
-            })}
-            className={styles.menu}> 개인메모 </Nav.Link>
-          <NavDropdown title="그룹메모" className={styles.menu} drop="right">
-            {/* {this.state.g_name.map(element => (
-              <NavDropdown.Item href="#"
-                onClick={() => this.setState({
-                  showHashtagList: true
-                })}
-                className="sidebar-nav-menu-groupmenu"> {element} </NavDropdown.Item>
-            ))} */}
-          </NavDropdown>
+      <div className="sidebar">
+        <Nav className="sidebar-nav">
+
+          <Nav.Link href="#"
+            onClick={() => this.update(null)}
+            className="sidebar-nav-menu"> 개인메모 </Nav.Link>
+            <NavDropdown title="그룹메모" className="sidebar-nav-menu" drop="right">
+
+              {this.props.group.gname.map((name,index) => (
+                <NavDropdown.Item href="#" key={index}
+                  onClick={() => this.update(this.props.group.no[index], name)}
+                  className="sidebar-nav-menu-groupmenu"> {name} </NavDropdown.Item>
+              ))}
+            </NavDropdown>
+
         </Nav>
-        {this.state.showHashtagList ? (
-          { hashtagList }
-        ) : null}
+        <div className="sidebar-nav-menu">
+          {hashtagList}
+        </div>
       </div>
-    )
+    );
   }
 }
