@@ -6,6 +6,8 @@ public class EditorVo {
 	private String key;
 	private Long version;
 	private String type;
+	private String name;
+	
 
 	
 	public String getType() {
@@ -38,11 +40,19 @@ public class EditorVo {
 	public void setVersion(Long version) {
 		this.version = version;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	@Override
 	public String toString() {
 		return "EditorVo [inputIndex=" + inputIndex + ", size=" + size + ", key=" + key + ", version=" + version
-				+ ", type=" + type + "]";
+				+ ", type=" + type + ", name=" + name + "]";
 	}
+	
+	
 	
 
 }
