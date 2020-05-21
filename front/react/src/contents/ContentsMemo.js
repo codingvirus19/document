@@ -23,7 +23,7 @@ export default class Contents extends React.Component {
     //   for(let _index=0, _index<)
     // }
     return (
-      <ul className={styles.memo}">
+      <ul className={styles.memo}>
         {this.props.memo_bigArr &&
           this.props.memo_bigArr.map((memos) =>
             memos.map((memo, index) => (
@@ -31,7 +31,11 @@ export default class Contents extends React.Component {
                 <form className="container_memo-form">
                   <Memo content={memos[index].content} />
                   <HashList />
-                  <Toolbar g_no={this.props.g_no} g_name={this.props.g_name} color={memos[index].color} />
+                  <Toolbar
+                    g_no={this.props.g_no}
+                    g_name={this.props.g_name}
+                    color={memos[index].color}
+                  />
                 </form>
               </li>
             ))
