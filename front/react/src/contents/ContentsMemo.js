@@ -12,23 +12,29 @@ export default class Contents extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-      memoArr: this.props.memoArr,
+      memo_bigArr: null,
     };
   }
-  render() {
-    // console.log(this.props.content);
 
+  render() {
+    // test(_index){
+    //   for(let _index=0, _index<)
+    // }
     return (
-      <div className="contents-memo">
-        {/* {this.props.memo_bigArr.memo_no.map()} */}
-        <div className="memo_container">
-          <form className="container_memo-form">
-            <Memo />
-            <HashList />
-            <Toolbar />
-          </form>
-        </div>
-      </div>
+      <ul className="contents-memo">
+        {this.props.memo_bigArr &&
+          this.props.memo_bigArr.map((memos) =>
+            memos.map((memo, index) => (
+              <li key={memos[index].no} className="memo_container">
+                <form className="container_memo-form">
+                  <Memo content={memos[index].content} />
+                  <HashList />
+                  <Toolbar color={memos[index].color} />
+                </form>
+              </li>
+            ))
+          )}
+      </ul>
     );
   }
 }

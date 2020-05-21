@@ -17,17 +17,11 @@ export default class Contents extends React.Component {
   }
 
   render() {
+    console.log(this.props.memo_bigArr);
     return (
       <div className="contents">
         <ContentsHeader />
-
-        {/* {this.props.memo_bigArr.memo_no.map((memoNo, content) => ( */}
         <ContentsMemo memo_bigArr={this.props.memo_bigArr} />
-        {/* ))} */}
-        {/* <ContentsMemo key={memo.no} content={memo.content} />; */}
-        {/* <ContentsMemo memoArr={this.state.memoArr} /> */}
-        {/* {this.state.memoArr.map((memo) => {
-        })} */}
         <Footer />
       </div>
     );

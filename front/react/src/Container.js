@@ -17,16 +17,7 @@ export default class Container extends React.Component {
       g_name: [],
       g_noUpdate: "",
       memoArr: null,
-      memo_bigArr: [
-        {
-          memo_no: "",
-          memo_gNo: "",
-          memo_uNo: "",
-          memo_content: "",
-          memo_color: "",
-          memo_date: "",
-        },
-      ],
+      memo_bigArr: null,
     };
   }
   componentDidMount() {
@@ -60,12 +51,11 @@ export default class Container extends React.Component {
   bringMemoByGroup(_groupDatas) {
     // 그룹의 data로 memo의 db를 가져오는 코드
     let memo_bigArr = [];
-
     let input_groupNo = {
       no: 1,
     };
-
     let _memoArr = null;
+
     // call api
     fetch(`${API_URL}/api/contents`, {
       method: "post",
@@ -75,10 +65,8 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         _memoArr = json.data;
-        _memoArr.map((json) => {
-          memo_bigArr.push(json);
-          console.log(memo_bigArr);
-        });
+
+        memo_bigArr.push(_memoArr);
         this.UpdateMemo(memo_bigArr);
       })
       .catch((err) => console.error(err));
@@ -109,7 +97,12 @@ export default class Container extends React.Component {
       <div className="container">
         <Header />
         <Sidebar group_no={this.state.g_no} group_name={this.state.g_name} />
-        <Contents memo_bigArr={this.state.memo_bigArr} />
+        {this.state.memo_bigArr ? (
+          <Contents memo_bigArr={this.state.memo_bigArr} />
+        ) : (
+          <Contents />
+        )}
+        {/* // <Contents memo_bigArr={this.state.memo_bigArr} /> */}
       </div>
     );
   }
