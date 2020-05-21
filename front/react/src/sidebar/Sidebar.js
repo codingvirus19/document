@@ -2,17 +2,17 @@ import React from "react";
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import HashtagList from "./HashtagList"
+
 import styles from "./Sidebar.css";
 
 export default class Sidebar extends React.Component {
-
   constructor() {
     super(...arguments);
     this.state = {
       showHashtagList: false,
       g_no: null,
-      g_name: null
-    }
+      g_name: null,
+    };
   }
 
   update(g_no, g_name) {
@@ -20,7 +20,6 @@ export default class Sidebar extends React.Component {
       showHashtagList: true,
       g_no: `${g_no}`
     })
-    console.log(g_no, g_name);
     this.props.group_update(g_no);
   }
 

@@ -31,3 +31,7 @@ public class MainService {
 		return count== 1;
 	}
 }
+
+// 0521 dongeun 수정예정
+// 	public List<MemoVo> findAllMemo(GroupVo vo) {
+// 		List<MemoVo> memoList = mainRepository.findAllMemo(vo);
