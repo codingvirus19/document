@@ -23,7 +23,7 @@ public class MainApiController {
  	private MainService mainService;
  	
  	@PostMapping("/container")
- 	public JsonResult login(@AuthUser SecurityUser securityUser) {
+ 	public JsonResult getGroupList(@AuthUser SecurityUser securityUser) {
  		UserVo userVo = new UserVo();
  		userVo.setNo(securityUser.getNo());
  		List<GroupVo> list = mainService.findByGroupList(userVo);
