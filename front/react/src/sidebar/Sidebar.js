@@ -2,6 +2,8 @@ import React from "react";
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
+import styles from "./Sidebar.css";
+
 export default class Sidebar extends React.Component {
 
   constructor() {
@@ -38,35 +40,34 @@ export default class Sidebar extends React.Component {
       hashtagList = (
         <div>
           <h5>해시태그</h5>
-          <input type='text' value={this.keyword} placeholder="해" onChange={this.onInputChange.bind(this)} />
-          <Nav className="sidebar-nav">
+          <Nav className={styles.nav}>
             {this.state.hash && this.state.hash
               .filter(element => element.hash_name.indexOf(this.state.keyword) != -1)
               .map(({ no, hash_name }) => (
-                <Nav.Link href="#" key={no} className="sidebar-nav-menu">{hash_name}</Nav.Link>
+                <Nav.Link href="#" key={no} className={styles.dropdown_menu}>{hash_name}</Nav.Link>
               ))}
           </Nav>
         </div>
       )
     }
     return (
-      <div className="sidebar">
-        <Nav className="sidebar-nav">
+      <div className={styles.sidebar}>
+        <Nav className={styles.nav}>
 
           <Nav.Link href="#"
             onClick={() => this.update(null)}
-            className="sidebar-nav-menu"> 개인메모 </Nav.Link>
-            <NavDropdown title="그룹메모" className="sidebar-nav-menu" drop="right">
+            className={styles.menu}> 개인메모 </Nav.Link>
+            <NavDropdown title="그룹메모" className={styles.menu} drop="right">
 
               {this.props.group.gname.map((name,index) => (
                 <NavDropdown.Item href="#" key={index}
                   onClick={() => this.update(this.props.group.no[index], name)}
-                  className="sidebar-nav-menu-groupmenu"> {name} </NavDropdown.Item>
+                  className={styles.groupmenu}> {name} </NavDropdown.Item>
               ))}
             </NavDropdown>
 
         </Nav>
-        <div className="sidebar-nav-menu">
+        <div className={styles.menu}>
           {hashtagList}
         </div>
       </div>
