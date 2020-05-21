@@ -21,9 +21,9 @@ export default class Contents extends React.Component {
       <div className={styles.memo}>
         <div className={styles.memo_container}>
           <form className={styles.container_memo_form}>
-            <Memo  />
+            <Memo />
             <HashList />
-            <Toolbar />
+            <Toolbar g_no={this.props.g_no} g_name={this.props.g_name}/>
           </form>
         </div>
       </div>

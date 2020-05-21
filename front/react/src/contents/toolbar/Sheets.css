@@ -11,15 +11,30 @@
 .groupShareSheet {
   padding: 1rem;
   width: 15rem;
+  height: 15rem;
 }
 
+/*container*/
 .container {
-  height: 80%;
+  height: 90%;
+}
+
+.title {
+  border-bottom: 1px solid rgba(20, 20, 20, 0.15);
+  height: 15%;
+}
+
+.contents {
+  height: 85%;
 }
 
 .select {
   display: block;
   width: 100%;
+}
+
+.input {
+width: 90%;
 }
 
 tr {
@@ -38,9 +53,11 @@ td {
 table tr:nth-child(2n) {
   background: #f6f8fa;
 }
+/*container*/
 
+/*btn*/
 .btns {
-  height: 20%;
+  height: 10%;
 }
 
 .confirm_btn,
@@ -61,3 +78,4 @@ table tr:nth-child(2n) {
 .cancel_btn {
   background-color: #ea232c;
 }
+/*btn*/

@@ -23,7 +23,8 @@ public class MainApiController {
  	@PostMapping("/container")
  	public JsonResult login(@AuthUser SecurityUser securityUser) {
  		List<GroupVo> list = null;
-		System.out.println(securityUser);
+//		System.out.println(securityUser);
+		System.out.println(list);
  		return JsonResult.success(list);
 	}
 	

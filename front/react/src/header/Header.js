@@ -5,7 +5,7 @@ import Logo from "./Logo";
 import Account from "./headerMemu/Account";
 import AddMemo from "./headerMemu/AddMemo";
 import Userbell from "./headerMemu/Userbell";
-import Chatting from "./headerMemu/chatting/chat.js";
+import Chatting from "../contents/chatting/chat.js";
 
 import styles from "./Header.css";
 

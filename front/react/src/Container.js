@@ -55,7 +55,7 @@ export default class Container extends React.Component {
     return (
       <div className={styles.container}>
         <Header/>
-        <Sidebar group_no={this.state.g_no} group_name={this.state.g_name} />
+        <Sidebar g_no={this.state.g_no} g_name={this.state.g_name} hashs={"해시1"}/>
         <Contents g_no={this.state.g_no} g_name={this.state.g_name}/>
       </div>
     );

@@ -94,10 +94,11 @@ export default class Toolbar extends React.Component {
                     <i className="fab fa-slideshare" />
                 </button>
                 {this.state.showGroupShareSheet ? (
-                // {/* {true ? ( */}
+                //  {true ? (
                     <GroupShareSheet
                         refChange={this.toggleContainer}
-                        closeGroupShareSheet={this.toggleGroupShareSheet.bind(this)} />
+                        closeGroupShareSheet={this.toggleGroupShareSheet.bind(this)} 
+                        g_no={this.props.g_no} g_name={this.props.g_name} />
                 ) : null}
 
                 <button
