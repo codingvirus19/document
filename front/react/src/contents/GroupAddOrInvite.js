@@ -15,7 +15,7 @@ export default class GroupAddOrInvite extends React.Component {
         this.state = {
             g_noUpdate: '',
             currentG_no: null,
-            groups: this.props.g_name.map(element => {
+            groups: this.props.group.gname.map(element => {
                 return {
                     value: element,
                     label: element
