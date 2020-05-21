@@ -10,6 +10,7 @@ import Chatting from "../contents/chatting/chat.js";
 import styles from "./Header.css";
 
 export default class Header extends React.Component {
+
   render() {
     return (
       <div className={styles.header}>
@@ -20,7 +21,7 @@ export default class Header extends React.Component {
             <AddMemo />
             <Account />
             <Userbell />
-            <Chatting />
+            <Chatting group={this.props.group} />
           </div>
         </div>
       </div>
