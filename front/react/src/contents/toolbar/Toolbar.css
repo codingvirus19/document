@@ -1,0 +1,21 @@
+.toolbar {
+    height: 30px;
+  }
+  
+  .tool {
+    margin: 3px 5px 0px 5px;
+    cursor: pointer;
+  }
+  
+  .fa-slideshare:before,
+  .fa-share-square:before,
+  .fa-palette:before,
+  .fa-slack-hash:before,
+  .fa-save:before,
+  .fa-file-upload:before,
+  .fa-trash-alt:before
+  {
+    font-size: large;
+    width: 32px;
+    height: 32px;
+  }

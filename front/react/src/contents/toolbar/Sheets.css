@@ -1,0 +1,81 @@
+.groupShareSheet,
+.shareSheet,
+.colorSheet,
+.hashSheet{
+  position: absolute;
+  padding: 5px;
+  background-color: #f5f5f5;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.groupShareSheet {
+  padding: 1rem;
+  width: 15rem;
+  height: 15rem;
+}
+
+/*container*/
+.container {
+  height: 90%;
+}
+
+.title {
+  border-bottom: 1px solid rgba(20, 20, 20, 0.15);
+  height: 15%;
+}
+
+.contents {
+  height: 85%;
+}
+
+.select {
+  display: block;
+  width: 100%;
+}
+
+.input {
+width: 90%;
+}
+
+tr {
+  border-top: 1px solid #c6cbd1;
+  background: #fff;
+}
+
+th,
+td {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+table tr:nth-child(2n) {
+  background: #f6f8fa;
+}
+/*container*/
+
+/*btn*/
+.btns {
+  height: 10%;
+}
+
+.confirm_btn,
+.cancel_btn {
+  height: 100%;
+  width: 30%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 0.25rem;
+  border: none;
+  color: #fff;
+}
+
+.confirm_btn {
+  background-color: #3498db;
+  margin-right: 35%;
+}
+
+.cancel_btn {
+  background-color: #ea232c;
+}
+/*btn*/

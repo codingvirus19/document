@@ -22,8 +22,6 @@ public class MainApiController {
  	private MainService mainService;
  	
  	@PostMapping("/container")
-
-
  	public JsonResult login(@AuthUser SecurityUser securityUser, @RequestBody UserVo authUser) {
  		List<GroupVo> list = mainService.findByGroupList(authUser);
  		return JsonResult.success(list);
@@ -32,6 +30,7 @@ public class MainApiController {
 	@PostMapping("/addGroup")
 	public JsonResult addGroup(@RequestBody GroupVo vo) {
 		System.out.println(vo);
-		return JsonResult.success(vo);
+		
+		return JsonResult.success(true);
 	}
 }
