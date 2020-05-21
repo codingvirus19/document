@@ -5,6 +5,7 @@ public class ChatVo {
 	private Long uNo;
 	private String message;
 	private String date;
+	private boolean connect;
 	private int aCount;
 	public Long getgNo() {
 		return gNo;
@@ -36,9 +37,16 @@ public class ChatVo {
 	public void setaCount(int aCount) {
 		this.aCount = aCount;
 	}
+	
+	public boolean isConnect() {
+		return connect;
+	}
+	public void setConnect(boolean connect) {
+		this.connect = connect;
+	}
 	@Override
 	public String toString() {
-		return "ChatVo [gNo=" + gNo + ", uNo=" + uNo + ", message=" + message + ", date=" + date + ", aCount=" + aCount
-				+ "]";
+		return "ChatVo [gNo=" + gNo + ", uNo=" + uNo + ", message=" + message + ", date=" + date + ", connect="
+				+ connect + ", aCount=" + aCount + "]";
 	}
 }
