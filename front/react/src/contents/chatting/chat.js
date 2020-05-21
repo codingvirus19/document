@@ -9,13 +9,6 @@ import ChatRoomList from "./chatroomList";
 import styles from './chat.css';
 
 export default class Chatting extends React.Component {
-   constructor() {
-      super(...arguments);
-      this.state = {
-         // clientConnected: true,
-         contents: content,
-      }
-   }
    render() {
       return (
          <Dropdown className={styles.chat} >
@@ -25,7 +18,7 @@ export default class Chatting extends React.Component {
             </Dropdown.Toggle>
             <Dropdown.Menu className={styles.dropdown__chat} >
                <Accordion>
-                  <ChatRoomList contents={ this.state.contents } />
+                  <ChatRoomList group={this.props.group} />
                </Accordion>
             </Dropdown.Menu>
          </Dropdown>
