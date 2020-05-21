@@ -25,6 +25,4 @@ public class UserService {
 	public void joinInsert(UserVo vo) {
 		userRepository.joinInsert(vo);
 	}
-
-
 }
