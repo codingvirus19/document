@@ -1,10 +1,10 @@
 .toolbar {
-    height: 30px;
+    min-height: 1.8rem;
+    min-width: 12rem;
   }
   
   .tool {
     margin: 3px 5px 0px 5px;
-    cursor: pointer;
   }
   
   .faExternalLinkAlt,

@@ -1,13 +1,9 @@
 import React from "react";
-
-import CreatableSelect from 'react-select/creatable';
+import Select from 'react-select';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import styles from "./Sheets.css";
-
-const API_URL = "http://localhost:8080/codingvirus19";
-const API_HEADERS = {
-    "Content-Type": "application/json",
-};
 
 export default class GroupShareSheet extends React.Component {
 
@@ -26,28 +22,18 @@ export default class GroupShareSheet extends React.Component {
         }
     }
 
-    addGroup(event) {
-        if (event.__isNew__) {
-            let data = {
-                name: event.label
-            };
-            console.log(data);
-            fetch(`${API_URL}/api/addGroup`, {
-                method: "post",
-                headers: API_HEADERS,
-                body: JSON.stringify(data)
-            })
-                .then((response) => response.json())
-                .then((json) => {
-                    this.setState({
-                        result: json.data,
-                    });
-                })
-                .catch((err) => console.error(err));
-        }
-    }
-
     render() {
+
+        // const share = toast("공유", {
+        //     position: "bottom-right",
+        //     autoClose: 5000,
+        //     hideProgressBar: false,
+        //     closeOnClick: true,
+        //     pauseOnHover: true,
+        //     draggable: true,
+        //     progress: undefined,
+        // });
+
         return (
             <div
                 className={styles.groupShareSheet}
@@ -55,13 +41,13 @@ export default class GroupShareSheet extends React.Component {
                 <div className={styles.container}>
                     <div className={styles.title}>공유할 그룹</div>
                     <div className={styles.contents}>
-                        <CreatableSelect
+                        <Select
+                            isMulti
                             autoFocus={true}
                             className={styles.select}
                             defaultMenuIsOpen={true}
                             closeMenuOnSelect={false}
                             menuIsOpen={true}
-                            onChange={this.addGroup.bind(this)}
                             maxMenuHeight={100}
                             options={this.state.groups}
                             placeholder="공유할 그룹 선택"
@@ -70,8 +56,20 @@ export default class GroupShareSheet extends React.Component {
                 </div>
                 <div className={styles.btns}>
                     <button
+                        // onClick={share}
                         type="submit"
                         className={styles.confirm_btn}>공유하기</button>
+                    {/* <ToastContainer
+                        position="bottom-right"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                    /> */}
                     <button
                         className={styles.cancel_btn}
                         onClick={this.props.closeGroupShareSheet}>

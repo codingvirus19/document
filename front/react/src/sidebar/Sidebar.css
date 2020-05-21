@@ -28,16 +28,13 @@
   z-index: 1;
   border-bottom: 1px solid rgba(255,255,255,0.15);
 }
+
 .menu a {
     color: #3a3b45;
 }
 
-/* .dropdown_menu{
-  position: fixed!important;
-  left: -15px!important;
-} */
-
 .groupmenu {
+  width: 100%;
   background-color: #fff;
   padding: 0.2rem 1rem;
   border-bottom: #3a3b45;
@@ -47,3 +44,4 @@
   margin: 0.3rem;
   background-color: #fff;
 }
+

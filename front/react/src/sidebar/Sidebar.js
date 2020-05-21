@@ -39,7 +39,6 @@ export default class Sidebar extends React.Component {
                 className={styles.groupmenu}> {name} </NavDropdown.Item>
             ))}
           </NavDropdown>
-
         </Nav>
         <div className={styles.hashtagList}>
           {this.state.showHashtagList ? (

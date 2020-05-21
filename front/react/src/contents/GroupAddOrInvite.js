@@ -26,8 +26,7 @@ export default class GroupAddOrInvite extends React.Component {
                 { value: '사용자2', label: '사용자2' },
                 { value: '사용자3', label: '사용자3' },
                 { value: '사용자4', label: '사용자4' }
-            ],
-            addElement: null
+            ]
             // 다 삭제 안되는 오류
         }
     }
