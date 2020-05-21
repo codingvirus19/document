@@ -21,15 +21,9 @@ export default class Container extends React.Component {
   }
   componentDidMount() {
     let group = {no:[],gname:[]}
-    let user_data = {
-      no : 1
-    };
-
     // call api
     fetch(`${API_URL}/api/container`, {
-      method: "post",
-      headers: API_HEADERS,
-      body: JSON.stringify(user_data),
+      method: "post"
     })
       .then((response) => response.json())
       .then((json) => {
@@ -43,7 +37,6 @@ export default class Container extends React.Component {
         })
         console.log(group);
         this.Update(group);
-        this.Update("",aapp);
       })
       .catch((err) => console.error(err));
   }
@@ -97,7 +90,6 @@ export default class Container extends React.Component {
         <Header />
         <Sidebar group={this.state.group} group_update={this.SidebarGroupUpdate.bind(this)} />
         <Contents />
-
       </div>
     );
   }

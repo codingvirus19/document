@@ -15,13 +15,11 @@ export default class Sidebar extends React.Component {
     }
   }
 
-
   onInputChange(e) {
     this.setState({
       keyword: e.target.value
     })
   };
-
 
   update(g_no,g_name) {
     this.setState({
