@@ -1,7 +1,12 @@
 import React from "react";
-import Popup from "./Popup";
 
-export default class HeaderAddMemo extends React.Component {
+import Popup from "./Popup";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+
+import styles from "./AddMemo.css";
+
+export default class AddMemo extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -17,16 +22,13 @@ export default class HeaderAddMemo extends React.Component {
 
   render() {
     return (
-      <div className="header-addmemo">
+      <div className={styles.addmemo}>
         <button
-          className="header-memo_btn"
           onClick={this.togglePopup.bind(this)}>
-          <i className="fas fa-plus"></i>
+            <FontAwesomeIcon className={styles.faPlus} icon={faPlus}/>
         </button>
-
         {this.state.showPopup ? (
-          <Popup 
-          closePopup={this.togglePopup.bind(this)} />
+          <Popup closePopup={this.togglePopup.bind(this)} />
         ) : null}
       </div>
     );

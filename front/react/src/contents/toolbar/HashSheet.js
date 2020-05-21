@@ -1,5 +1,7 @@
 import React from "react";
 
+import styles from "./Sheets.css";
+
 export default class HashSheet extends React.Component {
 
 constructor() {
@@ -17,7 +19,8 @@ onInputChange(e) {
 
   render() {
     return (
-      <div className="hashSheet" ref={this.props.refChange}>
+      <div className={styles.hashSheet} ref={this.props.refChange}>
+        
         <input
           className="searchHash"
           type='text'
