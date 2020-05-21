@@ -20,7 +20,6 @@ export default class Sidebar extends React.Component {
       showHashtagList: true,
       g_no: `${g_no}`
     })
-    console.log(g_no, g_name);
     this.props.group_update(g_no);
   }
 

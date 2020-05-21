@@ -51,12 +51,13 @@ export default class Container extends React.Component {
     this.setState({
       g_no : no
     })
+    console.log(no);
   }
 
   render() {
     return (
       <div className={styles.container}>
-        <Header />
+        <Header group={this.state.group}/>
         <Sidebar group={this.state.group} group_update={this.SidebarGroupUpdate.bind(this)} />
         <Contents group={this.state.group}/>
       </div>
