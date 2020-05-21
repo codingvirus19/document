@@ -4,17 +4,17 @@ package com.douzone.codingvirus19.controller.api;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.douzone.codingvirus19.vo.ChatMessageVo;
+import com.douzone.codingvirus19.security.AuthUser;
+import com.douzone.codingvirus19.security.SecurityUser;
 import com.douzone.codingvirus19.vo.EditorVo;
 
-@Controller
+@RestController
 public class MemoApiController {
 	
 	@Autowired
@@ -38,7 +38,6 @@ public class MemoApiController {
 			
 		}else if(message.getType().equals("copy")) {
 			//복사
-			System.out.println("복사");
 			arrData.add(message.getInputIndex()-message.getSize().intValue(), message.getKey());
 		}else if(message.getType().equals("delete")) {
 			arrData.remove(message.getInputIndex());
@@ -46,9 +45,9 @@ public class MemoApiController {
 		}else if(message.getType().equals("hevent")) {
 			arrData.add(message.getInputIndex(),message.getKey());
 		}
+		
 		str = String.join("", arrData);
-		System.out.println(str);
-		System.out.println(message); 
+		System.out.println(str); 
 		webSocket.convertAndSend("/api/memo/" + memo, message);
 	}
 	

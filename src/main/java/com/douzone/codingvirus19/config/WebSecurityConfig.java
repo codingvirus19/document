@@ -24,8 +24,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/assets/**","/chat/**").permitAll()
-				.antMatchers("/main","/**").hasRole("GUEST")
+		http.authorizeRequests().antMatchers("/assets/**","/chat/**","/").permitAll()
+				.antMatchers("/**").hasRole("GUEST")
 //				.antMatchers("/auth/**").hasAnyRole("ADMIN", "USER") // 내부적으로 접두어 "ROLE_"가 붙는다.
 				.anyRequest().authenticated();
 
@@ -38,7 +38,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl("/user/auth")
 				.failureUrl("/error") // default
 				.defaultSuccessUrl("/main", true) // 로그인 성공시
-				.successHandler(authenticationSuccessHandler());
+				.successHandler(authenticationSuccessHandler())
+				.usernameParameter("username")
+				.passwordParameter("password");
+		
+		
 		http.logout().logoutUrl("/logout") // default
 				.logoutSuccessUrl("/").permitAll();
 

@@ -27,15 +27,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserVo userVo = new UserVo();
+        UserVo userVo = userService.findById(username);
         userVo.setRole("ROLE_GUEST");
-        userVo.setName("test");
-        userVo.setId("test");
-        userVo.setPassword("1234");
-        System.out.println("데이터 인입 정보");
         SecurityUser securityUser = new SecurityUser();
         if ( userVo != null ) {
-            securityUser.setName(userVo.getName());         
+        	securityUser.setNo(userVo.getNo());
+            securityUser.setName(userVo.getNickname());         
             securityUser.setUsername(userVo.getId());     // principal
             securityUser.setPassword(passwordEncoder.encode(userVo.getPassword()));  // credetial
 
@@ -43,7 +40,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(userVo.getRole()));
             securityUser.setAuthorities(authorities);
         }
-
         return securityUser; // 여기서 return된 UserDetails는 SecurityContext의 Authentication에 등록되어 인증 정보를 갖고 있는다.
     }
 }
