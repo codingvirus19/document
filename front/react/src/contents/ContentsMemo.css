@@ -1,0 +1,16 @@
+.memo {
+    height: 67%;
+    width: 91%;
+    display: inline-block;
+    border: 0.5px solid black;
+    padding: 5% 4%;
+  }
+  
+  .memo_container {
+    border: 0.1px solid black;
+    margin: 10px;
+  }
+  
+  .container_memo_form {
+    padding: 10px;
+  }

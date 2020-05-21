@@ -1,0 +1,29 @@
+.editor {
+    width: 40%;
+    height: 70%;
+    margin-left: 2%;
+    border: 3px dotted #5ef1d9af;
+    float: left;
+  }
+
+  .btn {
+    width: 100%;
+    height: 20%;
+  }
+
+  .edit {
+    width: 100%;
+    height: 80%;
+    border: 0;
+    resize: none;
+    border-top: 1px solid #a662ffaf;
+  }
+
+  .markDownView {
+    width: 40%;
+    height: 70%;
+    margin-right: 2%;
+    border: 1px solid #4c71dd;
+    float: right;
+  }
+  

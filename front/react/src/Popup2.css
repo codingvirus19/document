@@ -1,0 +1,117 @@
+.popup2 {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.inner {
+  background: #f5f5f5;
+  margin: auto;
+  width: 100%;
+  max-width: 40%;
+  min-width: 400px;
+  height: 35rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+  
+/*header*/
+.popup2 .inner_header,
+.inner_form_container {
+  width: 100%;
+  max-width: 80%;
+  min-width: 173px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner_header {
+  height: 13%;
+}
+
+.h1 {
+  color: #4e73df;
+  margin: auto;
+}
+/*header*/
+
+/*container*/
+.inner_form_container {
+  height: 74%;
+}
+
+.inner_form_component {
+    height: 100%;
+  width: 100%;
+  padding: 0.5rem;
+
+}
+
+.inner_form_container_title {
+  text-align: left;
+  padding: 0.5rem;
+}
+
+.inner_select {
+  width: 100%;
+  margin-bottom: 8rem;
+}
+
+.input {
+  height: 11%;
+  width: 80%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 0.25rem;
+  border: none;
+  background-color: #fff;
+}
+
+.input:not(:last-child) {
+  margin-bottom: 5%;
+}
+
+/*container*/
+  
+/*btn*/  
+.btns {
+  height: 13%;
+  padding: 1rem;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm_btn,
+.cancel_btn {
+  height: 100%;
+  width: 40%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 0.25rem;
+  border: none;
+  color: #fff;
+}
+
+.confirm_btn {
+  background-color: #3498db;
+  margin-right: 10%;
+}
+
+.cancel_btn {
+  background-color: #ea232c;
+}
+  /*btn*/
