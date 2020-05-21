@@ -43,7 +43,7 @@ public class MemoApiController {
 		}else if(message.getType().equals("hevent")) {
 			arrData.add(message.getInputIndex(),message.getKey());
 		}
-		
+		System.out.println(message);
 		str = String.join("", arrData);
 		System.out.println(str); 
 		webSocket.convertAndSend("/api/memo/" + memo, message);
