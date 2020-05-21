@@ -16,7 +16,7 @@ export default class Contents extends React.Component {
   render() {
     return (
       <div className={styles.contents}>
-        <ContentsHeader g_no={this.props.g_no} g_name={this.props.g_name}/>
+        <ContentsHeader group={this.props.group}/>
         <ContentsMemo g_no={this.props.g_no} g_name={this.props.g_name}/>
         <Footer />
       </div>
