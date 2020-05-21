@@ -9,7 +9,7 @@ export default class Popup extends React.Component {
   constructor(props) {
     super(props);
     this.md = new Remarkable();
-    this.state = { value: '', cursor: '', textSize: 0, memoNo: 0, version: 0 };
+    this.state = { value: '', cursor: '', textSize: 0, memoNo: 0, version: 0 ,name: "test"+Math.round(Math.random()*100)};
   }
   hevent(hsize) {
     let input_index = this.getSnapshotBeforeUpdate(this.state.cursor);
@@ -41,6 +41,7 @@ export default class Popup extends React.Component {
       textSize: (state3.length + hsize + 1)
     })
   }
+
   send(input_index, size, key, version, type) {
     this.clientRef
       .sendMessage('/app/memo/' + this.state.memoNo,
@@ -49,7 +50,8 @@ export default class Popup extends React.Component {
           size: size,
           key: key,
           type: type,
-          version: version
+          version: version,
+          name: this.state.name
         }))
   }
   viewSet(text) {
@@ -69,28 +71,25 @@ export default class Popup extends React.Component {
     text = text.split('');
     text.splice(cursorPosition - 1, 0, key);
     this.viewSet(text);
-  }
-
-  koreanInput(cursorPosition, key, keyAll) { //한글입력 중복오류 잡기
-    let text = keyAll.split('');
-    text.splice(cursorPosition - 1, 1, key);
+  } 
+  deleteInput(cursorPosition, deleteSize) {
+    let text = this.getSnapshotBeforeUpdate(this.state.value);
+    text = text.split('');
+    text.splice(cursorPosition, deleteSize+1);
     this.viewSet(text);
   }
-  deleteInput(cursorPosition, textSize, keyAll) {
+  koreanInput(cursorPosition, key) { //한글입력 중복오류 잡기
     let text = this.getSnapshotBeforeUpdate(this.state.value);
-    console.log("delete");
     text = text.split('');
-    keyAll = keyAll.split('');
-    console.log(text.length - keyAll.length);
-    text.splice(cursorPosition, text.length - keyAll.length);
-    console.log(text);
+    text.splice(cursorPosition - 1, 1, key);
     this.viewSet(text);
   }
   copyInput(cursorPosition, textsize, key) {
     let text = this.getSnapshotBeforeUpdate(this.state.value);
     text = text.split('');
     text.splice(cursorPosition - (textsize - text.length), 0, key);
-    // console.log(text);
+    text = text.join('');
+    text = text.split('');
     this.viewSet(text);
   }
 
@@ -99,7 +98,7 @@ export default class Popup extends React.Component {
   }
 
   // firstindex lastindex key
-
+ 
   editorPush(e) {
     let textsize = e.target.value.length;
     let input_index = e.target.selectionStart;
@@ -107,15 +106,15 @@ export default class Popup extends React.Component {
     let temp = this.getSnapshotBeforeUpdate(this.state.textSize);
 
     // this.send(input_index,textsize,key,(this.state.version));
-    // console.log("temp",temp,"textsize",textsize)
+    console.log("temp",temp,"textsize",textsize)
     if (temp > textsize) {
-      this.deleteInput(input_index, temp, e.target.value);
+      this.deleteInput(input_index,(temp - (e.target.value.split('').length + 1)));
       this.send(input_index, (temp - (e.target.value.split('').length + 1)), "", (this.state.version), "delete");
       // console.log("글자지우기");
     } else if (temp == textsize) {
       // console.log("한글입력")
       this.send(input_index, textsize, key, (this.state.version), "korean");
-      this.koreanInput(input_index, key, e.target.value);
+      this.koreanInput(input_index, key);
       //한글입력 오류 잡기~
     } else if ((temp + 1) < textsize) {
       let key = e.target.value.substring((input_index - ((textsize) - temp)), input_index);
@@ -139,8 +138,30 @@ export default class Popup extends React.Component {
   getSnapshotBeforeUpdate(prevState) {
     return prevState;
   }
+  receiveHevent(inputIndex,key){
+    let text = this.getSnapshotBeforeUpdate(this.state.value);
+    text = text.split('');
+    console.log(inputIndex,key);
+    text.splice(inputIndex,0, key);
+    this.viewSet(text);
+  }
 
-  receive() {
+  receive(message) {
+    console.log(message);
+    if(message.name == this.state.name){
+      return;
+    }else if(message.type == "basic"){
+      this.keyInput(message.inputIndex,message.key);
+    }else if(message.type == "korean"){
+      this.koreanInput(message.inputIndex,message.key);
+    }else if(message.type == "delete"){
+      this.deleteInput(message.inputIndex,message.size);
+    }else if(message.type == "copy"){
+      this.copyInput(message.inputIndex,message.size,message.key);
+    }else if(message.type == "hevent"){
+      this.receiveHevent(message.inputIndex,message.key);
+    }
+    
 
   }
 
@@ -160,7 +181,7 @@ export default class Popup extends React.Component {
           onClick={(e) => { e.stopPropagation() }}>
           <div>
             <SockJsClient
-              url='http://192.168.1.132:8080/codingvirus19/api/memo'
+              url='./api/memo'
               topics={[`/api/memo/${this.state.memoNo}`]}
               onMessage={this.receive.bind(this)}
               ref={(client) => { this.clientRef = client }} />
