@@ -1,6 +1,9 @@
 import React from "react";
-import Profile from "./header/Profile"
+
+import Profile from "./header/headerMemu/Profile";
 import GroupAddOrInvite from "./contents/GroupAddOrInvite";
+
+import popupStyles from "./Popup2.css";
 
 export default class Popup2 extends React.Component {
 
@@ -14,25 +17,31 @@ export default class Popup2 extends React.Component {
       popup2_confirm_btn = "수정"
     }
     if (this.props.contents === 'groupAddOrInvite') {
-      contents = <GroupAddOrInvite />
+      contents = <GroupAddOrInvite g_no={this.props.g_no} g_name={this.props.g_name} />
     }
 
     return (
-      <div className="popup2" onClick={this.props.closePopup}>
+      <div 
+      className={popupStyles.popup2} 
+      onClick={this.props.closePopup}>
         <div
-          className="inner"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="inner-header">
-            <h1 className="popup2_h1">{this.props.inner_header}</h1>
+          className={popupStyles.inner}
+          onClick={(e) => e.stopPropagation()}>
+
+          <div className={popupStyles.inner_header}>
+            <h1 className={popupStyles.h1}>{this.props.inner_header}</h1>
           </div>
-          <div className="inner_form-container">
+
+          <div className={popupStyles.inner_form_container}>
             {contents}
           </div>
-          <div className="popup2_btns">
-            <button className="popup2_confirm-btn">{popup2_confirm_btn}</button>
+
+          <div className={popupStyles.btns}>
+            <button className={popupStyles.confirm_btn}>
+              {popup2_confirm_btn}
+            </button>
             <button
-              className="popup2_cancel-btn"
+              className={popupStyles.cancel_btn}
               onClick={this.props.closePopup}>
               취소
   </button>

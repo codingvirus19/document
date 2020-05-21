@@ -1,12 +1,13 @@
 import React from "react";
 
 import Popup2 from "../Popup2"
+import styles from "./ContentsHeader.css"
 
 export default class ContentsHeader extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-      ShowGroupAddOrInvite: false
+      ShowGroupAddOrInvite: false,
     }
   }
 
@@ -18,12 +19,12 @@ export default class ContentsHeader extends React.Component {
 
   render() {
     return (
-      <div className="contents-header">
+      <div className={styles.header}>
 
-        <div className="contents-header-title">
+        <div className={styles.title}>
           <h3>{`< 개인1 >`}</h3>
         </div>
-        <div className="contents-header-showinglist">
+        <div className={styles.showinglist}>
           <button
             className="contents-header__btns"
             aria-label="보기방식 변환">
@@ -32,25 +33,27 @@ export default class ContentsHeader extends React.Component {
         </div>
 
         <div
-          className="contents-header-addgroup"
+          className={styles.addgroup}
           aria-label="그룹 추가(잘모르겠어요)">
           <button className="contents-header__btns">
             <i className="fas fa-folder-plus"></i>
           </button>
         </div>
 
-        <div className="contents-header-invite">
+        <div className={styles.invite}>
           <button
-            className="contents-header__btns"
+            className={styles.btns}
             aria-label="그룹생성"
             onClick={this.toggleGroupAddOrInvite.bind(this)}>
             <i className="fas fa-user-plus"></i>
           </button>
           {this.state.ShowGroupAddOrInvite ? (
+          // { true ? (
             <Popup2
               inner_header="그룹생성 및 초대"
               contents={'groupAddOrInvite'}
-              closePopup={this.toggleGroupAddOrInvite.bind(this)} />
+              closePopup={this.toggleGroupAddOrInvite.bind(this)} 
+              g_no={this.props.g_no} g_name={this.props.g_name}/>
           ) : null}
         </div>
 

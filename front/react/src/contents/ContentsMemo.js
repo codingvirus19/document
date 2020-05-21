@@ -3,6 +3,8 @@ import Memo from "./Memo";
 import HashList from "./HashList";
 import Toolbar from "./toolbar/Toolbar";
 
+import styles from "./ContentsMemo.css";
+
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
   "Content-Type": "application/json",
@@ -13,17 +15,15 @@ export default class Contents extends React.Component {
     super(...arguments);
     
   }
-  
- 
 
   render() {
     return (
-      <div className="contents-memo">
-        <div className="memo_container">
-          <form className="container_memo-form">
-            <Memo  />
+      <div className={styles.memo}>
+        <div className={styles.memo_container}>
+          <form className={styles.container_memo_form}>
+            <Memo />
             <HashList />
-            <Toolbar />
+            <Toolbar g_no={this.props.g_no} g_name={this.props.g_name}/>
           </form>
         </div>
       </div>

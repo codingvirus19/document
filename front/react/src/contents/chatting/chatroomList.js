@@ -7,7 +7,6 @@ import styles from "./chatroomList.css";
 export default class ChatRoomList extends React.Component {
     render() {
         return (
-
             <Card>
                 {this.props.contents.map(content => {
                     return (
