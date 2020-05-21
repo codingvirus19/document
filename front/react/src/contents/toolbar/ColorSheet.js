@@ -2,8 +2,7 @@ import React from "react";
 
 import Table from "react-bootstrap/Table"
 
-import sheetStyles from "./Sheets.css";
-import styles from "./ColorSheet.css";
+import styles from "./Sheets.css";
 
 export default class ColorSheet extends React.Component {
 
@@ -13,7 +12,7 @@ export default class ColorSheet extends React.Component {
 
     render() {
         return (
-            <div className={sheetStyles.colorSheet}
+            <div className={styles.colorSheet}
                 onMouseEnter={this.onMouseChange.bind(this, true)}
                 onMouseLeave={this.onMouseChange.bind(this, false)}>
                 <Table>

@@ -1,6 +1,9 @@
 import React from "react";
 
 import Popup2 from "../Popup2"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faFolderPlus, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+
 import styles from "./ContentsHeader.css"
 
 export default class ContentsHeader extends React.Component {
@@ -28,7 +31,7 @@ export default class ContentsHeader extends React.Component {
           <button
             className="contents-header__btns"
             aria-label="보기방식 변환">
-            <i className="fas fa-bars"></i>
+            <FontAwesomeIcon className={styles.faBars} icon={faBars}/>
           </button>
         </div>
 
@@ -36,7 +39,7 @@ export default class ContentsHeader extends React.Component {
           className={styles.addgroup}
           aria-label="그룹 추가(잘모르겠어요)">
           <button className="contents-header__btns">
-            <i className="fas fa-folder-plus"></i>
+            <FontAwesomeIcon className={styles.faFolderPlus} icon={faFolderPlus}/>
           </button>
         </div>
 
@@ -45,7 +48,7 @@ export default class ContentsHeader extends React.Component {
             className={styles.btns}
             aria-label="그룹생성"
             onClick={this.toggleGroupAddOrInvite.bind(this)}>
-            <i className="fas fa-user-plus"></i>
+            <FontAwesomeIcon className={styles.faUserPlus} icon={faUserPlus}/>
           </button>
           {this.state.ShowGroupAddOrInvite ? (
           // { true ? (

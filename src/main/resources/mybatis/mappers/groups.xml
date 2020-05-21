@@ -9,4 +9,13 @@
  			 where a.no = #{no};
  		]]>
 	</select>
+	
+		<insert id="insert" parameterType="groupvo">
+	 	<![CDATA[
+			insert 
+			  into groups(no, name)
+			 value (#{no}, #{name});
+		]]>
+	</insert>
+	
 </mapper>
