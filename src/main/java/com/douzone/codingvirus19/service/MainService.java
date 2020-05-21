@@ -16,8 +16,8 @@ public class MainService {
 	@Autowired
 	private MainRepository mainRepository;
 	
-	public List<MemoVo> findAllMemo(UserVo authUser) {
-		List<MemoVo> memoList = mainRepository.findAllMemo(authUser);
+	public List<MemoVo> findAllMemo(GroupVo vo) {
+		List<MemoVo> memoList = mainRepository.findAllMemo(vo);
 		return memoList;
 	}
 

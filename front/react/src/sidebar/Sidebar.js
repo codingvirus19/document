@@ -1,11 +1,17 @@
 import React from "react";
+<<<<<<< HEAD
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import styles from "./Sidebar.css";
+=======
+import Nav from "react-bootstrap/Nav";
+import NavDropdown from "react-bootstrap/NavDropdown";
+>>>>>>> dongeun
+
+import styles from "./Sidebar.css";
 
 export default class Sidebar extends React.Component {
-
   constructor() {
     super(...arguments);
     this.state = {
@@ -19,11 +25,11 @@ export default class Sidebar extends React.Component {
 
   onInputChange(e) {
     this.setState({
-      keyword: e.target.value
-    })
-  };
+	  keyword: e.target.value
+  })
+};
 
-  update(g_no,g_name) {
+update(g_no,g_name) {
     this.setState({
       showDetails: true,
       g_no: `${g_no}`
