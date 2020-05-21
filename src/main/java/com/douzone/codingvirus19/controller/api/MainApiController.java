@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.douzone.codingvirus19.dto.JsonResult;
@@ -22,8 +23,10 @@ public class MainApiController {
  	private MainService mainService;
  	
  	@PostMapping("/container")
- 	public JsonResult login(@AuthUser SecurityUser securityUser, @RequestBody UserVo authUser) {
- 		List<GroupVo> list = mainService.findByGroupList(authUser);
+ 	public JsonResult login(@AuthUser SecurityUser securityUser) {
+ 		UserVo userVo = new UserVo();
+ 		userVo.setNo(securityUser.getNo());
+ 		List<GroupVo> list = mainService.findByGroupList(userVo);
  		return JsonResult.success(list);
 	}
 
