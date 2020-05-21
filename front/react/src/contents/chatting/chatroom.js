@@ -22,8 +22,6 @@ export default class ChatRoomList extends React.Component {
 
     render() {
         console.log(this.props.group_no);
-        
-
         return (
             <Fragment>
                 <div id="Chatting" className={styles.Chatting}>
@@ -31,9 +29,7 @@ export default class ChatRoomList extends React.Component {
                         <MessageList contents={this.state.contents} ref={this.outoscroll.bind(this)} />
                     </div>
                     <div id="chatInput" className="chatInput">
-
                         <MessageSend group_no={this.props.group_no} sendMessage={this.props.sendMessage} />
-
                     </div>
                 </div>
             </Fragment>
