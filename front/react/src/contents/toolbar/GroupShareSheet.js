@@ -2,6 +2,7 @@ import React from "react";
 import Select from 'react-select';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// import '../node_modules/react-toastify/dist/ReactToastify.min.css';
 
 import styles from "./Sheets.css";
 
@@ -22,17 +23,19 @@ export default class GroupShareSheet extends React.Component {
         }
     }
 
-    render() {
+    share(e) { 
+        e.preventDefault();
+        toast.success("공유되었습니다.", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    })}
 
-        // const share = toast("공유", {
-        //     position: "bottom-right",
-        //     autoClose: 5000,
-        //     hideProgressBar: false,
-        //     closeOnClick: true,
-        //     pauseOnHover: true,
-        //     draggable: true,
-        //     progress: undefined,
-        // });
+    render() {
 
         return (
             <div
@@ -56,25 +59,25 @@ export default class GroupShareSheet extends React.Component {
                 </div>
                 <div className={styles.btns}>
                     <button
-                        // onClick={share}
+                        onClick={this.share.bind(this)}
                         type="submit"
                         className={styles.confirm_btn}>공유하기</button>
-                    {/* <ToastContainer
-                        position="bottom-right"
-                        autoClose={5000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                    /> */}
                     <button
                         className={styles.cancel_btn}
                         onClick={this.props.closeGroupShareSheet}>
                         취소
               </button>
+              <ToastContainer
+                        // position="bottom-right"
+                        // autoClose={5000}
+                        // hideProgressBar={false}
+                        // newestOnTop={false}
+                        // closeOnClick
+                        // rtl={false}
+                        // pauseOnFocusLoss
+                        // draggable
+                        // pauseOnHover
+                    />
                 </div>
             </div >
         );
