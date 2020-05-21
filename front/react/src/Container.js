@@ -95,7 +95,7 @@ export default class Container extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className={styles.container}>
         <Header />
         <Sidebar group={this.state.group} group_update={this.SidebarGroupUpdate.bind(this)} />
         <Contents />
