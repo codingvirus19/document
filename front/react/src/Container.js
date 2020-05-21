@@ -15,30 +15,77 @@ export default class Container extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-      group:{no:[],gname:[]},
+	  group:{no:[],gname:[]},
+      groups: null,
+      g_no:null,
+      g_name: [],
       g_noUpdate: false,
-      g_no:null
-    }
+      memoArr: null,
+      memo_bigArr: null,
+    };
   }
   componentDidMount() {
-    let group = {no:[],gname:[]}
+    // 그룹의 db를 가져오는 코드
+	let group = {no:[],gname:[]}  
+    let groupDatas = null;
+
     // call api
     fetch(`${API_URL}/api/container`, {
-      method: "post"
+      method: "post",
+      headers: API_HEADERS,
     })
       .then((response) => response.json())
       .then((json) => {
-        this.setState({
-          result: json.data,
-        });
-        console.log(json.data);
+        // 배열
+        groupDatas = json.data;
+        this.bringMemoByGroup(groupDatas);
+
         json.data.map((json)=>{
-          group.no.push(json.no);
-          group.gname.push(json.name);
-        })
-        this.Update(group);
+            group.no.push(json.no);
+            group.gname.push(json.name);
+          })
+          console.log(group);
+          this.Update(group);
       })
       .catch((err) => console.error(err));
+    // 그룹의 db를 가져오는 코드
+  }
+
+  bringMemoByGroup(_groupDatas) {
+    // 그룹의 data로 memo의 db를 가져오는 코드
+    let memo_bigArr = [];
+    let input_groupNo = {
+      no: 1,
+    };
+    let _memoArr = null;
+
+    // call api
+    fetch(`${API_URL}/api/contents`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(input_groupNo),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        _memoArr = json.data;
+
+        memo_bigArr.push(_memoArr);
+        this.UpdateMemo(memo_bigArr);
+      })
+      .catch((err) => console.error(err));
+    // // 그룹의 data로 memo의 db를 가져오는 코드
+  }
+
+  UpdateMemo(_memo_bigArr) {
+    this.setState({
+      memo_bigArr: _memo_bigArr,
+    });
+  }
+
+  UpdateGroup(_group) {
+    this.setState({
+      groups: _group,
+    });
   }
 
   Update(group) {
@@ -51,14 +98,19 @@ export default class Container extends React.Component {
     this.setState({
       g_no : no
     })
+    console.log(no);
   }
 
   render() {
     return (
       <div className={styles.container}>
-        <Header />
-        <Sidebar group={this.state.group} group_update={this.SidebarGroupUpdate.bind(this)} />
-        <Contents group={this.state.group}/>
+       <Header group={this.state.group}/>
+		<Sidebar group={this.state.group} group_update={this.SidebarGroupUpdate.bind(this)} />
+        {this.state.memo_bigArr ? (
+          <Contents memo_bigArr={this.state.memo_bigArr} />
+        ) : (
+          <Contents />
+        )}
       </div>
     );
   }
