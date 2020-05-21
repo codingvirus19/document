@@ -99,8 +99,8 @@ export default class Container extends React.Component {
         <Header />
         <Sidebar group={this.state.group} group_update={this.SidebarGroupUpdate.bind(this)} />
         <Contents />
-//         <Sidebar g_no={this.state.g_no} g_name={this.state.g_name} hashs={"해시1"}/>
-//         <Contents g_no={this.state.g_no} g_name={this.state.g_name}/>
+         {/* <Sidebar g_no={this.state.g_no} g_name={this.state.g_name} hashs={"해시1"}/>
+         <Contents g_no={this.state.g_no} g_name={this.state.g_name}/> */}
       </div>
     );
   }
