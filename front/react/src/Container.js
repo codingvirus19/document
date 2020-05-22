@@ -15,18 +15,19 @@ export default class Container extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-	  group:{no:[],gname:[]},
+      group: { no: [], gname: [] },
       groups: null,
-      g_no:null,
+      g_no: null,
       g_name: [],
       g_noUpdate: false,
       memoArr: null,
       memo_bigArr: null,
     };
   }
+
   componentDidMount() {
     // 그룹의 db를 가져오는 코드
-	let group = {no:[],gname:[]}  
+    let group = { no: [], gname: [] }
     let groupDatas = null;
 
     // call api
@@ -40,15 +41,16 @@ export default class Container extends React.Component {
         groupDatas = json.data;
         this.bringMemoByGroup(groupDatas);
 
-        json.data.map((json)=>{
-            group.no.push(json.no);
-            group.gname.push(json.name);
-          })
-          console.log(group);
-          this.Update(group);
+        json.data.map((json) => {
+          group.no.push(json.no);
+          group.gname.push(json.name);
+        })
+        console.log(group);
+        this.Update(group);
       })
       .catch((err) => console.error(err));
     // 그룹의 db를 가져오는 코드
+
   }
 
   bringMemoByGroup(_groupDatas) {
@@ -90,13 +92,13 @@ export default class Container extends React.Component {
 
   Update(group) {
     this.setState({
-      group: group 
+      group: group
     })
   }
 
-  SidebarGroupUpdate(no){
+  SidebarGroupUpdate(no) {
     this.setState({
-      g_no : no
+      g_no: no
     })
     console.log(no);
   }
@@ -104,13 +106,13 @@ export default class Container extends React.Component {
   render() {
     return (
       <div className={styles.container}>
-       <Header group={this.state.group}/>
-		<Sidebar group={this.state.group} group_update={this.SidebarGroupUpdate.bind(this)} />
+        <Header group={this.state.group} />
+        <Sidebar group={this.state.group} group_update={this.SidebarGroupUpdate.bind(this)} />
         {this.state.memo_bigArr ? (
           <Contents memo_bigArr={this.state.memo_bigArr} />
         ) : (
-          <Contents />
-        )}
+            <Contents />
+          )}
       </div>
     );
   }
