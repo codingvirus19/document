@@ -24,7 +24,7 @@ public class MainApiController {
 	@Autowired
  	private MainService mainService;
 	
- 	@PostMapping("/contents")
+ 	@PostMapping("/memoList")
  	public JsonResult contents(HttpSession httpSession, @RequestBody GroupVo vo) {
  		
  		List<MemoVo> list = mainService.findAllMemo(vo);
@@ -37,6 +37,7 @@ public class MainApiController {
 	public JsonResult getGroupList(@AuthUser SecurityUser securityUser) {
 		UserVo userVo = new UserVo();
 		userVo.setNo(securityUser.getNo());
+		System.out.println(securityUser);
 		List<GroupVo> list = mainService.findByGroupList(userVo);
 		System.out.println(list);
 		return JsonResult.success(list);
