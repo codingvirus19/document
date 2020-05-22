@@ -30,7 +30,7 @@ public class MainApiController {
  		List<MemoVo> list = mainService.findAllMemo(vo);
  		System.out.println(vo);
 		System.out.println("list"+ list);
- 		return JsonResult.success(list);
+ 		return JsonResult.success(list);	
 	}
 
 	@PostMapping("/container")
