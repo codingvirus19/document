@@ -20,6 +20,7 @@ export default class Container extends React.Component {
       memo_bigArr: null,
     };
   }
+
   componentDidMount() {
     // 그룹의 db를 가져오는 코드
     let group = { no: [], gname: [] };
@@ -46,6 +47,7 @@ export default class Container extends React.Component {
       })
       .catch((err) => console.error(err));
     // 그룹의 db를 가져오는 코드
+
   }
 
   bringMemoByGroup(_groupDatas) {
@@ -106,8 +108,8 @@ export default class Container extends React.Component {
         {this.state.memo_bigArr ? (
           <Contents memo_bigArr={this.state.memo_bigArr} />
         ) : (
-          <Contents />
-        )}
+            <Contents />
+          )}
       </div>
     );
   }

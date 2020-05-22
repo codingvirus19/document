@@ -3,7 +3,6 @@ import React from "react";
 import Popup2 from "../Popup2"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faFolderPlus, faUserPlus } from '@fortawesome/free-solid-svg-icons'
-
 import styles from "./ContentsHeader.css"
 
 export default class ContentsHeader extends React.Component {
@@ -50,8 +49,8 @@ export default class ContentsHeader extends React.Component {
             onClick={this.toggleGroupAddOrInvite.bind(this)}>
             <FontAwesomeIcon className={styles.faUserPlus} icon={faUserPlus}/>
           </button>
-          {this.state.ShowGroupAddOrInvite ? (
-          // { true ? (
+          {/* {this.state.ShowGroupAddOrInvite ? ( */}
+          { true ? (
             <Popup2
               inner_header="그룹생성 및 초대"
               contents={'groupAddOrInvite'}
