@@ -7,7 +7,7 @@ export default class Memo extends React.Component {
     console.log(this.props.content);
     return (
       <input
-        value={this.props.content}
+        // value={this.props.content}
         // onChange={}
         className={styles.memo}
         type="textarea"
