@@ -28,8 +28,8 @@ public class MainApiController {
  	public JsonResult contents(HttpSession httpSession, @RequestBody GroupVo vo) {
  		
  		List<MemoVo> list = mainService.findAllMemo(vo);
- 		System.out.println(vo);
-		System.out.println("list"+ list);
+// 		System.out.println(vo);
+//		System.out.println("list"+ list);
  		return JsonResult.success(list);	
 	}
 
@@ -37,20 +37,23 @@ public class MainApiController {
 	public JsonResult getGroupList(@AuthUser SecurityUser securityUser) {
 		UserVo userVo = new UserVo();
 		userVo.setNo(securityUser.getNo());
-		
-		List<GroupVo> list = mainService.findByGroupList(userVo);
-		return JsonResult.success(list);
+		List<GroupVo> returnValue = mainService.hasGroup(userVo);
+		System.out.println(returnValue);
+			//그룹 찹기
+//			List<GroupVo> list = mainService.findByGroupList(userVo);
+//			System.out.println("list"+list);
+			return JsonResult.success(returnValue);
 	}
 
-	@PostMapping("/getUserSession")
+  @PostMapping("/getUserSession")
 	public JsonResult getUserSession(@AuthUser SecurityUser securityUser) {
 		System.out.println(securityUser);
 		return JsonResult.success(securityUser);
 	}
- 	
+  
  	@PostMapping("/addGroup")
 	public JsonResult addGroup(@RequestBody GroupVo vo) {
-		System.out.println(vo);
+//		System.out.println(vo);
 		mainService.addGroup(vo);
 		return JsonResult.success(vo);
 	}

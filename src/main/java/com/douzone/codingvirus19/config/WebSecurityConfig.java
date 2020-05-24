@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/assets/**","/chat/**","/").permitAll()
+		http.authorizeRequests().antMatchers("/assets/**","/chat/**","/**").permitAll()
 				.antMatchers("/**").hasRole("GUEST")
 //				.antMatchers("/auth/**").hasAnyRole("ADMIN", "USER") // 내부적으로 접두어 "ROLE_"가 붙는다.
 				.anyRequest().authenticated();

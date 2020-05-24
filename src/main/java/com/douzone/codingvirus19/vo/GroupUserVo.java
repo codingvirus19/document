@@ -1,10 +1,11 @@
 package com.douzone.codingvirus19.vo;
 
-public class GroupUser {
+public class GroupUserVo {
 
 	private Long uNo;
 	private Long gNo;
 	private Long aNo;
+	
 	public Long getuNo() {
 		return uNo;
 	}
@@ -25,6 +26,6 @@ public class GroupUser {
 	}
 	@Override
 	public String toString() {
-		return "GroupUser [uNo=" + uNo + ", gNo=" + gNo + ", aNo=" + aNo + "]";
+		return "GroupUserVo [uNo=" + uNo + ", gNo=" + gNo + ", aNo=" + aNo + "]";
 	}
 }
