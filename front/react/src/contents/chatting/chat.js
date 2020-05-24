@@ -17,7 +17,7 @@ export default class Chatting extends React.Component {
             </Dropdown.Toggle>
             <Dropdown.Menu className={styles.dropdown__chat} >
                <Accordion>
-                  <ChatRoomList group={this.props.group} />
+                  <ChatRoomList group={this.props.group} users={this.props.users} />
                </Accordion>
             </Dropdown.Menu>
          </Dropdown>

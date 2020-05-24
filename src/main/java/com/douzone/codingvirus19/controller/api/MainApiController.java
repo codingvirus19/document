@@ -39,10 +39,14 @@ public class MainApiController {
 		userVo.setNo(securityUser.getNo());
 		
 		List<GroupVo> list = mainService.findByGroupList(userVo);
-		System.out.println(list);
 		return JsonResult.success(list);
 	}
 
+	@PostMapping("/getUserSession")
+	public JsonResult getUserSession(@AuthUser SecurityUser securityUser) {
+		System.out.println(securityUser);
+		return JsonResult.success(securityUser);
+	}
  	
  	@PostMapping("/addGroup")
 	public JsonResult addGroup(@RequestBody GroupVo vo) {

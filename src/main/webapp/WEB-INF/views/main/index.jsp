@@ -12,5 +12,5 @@
 <body>
 	<div id ='container' style="width: 100%; height:100%">
 	</div>
-	<script src="http://192.168.1.27:8090/bundle.js"></script>
-</body>
+	<script src="http://localhost:8090/bundle.js"></script>
+</body> 
