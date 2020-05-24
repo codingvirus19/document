@@ -15,6 +15,7 @@ export default class Container extends React.Component {
     super(...arguments);
     this.state = {
       group: { no: [], gname: [] },
+      users: { no: [], name: [] },
       groups: null,
       g_no: null,
       memo_bigArr: null,
@@ -52,12 +53,28 @@ export default class Container extends React.Component {
           }
           // console.log(group);
         });
-
-        this.Update(group);
+        console.log(group);
+        this.UpdateGroup(group);
       })
       .catch((err) => console.error(err));
     // 그룹의 db를 가져오는 코드
+// -------------------------------------------------------------
 
+    // 로그인한 user를 가져오는 코드
+    let users = { no: [], name: [] };
+    // call api
+    fetch(`${API_URL}/api/getUserSession`, {
+      method: "post",
+      headers: API_HEADERS,
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        users.no.push(json.data.no);
+        users.name.push(json.data.name);
+        
+        this.UpdateUser(users);
+      })
+      .catch((err) => console.error(err));
   }
 
   bringMemoByGroup(_groupDatas) {
@@ -94,9 +111,14 @@ export default class Container extends React.Component {
     });
   }
 
-  Update(group) {
+  UpdateGroup(group) {
     this.setState({
-      group: group,
+      group: group
+    });
+  }
+  UpdateUser(users){
+    this.setState({
+      users:users
     });
   }
 
@@ -108,9 +130,10 @@ export default class Container extends React.Component {
   }
 
   render() {
+    console.log(this.state.users);
     return (
       <div className={styles.container}>
-        <Header group={this.state.group} />
+        <Header group={this.state.group} users={this.state.users} />
         <Sidebar
           group={this.state.group}
           group_update={this.SidebarGroupUpdate.bind(this)}
