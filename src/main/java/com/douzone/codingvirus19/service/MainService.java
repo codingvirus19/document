@@ -16,11 +16,10 @@ public class MainService {
 	@Autowired
 	private MainRepository mainRepository;
 
-	public List<MemoVo> findAllMemo(UserVo authUser) {
-		List<MemoVo> memoList = mainRepository.findAllMemo(authUser);
-		return memoList;
+	public List<MemoVo> findAllMemo(GroupVo vo) {
+ 		List<MemoVo> memoList = mainRepository.findAllMemo(vo);
+ 		return memoList;
 	}
-
 	public List<GroupVo> findByGroupList(UserVo vo) {
 		List<GroupVo> list = mainRepository.findByGroupList(vo);
 		return list;
@@ -31,3 +30,4 @@ public class MainService {
 		return count== 1;
 	}
 }
+
