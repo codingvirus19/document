@@ -33,16 +33,26 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        // 배열
+        // groupuser에서 가져온 group의 데이터값
         groupDatas = json.data;
+
         console.log(groupDatas);
+
+        // group의 데이터값으로 memo를 불러오는 함수
         this.bringMemoByGroup(groupDatas);
 
-        json.data.map((json) => {
+        // group의 데이터값으로 sidebar를 불러오는 함수
+        groupDatas.map((json) => {
           group.no.push(json.no);
           group.gname.push(json.name);
+          if (!groupDatas[1]) {
+            console.log("그룹없음");
+          } else {
+            console.log("그룹있음");
+          }
+          // console.log(group);
         });
-        console.log(group);
+
         this.Update(group);
       })
       .catch((err) => console.error(err));
@@ -53,8 +63,8 @@ export default class Container extends React.Component {
   bringMemoByGroup(_groupDatas) {
     // 그룹의 data로 memo의 db를 가져오는 코드
     let memo_bigArr = [];
-    // 그룹값이 null이면 개인 1부터 그룹으로 표시
-    // ex_ g_no가 null이고, u_no가 있을 때 개인, g_no가 not null이고, u_no가 있을때 그룹.
+
+    // 각 그룹의 no로 memo를 가져온다.
     // u_no는 server에서 세션값으로 처리해서 전달된다.
     let input_groupNo = {
       no: 1,
