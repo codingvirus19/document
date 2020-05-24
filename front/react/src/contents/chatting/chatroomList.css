@@ -3,6 +3,9 @@
     margin-bottom: 1.3px;
 }
 
-/* .collapse:not(.show) {
+.collapsedown{
     display: none;
-  } */
+}
+.collapseopen{
+    display: block;
+}
