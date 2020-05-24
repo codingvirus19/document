@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSms } from '@fortawesome/free-solid-svg-icons'
 import Accordion from 'react-bootstrap/Accordion'
 import Dropdown from "react-bootstrap/Dropdown";
-import content from "./chat.json";
 import ChatRoomList from "./chatroomList";
 
 import styles from './chat.css';

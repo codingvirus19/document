@@ -5,10 +5,12 @@
 		<typeAlias alias="uservo" type="com.douzone.codingvirus19.vo.UserVo"/>
 		<typeAlias alias="memovo" type="com.douzone.codingvirus19.vo.MemoVo"/>
 		<typeAlias alias="groupvo" type="com.douzone.codingvirus19.vo.GroupVo"/>
+		<typeAlias alias="chatvo" type="com.douzone.codingvirus19.vo.ChatVo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/main.xml" />
 		<mapper resource="mybatis/mappers/groups.xml" />
+		<mapper resource="mybatis/mappers/chat.xml" />
 	</mappers>
 </configuration>

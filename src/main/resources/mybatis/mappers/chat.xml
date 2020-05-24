@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chat">
+	<select id="chattingList" parameterType="chatvo" resultType="chatvo">
+		<![CDATA[
+			  select c.g_no as gNo, 
+			  		 c.message as message, 
+			  		 c.date as date, 
+			  		 c.count as aCount, 
+			  		 u.nickname as nickname
+			    from chat c, user u
+			   where c.g_no = #{gNo}
+			     and c.u_no = u.no
+			order by c.date;
+ 		]]>
+	</select>
+	<insert id="insert" parameterType="chatvo">
+		<![CDATA[
+			insert into chat 
+			values ( #{gNo}, #{uNo}, #{message}, now(), #{aCount});
+ 		]]>
+	</insert>
+</mapper>
+	
