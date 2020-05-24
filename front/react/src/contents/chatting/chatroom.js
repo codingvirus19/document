@@ -1,47 +1,71 @@
 import React, { Fragment } from "react";
-import SockJsClient from "react-stomp";
+
 import MessageList from "./messageList";
 import MessageSend from "./messageSend";
+import SockJsClient from "react-stomp";
 
 import styles from './chatroom.css';
 
+const API_URL = "http://localhost:8080/codingvirus19";
+const API_HEADERS = {
+    "Content-Type": "application/json",
+};
+
 export default class ChatRoomList extends React.Component {
     constructor() {
-        super(...arguments);
+        super(...arguments)
         this.state = {
-           // clientConnected: true,
-           contents: this.props.chatMessages,
-           g_no: this.props.group_no,
-           randomName: Math.round(Math.random()*100),
+            g_no: this.props.group_no,
+            clientConnected: true,
+            contents: [],
         }
     }
-    sendMessage(mg) {
 
-        // this.outoscroll();
-        // // console.log(this.state.contents);
-        // if (!mg.trim()) {
-        //     return;
-        // }
-        // this.state.contents.push({
-        //    group_no: 1,
-        //    name: 'hi',
-        //    message: mg
-        //  })
-
-        // this.setState({
-        //   message: mg
-        // })
-        console.log(mg);
-        this.clientRef.sendMessage("/app/chat/"+this.state.g_no, JSON.stringify({group_no:this.state.g_no, nickname: `유저` + (this.state.randomName), message: mg }));
+    componentDidMount() {
+        let data = { gNo: this.state.g_no };
+        // call api
+        console.log(data);
+        fetch(`${API_URL}/api/chatlist`, {
+            method: "post",
+            headers: API_HEADERS,
+            body: JSON.stringify(data)
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                this.setState({
+                    contents: json.data
+                });
+            })
+            .catch((err) => console.error(err));
     }
 
-    onMessageReceive(msg, topic) {
-        console.log(msg)
-        this.props.chatMessages.push(msg)
+    onMessageReceive(msg) {
+        console.log(msg);
         this.setState({
-            contents: this.props.chatMessages
-        });
-        //alert(JSON.stringify(msg) + " @ " +  JSON.stringify(this.state.messages)+" @ " + JSON.stringify(topic));
+            contents: this.state.contents.concat(msg),
+        })
+
+        // let msgarray = update(this.state.contents,{
+        //     mssage:{
+        //         $push : [msg]
+        //     }
+        // });
+        // this.setState({
+        //     contents: msgarray
+        // });
+    }
+
+    sendMessage(mg) {
+        console.log(mg);
+        this.clientRef.sendMessage("/app/chat/" + this.state.g_no,
+            JSON.stringify({
+                gNo: this.state.g_no,
+                uNo: this.props.users.no[0],
+                nickname:this.props.users.name[0],
+                message: mg,
+                date: new Date(),
+                aCount: 1
+            }));
     }
 
     outoscroll(e) {
@@ -50,20 +74,15 @@ export default class ChatRoomList extends React.Component {
     }
 
     render() {
-
-        console.log(this.scrollBottom);
         const wsSourceUrl = "http://localhost:8080/codingvirus19/api/chat";
-
         return (
             <Fragment>
                 <div id="Chatting" className={styles.Chatting}>
                     <div id="chatOutput" className={styles.chatOutput}>
-                        <MessageList contents={this.state.contents} g_no={this.state.g_no} ref={this.outoscroll.bind(this)} />
+                        <MessageList group_no={this.state.g_no} users={this.props.users.name[0]} addMessage={this.state.contents} ref={this.outoscroll.bind(this)} />
                     </div>
                     <div id="chatInput" className="chatInput">
-
-                        <MessageSend sendMessage={this.sendMessage.bind(this)} />
-
+                        <MessageSend group_no={this.state.g_no} sendMessage={this.sendMessage.bind(this)} />
                     </div>
                     <SockJsClient
                         url={wsSourceUrl}

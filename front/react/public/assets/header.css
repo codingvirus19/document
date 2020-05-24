@@ -237,9 +237,9 @@ table tr:nth-child(2n) {
 
 
 /*header-right_dropmenu*/
-.dropdown-menu a {
+/* .dropdown-menu a {
   text-decoration: none;
-}
+} */
 /* .dropdown-menu {
   background-color: #fff;
   width: 10rem;
@@ -271,14 +271,14 @@ table tr:nth-child(2n) {
 
 
 /* header_btn-icon*/
-.fa-sms:before,
+/* .fa-sms:before,
 .fa-plus:before,
 .fa-bell:before,
 .fa-user:before {
   font-size: xx-large;
   color: #3a3b45;
   background-color: #f5f5f5;
-}
+} */
 /* header_btn-icon*/
 
 /*userbell, profile*/
@@ -351,8 +351,6 @@ table tr:nth-child(2n) {
 } */
 
 /* react Bootstrap 각 방 클릭시 채팅창 오픈 */
-.collapse:not(.show) {
-  display: none;
-}
+
 /*///////////right-header////////////*/
 

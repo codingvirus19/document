@@ -2,3 +2,7 @@
     border:1px dashed #00FFFF;
     margin-bottom: 1.3px;
 }
+
+.collapse:not(.show) {
+    display: none;
+  }

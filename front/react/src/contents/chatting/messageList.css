@@ -1,11 +1,22 @@
-.chat__messagelist li{
+.mychat{
+    border-radius: 10px;
+    margin: 0 0rem 10px 2rem;
+    list-style: none;
+    padding-left: 0px;
+    text-align: right;
+    background-color: aqua;
+}
+
+.otherchat{
     border-radius: 10px;
     margin: 0 2rem 10px 0;
     list-style: none;
     padding-left: 0px;
     text-align: left;
-    background-color: aqua;
+    background-color: pink;
 }
+
 .chat__messagelist li div{
     word-break: break-all;
 }
+

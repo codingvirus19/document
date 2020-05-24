@@ -6,7 +6,7 @@ import styles from '../Popup2.css';
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
-  "Content-Type": "application/json",
+    "Content-Type": "application/json",
 };
 
 export default class GroupAddOrInvite extends React.Component {
@@ -26,56 +26,57 @@ export default class GroupAddOrInvite extends React.Component {
                 { value: '사용자2', label: '사용자2' },
                 { value: '사용자3', label: '사용자3' },
                 { value: '사용자4', label: '사용자4' }
-            ],
-            addElement: null
+            ]
             // 다 삭제 안되는 오류
         }
     }
 
+    // componentDidMount() {
+    //     this.GroupID = setInterval(
+    //         this.groupUpdate()
+    //     );
+    // }
+
+    // componentWillUnmount() {
+    //     clearInterval(this.GroupID.bind(this))
+    // }
+
+    // groupUpdate() {
+    //     this.setState({
+    //         groups: this.props.group.gname.map(element => {
+    //             return {
+    //                 value: element,
+    //                 label: element
+    //             }
+    //         })
+    //     })
+    // }
+
     addGroup(event) {
         if (event.__isNew__) {
-            this.setState({
-                addElement: event.label
-            })
-            console.log(event.label);
-            let data={
-                name:event.label
+            let data = {
+                name: event.label
             };
             console.log(data);
             fetch(`${API_URL}/api/addGroup`, {
                 method: "post",
                 headers: API_HEADERS,
                 body: JSON.stringify(data)
-              })
+            })
                 .then((response) => response.json())
                 .then((json) => {
-                  this.setState({
-                    result: json.data,
-                  });
-               })
-            .catch((err) => console.error(err));
+                    this.setState({
+                        result: json.data,
+                    });
+                })
+                .catch((err) => console.error(err));
         }
     }
 
     addUser(event) {
-        // console.log(event);
-        // // console.log(event.label);
-        // this.setState({
-        //     addElement: event.label
-        // })
-        // this.setState({
-        //     users: event.map(element => {
-        //         return {
-        //             value: element.label,
-        //             label: element.label
-        //         }
-        //     })
-        // })
     }
 
     render() {
-        // console.log(this.state.groups)
-        // console.log(this.state.addElement)
         return (
             <>
                 <div className={styles.inner_form_component}>

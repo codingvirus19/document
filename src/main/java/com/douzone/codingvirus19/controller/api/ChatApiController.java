@@ -1,27 +1,28 @@
 package com.douzone.codingvirus19.controller.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.douzone.codingvirus19.vo.ChatMessageVo;
+import com.douzone.codingvirus19.dto.JsonResult;
+import com.douzone.codingvirus19.service.ChatService;
+import com.douzone.codingvirus19.vo.ChatVo;
 
-@Controller
+@RestController
+@RequestMapping("/api")
 public class ChatApiController {
-	@Autowired
-	private SimpMessagingTemplate webSocket;
 
-	@MessageMapping("/chat/{room}")
-	public void sendMessage(ChatMessageVo message, @DestinationVariable String room) throws Exception{
-		System.out.println("접속");
-		System.out.println(message.getGroup_no());
-		System.out.println(message.getNickname());
-		System.out.println(message.getMessage());
-		System.out.println("웹 소켓 controller 들어 왔습니다.");
-		System.out.println(room);
-		
-		webSocket.convertAndSend("/api/chat/"+room, message);
+	@Autowired
+	private ChatService chatService;
+	
+	@PostMapping("/chatlist")
+	public JsonResult getChatList(@RequestBody ChatVo chatVo) {
+		System.out.println(chatVo);
+		List<ChatVo> list = chatService.chattingList(chatVo);
+		return JsonResult.success(list);
 	}
 }

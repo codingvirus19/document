@@ -1,13 +1,10 @@
 import React from "react";
-
-import CreatableSelect from 'react-select/creatable';
+import Select from 'react-select';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// import '../node_modules/react-toastify/dist/ReactToastify.min.css';
 
 import styles from "./Sheets.css";
-
-const API_URL = "http://localhost:8080/codingvirus19";
-const API_HEADERS = {
-    "Content-Type": "application/json",
-};
 
 export default class GroupShareSheet extends React.Component {
 
@@ -16,43 +13,30 @@ export default class GroupShareSheet extends React.Component {
         this.state = {
             g_noUpdate: '',
             currentG_no: null,
-            groups: this.props.g_name.map(element => {
+            groups: this.props.group.gname.map(element => {
                 return {
                     value: element,
                     label: element
                 }
             }),
-            addElement: null
             // 다 삭제 안되는 오류
         }
     }
 
-    addGroup(event) {
-        if (event.__isNew__) {
-            this.setState({
-                addElement: event.label
-            })
-            console.log(event.label);
-            let data = {
-                name: event.label
-            };
-            console.log(data);
-            fetch(`${API_URL}/api/addGroup`, {
-                method: "post",
-                headers: API_HEADERS,
-                body: JSON.stringify(data)
-            })
-                .then((response) => response.json())
-                .then((json) => {
-                    this.setState({
-                        result: json.data,
-                    });
-                })
-                .catch((err) => console.error(err));
-        }
-    }
+    share(e) { 
+        e.preventDefault();
+        toast.success("공유되었습니다.", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    })}
 
     render() {
+
         return (
             <div
                 className={styles.groupShareSheet}
@@ -60,14 +44,14 @@ export default class GroupShareSheet extends React.Component {
                 <div className={styles.container}>
                     <div className={styles.title}>공유할 그룹</div>
                     <div className={styles.contents}>
-                        <CreatableSelect
+                        <Select
+                            isMulti
                             autoFocus={true}
                             className={styles.select}
                             defaultMenuIsOpen={true}
                             closeMenuOnSelect={false}
                             menuIsOpen={true}
-                            onChange={this.addGroup.bind(this)}
-                            maxMenuHeight={50}
+                            maxMenuHeight={100}
                             options={this.state.groups}
                             placeholder="공유할 그룹 선택"
                         />
@@ -75,6 +59,7 @@ export default class GroupShareSheet extends React.Component {
                 </div>
                 <div className={styles.btns}>
                     <button
+                        onClick={this.share.bind(this)}
                         type="submit"
                         className={styles.confirm_btn}>공유하기</button>
                     <button
@@ -82,6 +67,17 @@ export default class GroupShareSheet extends React.Component {
                         onClick={this.props.closeGroupShareSheet}>
                         취소
               </button>
+              <ToastContainer
+                        // position="bottom-right"
+                        // autoClose={5000}
+                        // hideProgressBar={false}
+                        // newestOnTop={false}
+                        // closeOnClick
+                        // rtl={false}
+                        // pauseOnFocusLoss
+                        // draggable
+                        // pauseOnHover
+                    />
                 </div>
             </div >
         );
