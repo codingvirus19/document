@@ -7,7 +7,7 @@ import styles from "./Container.css";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
-  "Content-Type": "application/json",
+    "Content-Type": "application/json",
 };
 
 export default class Container extends React.Component {
@@ -20,6 +20,7 @@ export default class Container extends React.Component {
       memo_bigArr: null,
     };
   }
+
   componentDidMount() {
     // 그룹의 db를 가져오는 코드
     let group = { no: [], gname: [] };
@@ -56,6 +57,7 @@ export default class Container extends React.Component {
       })
       .catch((err) => console.error(err));
     // 그룹의 db를 가져오는 코드
+
   }
 
   bringMemoByGroup(_groupDatas) {
@@ -114,10 +116,10 @@ export default class Container extends React.Component {
           group_update={this.SidebarGroupUpdate.bind(this)}
         />
         {this.state.memo_bigArr ? (
-          <Contents memo_bigArr={this.state.memo_bigArr} />
+          <Contents memo_bigArr={this.state.memo_bigArr} group={this.state.group} />
         ) : (
-          <Contents />
-        )}
+            <Contents />
+          )}
       </div>
     );
   }

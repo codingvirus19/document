@@ -43,7 +43,6 @@ public class MainApiController {
 //			List<GroupVo> list = mainService.findByGroupList(userVo);
 //			System.out.println("list"+list);
 			return JsonResult.success(returnValue);
-
 	}
 
  	@PostMapping("/addGroup")

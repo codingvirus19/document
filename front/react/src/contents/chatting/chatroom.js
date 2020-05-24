@@ -2,17 +2,70 @@ import React, { Fragment } from "react";
 
 import MessageList from "./messageList";
 import MessageSend from "./messageSend";
+import SockJsClient from "react-stomp";
 
 import styles from './chatroom.css';
 
+const API_URL = "http://localhost:8080/codingvirus19";
+const API_HEADERS = {
+    "Content-Type": "application/json",
+};
+
 export default class ChatRoomList extends React.Component {
     constructor() {
-        super(...arguments);
+        super(...arguments)
         this.state = {
-           clientConnected: true,
-        //    contents: this.props.chatMessages,
-           randomName: Math.round(Math.random()*100),
+            g_no: this.props.group_no,
+            clientConnected: true,
+            contents: []
         }
+    }
+
+    componentDidMount() {
+        let data = { gNo: this.state.g_no };
+        // call api
+        console.log(data);
+        fetch(`${API_URL}/api/chatlist`, {
+            method: "post",
+            headers: API_HEADERS,
+            body: JSON.stringify(data)
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                this.setState({
+                    contents: json.data
+                });
+            })
+            .catch((err) => console.error(err));
+    }
+
+    onMessageReceive(msg) {
+        console.log(msg);
+        this.setState({
+            contents: this.state.contents.concat(msg),
+        })
+
+        // let msgarray = update(this.state.contents,{
+        //     mssage:{
+        //         $push : [msg]
+        //     }
+        // });
+        // this.setState({
+        //     contents: msgarray
+        // });
+    }
+
+    sendMessage(mg) {
+        console.log(mg);
+        this.clientRef.sendMessage("/app/chat/" + this.state.g_no,
+            JSON.stringify({
+                gNo: this.state.g_no,
+                uNo: 1,
+                nickname:'gd',
+                message: mg,
+                date: new Date(),
+                aCount: 1
+            }));
     }
 
     outoscroll(e) {
@@ -21,16 +74,22 @@ export default class ChatRoomList extends React.Component {
     }
 
     render() {
-        console.log(this.props.group_no);
+        const wsSourceUrl = "http://localhost:8080/codingvirus19/api/chat";
         return (
             <Fragment>
                 <div id="Chatting" className={styles.Chatting}>
                     <div id="chatOutput" className={styles.chatOutput}>
-                        <MessageList contents={this.state.contents} ref={this.outoscroll.bind(this)} />
+                        <MessageList group_no={this.state.g_no} addMessage={this.state.contents} ref={this.outoscroll.bind(this)} />
                     </div>
                     <div id="chatInput" className="chatInput">
-                        <MessageSend group_no={this.props.group_no} sendMessage={this.props.sendMessage} />
+                        <MessageSend group_no={this.state.g_no} sendMessage={this.sendMessage.bind(this)} />
                     </div>
+                    <SockJsClient
+                        url={wsSourceUrl}
+                        topics={[`/api/chat/${this.state.g_no}`]}
+                        onMessage={this.onMessageReceive.bind(this)}
+                        ref={(client) => { this.clientRef = client }}
+                        onConnect={() => { this.setState({ clientConnected: true }) }} />
                 </div>
             </Fragment>
         )

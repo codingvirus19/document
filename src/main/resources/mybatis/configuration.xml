@@ -2,19 +2,18 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="uservo"
-			type="com.douzone.codingvirus19.vo.UserVo" />
-		<typeAlias alias="memovo"
-			type="com.douzone.codingvirus19.vo.MemoVo" />
-		<typeAlias alias="groupvo"
-			type="com.douzone.codingvirus19.vo.GroupVo" />
-			<typeAlias alias="groupuservo"
-			type="com.douzone.codingvirus19.vo.GroupUserVo" />
+		<typeAlias alias="uservo" type="com.douzone.codingvirus19.vo.UserVo"/>
+		<typeAlias alias="memovo" type="com.douzone.codingvirus19.vo.MemoVo"/>
+		<typeAlias alias="groupvo" type="com.douzone.codingvirus19.vo.GroupVo"/>
+		<typeAlias alias="chatvo" type="com.douzone.codingvirus19.vo.ChatVo"/>
+    <typeAlias alias="groupuservo" type="com.douzone.codingvirus19.vo.GroupUserVo"/>
+
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/main.xml" />
 		<mapper resource="mybatis/mappers/groups.xml" />
+		<mapper resource="mybatis/mappers/chat.xml" />
 		<mapper resource="mybatis/mappers/groupuser.xml" />
 	</mappers>
 </configuration>

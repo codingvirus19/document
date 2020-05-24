@@ -6,7 +6,7 @@ import styles from '../Popup2.css';
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
-  "Content-Type": "application/json",
+    "Content-Type": "application/json",
 };
 
 export default class GroupAddOrInvite extends React.Component {
@@ -31,9 +31,30 @@ export default class GroupAddOrInvite extends React.Component {
         }
     }
 
+    // componentDidMount() {
+    //     this.GroupID = setInterval(
+    //         this.groupUpdate()
+    //     );
+    // }
+
+    // componentWillUnmount() {
+    //     clearInterval(this.GroupID.bind(this))
+    // }
+
+    // groupUpdate() {
+    //     this.setState({
+    //         groups: this.props.group.gname.map(element => {
+    //             return {
+    //                 value: element,
+    //                 label: element
+    //             }
+    //         })
+    //     })
+    // }
+
     addGroup(event) {
         if (event.__isNew__) {
-            let data={
+            let data = {
                 name: event.label
             };
             console.log(data);
@@ -41,14 +62,14 @@ export default class GroupAddOrInvite extends React.Component {
                 method: "post",
                 headers: API_HEADERS,
                 body: JSON.stringify(data)
-              })
+            })
                 .then((response) => response.json())
                 .then((json) => {
-                  this.setState({
-                    result: json.data,
-                  });
-               })
-            .catch((err) => console.error(err));
+                    this.setState({
+                        result: json.data,
+                    });
+                })
+                .catch((err) => console.error(err));
         }
     }
 
