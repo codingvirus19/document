@@ -7,7 +7,6 @@
 			select  b.no as no, b.name as name
   			  from user a, groups b , memo c
  			 where a.no = c.u_no
-             and b.no = c.g_no
              and a.no = #{no}
              group by b.no; 
  		]]>
