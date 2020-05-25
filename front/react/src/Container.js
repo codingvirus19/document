@@ -106,9 +106,11 @@ export default class Container extends React.Component {
           group_update={this.SidebarGroupUpdate.bind(this)}
         />
         {this.state.memo_bigArr ? (
-          <Contents memo_bigArr={this.state.memo_bigArr} />
+          <Contents 
+          group={this.state.group}
+          memo_bigArr={this.state.memo_bigArr} />
         ) : (
-            <Contents />
+            <Contents group={this.state.group} />
           )}
       </div>
     );

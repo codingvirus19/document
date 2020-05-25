@@ -27,7 +27,20 @@ public class MainRepository {
  		return sqlSession.selectList("groups.findByGroupList", vo);
  	}
  	
-	public int addGroup(GroupVo vo) {
+	public int insertGroup(GroupVo vo) {
 		return sqlSession.insert("groups.insert", vo);
+	}
+
+	public int insertAuth() {
+		return sqlSession.insert("auth.insert");
+	}
+
+	public int findLatestAuthNo() {
+		return sqlSession.selectOne("auth.findLatestNo");
+	}
+
+	public int insertGroupUser() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

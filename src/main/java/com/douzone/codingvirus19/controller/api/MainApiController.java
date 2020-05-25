@@ -22,15 +22,15 @@ import com.douzone.codingvirus19.vo.UserVo;
 @RequestMapping("/api")
 public class MainApiController {
 	@Autowired
- 	private MainService mainService;
-	
- 	@PostMapping("/memoList")
- 	public JsonResult contents(HttpSession httpSession, @RequestBody GroupVo vo) {
- 		
- 		List<MemoVo> list = mainService.findAllMemo(vo);
- 		System.out.println(vo);
+	private MainService mainService;
+
+	@PostMapping("/memoList")
+	public JsonResult contents(HttpSession httpSession, @RequestBody GroupVo vo) {
+
+		List<MemoVo> list = mainService.findAllMemo(vo);
+		System.out.println(vo);
 		System.out.println("list"+ list);
- 		return JsonResult.success(list);	
+		return JsonResult.success(list);	
 	}
 
 	@PostMapping("/container")
@@ -43,18 +43,23 @@ public class MainApiController {
 		return JsonResult.success(list);
 	}
 
- 	
- 	@PostMapping("/addGroup")
-	public JsonResult addGroup(@RequestBody GroupVo vo) {
+
+	@PostMapping("/addGroup")
+	public JsonResult addGroup(
+			@AuthUser SecurityUser securityUser, 
+			@RequestBody GroupVo vo) {
 		System.out.println(vo);
-		mainService.addGroup(vo);
+		mainService.insertGroup(vo);	//그룹 추가
+		mainService.insertAuth();	//auth추가
+		int LatestAuthNo = mainService.findLatestAuthNo();	//가장 최근에 추가한 authNo 가져오기
+//		mainService.insertGroupUser(securityUser.getNo(), LatestAuthNo, );
 		return JsonResult.success(vo);
 	}
- 	
-// 	@PostMapping("/container")
-// 	public JsonResult container(HttpSession httpSession) {
-// 		List<GroupVo> list = mainService.findByGroupList();
-// 		
-// 		return JsonResult.success(list);
-// 	}
+
+	// 	@PostMapping("/container")
+	// 	public JsonResult container(HttpSession httpSession) {
+	// 		List<GroupVo> list = mainService.findByGroupList();
+	// 		
+	// 		return JsonResult.success(list);
+	// 	}
 }

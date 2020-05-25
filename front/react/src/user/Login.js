@@ -37,6 +37,7 @@ export default class login extends React.Component {
     const formData = new FormData();
     formData.append("username", this.state.email);
     formData.append("password", this.state.password);
+    try{
     fetch(`${API_URL}/user/auth`, {
       method: "post",
       headers: API_HEADERS,
@@ -49,6 +50,17 @@ export default class login extends React.Component {
         }
       })
       .catch((err) => console.error(err));
+    
+      // alert("아이디나 비밀번호가 틀립니다");
+      
+      // this.setState({
+      //   email: "",
+      //   password: ""
+      // })
+    }
+    catch (e) {
+      console.log(e+"실패")
+    }
   }
 
 

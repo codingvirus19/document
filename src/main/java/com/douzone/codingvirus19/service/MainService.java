@@ -25,9 +25,22 @@ public class MainService {
 		return list;
 	}
 
-	public boolean addGroup(GroupVo vo) {
-		int count = mainRepository.addGroup(vo);
-		return count== 1;
+	public boolean insertGroup(GroupVo vo) {
+		int count = mainRepository.insertGroup(vo); //유저 시큐리티도 같이		
+		return count == 1;
+	}
+	public boolean insertAuth() {
+		int count = mainRepository.insertAuth();
+		return count == 1;
+	}
+	public int findLatestAuthNo() {
+		return mainRepository.findLatestAuthNo();
+		
+	}
+	public boolean insertGroupUser() {
+		int count = mainRepository.insertGroupUser();
+		return count == 1;
+		
 	}
 }
 
