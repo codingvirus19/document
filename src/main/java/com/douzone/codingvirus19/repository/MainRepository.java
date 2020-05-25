@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.douzone.codingvirus19.vo.MemoVo;
 import com.douzone.codingvirus19.vo.UserVo;
-import com.douzone.codingvirus19.vo.GroupUserVo;
 import com.douzone.codingvirus19.vo.GroupVo;
 
 
@@ -19,24 +18,28 @@ public class MainRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<MemoVo> findAllMemo(GroupVo vo) {
-		List<MemoVo> memoList = sqlSession.selectList("main.findAllMemo", vo);
+	public List<GroupVo> getGroupByAuth(UserVo userVo) {
+		return sqlSession.selectList("groups.getGroupByAuth", userVo);
+	}
+	
+	public List<MemoVo> findAllMemo(MemoVo memoVo) {
+		List<MemoVo> memoList = sqlSession.selectList("main.findAllMemo", memoVo);
 		return memoList;
 	}
 	
- 	public List<GroupVo> findByGroupList(UserVo vo) {
- 		return sqlSession.selectList("groups.findByGroupList", vo);
- 	}
  	
 	public int insertGroup(GroupVo vo) {
 		return sqlSession.insert("groups.insert", vo);
 	}
 
-	public int insertGroupUser(GroupUserVo groupUservo) {
+	public List<MemoVo> memoAtNull() {
+		List<MemoVo> memoList = sqlSession.selectList("main.memoAtNull");
+		return memoList;
+}
+  
+public int insertGroupUser(GroupUserVo groupUservo) {
 		return sqlSession.insert("groupuser.insert", groupUservo);
 	}
 
-	public List<GroupVo> hasGroup(UserVo userVo) {
-		return sqlSession.selectList("groupuser.hasGroup", userVo);
-	}
+	
 }

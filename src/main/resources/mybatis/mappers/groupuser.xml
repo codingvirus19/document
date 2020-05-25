@@ -10,15 +10,5 @@
 		]]>
 	</insert>
 
-	<select id="hasGroup" resultType="groupvo"
-		parameterType="uservo">
-		<![CDATA[
-			 select c.no as no, c.name as name
-			  from user a, groupuser b, groups c
-			 where a.no = b.u_no
-             and c.no = b.g_no
-			  and a.no=#{no}; 
- 		]]>
-	</select>
-
 </mapper>
+

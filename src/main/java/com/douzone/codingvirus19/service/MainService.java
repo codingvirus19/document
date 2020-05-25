@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.douzone.codingvirus19.repository.MainRepository;
 import com.douzone.codingvirus19.vo.MemoVo;
 import com.douzone.codingvirus19.vo.UserVo;
-import com.douzone.codingvirus19.vo.GroupUserVo;
 import com.douzone.codingvirus19.vo.GroupVo;
 
 @Service
@@ -16,19 +15,24 @@ public class MainService {
 
 	@Autowired
 	private MainRepository mainRepository;
-
-	public List<MemoVo> findAllMemo(GroupVo vo) {
- 		List<MemoVo> memoList = mainRepository.findAllMemo(vo);
- 		return memoList;
+	
+	public List<GroupVo> getGroupByAuth(UserVo userVo) {
+		return mainRepository.getGroupByAuth(userVo);
 	}
-	public List<GroupVo> findByGroupList(UserVo vo) {
-		List<GroupVo> list = mainRepository.findByGroupList(vo);
-		return list;
+
+	public List<MemoVo> findAllMemo(MemoVo memoVo) {
+ 		List<MemoVo> memoList = mainRepository.findAllMemo(memoVo);
+ 		return memoList;
 	}
 
 	public boolean insertGroup(GroupVo vo) {
 		int count = mainRepository.insertGroup(vo);		
 		return count == 1;
+	}
+
+	public List<MemoVo> memoAtNull() {
+		List<MemoVo> memoList = mainRepository.memoAtNull();
+		return memoList;
 	}
 	
 	public boolean insertGroupUser(GroupUserVo groupUservo) {
@@ -36,9 +40,6 @@ public class MainService {
 		return count == 1;
 	}
 	
-	public List<GroupVo> hasGroup(UserVo userVo) {
-		return mainRepository.hasGroup(userVo);
-	}
 
 }
 
