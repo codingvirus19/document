@@ -32,8 +32,8 @@ public class MainRepository {
 		return sqlSession.insert("groups.insert", vo);
 	}
 
-	public List<MemoVo> memoAtNull() {
-		List<MemoVo> memoList = sqlSession.selectList("main.memoAtNull");
+	public List<MemoVo> memoAtNull(MemoVo memoVo) {
+		List<MemoVo> memoList = sqlSession.selectList("main.memoAtNull",memoVo);
 		return memoList;
 	}
 

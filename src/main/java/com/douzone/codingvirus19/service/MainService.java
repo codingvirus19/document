@@ -30,8 +30,8 @@ public class MainService {
 		return count == 1;
 	}
 
-	public List<MemoVo> memoAtNull() {
-		List<MemoVo> memoList = mainRepository.memoAtNull();
+	public List<MemoVo> memoAtNull(MemoVo memoVo) {
+		List<MemoVo> memoList = mainRepository.memoAtNull(memoVo);
 		return memoList;
 	}
 	
