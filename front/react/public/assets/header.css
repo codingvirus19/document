@@ -351,9 +351,6 @@ table tr:nth-child(2n) {
 } */
 
 /* react Bootstrap 각 방 클릭시 채팅창 오픈 */
-.collapse:not(.show) {
-  display: none;
-  z-index: 100;
-}
+
 /*///////////right-header////////////*/
 

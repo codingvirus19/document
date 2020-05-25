@@ -80,7 +80,7 @@ export default class Header extends React.Component {
               </Dropdown.Menu>
             </Dropdown>
 
-            <Chatting group={this.props.group}/>
+            <Chatting group={this.props.group} users={this.props.users}/>
           </div>
         </div>
       </div>

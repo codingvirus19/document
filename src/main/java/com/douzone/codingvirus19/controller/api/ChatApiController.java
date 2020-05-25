@@ -1,26 +1,28 @@
 package com.douzone.codingvirus19.controller.api;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
+import java.util.List;
 
-import com.douzone.codingvirus19.security.AuthUser;
-import com.douzone.codingvirus19.security.SecurityUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.douzone.codingvirus19.dto.JsonResult;
+import com.douzone.codingvirus19.service.ChatService;
 import com.douzone.codingvirus19.vo.ChatVo;
 
-@Controller
+@RestController
+@RequestMapping("/api")
 public class ChatApiController {
+
 	@Autowired
-	private SimpMessagingTemplate webSocket;
+	private ChatService chatService;
 	
-	@MessageMapping("/chat/{room}")
-	public void sendMessage(ChatVo chatVo, @DestinationVariable String room) throws Exception{
+	@PostMapping("/chatlist")
+	public JsonResult getChatList(@RequestBody ChatVo chatVo) {
 		System.out.println(chatVo);
-		System.out.println("웹 소켓 controller 들어 왔습니다.");
-		System.out.println(room);
-		webSocket.setUserDestinationPrefix("dd");
-		webSocket.convertAndSend("/api/chat/"+room, chatVo);
+		List<ChatVo> list = chatService.chattingList(chatVo);
+		return JsonResult.success(list);
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.douzone.codingvirus19.vo.MemoVo;
 import com.douzone.codingvirus19.vo.UserVo;
+import com.douzone.codingvirus19.vo.GroupUserVo;
 import com.douzone.codingvirus19.vo.GroupVo;
 
 
@@ -31,16 +32,7 @@ public class MainRepository {
 		return sqlSession.insert("groups.insert", vo);
 	}
 
-	public int insertAuth() {
-		return sqlSession.insert("auth.insert");
-	}
-
-	public int findLatestAuthNo() {
-		return sqlSession.selectOne("auth.findLatestNo");
-	}
-
-	public int insertGroupUser() {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<GroupVo> hasGroup(UserVo userVo) {
+		return sqlSession.selectList("groupuser.hasGroup", userVo);
 	}
 }

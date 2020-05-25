@@ -53,13 +53,12 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 			// 이전페이지로 돌아가기 위해서는 인증페이지로 가기 전 URL을 기억해 놓았다가
 			return;
 		}
-		HttpSession session = request.getSession();
-		session.setAttribute("auth",authentication.getPrincipal());
+
 //		 application/json(ajax) 요청일 경우 아래의 처리!
 		securityUser.setPassword("");
 		MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
 		MediaType jsonMimeType = MediaType.APPLICATION_JSON;
-		JSONResult jsonResult = JSONResult.success(securityUser);
+		JSONResult jsonResult = JSONResult.success("success");
 		if (jsonConverter.canWrite(jsonResult.getClass(), jsonMimeType)) {
 			jsonConverter.write(jsonResult, jsonMimeType, new ServletServerHttpResponse(response));
 		}

@@ -22,37 +22,39 @@ import com.douzone.codingvirus19.vo.UserVo;
 @RequestMapping("/api")
 public class MainApiController {
 	@Autowired
-	private MainService mainService;
-
-	@PostMapping("/memoList")
-	public JsonResult contents(HttpSession httpSession, @RequestBody GroupVo vo) {
-
-		List<MemoVo> list = mainService.findAllMemo(vo);
-		System.out.println(vo);
-		System.out.println("list"+ list);
-		return JsonResult.success(list);	
+ 	private MainService mainService;
+	
+ 	@PostMapping("/memoList")
+ 	public JsonResult contents(HttpSession httpSession, @RequestBody GroupVo vo) {
+ 		
+ 		List<MemoVo> list = mainService.findAllMemo(vo);
+// 		System.out.println(vo);
+//		System.out.println("list"+ list);
+ 		return JsonResult.success(list);	
 	}
 
 	@PostMapping("/container")
 	public JsonResult getGroupList(@AuthUser SecurityUser securityUser) {
 		UserVo userVo = new UserVo();
 		userVo.setNo(securityUser.getNo());
-		System.out.println(securityUser);
-		List<GroupVo> list = mainService.findByGroupList(userVo);
-		System.out.println(list);
-		return JsonResult.success(list);
+		List<GroupVo> returnValue = mainService.hasGroup(userVo);
+		System.out.println(returnValue);
+			//그룹 찹기
+//			List<GroupVo> list = mainService.findByGroupList(userVo);
+//			System.out.println("list"+list);
+			return JsonResult.success(returnValue);
 	}
 
-
-	@PostMapping("/addGroup")
-	public JsonResult addGroup(
-			@AuthUser SecurityUser securityUser, 
-			@RequestBody GroupVo vo) {
-		System.out.println(vo);
-		mainService.insertGroup(vo);	//그룹 추가
-		mainService.insertAuth();	//auth추가
-		int LatestAuthNo = mainService.findLatestAuthNo();	//가장 최근에 추가한 authNo 가져오기
-//		mainService.insertGroupUser(securityUser.getNo(), LatestAuthNo, );
+  @PostMapping("/getUserSession")
+	public JsonResult getUserSession(@AuthUser SecurityUser securityUser) {
+		System.out.println(securityUser);
+		return JsonResult.success(securityUser);
+	}
+  
+ 	@PostMapping("/addGroup")
+	public JsonResult addGroup(@RequestBody GroupVo vo) {
+//		System.out.println(vo);
+		mainService.addGroup(vo);
 		return JsonResult.success(vo);
 	}
 

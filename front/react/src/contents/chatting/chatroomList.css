@@ -3,6 +3,10 @@
     margin-bottom: 1.3px;
 }
 
-/* .collapse:not(.show) {
+.collapse:not(.show) {
     display: none;
-  } */
+  }
+
+.chatroom_name{
+  text-align: center;
+}

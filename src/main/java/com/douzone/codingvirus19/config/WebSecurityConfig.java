@@ -10,8 +10,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.douzone.codingvirus19.security.LoginFailHandler;
 import com.douzone.codingvirus19.security.LoginSuccessHandler;
 
 @Configuration
@@ -24,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/assets/**","/chat/**","/").permitAll()
+		http.authorizeRequests().antMatchers("/assets/**","/chat/**","/**").permitAll()
 				.antMatchers("/**").hasRole("GUEST")
 //				.antMatchers("/auth/**").hasAnyRole("ADMIN", "USER") // 내부적으로 접두어 "ROLE_"가 붙는다.
 				.anyRequest().authenticated();
@@ -36,11 +38,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.formLogin().loginPage("/") // default
 				.loginProcessingUrl("/user/auth")
-				.failureUrl("/error") // default
+				.failureUrl("/") // 로그인실패시
 				.defaultSuccessUrl("/main", true) // 로그인 성공시
-				.successHandler(authenticationSuccessHandler())
 				.usernameParameter("username")
-				.passwordParameter("password");
+				.passwordParameter("password")
+				.failureHandler(authenticationFailureHandler())
+				.successHandler(authenticationSuccessHandler());
 		
 		
 		http.logout().logoutUrl("/logout") // default
@@ -56,6 +59,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public AuthenticationSuccessHandler authenticationSuccessHandler() {
 		return new LoginSuccessHandler();
+	}
+	
+	@Bean
+	public AuthenticationFailureHandler authenticationFailureHandler() {
+		return new LoginFailHandler();
 	}
 
 	@Override
