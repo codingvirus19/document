@@ -30,19 +30,6 @@ public class MainService {
 		int count = mainRepository.insertGroup(vo); //유저 시큐리티도 같이		
 		return count == 1;
 	}
-	public boolean insertAuth() {
-		int count = mainRepository.insertAuth();
-		return count == 1;
-	}
-	public int findLatestAuthNo() {
-		return mainRepository.findLatestAuthNo();
-		
-	}
-	public boolean insertGroupUser() {
-		int count = mainRepository.insertGroupUser();
-		return count == 1;
-		
-	}
 	public List<GroupVo> hasGroup(UserVo userVo) {
 		return mainRepository.hasGroup(userVo);
 	}

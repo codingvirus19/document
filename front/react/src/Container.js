@@ -142,7 +142,6 @@ export default class Container extends React.Component {
           <Contents 
           group={this.state.group}
           memo_bigArr={this.state.memo_bigArr} />
-
         ) : (
             <Contents group={this.state.group} />
           )}
