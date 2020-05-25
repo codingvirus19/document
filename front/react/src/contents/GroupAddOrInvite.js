@@ -15,6 +15,7 @@ export default class GroupAddOrInvite extends React.Component {
         this.state = {
             g_noUpdate: '',
             currentG_no: null,
+            group: this.props.group,
             groups: this.props.group.gname.map(element => {
                 return {
                     value: element,
@@ -30,27 +31,6 @@ export default class GroupAddOrInvite extends React.Component {
             // 다 삭제 안되는 오류
         }
     }
-
-    // componentDidMount() {
-    //     this.GroupID = setInterval(
-    //         this.groupUpdate()
-    //     );
-    // }
-
-    // componentWillUnmount() {
-    //     clearInterval(this.GroupID.bind(this))
-    // }
-
-    // groupUpdate() {
-    //     this.setState({
-    //         groups: this.props.group.gname.map(element => {
-    //             return {
-    //                 value: element,
-    //                 label: element
-    //             }
-    //         })
-    //     })
-    // }
 
     addGroup(event) {
         if (event.__isNew__) {
@@ -68,6 +48,7 @@ export default class GroupAddOrInvite extends React.Component {
                     this.setState({
                         result: json.data,
                     });
+                    console.log(json.data);
                 })
                 .catch((err) => console.error(err));
         }
@@ -91,12 +72,13 @@ export default class GroupAddOrInvite extends React.Component {
                         maxMenuHeight={120}
                         options={this.state.groups}
                         placeholder="그룹선택"
+                        // deleteRemoves={true}
                     />
                 </div>
                 <div className={styles.inner_form_component}>
                     <span className={styles.inner_form_container_title}>초대할 사용자</span>
                     <Select
-                        className={styles.popup2_inner_select}
+                        className={styles.inner_select}
                         isMulti
                         defaultMenuIsOpen={true}
                         closeMenuOnSelect={false}

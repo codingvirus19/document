@@ -2,13 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="main">
 	
-	<select id="findAllMemo" parameterType="groupvo" resultType="memovo">
+	<select id="findAllMemo" parameterType="memovo" resultType="memovo">
 		<![CDATA[
-			select b.no, b.g_no as gNo, b.u_no as uNo, b.content as content, b.color as color, b.date as date
-				from user a, memo b, groups c
-				where a.no = b.u_no
-				and b.g_no = c.no
-				and c.no= #{no};
+			select no, g_no as gNo, u_no as uNo, content, color, date
+				from memo 
+				where g_no= #{gNo}
+				and u_no= #{uNo};
+ 		]]>
+	</select>
+	<select id="memoAtNull" resultType="memovo">
+		<![CDATA[
+		 select no, u_no as uNo, content, color, date from memo where g_no is null
  		]]>
 	</select>
 	
