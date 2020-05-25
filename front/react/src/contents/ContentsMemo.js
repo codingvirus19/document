@@ -2,20 +2,11 @@ import React from "react";
 import Memo from "./Memo";
 import HashList from "./HashList";
 import Toolbar from "./toolbar/Toolbar";
-
 import styles from "./ContentsMemo.css";
-
-const API_URL = "http://localhost:8080/codingvirus19";
-const API_HEADERS = {
-  "Content-Type": "application/json",
-};
 
 export default class Contents extends React.Component {
   constructor() {
     super(...arguments);
-    this.state = {
-      memo_bigArr: null,
-    };
   }
 
   render() {
