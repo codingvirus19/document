@@ -1,9 +1,7 @@
 import React from "react";
 import Select from 'react-select';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-// import '../node_modules/react-toastify/dist/ReactToastify.min.css';
-
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import "../../ReactToastify.scss";
 import styles from "./Sheets.css";
 
 export default class GroupShareSheet extends React.Component {
@@ -23,17 +21,18 @@ export default class GroupShareSheet extends React.Component {
         }
     }
 
-    share(e) { 
+    share(e) {
         e.preventDefault();
-        toast.success("공유되었습니다.", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-    })}
+        toast("그룹에 메모가 공유되었습니다.", {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+        })
+    }
 
     render() {
 
@@ -54,6 +53,7 @@ export default class GroupShareSheet extends React.Component {
                             maxMenuHeight={100}
                             options={this.state.groups}
                             placeholder="공유할 그룹 선택"
+                            transition={Slide}
                         />
                     </div>
                 </div>
@@ -67,16 +67,17 @@ export default class GroupShareSheet extends React.Component {
                         onClick={this.props.closeGroupShareSheet}>
                         취소
               </button>
-              <ToastContainer
-                        // position="bottom-right"
-                        // autoClose={5000}
-                        // hideProgressBar={false}
-                        // newestOnTop={false}
-                        // closeOnClick
-                        // rtl={false}
-                        // pauseOnFocusLoss
-                        // draggable
-                        // pauseOnHover
+                    <ToastContainer
+                        position="bottom-right"
+                        autoClose={3000}
+                        hideProgressBar
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable={false}
+                        pauseOnHover
+                        transition={Slide}
                     />
                 </div>
             </div >

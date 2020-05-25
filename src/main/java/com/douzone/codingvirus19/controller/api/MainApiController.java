@@ -54,14 +54,14 @@ public class MainApiController {
  	@PostMapping("/addGroup")
 	public JsonResult addGroup(@RequestBody GroupVo vo) {
 //		System.out.println(vo);
-		mainService.addGroup(vo);
+		mainService.insertGroup(vo);
 		return JsonResult.success(vo);
 	}
- 	
-// 	@PostMapping("/container")
-// 	public JsonResult container(HttpSession httpSession) {
-// 		List<GroupVo> list = mainService.findByGroupList();
-// 		
-// 		return JsonResult.success(list);
-// 	}
+
+	// 	@PostMapping("/container")
+	// 	public JsonResult container(HttpSession httpSession) {
+	// 		List<GroupVo> list = mainService.findByGroupList();
+	// 		
+	// 		return JsonResult.success(list);
+	// 	}
 }

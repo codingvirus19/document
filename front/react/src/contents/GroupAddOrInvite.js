@@ -91,12 +91,13 @@ export default class GroupAddOrInvite extends React.Component {
                         maxMenuHeight={120}
                         options={this.state.groups}
                         placeholder="그룹선택"
+                        // deleteRemoves={true}
                     />
                 </div>
                 <div className={styles.inner_form_component}>
                     <span className={styles.inner_form_container_title}>초대할 사용자</span>
                     <Select
-                        className={styles.popup2_inner_select}
+                        className={styles.inner_select}
                         isMulti
                         defaultMenuIsOpen={true}
                         closeMenuOnSelect={false}

@@ -15,7 +15,7 @@
 		<insert id="insert" parameterType="groupvo">
 	 	<![CDATA[
 			insert 
-			  into groups(no, name)
+			  into groups (no, name)
 			 value (#{no}, #{name});
 		]]>
 	</insert>
