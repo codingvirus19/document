@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.douzone.codingvirus19.vo.MemoVo;
 import com.douzone.codingvirus19.vo.UserVo;
-import com.douzone.codingvirus19.vo.GroupUserVo;
 import com.douzone.codingvirus19.vo.GroupVo;
 
 
@@ -19,6 +18,10 @@ public class MainRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
+	public List<GroupVo> getGroupByAuth(UserVo userVo) {
+		return sqlSession.selectList("groups.getGroupByAuth", userVo);
+	}
+	
 	public List<MemoVo> findAllMemo(MemoVo memoVo) {
 		List<MemoVo> memoList = sqlSession.selectList("main.findAllMemo", memoVo);
 		return memoList;
@@ -29,7 +32,10 @@ public class MainRepository {
 		return sqlSession.insert("groups.insert", vo);
 	}
 
-	public List<GroupVo> getGroupByAuth(UserVo userVo) {
-		return sqlSession.selectList("groupuser.getGroupByAuth", userVo);
+	public List<MemoVo> memoAtNull() {
+		List<MemoVo> memoList = sqlSession.selectList("main.memoAtNull");
+		return memoList;
 	}
+
+	
 }

@@ -4,6 +4,7 @@ import Sidebar from "./sidebar/Sidebar";
 import Contents from "./contents/Contents";
 
 import styles from "./Container.css";
+import { faBoxTissue } from "@fortawesome/free-solid-svg-icons";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
@@ -15,8 +16,6 @@ export default class Container extends React.Component {
     super(...arguments);
     this.state = {
       group: { no: [], gname: [] },
-      groups: null,
-      g_no: null,
       memo_bigArr: null,
     };
   }
@@ -26,6 +25,8 @@ export default class Container extends React.Component {
     let group = { no: [], gname: [] };
     let groupDatas = null;
 
+    this.bringMemoByGroup(null);
+
     // call api
     fetch(`${API_URL}/api/container`, {
       method: "post",
@@ -33,26 +34,13 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        // groupuser에서 가져온 group의 데이터값
         groupDatas = json.data;
-
-        console.log(groupDatas);
-
-        // group의 데이터값으로 memo를 불러오는 함수
-        this.bringMemoByGroup(groupDatas);
 
         // group의 데이터값으로 sidebar를 불러오는 함수
         groupDatas.map((json) => {
           group.no.push(json.no);
           group.gname.push(json.name);
-          if (!groupDatas[1]) {
-            console.log("그룹없음");
-          } else {
-            console.log("그룹있음");
-          }
-          // console.log(group);
         });
-
         this.Update(group);
       })
       .catch((err) => console.error(err));
@@ -60,30 +48,20 @@ export default class Container extends React.Component {
   }
 
   bringMemoByGroup(_groupDatas) {
-    // 그룹의 data로 memo의 db를 가져오는 코드
-    let groupData = _groupDatas.map((data) => data);
-    console.log(groupData.no);
-    let memo_bigArr = [];
-    let input_groupNo;
-    // 각 그룹의 no로 memo를 가져온다.
-    // u_no는 server에서 세션값으로 처리해서 전달된다.
-    if (groupData.no == null) {
-      input_groupNo = {
-        no: null,
-      };
-    } else {
-      input_groupNo = {
-        no: groupData.no,
-      };
+    let data = {
+      no : _groupDatas
     }
-    console.log(input_groupNo);
+    // console.log(groupData.no);
+    let memo_bigArr = [];
+    // let input_groupNo;
     let _memoArr = null;
 
+    console.log(_groupDatas);
     // call api
     fetch(`${API_URL}/api/memoList`, {
       method: "post",
       headers: API_HEADERS,
-      body: JSON.stringify(input_groupNo),
+      body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((json) => {
@@ -109,9 +87,7 @@ export default class Container extends React.Component {
   }
 
   SidebarGroupUpdate(no) {
-    this.setState({
-      g_no: no,
-    });
+    this.bringMemoByGroup(no);
     console.log(no);
   }
 

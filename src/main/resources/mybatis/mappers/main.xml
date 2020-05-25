@@ -4,10 +4,15 @@
 	
 	<select id="findAllMemo" parameterType="memovo" resultType="memovo">
 		<![CDATA[
-			select b.no as no, b.g_no as gNo, b.u_no as uNo, b.content as content, b.color as color, b.date as date
-				from memo b
-				where b.g_no is #{gNo}
-				and b.u_no=#{uNo};
+			select no, g_no as gNo, u_no as uNo, content, color, date
+				from memo 
+				where g_no= #{gNo}
+				and u_no= #{uNo};
+ 		]]>
+	</select>
+	<select id="memoAtNull" resultType="memovo">
+		<![CDATA[
+		 select no, u_no as uNo, content, color, date from memo where g_no is null
  		]]>
 	</select>
 	
