@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.douzone.codingvirus19.vo.MemoVo;
 import com.douzone.codingvirus19.vo.UserVo;
+import com.douzone.codingvirus19.vo.GroupUserVo;
 import com.douzone.codingvirus19.vo.GroupVo;
 
 
@@ -35,6 +36,10 @@ public class MainRepository {
 	public List<MemoVo> memoAtNull(MemoVo memoVo) {
 		List<MemoVo> memoList = sqlSession.selectList("main.memoAtNull",memoVo);
 		return memoList;
+}
+  
+public int insertGroupUser(GroupUserVo groupUservo) {
+		return sqlSession.insert("groupuser.insert", groupUservo);
 	}
 
 	
