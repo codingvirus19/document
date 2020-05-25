@@ -39,6 +39,7 @@ public class MainApiController {
 		userVo.setNo(securityUser.getNo());
 		List<GroupVo> returnValue = mainService.hasGroup(userVo);
 		System.out.println(returnValue);
+		
 			//그룹 찹기
 //			List<GroupVo> list = mainService.findByGroupList(userVo);
 //			System.out.println("list"+list);
