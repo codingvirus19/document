@@ -29,7 +29,7 @@ export default class ContentsHeader extends React.Component {
     return (
       <div className={styles.header}>
         <div className={styles.title}>
-          {this.props.groupBySidebar.name != null ? <h3>{this.props.groupBySidebar.name}</h3> : <h3>개인</h3>}
+          {this.props.groupBySidebar.name != null ? <h3>- {this.props.groupBySidebar.name} -</h3> : <h3>- 개인 -</h3>}
         </div>
         <div className={styles.showinglist}>
           <button className="contents-header__btns" aria-label="보기방식 변환">
