@@ -44,15 +44,6 @@ export default class ChatRoomList extends React.Component {
         this.setState({
             contents: this.state.contents.concat(msg),
         })
-
-        // let msgarray = update(this.state.contents,{
-        //     mssage:{
-        //         $push : [msg]
-        //     }
-        // });
-        // this.setState({
-        //     contents: msgarray
-        // });
     }
 
     sendMessage(mg) {

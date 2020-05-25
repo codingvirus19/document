@@ -6,3 +6,7 @@
 .collapse:not(.show) {
     display: none;
   }
+
+.chatroom_name{
+  text-align: center;
+}
