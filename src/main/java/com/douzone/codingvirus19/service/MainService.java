@@ -27,11 +27,18 @@ public class MainService {
 	}
 
 	public boolean insertGroup(GroupVo vo) {
-		int count = mainRepository.insertGroup(vo); //유저 시큐리티도 같이		
+		int count = mainRepository.insertGroup(vo);		
 		return count == 1;
 	}
+	
+	public boolean insertGroupUser(GroupUserVo groupUservo) {
+		int count = mainRepository.insertGroupUser(groupUservo); //유저 시큐리티도 같이		
+		return count == 1;
+	}
+	
 	public List<GroupVo> hasGroup(UserVo userVo) {
 		return mainRepository.hasGroup(userVo);
 	}
+
 }
 

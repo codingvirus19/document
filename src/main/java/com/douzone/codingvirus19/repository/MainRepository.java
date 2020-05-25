@@ -32,6 +32,10 @@ public class MainRepository {
 		return sqlSession.insert("groups.insert", vo);
 	}
 
+	public int insertGroupUser(GroupUserVo groupUservo) {
+		return sqlSession.insert("groupuser.insert", groupUservo);
+	}
+
 	public List<GroupVo> hasGroup(UserVo userVo) {
 		return sqlSession.selectList("groupuser.hasGroup", userVo);
 	}

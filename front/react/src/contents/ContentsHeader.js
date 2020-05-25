@@ -55,7 +55,7 @@ export default class ContentsHeader extends React.Component {
               inner_header="그룹생성 및 초대"
               contents={'groupAddOrInvite'}
               closePopup={this.toggleGroupAddOrInvite.bind(this)} 
-              group={this.props.group}/>
+              group={this.props.group} />
           ) : null}
         </div>
 

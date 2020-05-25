@@ -37,8 +37,6 @@ export default class Container extends React.Component {
         // groupuser에서 가져온 group의 데이터값
         groupDatas = json.data;
 
-        console.log(groupDatas);
-
         // group의 데이터값으로 memo를 불러오는 함수
         this.bringMemoByGroup(groupDatas);
 
@@ -51,7 +49,6 @@ export default class Container extends React.Component {
           } else {
             console.log("그룹있음");
           }
-          // console.log(group);
         });
         console.log(group);
         this.UpdateGroup(group);
