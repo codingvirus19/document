@@ -2,8 +2,6 @@ package com.douzone.codingvirus19.controller.api;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,25 +22,31 @@ public class MainApiController {
 	@Autowired
  	private MainService mainService;
 	
- 	@PostMapping("/memoList")
- 	public JsonResult contents(HttpSession httpSession, @RequestBody GroupVo vo) {
- 		
- 		List<MemoVo> list = mainService.findAllMemo(vo);
-// 		System.out.println(vo);
-//		System.out.println("list"+ list);
- 		return JsonResult.success(list);	
-	}
-
 	@PostMapping("/container")
 	public JsonResult getGroupList(@AuthUser SecurityUser securityUser) {
 		UserVo userVo = new UserVo();
 		userVo.setNo(securityUser.getNo());
-		List<GroupVo> returnValue = mainService.hasGroup(userVo);
-		System.out.println(returnValue);
-			//그룹 찹기
-//			List<GroupVo> list = mainService.findByGroupList(userVo);
-//			System.out.println("list"+list);
-			return JsonResult.success(returnValue);
+		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
+		return JsonResult.success(returnValue);
+	}
+
+	
+ 	@PostMapping("/memoList")
+ 	public JsonResult contents(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo) {
+ 		MemoVo memoVo = new MemoVo();
+ 		// uNo와 gNo를 memoVo에 담아서 전달
+ 		memoVo.setuNo(securityUser.getNo());
+ 		memoVo.setgNo(vo.getNo());
+ 		if(vo.getNo() == null) {
+ 			System.out.println("null 입니다.");
+ 			List<MemoVo> nlllist = mainService.memoAtNull();
+ 			return JsonResult.success(nlllist);
+ 		}
+ 		else {
+ 			System.out.println("값이 있습니다.");
+ 			List<MemoVo> list = mainService.findAllMemo(memoVo);
+ 			return JsonResult.success(list);
+ 		}
 	}
 
   @PostMapping("/getUserSession")
@@ -57,11 +61,4 @@ public class MainApiController {
 		mainService.insertGroup(vo);
 		return JsonResult.success(vo);
 	}
-
-	// 	@PostMapping("/container")
-	// 	public JsonResult container(HttpSession httpSession) {
-	// 		List<GroupVo> list = mainService.findByGroupList();
-	// 		
-	// 		return JsonResult.success(list);
-	// 	}
 }
