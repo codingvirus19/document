@@ -7,7 +7,7 @@ import styles from "./Container.css";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
-    "Content-Type": "application/json",
+  "Content-Type": "application/json",
 };
 
 export default class Container extends React.Component {
@@ -57,18 +57,26 @@ export default class Container extends React.Component {
       })
       .catch((err) => console.error(err));
     // 그룹의 db를 가져오는 코드
-
   }
 
   bringMemoByGroup(_groupDatas) {
     // 그룹의 data로 memo의 db를 가져오는 코드
+    let groupData = _groupDatas.map((data) => data);
+    console.log(groupData.no);
     let memo_bigArr = [];
-
+    let input_groupNo;
     // 각 그룹의 no로 memo를 가져온다.
     // u_no는 server에서 세션값으로 처리해서 전달된다.
-    let input_groupNo = {
-      no: 1,
-    };
+    if (groupData.no == null) {
+      input_groupNo = {
+        no: null,
+      };
+    } else {
+      input_groupNo = {
+        no: groupData.no,
+      };
+    }
+    console.log(input_groupNo);
     let _memoArr = null;
 
     // call api
@@ -116,10 +124,13 @@ export default class Container extends React.Component {
           group_update={this.SidebarGroupUpdate.bind(this)}
         />
         {this.state.memo_bigArr ? (
-          <Contents memo_bigArr={this.state.memo_bigArr} group={this.state.group} />
+          <Contents
+            memo_bigArr={this.state.memo_bigArr}
+            group={this.state.group}
+          />
         ) : (
-            <Contents />
-          )}
+          <Contents />
+        )}
       </div>
     );
   }

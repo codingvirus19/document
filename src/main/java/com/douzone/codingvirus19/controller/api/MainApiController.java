@@ -1,5 +1,6 @@
 package com.douzone.codingvirus19.controller.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -25,37 +26,35 @@ public class MainApiController {
  	private MainService mainService;
 	
  	@PostMapping("/memoList")
- 	public JsonResult contents(HttpSession httpSession, @RequestBody GroupVo vo) {
- 		
- 		List<MemoVo> list = mainService.findAllMemo(vo);
-// 		System.out.println(vo);
-//		System.out.println("list"+ list);
- 		return JsonResult.success(list);	
+ 	public JsonResult contents(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo) {
+ 		MemoVo memoVo = new MemoVo();
+ 		// uNo와 gNo를 memoVo에 담아서 전달
+ 		memoVo.setuNo(securityUser.getNo());
+ 		memoVo.setgNo(vo.getNo());
+ 		System.out.println(memoVo);
+ 		List<MemoVo> list= new ArrayList();
+ 		// 내일 할 것!!! 유저 세션과 g_no를 MemoVo에 넣어서 xml에 보낼 것!
+ 		if(memoVo.getgNo().equals(null)) {
+ 			list = mainService.findAllMemo(memoVo);
+ 			
+ 		}System.out.println(list);
+ 		return JsonResult.success(list);
 	}
 
-	@PostMapping("/container")
+
+ 	@PostMapping("/container")
 	public JsonResult getGroupList(@AuthUser SecurityUser securityUser) {
 		UserVo userVo = new UserVo();
 		userVo.setNo(securityUser.getNo());
-		List<GroupVo> returnValue = mainService.hasGroup(userVo);
+		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
 		System.out.println(returnValue);
-			//그룹 찹기
-//			List<GroupVo> list = mainService.findByGroupList(userVo);
-//			System.out.println("list"+list);
-			return JsonResult.success(returnValue);
+		return JsonResult.success(returnValue);
 	}
 
  	@PostMapping("/addGroup")
 	public JsonResult addGroup(@RequestBody GroupVo vo) {
-//		System.out.println(vo);
 		mainService.addGroup(vo);
 		return JsonResult.success(vo);
 	}
  	
-// 	@PostMapping("/container")
-// 	public JsonResult container(HttpSession httpSession) {
-// 		List<GroupVo> list = mainService.findByGroupList();
-// 		
-// 		return JsonResult.success(list);
-// 	}
 }

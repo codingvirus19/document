@@ -2,14 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="groupuser">
 	
-	<select id="hasGroup" resultType="groupvo" parameterType="uservo">
+	<select id="getGroupByAuth" resultType="groupvo" parameterType="uservo">
 		<![CDATA[
-			 select c.no as no, c.name as name
-			  from user a, groupuser b, groups c
-			 where a.no = b.u_no
-             and c.no = b.g_no
-			  and a.no=#{no}; 
+			select b.no as no, b.name as name
+			from memo a , groups b 
+			where a.g_no = b.no 
+			and a.u_no = #{no};
  		]]>
 	</select>
 	
-</mapper>
+</mapper>	

@@ -2,15 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="groups">
 	
-	<select id="findByGroupList" resultType="groupvo" parameterType="uservo">
-		<![CDATA[
-			select  b.no as no, b.name as name
-  			  from user a, groups b , memo c
- 			 where a.no = c.u_no
-             and a.no = #{no}
-             group by b.no; 
- 		]]>
-	</select>
 	
 		<insert id="insert" parameterType="groupvo">
 	 	<![CDATA[
