@@ -35,6 +35,10 @@ public class MainRepository {
 	public List<MemoVo> memoAtNull() {
 		List<MemoVo> memoList = sqlSession.selectList("main.memoAtNull");
 		return memoList;
+}
+  
+public int insertGroupUser(GroupUserVo groupUservo) {
+		return sqlSession.insert("groupuser.insert", groupUservo);
 	}
 
 	
