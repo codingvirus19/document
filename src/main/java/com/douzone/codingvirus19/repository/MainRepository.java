@@ -28,7 +28,7 @@ public class MainRepository {
 	}
 	
  	
-	public int addGroup(GroupVo vo) {
+	public int insertGroup(GroupVo vo) {
 		return sqlSession.insert("groups.insert", vo);
 	}
 

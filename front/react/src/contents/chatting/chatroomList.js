@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card'
 import Accordion from 'react-bootstrap/Accordion'
 
 import styles from "./chatroomList.css";
+import "./chatroomList.scss";
 
 export default class ChatRoomList extends React.Component {
 
@@ -12,15 +13,6 @@ export default class ChatRoomList extends React.Component {
         this.state = {
             result: '',
             contents: []
-        }
-    }
-    eventButton(e){
-        e ++;
-        if(e % 2 == 0){
-            <div className={styles.collapsedown}></div>
-        }
-        else{
-            <div className={styles.collapseopen}></div>
         }
     }
 
@@ -32,11 +24,11 @@ export default class ChatRoomList extends React.Component {
                         <Fragment key={index}>
                             <Accordion.Toggle className={styles.card__header} as={Card.Header} eventKey={index}>
                                 {/* onClick={()=> {this.getchatList(this.props.group.no[index])}} */}
-                                <p>{name}</p>
+                                <p className={styles.chatroom_name}>{name}</p>
                             </Accordion.Toggle>
-                            <Accordion.Collapse onClick={this.eventButton.bind(this)} eventKey={index} >
+                            <Accordion.Collapse eventKey={index} >
                                     <Card.Body>
-                                        <ChatRoom group_no={this.props.group.no[index]} />
+                                        <ChatRoom group_no={this.props.group.no[index]} users={this.props.users} />
                                     </Card.Body>
                             </Accordion.Collapse>
                         </Fragment>

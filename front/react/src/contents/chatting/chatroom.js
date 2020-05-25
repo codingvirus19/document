@@ -17,7 +17,7 @@ export default class ChatRoomList extends React.Component {
         this.state = {
             g_no: this.props.group_no,
             clientConnected: true,
-            contents: []
+            contents: [],
         }
     }
 
@@ -44,15 +44,6 @@ export default class ChatRoomList extends React.Component {
         this.setState({
             contents: this.state.contents.concat(msg),
         })
-
-        // let msgarray = update(this.state.contents,{
-        //     mssage:{
-        //         $push : [msg]
-        //     }
-        // });
-        // this.setState({
-        //     contents: msgarray
-        // });
     }
 
     sendMessage(mg) {
@@ -60,8 +51,8 @@ export default class ChatRoomList extends React.Component {
         this.clientRef.sendMessage("/app/chat/" + this.state.g_no,
             JSON.stringify({
                 gNo: this.state.g_no,
-                uNo: 1,
-                nickname:'gd',
+                uNo: this.props.users.no[0],
+                nickname:this.props.users.name[0],
                 message: mg,
                 date: new Date(),
                 aCount: 1
@@ -79,7 +70,7 @@ export default class ChatRoomList extends React.Component {
             <Fragment>
                 <div id="Chatting" className={styles.Chatting}>
                     <div id="chatOutput" className={styles.chatOutput}>
-                        <MessageList group_no={this.state.g_no} addMessage={this.state.contents} ref={this.outoscroll.bind(this)} />
+                        <MessageList group_no={this.state.g_no} users={this.props.users.name[0]} addMessage={this.state.contents} ref={this.outoscroll.bind(this)} />
                     </div>
                     <div id="chatInput" className="chatInput">
                         <MessageSend group_no={this.state.g_no} sendMessage={this.sendMessage.bind(this)} />

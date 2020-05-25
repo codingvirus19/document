@@ -16,6 +16,7 @@ export default class Container extends React.Component {
     super(...arguments);
     this.state = {
       group: { no: [], gname: [] },
+      users: { no: [], name: [] },
       memo_bigArr: null,
     };
   }
@@ -41,10 +42,29 @@ export default class Container extends React.Component {
           group.no.push(json.no);
           group.gname.push(json.name);
         });
-        this.Update(group);
+        console.log(group);
+        this.UpdateGroup(group);
       })
       .catch((err) => console.error(err));
     // 그룹의 db를 가져오는 코드
+// -------------------------------------------------------------
+
+    // 로그인한 user를 가져오는 코드
+    let users = { no: [], name: [] };
+    // call api
+    fetch(`${API_URL}/api/getUserSession`, {
+      method: "post",
+      headers: API_HEADERS,
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        users.no.push(json.data.no);
+        users.name.push(json.data.name);
+        
+        this.UpdateUser(users);
+      })
+      .catch((err) => console.error(err));
+
   }
 
   bringMemoByGroup(_groupDatas) {
@@ -80,9 +100,14 @@ export default class Container extends React.Component {
     });
   }
 
-  Update(group) {
+  UpdateGroup(group) {
     this.setState({
-      group: group,
+      group: group
+    });
+  }
+  UpdateUser(users){
+    this.setState({
+      users:users
     });
   }
 
@@ -92,21 +117,21 @@ export default class Container extends React.Component {
   }
 
   render() {
+    console.log(this.state.users);
     return (
       <div className={styles.container}>
-        <Header group={this.state.group} />
+        <Header group={this.state.group} users={this.state.users} />
         <Sidebar
           group={this.state.group}
           group_update={this.SidebarGroupUpdate.bind(this)}
         />
         {this.state.memo_bigArr ? (
-          <Contents
-            memo_bigArr={this.state.memo_bigArr}
-            group={this.state.group}
-          />
+          <Contents 
+          group={this.state.group}
+          memo_bigArr={this.state.memo_bigArr} />
         ) : (
-          <Contents />
-        )}
+            <Contents group={this.state.group} />
+          )}
       </div>
     );
   }

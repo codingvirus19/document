@@ -49,12 +49,16 @@ public class MainApiController {
  		}
 	}
 
-
- 	
+  @PostMapping("/getUserSession")
+	public JsonResult getUserSession(@AuthUser SecurityUser securityUser) {
+		System.out.println(securityUser);
+		return JsonResult.success(securityUser);
+	}
+  
  	@PostMapping("/addGroup")
 	public JsonResult addGroup(@RequestBody GroupVo vo) {
-		mainService.addGroup(vo);
+//		System.out.println(vo);
+		mainService.insertGroup(vo);
 		return JsonResult.success(vo);
 	}
- 	
 }
