@@ -5,7 +5,6 @@ import MessageSend from "./messageSend";
 import SockJsClient from "react-stomp";
 
 import styles from './chatroom.css';
-import { Element, animateScroll } from "react-scroll";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
