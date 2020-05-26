@@ -30,6 +30,11 @@ public class UserRepository {
 		return sqlSession.selectOne("user.findById", name);
 	}
 
+	public void modifyProfile(UserVo vo) {
+		sqlSession.update("user.modifyProfile",vo);
+		
+	}
+
 	
 	
 

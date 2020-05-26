@@ -25,5 +25,10 @@ public class UserService {
 		userRepository.joinInsert(vo);
 	}
 
+	public void modifyProfile(UserVo vo) {
+		userRepository.modifyProfile(vo);
+		
+	}
+
 	
 }

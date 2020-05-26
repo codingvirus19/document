@@ -23,7 +23,6 @@ export default class Profile extends React.Component {
     this.setState({
       email: e.target.value,
     });
-    // this.callBackUpdate(this.state.email);
   }
   onChangePassword(e) {
     this.setState({
@@ -34,7 +33,6 @@ export default class Profile extends React.Component {
     this.setState({
       nickname: e.target.value,
     });
-    console.log(this.state.nickname);
   }
   onChangeImage(e) {
     this.setState({
@@ -42,14 +40,16 @@ export default class Profile extends React.Component {
     });
   }
 
-  callBackUpdate(no, id, email, password, nickname, image) {
-    this.props.callBackFromProfile(no, id, email, password, nickname, image);
-  }
-
   render() {
-    // console.log(this.props.getProfileValue.map((value) => value.no));
     return (
       <>
+        {this.props.callBackFromProfile(
+          this.state.id,
+          this.state.email,
+          this.state.password,
+          this.state.nickname,
+          this.state.image
+        )}
         <p>아이디:</p>
         <input
           className={popupStyles.input}
@@ -61,7 +61,6 @@ export default class Profile extends React.Component {
           name="id"
           id="id"
         ></input>
-        {this.state.id && this.callBackUpdate()}
         <p>이메일:</p>
         <input
           className={popupStyles.input}
@@ -98,7 +97,7 @@ export default class Profile extends React.Component {
           className={popupStyles.input}
           type="text"
           placeholder="이미지"
-          value={this.props.getProfileValue.image}
+          value={this.state.image}
           onChange={this.onChangeImage.bind(this)}
           name="image"
           id="image"

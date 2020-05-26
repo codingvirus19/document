@@ -23,4 +23,9 @@
 				null, #{id}, #{email}, #{password}, #{nickname}, #{image}, #{name});
  		]]>
 	</insert>
+	<update id="modifyProfile" parameterType="uservo">
+		<![CDATA[
+			update user set id=#{id}, email=#{email}, password=#{password}, nickname=#{nickname}, image=#{image} where no=#{no};
+ 		]]>
+	</update>
 </mapper>

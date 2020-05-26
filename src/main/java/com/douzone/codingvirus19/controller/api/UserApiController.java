@@ -2,6 +2,7 @@ package com.douzone.codingvirus19.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,10 +24,16 @@ public class UserApiController {
 	public JsonResult profile(@AuthUser SecurityUser securityUser) {
 		UserVo userVo = new UserVo();
 		userVo.setNo(securityUser.getNo());
-		System.out.println(userVo);
 		UserVo profileValue = userService.getProfile(userVo);
-		System.out.println(profileValue);
 		return JsonResult.success(profileValue);
+	}
+	
+	@PostMapping("/profile/modify")
+	public JsonResult profileInsert(@AuthUser SecurityUser securityUser, @RequestBody UserVo vo) {
+		System.out.println(vo);
+		vo.setNo(securityUser.getNo());
+		userService.modifyProfile(vo);
+		return JsonResult.success(null);
 	}
 	
 	

@@ -1,16 +1,43 @@
 import React from "react";
-
 import Profile from "./header/headerMemu/Profile";
 import GroupAddOrInvite from "./contents/GroupAddOrInvite";
-
 import popupStyles from "./Popup2.css";
 
+const API_URL = "http://localhost:8080/codingvirus19";
+const API_HEADERS = {
+  "Content-Type": "application/json",
+};
+
 export default class Popup2 extends React.Component {
-  callBackFromProfile(no, id, email, password, nickname, image) {
-    console.log(no);
+  callBackFromProfile(_id, _email, _password, _nickname, _image) {
+    if (
+      _id != null &&
+      _email != null &&
+      _password != null &&
+      _nickname != null &&
+      _image != null
+    ) {
+      let modifyProfile = {
+        id: _id,
+        email: _email,
+        password: _password,
+        nickname: _nickname,
+        image: _image,
+      };
+      this.ajaxModifyProfile(modifyProfile);
+    }
+  }
+
+  ajaxModifyProfile(_modifyProfile) {
+    fetch(`${API_URL}/api/profile/modify`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(_modifyProfile),
+    }).catch((err) => console.error(err));
   }
 
   render() {
+    console.log(this.props.closePopup);
     let contents;
     let popup2_confirm_btn = "확인";
 
@@ -37,7 +64,12 @@ export default class Popup2 extends React.Component {
           <div className={popupStyles.inner_form_container}>{contents}</div>
 
           <div className={popupStyles.btns}>
-            <button className={popupStyles.confirm_btn}>
+            <button
+              onClick={
+                this.callBackFromProfile.bind(this) && this.props.closePopup
+              }
+              className={popupStyles.confirm_btn}
+            >
               {popup2_confirm_btn}
             </button>
             <button
