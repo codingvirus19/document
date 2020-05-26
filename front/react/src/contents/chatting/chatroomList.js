@@ -23,7 +23,7 @@ export default class ChatRoomList extends React.Component {
                 {this.props.group.gname.map((name, index) => {
                     return (
                         <Fragment key={index}>
-                            <Accordion.Toggle onClick={()=>this.setState({open: !this.state.open})} className={styles.card__header} as={Card.Header} eventKey={index} >
+                            <Accordion.Toggle  className={styles.card__header} as={Card.Header} eventKey={index} >
                                 {/* onClick={()=> {this.getchatList(this.props.group.no[index])}} */}
                                 <p className={styles.chatroom_name}>{name}</p>
                             </Accordion.Toggle>

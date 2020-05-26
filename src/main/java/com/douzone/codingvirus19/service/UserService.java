@@ -21,8 +21,19 @@ public class UserService {
 		UserVo authUser = userRepository.findByIdAndPassword(vo);
 		return authUser;
 	}
+	
 
-	public void joinInsert(UserVo vo) {
-		userRepository.joinInsert(vo);
+	public boolean hasId(String Id) {
+		return userRepository.hasId(Id);
 	}
+	public boolean hasEmail(String email) {
+		return userRepository.hasEmail(email);
+	}
+
+	public boolean join(UserVo vo) {
+		int count = userRepository.join(vo);
+		return count == 1;
+	}
+
+
 }
