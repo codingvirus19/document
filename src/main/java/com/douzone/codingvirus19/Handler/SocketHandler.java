@@ -31,7 +31,7 @@ public class SocketHandler {
 ////	            logger.info("User Disconnected : " + username);
 			ChatVo chatMessage = new ChatVo();
 //
-			messagingTemplate.convertAndSend("/topic/public", chatMessage);
+//			messagingTemplate.convertAndSend("/topic/public", chatMessage);
 //	        }
 		}
 	}
