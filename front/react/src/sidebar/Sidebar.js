@@ -18,9 +18,11 @@ export default class Sidebar extends React.Component {
   update(g_no, g_name) {
     this.setState({
       showHashtagList: true,
-      g_no: `${g_no}`
+      g_no: `${g_no}`,
+      g_name: `${g_name}`
     })
-    this.props.group_update(g_no);
+    
+    this.props.group_update(g_no, g_name);
   }
 
   render() {
@@ -28,7 +30,7 @@ export default class Sidebar extends React.Component {
       <div className={styles.sidebar}>
         <Nav className={styles.nav}>
           <Nav.Link
-            onClick={() => this.update(null)}
+            onClick={() => this.update(null, null)}
             className={styles.menu}> 개인메모 </Nav.Link>
           <NavDropdown title="그룹메모" className={styles.menu} drop="right">
             {this.props.group.gname.map((name, index) => (

@@ -1,15 +1,56 @@
 import React from "react";
 import { Remarkable } from 'remarkable';
 import SockJsClient from "react-stomp";
-
 import popup from "./Popup.css";
 import styles from "./Editor.css";
 
 export default class Popup extends React.Component {
   constructor(props) {
     super(props);
-    this.md = new Remarkable();
-    this.state = { value: '', cursor: '', textSize: 0, memoNo: 0, version: 0 ,name: "test"+Math.round(Math.random()*100)};
+    this.md = new Remarkable('full', {
+      html: false,        // Enable HTML tags in source
+      xhtmlOut: false,        // Use '/' to close single tags (<br />)
+      breaks: false,        // Convert '\n' in paragraphs into <br>
+      langPrefix: 'language-',  // CSS language prefix for fenced blocks
+      linkify: true,         // autoconvert URL-like texts to links
+      linkTarget: '',           // set target to open link in
+      typographer: false,
+      markOpen: false
+
+    });
+    this.state = { value: '', cursor: '', textSize: 0, memoNo: 0, version: 0, name: "test" + Math.round(Math.random() * 100) };
+  }
+  boldevent() {
+    let input_index = this.getSnapshotBeforeUpdate(this.state.cursor);
+    let line_index = 0;
+    let textLastLine = [0];
+    let keyAll = this.getSnapshotBeforeUpdate(this.state.value);
+    keyAll = keyAll.split('');
+    let keyAll2 = this.getSnapshotBeforeUpdate(this.state.value);
+    keyAll2 = keyAll2.split('\n');
+    for (let i = 0; i < keyAll2.length; i++) {
+      line_index += keyAll2[i].length;
+      if (line_index < input_index) {
+        line_index += 1;
+        textLastLine.push(line_index);
+      }
+    }
+    if (textLastLine.length == 1) {
+      keyAll.splice(0, 0, "**");
+      keyAll.splice(keyAll.length, 0, "**");
+      this.send(keyAll.length, '', "**", this.state.version, "boldevent1");
+    } else {
+      textLastLine.push(keyAll.length);
+      keyAll.splice(textLastLine[textLastLine.length - 2], 0, "**");
+      keyAll.splice(textLastLine[textLastLine.length - 1] + 1, 0, "**");
+      this.send(textLastLine[textLastLine.length - 2], textLastLine[textLastLine.length - 1], "**", this.state.version, "boldevent2");
+    }
+    keyAll = keyAll.join('');
+    keyAll = keyAll.split('');
+    this.setState({
+      textSize: keyAll.length,
+      value: keyAll.join(''),
+    })
   }
   hevent(hsize) {
     let input_index = this.getSnapshotBeforeUpdate(this.state.cursor);
@@ -21,7 +62,6 @@ export default class Popup extends React.Component {
     }
     pushText += " ";
     let b = this.getSnapshotBeforeUpdate(this.state.value);
-    console.log("error")
     b = b.split('');
     let state2 = this.getSnapshotBeforeUpdate(this.state.value);
     state2 = state2.split('\n');
@@ -35,6 +75,7 @@ export default class Popup extends React.Component {
       }
     }
     b.splice(textLastLine[textLastLine.length - 1], 0, pushText);
+    console.log(this.state.version);
     this.send(textLastLine[textLastLine.length - 1], state3.length + hsize + 1, pushText, (this.state.version), "hevent");
     this.setState({
       value: b.join(''),
@@ -55,15 +96,16 @@ export default class Popup extends React.Component {
         }))
   }
   viewSet(text) {
+    text = text.join('');
+    text = text.split('');
     this.setState({
-      value: text.join(''),
-      textSize: text.length
+      textSize: text.length,
+      value: text.join('')
     })
   }
 
   cursorEvent(e) {
     let input_index = e.target.selectionStart;
-    // console.log("마우스이벤트", input_index)
     this.setState({ cursor: input_index });
   }
   keyInput(cursorPosition, key) {
@@ -71,11 +113,11 @@ export default class Popup extends React.Component {
     text = text.split('');
     text.splice(cursorPosition - 1, 0, key);
     this.viewSet(text);
-  } 
+  }
   deleteInput(cursorPosition, deleteSize) {
     let text = this.getSnapshotBeforeUpdate(this.state.value);
     text = text.split('');
-    text.splice(cursorPosition, deleteSize+1);
+    text.splice(cursorPosition, deleteSize + 1);
     this.viewSet(text);
   }
   koreanInput(cursorPosition, key) { //한글입력 중복오류 잡기
@@ -98,7 +140,7 @@ export default class Popup extends React.Component {
   }
 
   // firstindex lastindex key
- 
+
   editorPush(e) {
     let textsize = e.target.value.length;
     let input_index = e.target.selectionStart;
@@ -106,9 +148,9 @@ export default class Popup extends React.Component {
     let temp = this.getSnapshotBeforeUpdate(this.state.textSize);
 
     // this.send(input_index,textsize,key,(this.state.version));
-    console.log("temp",temp,"textsize",textsize)
+    console.log("temp", temp, "textsize", textsize)
     if (temp > textsize) {
-      this.deleteInput(input_index,(temp - (e.target.value.split('').length + 1)));
+      this.deleteInput(input_index, (temp - (e.target.value.split('').length + 1)));
       this.send(input_index, (temp - (e.target.value.split('').length + 1)), "", (this.state.version), "delete");
       // console.log("글자지우기");
     } else if (temp == textsize) {
@@ -128,7 +170,7 @@ export default class Popup extends React.Component {
       this.send(input_index, textsize, key, (this.state.version), "basic");
       this.keyInput(input_index, key);
     }
-    this.setState({ cursor: input_index, textSize: e.target.value.split('').length, version: this.state.version + 1 }); //변경값을 표출한다.
+    this.setState({ cursor: input_index, textSize: e.target.value.split('').length, version: this.state.version }); //변경값을 표출한다.
   }
 
   getReMarkDown() {
@@ -138,33 +180,67 @@ export default class Popup extends React.Component {
   getSnapshotBeforeUpdate(prevState) {
     return prevState;
   }
-  receiveHevent(inputIndex,key){
+  receiveHevent(inputIndex, key) {
     let text = this.getSnapshotBeforeUpdate(this.state.value);
     text = text.split('');
-    console.log(inputIndex,key);
-    text.splice(inputIndex,0, key);
+    console.log(inputIndex, key);
+    text.splice(inputIndex, 0, key);
+    this.viewSet(text);
+  }
+  reciveBevent1(inputIndex) {
+    let text = this.getSnapshotBeforeUpdate(this.state.value);
+    text = text.split('');
+    text.splice(0, 0, "**");
+    text.splice(inputIndex, 0, "**");
+    this.viewSet(text);
+  }
+  reciveBevent2(inputIndex, lastIndex) {
+    let text = this.getSnapshotBeforeUpdate(this.state.value);
+    text = text.split('');
+    text.splice(inputIndex, 0, "**");
+    text.splice(lastIndex + 1, 0, "**");
     this.viewSet(text);
   }
 
   receive(message) {
-    console.log(message);
-    if(message.name == this.state.name){
+    this.setState({
+      version: message.version
+    })
+    if (message.type == "error" && message.name == this.state.name) {
+      console.log(message.version, "error");
+      this.setState({
+        value: message.key,
+        textSize: message.key.split('').length,
+        version: message.version
+      })
       return;
-    }else if(message.type == "basic"){
-      this.keyInput(message.inputIndex,message.key);
-    }else if(message.type == "korean"){
-      this.koreanInput(message.inputIndex,message.key);
-    }else if(message.type == "delete"){
-      this.deleteInput(message.inputIndex,message.size);
-    }else if(message.type == "copy"){
-      this.copyInput(message.inputIndex,message.size,message.key);
-    }else if(message.type == "hevent"){
-      this.receiveHevent(message.inputIndex,message.key);
+    } else if (message.name == this.state.name) {
+      return;
+    } else if (message.type == "basic") {
+      this.keyInput(message.inputIndex, message.key);
+    } else if (message.type == "korean") {
+      this.koreanInput(message.inputIndex, message.key);
+    } else if (message.type == "delete") {
+      this.deleteInput(message.inputIndex, message.size);
+    } else if (message.type == "copy") {
+      this.copyInput(message.inputIndex, message.size, message.key);
+    } else if (message.type == "hevent") {
+      this.receiveHevent(message.inputIndex, message.key);
+    } else if (message.type == "boldevent1") {
+      this.reciveBevent1(message.inputIndex);
+    } else if (message.type == "boldevent2") {
+      console.log("2");
+      this.reciveBevent2(message.inputIndex, message.size);
     }
-    
-
   }
-
+  memoSave() {
+    console.log()
+  }
+  markOpen() {
+    this.setState({
+      markOpen: !this.state.markOpen
+    })
+  }
   render() {
     const tempStyle = {
       width: "200px",
@@ -186,27 +262,33 @@ export default class Popup extends React.Component {
               onMessage={this.receive.bind(this)}
               ref={(client) => { this.clientRef = client }} />
           </div>
-
+          <div className={styles.header}>
+          </div>
           <div className={styles.editor}>
             <div className={styles.btn}>
               <button onClick={this.hevent.bind(this, 1)}>H1</button>
               <button onClick={this.hevent.bind(this, 2)}>H2</button>
               <button onClick={this.hevent.bind(this, 3)}>H3</button>
               <button onClick={this.hevent.bind(this, 4)}>H4</button>
+              <button onClick={this.boldevent.bind(this)}>B</button>
+              {(this.state.markOpen) ? <button className={styles.click} onClick={this.markOpen.bind(this)}>E</button> : <button onClick={this.markOpen.bind(this)}>M</button>}
+              <button onClick={this.memoSave.bind(this)}>저장</button>
             </div>
-            <textarea
+            {(this.state.markOpen) ? (<div
+              className={styles.markDownView}
+              dangerouslySetInnerHTML={this.getReMarkDown()}></div>)
+              :(<textarea
               wrap="hard"
               rows="2"
               cols="20"
               className={styles.edit}
-              onFocus={this.cursorEvent.bind(this)}
+              onBlur={this.cursorEvent.bind(this)}
               onChange={this.editorPush.bind(this)}
-              value={this.state.value}></textarea>
+              value={this.state.value}></textarea>)
+              }
+
           </div>
 
-          <div
-            className={styles.markDownView}
-            dangerouslySetInnerHTML={this.getReMarkDown()}></div>
         </div>
       </div>
     );

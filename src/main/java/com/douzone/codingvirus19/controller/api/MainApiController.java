@@ -39,8 +39,8 @@ public class MainApiController {
  		memoVo.setgNo(vo.getNo());
  		if(vo.getNo() == null) {
  			System.out.println("null 입니다.");
- 			List<MemoVo> nlllist = mainService.memoAtNull();
- 			return JsonResult.success(nlllist);
+ 			List<MemoVo> nulllist = mainService.memoAtNull(memoVo);
+ 			return JsonResult.success(nulllist);
  		}
  		else {
  			System.out.println("값이 있습니다.");

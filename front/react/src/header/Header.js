@@ -53,7 +53,7 @@ export default class Header extends React.Component {
                 <FontAwesomeIcon className={styles.faPlus} icon={faPlus} />
               </button>
               {this.state.showPopup ? (
-                <Popup closePopup={this.togglePopup.bind(this)} />
+                <Popup groupNoForGroupUser={this.props.groupNoForGroupUser} closePopup={this.togglePopup.bind(this)} />
               ) : null}
             </div>
 

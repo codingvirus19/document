@@ -18,7 +18,9 @@ export default class ChatRoomList extends React.Component {
             g_no: this.props.group_no,
             clientConnected: true,
             contents: [],
+            oepn:false
         }
+        this.autoscrollRef = React.createRef()
     }
 
     componentDidMount() {
@@ -37,13 +39,20 @@ export default class ChatRoomList extends React.Component {
                 });
             })
             .catch((err) => console.error(err));
+
+            // animateScroll.scrollToBottom({
+            //     containerId: this.autoscrollRef.current.data
+            // });
     }
+
+
 
     onMessageReceive(msg) {
         console.log(msg);
         this.setState({
             contents: this.state.contents.concat(msg),
         })
+        this.scrollToBottom();
     }
 
     sendMessage(mg) {
@@ -59,9 +68,21 @@ export default class ChatRoomList extends React.Component {
             }));
     }
 
-    outoscroll(e) {
-        let scrollBottom = document.getElementById(`chatOutput`);
-        scrollBottom.scrollTop = scrollBottom.scrollHeight - scrollBottom.clientHeight;
+    scrollToBottom(){
+        this.autoscrollRef.current.scrollIntoView({behavior: "smooth"});
+        this.autoscrollRef.current.scrollTop = this.autoscrollRef.current.scrollHeight;
+        // animateScroll.scrollToBottom({
+        //     containerId: this.autoscrollRef.current.id
+        // });
+        
+    }
+//   componentDidUpdate(){
+//       this.scrollToBottom();
+//     }
+    openChange(){
+        this.setState({
+            open:!this.state.oepn
+        })
     }
 
     render() {
@@ -69,8 +90,8 @@ export default class ChatRoomList extends React.Component {
         return (
             <Fragment>
                 <div id="Chatting" className={styles.Chatting}>
-                    <div id="chatOutput" className={styles.chatOutput}>
-                        <MessageList group_no={this.state.g_no} users={this.props.users.name[0]} addMessage={this.state.contents} ref={this.outoscroll.bind(this)} />
+                    <div id={`${this.state.g_no}scroll`} onMouseLeave={this.scrollToBottom.bind(this)} className={styles.chatOutput}  ref={this.autoscrollRef}>
+                        <MessageList  group_no={this.state.g_no} users={this.props.users.name[0]} addMessage={this.state.contents} openChange={this.openChange.bind(this)}  />
                     </div>
                     <div id="chatInput" className="chatInput">
                         <MessageSend group_no={this.state.g_no} sendMessage={this.sendMessage.bind(this)} />
@@ -85,4 +106,8 @@ export default class ChatRoomList extends React.Component {
             </Fragment>
         )
     }
+    componentWillUpdate(){
+        this.scrollToBottom();
+    }
+   
 }
