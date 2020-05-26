@@ -9,10 +9,13 @@ export default class MessageList extends React.Component {
             g_no: this.props.group_no,
             users: this.props.users
         }
+        this.autoscrollRef = React.createRef()
     }
+
     render() {
         // console.log(this.props.group_no);
         // console.log(this.props.addMessage);
+        
         return (
             <ul className={styles.chat__messagelist} ref="messageBox" >
                 {this.props.addMessage.map((message, index) => {
@@ -39,5 +42,6 @@ export default class MessageList extends React.Component {
                 })}
             </ul>
         )
+        
     }
 }
