@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from 'react-router-dom'
 import Dropdown from "react-bootstrap/Dropdown";
 
 import Serach from "./Serach";
@@ -33,6 +34,11 @@ export default class Header extends React.Component {
     });
   }
 
+  logout() {
+    console.log("logout")
+    return <Redirect path="/codingvirus19/logout" to="/codingvirus19/logout"/>
+  }
+
   render() {
     return (
       <div className={styles.header}>
@@ -60,7 +66,10 @@ export default class Header extends React.Component {
                   onClick={this.toggleShowProfile.bind(this)}>
                   개인프로필 수정
           </Dropdown.Item>
-                <Dropdown.Item>로그아웃</Dropdown.Item>
+                <Dropdown.Item
+                  onClick={this.logout.bind(this)}>
+                  로그아웃
+                  </Dropdown.Item>
               </Dropdown.Menu>
               {this.state.showProfile ? (
                 <Popup2
@@ -80,7 +89,7 @@ export default class Header extends React.Component {
               </Dropdown.Menu>
             </Dropdown>
 
-            <Chatting group={this.props.group} users={this.props.users}/>
+            <Chatting group={this.props.group} users={this.props.users} />
           </div>
         </div>
       </div>

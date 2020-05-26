@@ -80,6 +80,7 @@ export default class login extends React.Component {
       Error: this.state.JoinPassword !== e.target.value,
       Errormessage: "비밀번호 불일치"
     })
+    // 비밀번호 일치시 박스색 다르게 className줘서
   }
   Errormessage() {
     if (this.state.Error) {
