@@ -44,7 +44,6 @@ export default class Container extends React.Component {
           group.no.push(json.no);
           group.gname.push(json.name);
         });
-        // console.log(group);
         this.UpdateGroup(group);
       })
       .catch((err) => console.error(err));
@@ -101,9 +100,11 @@ export default class Container extends React.Component {
   }
 
   UpdateGroup(group) {
+    console.log(group);
     this.setState({
       group: group
     });
+    console.log(this.state.group);
   }
   UpdateUser(users){
     this.setState({
@@ -119,7 +120,6 @@ export default class Container extends React.Component {
         name:name,
       }
     })
-    
   }
 
   render() {
