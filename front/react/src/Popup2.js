@@ -6,12 +6,21 @@ import GroupAddOrInvite from "./contents/GroupAddOrInvite";
 import popupStyles from "./Popup2.css";
 
 export default class Popup2 extends React.Component {
+  callBackFromProfile(no, id, email, password, nickname, image) {
+    console.log(no);
+  }
+
   render() {
     let contents;
     let popup2_confirm_btn = "확인";
 
     if (this.props.contents === "profile") {
-      contents = <Profile getProfileValue={this.props.getProfileValue} />;
+      contents = (
+        <Profile
+          callBackFromProfile={this.callBackFromProfile.bind(this)}
+          getProfileValue={this.props.getProfileValue}
+        />
+      );
       popup2_confirm_btn = "수정";
     }
     if (this.props.contents === "groupAddOrInvite") {

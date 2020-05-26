@@ -23,6 +23,7 @@ export default class Profile extends React.Component {
     this.setState({
       email: e.target.value,
     });
+    // this.callBackUpdate(this.state.email);
   }
   onChangePassword(e) {
     this.setState({
@@ -33,11 +34,16 @@ export default class Profile extends React.Component {
     this.setState({
       nickname: e.target.value,
     });
+    console.log(this.state.nickname);
   }
   onChangeImage(e) {
     this.setState({
       image: e.target.value,
     });
+  }
+
+  callBackUpdate(no, id, email, password, nickname, image) {
+    this.props.callBackFromProfile(no, id, email, password, nickname, image);
   }
 
   render() {
@@ -55,6 +61,7 @@ export default class Profile extends React.Component {
           name="id"
           id="id"
         ></input>
+        {this.state.id && this.callBackUpdate()}
         <p>이메일:</p>
         <input
           className={popupStyles.input}
