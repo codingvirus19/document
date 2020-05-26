@@ -104,7 +104,6 @@ export default class login extends React.Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         if(response.result=="fail" && (response.message=="id중복" || response.message=="email중복")) {
           this.setState({
             Error: true,

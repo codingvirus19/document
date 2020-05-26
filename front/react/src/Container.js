@@ -18,7 +18,7 @@ export default class Container extends React.Component {
       group: { no: [], gname: [] },
       users: { no: [], name: [] },
       memo_bigArr: null,
-      groupBySidebar:{no:null,name:null},
+      groupBySidebar: { no: null, name: null },
     };
   }
 
@@ -48,7 +48,7 @@ export default class Container extends React.Component {
       })
       .catch((err) => console.error(err));
     // 그룹의 db를 가져오는 코드
-// -------------------------------------------------------------
+    // -------------------------------------------------------------
 
     // 로그인한 user를 가져오는 코드
     let users = { no: [], name: [] };
@@ -61,7 +61,7 @@ export default class Container extends React.Component {
       .then((json) => {
         users.no.push(json.data.no);
         users.name.push(json.data.name);
-        
+
         this.UpdateUser(users);
       })
       .catch((err) => console.error(err));
@@ -69,9 +69,9 @@ export default class Container extends React.Component {
   }
 
   bringMemoByGroup(_groupNumbers) {
-    
+
     let data = {
-      no : _groupNumbers
+      no: _groupNumbers
     }
     let memo_bigArr = [];
     let _memoArr = null;
@@ -100,24 +100,22 @@ export default class Container extends React.Component {
   }
 
   UpdateGroup(group) {
-    console.log(group);
     this.setState({
       group: group
     });
-    console.log(this.state.group);
   }
-  UpdateUser(users){
+  UpdateUser(users) {
     this.setState({
-      users:users
+      users: users
     });
   }
 
   SidebarGroupUpdate(no, name) {
     this.bringMemoByGroup(no);
     this.setState({
-      groupBySidebar:{
+      groupBySidebar: {
         no: no,
-        name:name,
+        name: name,
       }
     })
   }
@@ -130,7 +128,8 @@ export default class Container extends React.Component {
           group={this.state.group}
           group_update={this.SidebarGroupUpdate.bind(this)}
         />
-        <Contents 
+        <Contents
+          UpdateGroup={this.UpdateGroup.bind(this)}
           groupBySidebar={this.state.groupBySidebar}
           group={this.state.group}
           memo_bigArr={this.state.memo_bigArr}
