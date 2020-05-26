@@ -21,21 +21,29 @@ public class UserRepository {
 		return  sqlSession.selectOne("user.login",vo);
 	}
 
+
 	public void joinInsert(UserVo vo) {
 		sqlSession.insert("user.joinInsert", vo);
-		
 	}
 
 	public UserVo findByName(String name) {
 		return sqlSession.selectOne("user.findById", name);
 	}
 
+	public boolean hasId(String id) {
+		int count = sqlSession.selectOne("user.hasId", id);
+		return count == 1;
+	}
+	public boolean hasEmail(String email) {
+		int count = sqlSession.selectOne("user.hasEmail", email);
+		return count == 1;
+	}
 	public void modifyProfile(UserVo vo) {
 		sqlSession.update("user.modifyProfile",vo);
 		
 	}
 
-	
-	
-
+	public int join(UserVo vo) {
+		return sqlSession.insert("user.join", vo);
+	}
 }

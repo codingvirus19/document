@@ -15,12 +15,12 @@ export default class Popup extends React.Component {
       linkify: true,         // autoconvert URL-like texts to links
       linkTarget: '',           // set target to open link in
       typographer: false,
-
+      markOpen: false
 
     });
     this.state = { value: '', cursor: '', textSize: 0, memoNo: 0, version: 0, name: "test" + Math.round(Math.random() * 100) };
   }
-  boldevent(){
+  boldevent() {
     let input_index = this.getSnapshotBeforeUpdate(this.state.cursor);
     let line_index = 0;
     let textLastLine = [0];
@@ -35,17 +35,21 @@ export default class Popup extends React.Component {
         textLastLine.push(line_index);
       }
     }
-    if(textLastLine.length == 1){
+    if (textLastLine.length == 1) {
       keyAll.splice(0, 0, "**");
       keyAll.splice(keyAll.length, 0, "**");
-    }else{
+      this.send(keyAll.length, '', "**", this.state.version, "boldevent1");
+    } else {
       textLastLine.push(keyAll.length);
-    keyAll.splice(textLastLine[textLastLine.length - 2], 0, "**");
-    keyAll.splice(textLastLine[textLastLine.length - 1] +1, 0, "**");
-  } 
+      keyAll.splice(textLastLine[textLastLine.length - 2], 0, "**");
+      keyAll.splice(textLastLine[textLastLine.length - 1] + 1, 0, "**");
+      this.send(textLastLine[textLastLine.length - 2], textLastLine[textLastLine.length - 1], "**", this.state.version, "boldevent2");
+    }
+    keyAll = keyAll.join('');
+    keyAll = keyAll.split('');
     this.setState({
+      textSize: keyAll.length,
       value: keyAll.join(''),
-      textSize: keyAll.length+2
     })
   }
   hevent(hsize) {
@@ -71,6 +75,7 @@ export default class Popup extends React.Component {
       }
     }
     b.splice(textLastLine[textLastLine.length - 1], 0, pushText);
+    console.log(this.state.version);
     this.send(textLastLine[textLastLine.length - 1], state3.length + hsize + 1, pushText, (this.state.version), "hevent");
     this.setState({
       value: b.join(''),
@@ -91,9 +96,11 @@ export default class Popup extends React.Component {
         }))
   }
   viewSet(text) {
+    text = text.join('');
+    text = text.split('');
     this.setState({
-      value: text.join(''),
-      textSize: text.length
+      textSize: text.length,
+      value: text.join('')
     })
   }
 
@@ -163,7 +170,7 @@ export default class Popup extends React.Component {
       this.send(input_index, textsize, key, (this.state.version), "basic");
       this.keyInput(input_index, key);
     }
-    this.setState({ cursor: input_index, textSize: e.target.value.split('').length, version: this.state.version + 1 }); //변경값을 표출한다.
+    this.setState({ cursor: input_index, textSize: e.target.value.split('').length, version: this.state.version }); //변경값을 표출한다.
   }
 
   getReMarkDown() {
@@ -176,13 +183,38 @@ export default class Popup extends React.Component {
   receiveHevent(inputIndex, key) {
     let text = this.getSnapshotBeforeUpdate(this.state.value);
     text = text.split('');
-    console.log(inputIndex, key); 
+    console.log(inputIndex, key);
     text.splice(inputIndex, 0, key);
+    this.viewSet(text);
+  }
+  reciveBevent1(inputIndex) {
+    let text = this.getSnapshotBeforeUpdate(this.state.value);
+    text = text.split('');
+    text.splice(0, 0, "**");
+    text.splice(inputIndex, 0, "**");
+    this.viewSet(text);
+  }
+  reciveBevent2(inputIndex, lastIndex) {
+    let text = this.getSnapshotBeforeUpdate(this.state.value);
+    text = text.split('');
+    text.splice(inputIndex, 0, "**");
+    text.splice(lastIndex + 1, 0, "**");
     this.viewSet(text);
   }
 
   receive(message) {
-    if (message.name == this.state.name) {
+    this.setState({
+      version: message.version
+    })
+    if (message.type == "error" && message.name == this.state.name) {
+      console.log(message.version, "error");
+      this.setState({
+        value: message.key,
+        textSize: message.key.split('').length,
+        version: message.version
+      })
+      return;
+    } else if (message.name == this.state.name) {
       return;
     } else if (message.type == "basic") {
       this.keyInput(message.inputIndex, message.key);
@@ -194,11 +226,21 @@ export default class Popup extends React.Component {
       this.copyInput(message.inputIndex, message.size, message.key);
     } else if (message.type == "hevent") {
       this.receiveHevent(message.inputIndex, message.key);
+    } else if (message.type == "boldevent1") {
+      this.reciveBevent1(message.inputIndex);
+    } else if (message.type == "boldevent2") {
+      console.log("2");
+      this.reciveBevent2(message.inputIndex, message.size);
     }
-
-
   }
-
+  memoSave() {
+    console.log()
+  }
+  markOpen() {
+    this.setState({
+      markOpen: !this.state.markOpen
+    })
+  }
   render() {
     const tempStyle = {
       width: "200px",
@@ -220,30 +262,33 @@ export default class Popup extends React.Component {
               onMessage={this.receive.bind(this)}
               ref={(client) => { this.clientRef = client }} />
           </div>
-          <div className={styles.header}> 
+          <div className={styles.header}>
           </div>
-            <div className={styles.editor}>
-              <div className={styles.btn}>
-                <button onClick={this.hevent.bind(this, 1)}>H1</button>
-                <button onClick={this.hevent.bind(this, 2)}>H2</button>
-                <button onClick={this.hevent.bind(this, 3)}>H3</button>
-                <button onClick={this.hevent.bind(this, 4)}>H4</button>
-                <button onClick={this.boldevent.bind(this)}>B</button>
-              </div>
-              <textarea
-                wrap="hard"
-                rows="2"
-                cols="20"
-                className={styles.edit}
-                onBlur={this.cursorEvent.bind(this)}
-                onChange={this.editorPush.bind(this)}
-                value={this.state.value}></textarea>
+          <div className={styles.editor}>
+            <div className={styles.btn}>
+              <button onClick={this.hevent.bind(this, 1)}>H1</button>
+              <button onClick={this.hevent.bind(this, 2)}>H2</button>
+              <button onClick={this.hevent.bind(this, 3)}>H3</button>
+              <button onClick={this.hevent.bind(this, 4)}>H4</button>
+              <button onClick={this.boldevent.bind(this)}>B</button>
+              {(this.state.markOpen) ? <button className={styles.click} onClick={this.markOpen.bind(this)}>E</button> : <button onClick={this.markOpen.bind(this)}>M</button>}
+              <button onClick={this.memoSave.bind(this)}>저장</button>
             </div>
-
-            <div
+            {(this.state.markOpen) ? (<div
               className={styles.markDownView}
-              dangerouslySetInnerHTML={this.getReMarkDown()}></div>
-         
+              dangerouslySetInnerHTML={this.getReMarkDown()}></div>)
+              :(<textarea
+              wrap="hard"
+              rows="2"
+              cols="20"
+              className={styles.edit}
+              onBlur={this.cursorEvent.bind(this)}
+              onChange={this.editorPush.bind(this)}
+              value={this.state.value}></textarea>)
+              }
+
+          </div>
+
         </div>
       </div>
     );

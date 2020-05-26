@@ -13,13 +13,11 @@ export default class GroupAddOrInvite extends React.Component {
     constructor() {
         super(...arguments);
         this.state = {
-            g_noUpdate: '',
-            currentG_no: null,
             group: this.props.group,
-            groups: this.props.group.gname.map(element => {
+            groups: this.props.group.gname.map(gname => {
                 return {
-                    value: element,
-                    label: element
+                    value: gname,
+                    label: gname
                 }
             }),
             users: [
@@ -28,8 +26,26 @@ export default class GroupAddOrInvite extends React.Component {
                 { value: '사용자3', label: '사용자3' },
                 { value: '사용자4', label: '사용자4' }
             ]
-            // 다 삭제 안되는 오류
         }
+        // 다 삭제 안되는 오류
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log("shouldComponentUpdate");
+        if (nextProps != nextState) {
+            console.log("update")
+            return true;
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log("componentDidUpdate");
+        console.log(prevProps);
+        console.log(prevState);
+        const { group, UpdateGroup } = this.props;
+        console.log(group);
+        console.log(UpdateGroup);
+
     }
 
     addGroup(event) {
@@ -37,7 +53,7 @@ export default class GroupAddOrInvite extends React.Component {
             let data = {
                 name: event.label
             };
-            console.log(data);
+            let group = { no: [], gname: [] };
             fetch(`${API_URL}/api/addGroup`, {
                 method: "post",
                 headers: API_HEADERS,
@@ -45,14 +61,39 @@ export default class GroupAddOrInvite extends React.Component {
             })
                 .then((response) => response.json())
                 .then((json) => {
-                    this.setState({
-                        result: json.data,
-                    });
-                    console.log(json.data);
+                    group.no.push(json.data.no);
+                    group.gname.push(json.data.name);
+                    this.groupAdd(group);
+                    // this.getDerivedStateFromProps(group);
                 })
                 .catch((err) => console.error(err));
         }
+
     }
+
+    groupAdd(group) {
+        this.setState({
+            group: {
+                no: this.state.group.no.concat(group.no),
+                gname: this.state.group.gname.concat(group.gname)
+            }
+        })
+        this.props.UpdateGroup(this.state.group);
+    }
+
+    // componentWillReceiveProps(nextProps){
+    //     console.log("componentWillReceiveProps");
+    //     console.log(nextProps);
+    // }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return true;
+    // }
+    // UpdateGroup(group) {
+    //     this.setState({
+    //       group: this.state.group.concat(group)
+    //     });
+    //   }
 
     addUser(event) {
     }
@@ -71,8 +112,8 @@ export default class GroupAddOrInvite extends React.Component {
                         onChange={this.addGroup.bind(this)}
                         maxMenuHeight={120}
                         options={this.state.groups}
-                        placeholder="그룹선택"
-                        // deleteRemoves={true}
+                        placeholder="그룹선택 및 생성할 그룹이름 입력"
+                    // deleteRemoves={true}
                     />
                 </div>
                 <div className={styles.inner_form_component}>

@@ -21,6 +21,17 @@ public class UserService {
 		return authUser;
 	}
 
+	public boolean hasId(String Id) {
+		return userRepository.hasId(Id);
+	}
+	public boolean hasEmail(String email) {
+		return userRepository.hasEmail(email);
+	}
+
+	public boolean join(UserVo vo) {
+		int count = userRepository.join(vo);
+		return count == 1;
+	}
 	public void joinInsert(UserVo vo) {
 		userRepository.joinInsert(vo);
 	}
@@ -29,6 +40,4 @@ public class UserService {
 		userRepository.modifyProfile(vo);
 		
 	}
-
-	
 }

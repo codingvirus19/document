@@ -54,6 +54,7 @@ public class MainApiController {
 
 	@PostMapping("/addGroup")
 	public JsonResult addGroup(@AuthUser SecurityUser securityUser, @RequestBody GroupVo groupVo) {
+		System.out.println("addGroup");
 		mainService.insertGroup(groupVo);
 
 		GroupUserVo groupUservo = new GroupUserVo();

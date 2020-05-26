@@ -98,9 +98,11 @@ export default class Container extends React.Component {
 
   // 렌더 시 통신으로 받은 group값을 Array화 시킨다.
   UpdateGroup(group) {
+    console.log(group);
     this.setState({
       group: group,
     });
+    console.log(this.state.group);
   }
 
   //로그인한 유저의 정보를 Array화 시킨다.
@@ -116,6 +118,7 @@ export default class Container extends React.Component {
     this.setState({
       groupBySidebar: {
         no: no,
+
         name: name,
       },
     });
