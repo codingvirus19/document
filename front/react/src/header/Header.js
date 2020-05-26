@@ -23,6 +23,7 @@ export default class Header extends React.Component {
     this.state = {
       showPopup: false,
       showProfile: false,
+      _getProfileValue: null,
     };
   }
 
@@ -35,18 +36,22 @@ export default class Header extends React.Component {
     this.setState({
       showProfile: !this.state.showProfile,
     });
-    this.getProfileAjax();
+    // this.getProfileAjax();
   }
 
-  getProfileAjax() {
+  // getProfileAjax
+  componentDidMount() {
     fetch(`${API_URL}/api/profile`, {
       method: "post",
       headers: API_HEADERS,
     })
       .then((response) => response.json())
       .then((json) => {
-        // groupDatas = json.data;
-        console.log(json.data);
+        let _getProfileValue = json.data;
+        console.log(_getProfileValue);
+        this.setState({
+          getProfileValue: _getProfileValue,
+        });
       })
       .catch((err) => console.error(err));
   }
@@ -82,6 +87,7 @@ export default class Header extends React.Component {
               </Dropdown.Menu>
               {this.state.showProfile ? (
                 <Popup2
+                  getProfileValue={this.state.getProfileValue}
                   inner_header="프로필정보"
                   contents={"profile"}
                   closePopup={this.toggleShowProfile.bind(this)}

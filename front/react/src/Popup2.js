@@ -11,7 +11,7 @@ export default class Popup2 extends React.Component {
     let popup2_confirm_btn = "확인";
 
     if (this.props.contents === "profile") {
-      contents = <Profile />;
+      contents = <Profile getProfileValue={this.props.getProfileValue} />;
       popup2_confirm_btn = "수정";
     }
     if (this.props.contents === "groupAddOrInvite") {
