@@ -10,9 +10,9 @@
 				and u_no= #{uNo};
  		]]>
 	</select>
-	<select id="memoAtNull" resultType="memovo">
+	<select id="memoAtNull" parameterType="memovo" resultType="memovo">
 		<![CDATA[
-		 select no, u_no as uNo, content, color, date from memo where g_no is null
+		 select no, u_no as uNo, content, color, date from memo where g_no is #{gNo} and u_no=#{uNo}
  		]]>
 	</select>
 	
