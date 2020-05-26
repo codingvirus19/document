@@ -37,7 +37,6 @@ export default class Popup2 extends React.Component {
   }
 
   render() {
-    console.log(this.props.closePopup);
     let contents;
     let popup2_confirm_btn = "확인";
 
