@@ -42,7 +42,6 @@ export default class Container extends React.Component {
           group.no.push(json.no);
           group.gname.push(json.name);
         });
-        console.log(group);
         this.UpdateGroup(group);
       })
       .catch((err) => console.error(err));
@@ -76,7 +75,6 @@ export default class Container extends React.Component {
     // let input_groupNo;
     let _memoArr = null;
 
-    console.log(_groupDatas);
     // call api
     fetch(`${API_URL}/api/memoList`, {
       method: "post",
@@ -101,9 +99,11 @@ export default class Container extends React.Component {
   }
 
   UpdateGroup(group) {
+    console.log(group);
     this.setState({
       group: group
     });
+    console.log(this.state.group);
   }
   UpdateUser(users){
     this.setState({
@@ -113,11 +113,9 @@ export default class Container extends React.Component {
 
   SidebarGroupUpdate(no) {
     this.bringMemoByGroup(no);
-    console.log(no);
   }
 
   render() {
-    console.log(this.state.users);
     return (
       <div className={styles.container}>
         <Header group={this.state.group} users={this.state.users} />
@@ -128,7 +126,8 @@ export default class Container extends React.Component {
         {this.state.memo_bigArr ? (
           <Contents 
           group={this.state.group}
-          memo_bigArr={this.state.memo_bigArr} />
+          memo_bigArr={this.state.memo_bigArr} 
+          UpdateGroup={this.UpdateGroup.bind(this)} />
         ) : (
             <Contents group={this.state.group} />
           )}
