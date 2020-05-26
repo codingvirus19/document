@@ -30,7 +30,6 @@ public class UserApiController {
 	
 	@PostMapping("/profile/modify")
 	public JsonResult profileInsert(@AuthUser SecurityUser securityUser, @RequestBody UserVo vo) {
-		System.out.println(vo);
 		vo.setNo(securityUser.getNo());
 		userService.modifyProfile(vo);
 		return JsonResult.success(null);
