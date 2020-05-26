@@ -25,7 +25,6 @@ public class MainApiController {
 	@PostMapping("/container")
 	public JsonResult getGroupList(@AuthUser SecurityUser securityUser) {
 		UserVo userVo = new UserVo();
-		System.out.println(securityUser);
 		userVo.setNo(securityUser.getNo());
 		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
 		return JsonResult.success(returnValue);
@@ -39,12 +38,10 @@ public class MainApiController {
  		memoVo.setuNo(securityUser.getNo());
  		memoVo.setgNo(vo.getNo());
  		if(vo.getNo() == null) {
- 			System.out.println("null 입니다.");
  			List<MemoVo> nulllist = mainService.memoAtNull(memoVo);
  			return JsonResult.success(nulllist);
  		}
  		else {
- 			System.out.println("값이 있습니다.");
  			List<MemoVo> list = mainService.findAllMemo(memoVo);
  			return JsonResult.success(list);
  		}
@@ -52,7 +49,6 @@ public class MainApiController {
 
 	@PostMapping("/getUserSession")
 	public JsonResult getUserSession(@AuthUser SecurityUser securityUser) {
-		System.out.println(securityUser);
 		return JsonResult.success(securityUser);
 	}
 

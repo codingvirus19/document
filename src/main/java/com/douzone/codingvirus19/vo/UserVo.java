@@ -5,6 +5,7 @@ public class UserVo {
 	private Long no;
 	private String id;
 	private String email;
+	private String name;
 	private String password;
 	private String nickname;
 	private String image;
@@ -35,6 +36,12 @@ public class UserVo {
 		this.password = password;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getNickname() {
 		return nickname;
 	}
@@ -55,7 +62,7 @@ public class UserVo {
 	}
 	@Override
 	public String toString() {
-		return "UserVo [no=" + no + ", id=" + id + ", email=" + email + ", password=" + password
+		return "UserVo [no=" + no + ", id=" + id + ", email=" + email + ", name=" + name + ", password=" + password
 				+ ", nickname=" + nickname + ", image=" + image + ", role=" + role + "]";
 	}
 }
