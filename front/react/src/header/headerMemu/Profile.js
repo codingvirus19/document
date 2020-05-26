@@ -10,7 +10,7 @@ export default class Profile extends React.Component {
       email: this.props.getProfileValue.email,
       password: this.props.getProfileValue.password,
       nickname: this.props.getProfileValue.nickname,
-      // password:this.props.getProfileValue.password,
+      image: this.props.getProfileValue.image,
     };
   }
 
@@ -34,11 +34,17 @@ export default class Profile extends React.Component {
       nickname: e.target.value,
     });
   }
+  onChangeImage(e) {
+    this.setState({
+      image: e.target.value,
+    });
+  }
 
   render() {
     // console.log(this.props.getProfileValue.map((value) => value.no));
     return (
       <>
+        <p>아이디:</p>
         <input
           className={popupStyles.input}
           type="text"
@@ -49,6 +55,7 @@ export default class Profile extends React.Component {
           name="id"
           id="id"
         ></input>
+        <p>이메일:</p>
         <input
           className={popupStyles.input}
           type="email"
@@ -59,6 +66,7 @@ export default class Profile extends React.Component {
           name="email"
           id="email"
         ></input>
+        <p>비밀번호:</p>
         <input
           className={popupStyles.input}
           type="password"
@@ -68,14 +76,7 @@ export default class Profile extends React.Component {
           name="password1"
           id="password1"
         ></input>
-        <input
-          className={popupStyles.input}
-          type="password"
-          placeholder="비밀번호 확인"
-          value={this.props.getProfileValue.password}
-          name="password2"
-          id="password2"
-        ></input>
+        <p>닉네임:</p>
         <input
           className={popupStyles.input}
           type="text"
@@ -84,6 +85,16 @@ export default class Profile extends React.Component {
           onChange={this.onChangeNickname.bind(this)}
           name="nickname"
           id="nickname"
+        ></input>
+        <p>이미지:</p>
+        <input
+          className={popupStyles.input}
+          type="text"
+          placeholder="이미지"
+          value={this.props.getProfileValue.image}
+          onChange={this.onChangeImage.bind(this)}
+          name="image"
+          id="image"
         ></input>
       </>
     );
