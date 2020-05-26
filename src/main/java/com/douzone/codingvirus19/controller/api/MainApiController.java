@@ -25,6 +25,7 @@ public class MainApiController {
 	@PostMapping("/container")
 	public JsonResult getGroupList(@AuthUser SecurityUser securityUser) {
 		UserVo userVo = new UserVo();
+		System.out.println(securityUser);
 		userVo.setNo(securityUser.getNo());
 		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
 		return JsonResult.success(returnValue);

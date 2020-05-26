@@ -12,17 +12,18 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
+	public UserVo getProfile(UserVo userVo) {
+		return userRepository.getProfile(userVo);
+	}
+	
 	public UserVo findById(String id) {
 		UserVo authUser = userRepository.findByName(id); 
-		return authUser;
-	}
-
-	public UserVo findByIdAndPassword(UserVo vo) {
-		UserVo authUser = userRepository.findByIdAndPassword(vo);
 		return authUser;
 	}
 
 	public void joinInsert(UserVo vo) {
 		userRepository.joinInsert(vo);
 	}
+
+	
 }

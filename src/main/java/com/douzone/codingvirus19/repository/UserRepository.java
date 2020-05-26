@@ -13,18 +13,12 @@ public class UserRepository {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	public UserVo getProfile(UserVo userVo) {
+		return sqlSession.selectOne("user.getProfile", userVo);
+	}
+	
 	public boolean login(UserVo vo) { 
 		return  sqlSession.selectOne("user.login",vo);
-	}
-
-//	public void update(MainVo vo) {
-//		System.out.println("Repository"+vo);
-//		sqlSession.update("main.update",vo);
-//	}
-
-	public UserVo findByIdAndPassword(UserVo vo) {
-		UserVo authUser = sqlSession.selectOne("user.findByIdAndPassword", vo);
-		return authUser;
 	}
 
 	public void joinInsert(UserVo vo) {
@@ -35,6 +29,8 @@ public class UserRepository {
 	public UserVo findByName(String name) {
 		return sqlSession.selectOne("user.findById", name);
 	}
+
+	
 	
 
 }

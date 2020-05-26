@@ -2,12 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
 	
-	<select id="findByIdAndPassword" parameterType="uservo" resultType="uservo">
+	<select id="getProfile" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-			select no,id,email,password,nickname,image,name
+			select no,id,email,password,nickname,image
 			from user
-			where id=#{id}
-			and password=#{password}
+			where no=#{no};
  		]]>
 	</select>
 	<select id="findById" parameterType="string" resultType="uservo">
