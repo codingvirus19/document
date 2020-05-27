@@ -25,7 +25,8 @@ export default class Contents extends React.Component {
               memo_bigArr={this.props.memo_bigArr}
             />
           </div>
-          <Chat />
+          <Chat group={this.props.group}
+          users={this.props.users} />
         </div>
         {/* <Footer /> */}
       </div>

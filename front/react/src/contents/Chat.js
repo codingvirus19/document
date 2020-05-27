@@ -1,17 +1,18 @@
-import React from "react";
-import Styles from"./Chat.css";
+import React, { Fragment } from "react";
+import ChatList from "./ChatList"
+import styles from"./Chat.css";
 export default class Chat extends React.Component {
   constructor() {
     super(...arguments);
-    this.state={
-        chatOpen : false
-    }
   }
   render(){
       return (
-      <div className={Styles.ChatBox}>
-
-      </div>
+        <Fragment>
+        {(true) ? 
+        <ChatList group={this.props.group}
+        users={this.props.users}/>
+        : <div>abababa</div>}
+        </Fragment>
       );
   }
   }

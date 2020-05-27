@@ -143,6 +143,8 @@ export default class Container extends React.Component {
         <Contents
           groupBySidebar={this.state.groupBySidebar}
           memo_bigArr={this.state.memo_bigArr}
+          group={this.state.group}
+          users={this.state.users}
         />
       </div>
     );
