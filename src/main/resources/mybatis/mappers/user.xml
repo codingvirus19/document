@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
 	
-	<select id="findByIdAndPassword" parameterType="uservo" resultType="uservo">
+	<select id="getProfile" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-			select no,id,email,password,nickname,image,name
+			select no,id,email,password,nickname,image
 			from user
-			where id=#{id}
-			and password=#{password}
+			where no=#{no};
  		]]>
 	</select>
+	
 	<select id="findById" parameterType="string" resultType="uservo">
 		<![CDATA[
 			select *
@@ -18,10 +18,32 @@
  		]]>
 	</select>
 	
-	<insert id="joinInsert" parameterType="uservo">
+	<select id="hasId" parameterType="string" resultType="int">
 		<![CDATA[
-			insert into user values (
-				null, #{id}, #{email}, #{password}, #{nickname}, #{image}, #{name});
+			select count(id)
+			  from user 
+			 where id = #{id};
+ 		]]>
+	</select>
+	
+	<select id="hasEmail" parameterType="string" resultType="int">
+		<![CDATA[
+			select count(email)
+			  from user 
+			 where id = #{email};
+ 		]]>
+	</select>
+	
+	<insert id="join" parameterType="uservo">
+		<![CDATA[
+			insert 
+			  into user(no, id, email, password, nickname, image)
+			 value (null, #{id}, #{email}, #{password}, #{nickname}, #{image} );
  		]]>
 	</insert>
+	<update id="modifyProfile" parameterType="uservo">
+		<![CDATA[
+			update user set id=#{id}, email=#{email}, password=#{password}, nickname=#{nickname}, image=#{image} where no=#{no};
+ 		]]>
+	</update>
 </mapper>

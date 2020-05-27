@@ -21,15 +21,13 @@ export default class ContentsHeader extends React.Component {
     this.setState({
       ShowGroupAddOrInvite: !this.state.ShowGroupAddOrInvite,
     });
-  }
-
-  
+  }  
   
   render() {
     return (
       <div className={styles.header}>
         <div className={styles.title}>
-          {this.props.groupBySidebar.name != null ? <h3>{this.props.groupBySidebar.name}</h3> : <h3>개인</h3>}
+          {this.props.groupBySidebar.name != null ? <h3>- {this.props.groupBySidebar.name} -</h3> : <h3>- 개인 -</h3>}
         </div>
         <div className={styles.showinglist}>
           <button className="contents-header__btns" aria-label="보기방식 변환">
@@ -61,6 +59,7 @@ export default class ContentsHeader extends React.Component {
               contents={"groupAddOrInvite"}
               closePopup={this.toggleGroupAddOrInvite.bind(this)}
               group={this.props.group}
+              UpdateGroup={this.props.UpdateGroup}
             />
           ) : null}
         </div>
