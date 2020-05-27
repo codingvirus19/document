@@ -14,23 +14,21 @@ export default class Contents extends React.Component {
     //   for(let _index=0, _index<)
     // }
     return (
-      <ul className={styles.memo}>
-        {this.props.memo_bigArr &&
-          this.props.memo_bigArr.map((memos) =>
+      <div className={styles.memo}>
+        {this.props.memo_bigArr && this.props.memo_bigArr.map((memos) =>
             memos.map((memo, index) => (
-              <li key={memos[index].no} className={styles.memo_container}>
-                <form className={styles.container_memo_form}>
+                <div key={memos[index].no} className={styles.container_memo_form}>
                   <Memo content={memos[index].content} />
                   <HashList />
                   <Toolbar
                    group={this.props.group}
                     color={memos[index].color}
                   />
-                </form>
-              </li>
+                </div>
             ))
           )}
-      </ul>
+      </div>
     );
   }
 }
+// 내가 할 부분
