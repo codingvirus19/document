@@ -14,14 +14,17 @@ import com.douzone.codingvirus19.security.SecurityUser;
 import com.douzone.codingvirus19.service.MainService;
 import com.douzone.codingvirus19.vo.GroupUserVo;
 import com.douzone.codingvirus19.vo.GroupVo;
+import com.douzone.codingvirus19.vo.HashVo;
 import com.douzone.codingvirus19.vo.MemoVo;
 import com.douzone.codingvirus19.vo.UserVo;
 
 @RestController
 @RequestMapping("/api")
 public class MainApiController {
+	
 	@Autowired
  	private MainService mainService;
+	
 	@PostMapping("/container")
 	public JsonResult getGroupList(@AuthUser SecurityUser securityUser) {
 		UserVo userVo = new UserVo();
@@ -54,7 +57,6 @@ public class MainApiController {
 
 	@PostMapping("/addGroup")
 	public JsonResult addGroup(@AuthUser SecurityUser securityUser, @RequestBody GroupVo groupVo) {
-		System.out.println("addGroup");
 		mainService.insertGroup(groupVo);
 
 		GroupUserVo groupUservo = new GroupUserVo();
@@ -66,10 +68,15 @@ public class MainApiController {
 		return JsonResult.success(groupVo);
 	}
 	
-//	@PostMapping("/getUserList")
-//	public JsonResult getUserList(@AuthUser SecurityUser securityUser) {
-//		
-//		mainService.getUserList(securityUser.getNo());
-//		return JsonResult.success()
-//	}
+	@PostMapping("/getHashListByGroup")
+	public JsonResult getHashListByGroup(@AuthUser SecurityUser securityUser, @RequestBody GroupVo groupVo) {
+		System.out.println("getHashListByGroup");
+		MemoVo memoVo = new MemoVo();
+		memoVo.setuNo(securityUser.getNo());
+		memoVo.setgNo(groupVo.getNo());
+		System.out.println(memoVo);
+//		List<HashVo> hashListByGroup = mainService.getHashListByGroup(memoVo);
+		return JsonResult.success(null);
+	}
+	
 }

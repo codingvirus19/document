@@ -1,5 +1,7 @@
 package com.douzone.codingvirus19.controller.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +34,12 @@ public class UserApiController {
 	public void profileInsert(@AuthUser SecurityUser securityUser, @RequestBody UserVo vo) {
 		vo.setNo(securityUser.getNo());
 		userService.modifyProfile(vo);
+	}
+	
+	@PostMapping("/getUserList")
+	public JsonResult getUserList(@AuthUser SecurityUser securityUser) {
+		List<UserVo> userList = userService.getUserList(securityUser.getNo());
+		return JsonResult.success(userList);
 	}
 	
 	

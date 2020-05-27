@@ -1,12 +1,13 @@
 import React from "react";
-import { BrowserRouter as Router, Redirect } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 
 import Serach from "./Serach";
 import Logo from "./Logo";
 import Popup2 from "../Popup2";
 import Popup from "./headerMemu/Popup";
-import Chat from "../contents/Chat.js";
+
+import Chat from "../contents/chatting/Chat.js";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faUser, faBell, faSms } from "@fortawesome/free-solid-svg-icons";
 
@@ -25,7 +26,8 @@ export default class Header extends React.Component {
       showPopup: false,
       showProfile: false,
       _getProfileValue: null,
-      showChat: false
+      showChat: false,
+      redirect: false
     };
   }
 
@@ -63,9 +65,8 @@ export default class Header extends React.Component {
       .catch((err) => console.error(err));
   }
 
-  logout() {
-    console.log("logout")
-    return <Redirect to="/codingvirus19/logout" />
+  setRedirect(){
+    window.location = "http://localhost:8080/codingvirus19/logout";
   }
 
   render() {
@@ -94,8 +95,9 @@ export default class Header extends React.Component {
               <Dropdown.Menu className={dropdownstyles.menu}>
                 <Dropdown.Item onClick={this.toggleShowProfile.bind(this)}>
                   개인프로필 수정
-                </Dropdown.Item>
-                <Dropdown.Item onClick={this.logout.bind(this)}>
+              </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={this.setRedirect.bind(this)} >
                   로그아웃
                 </Dropdown.Item>
               </Dropdown.Menu>

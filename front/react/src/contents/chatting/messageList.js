@@ -6,7 +6,7 @@ export default class MessageList extends React.Component {
     constructor() {
         super(...arguments)
         this.state = {
-            g_no: this.props.group_no,
+            gNo: this.props.gNo,
             users: this.props.users
         }
         this.autoscrollRef = React.createRef()
@@ -43,5 +43,8 @@ export default class MessageList extends React.Component {
             </ul>
         )
         
+    }
+    UNSAFE_componentWillUpdate(){
+        this.props.scrollBottomChange();
     }
 }
