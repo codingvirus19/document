@@ -31,12 +31,33 @@ export default class Toolbar extends React.Component {
       showHashSheet: false,
       clickGroupShareButton: false,
       clickHashButton: false,
+      no: this.props.no,
+      gNo: this.props.groupBySidebar.no,
     };
     this.toggleContainer = React.createRef();
     this.toggleContainer2 = React.createRef();
     this.toggleGroupShareSheet = this.toggleGroupShareSheet.bind(this);
     this.onClickOutsideHandler = this.onClickOutsideHandler.bind(this);
   }
+
+  //   shouldComponentUpdate(nextProps, nextState) {
+  //     console.log(JSON.stringify(nextProps) != JSON.stringify(this.props));
+  //     return JSON.stringify(nextProps) != JSON.stringify(this.props);
+  //   }
+
+  //   componentDidUpdate(prevProps, prevState) {
+  //     this.props.callbackFromToolbar(this.state.gNo);
+  //     this.setState({
+  //       no: this.props.no,
+  //       gNo: this.props.groupBySidebar.no,
+  //       //   groups: this.state.group.gname.map(gname => {
+  //       //       return {
+  //       //           value: gname,
+  //       //           label: gname
+  //       //       }
+  //       //   })
+  //     });
+  //   }
 
   componentDidMount() {
     window.addEventListener("click", this.onClickOutsideHandler);
@@ -101,8 +122,8 @@ export default class Toolbar extends React.Component {
   onClickDelete(e) {
     e.preventDefault();
     let input_deleteMemo = {
-      no: this.props.no,
-      gNo: this.props.groupBySidebar.no,
+      no: this.state.no,
+      gNo: this.state.gNo,
     };
     console.log(input_deleteMemo);
     this.ajaxDeleteMemo(input_deleteMemo);
