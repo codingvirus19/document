@@ -173,7 +173,7 @@ export default class login extends React.Component {
     if (this.state.result === "success") {
       console.log("성공");
       return (
-        <Redirect to="./main" />
+        <Redirect to="/codingvirus19/main" />
       );
     } else if (this.state.result === "fail") {
       console.log("실패");

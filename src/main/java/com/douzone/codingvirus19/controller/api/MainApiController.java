@@ -68,4 +68,11 @@ public class MainApiController {
 		
 		return JsonResult.success(groupVo);
 	}
+	
+//	@PostMapping("/getUserList")
+//	public JsonResult getUserList(@AuthUser SecurityUser securityUser) {
+//		
+//		mainService.getUserList(securityUser.getNo());
+//		return JsonResult.success()
+//	}
 }
