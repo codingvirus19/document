@@ -6,11 +6,10 @@
     padding: 5% 4%;
   }
   
-  .memo_container {
-    border: 0.1px solid black;
-    margin: 10px;
-  }
-  
   .container_memo_form {
     padding: 10px;
+    width: 15rem;
+    display: inline-block;
+    margin: 0.3rem;
+    border: 1px solid;
   }
