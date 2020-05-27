@@ -10,17 +10,11 @@ export default class Contents extends React.Component {
         }
     }
     open(e) {
-        console.log(e.target.id);
-        // for (let p in this.clickRef.current) {
-        //     console.log(p);
-        // }
         this.setState({
             chatOpen: !this.state.chatOpen,
             gNo: this.props.group.no[e.target.id],
             gName: this.props.group.gname[e.target.id]
         })
-        console.log(this.state.chatOpen)
-        console.log(this.props);
     }
     close(){
         this.setState({
