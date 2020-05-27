@@ -32,9 +32,12 @@ public class MemoApiController {
 	@PostMapping("/api/memo/delete")
 	public void deleteMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
 		vo.setuNo(securityUser.getNo());
-		System.out.println(vo);
+		System.out.println("/api/memo/delete"+vo);
 		if(vo.getgNo() == null) {
 			memoService.personDeleteMemo(vo);
+			return;
+		}else {
+			memoService.peopleDeleteMemo(vo);
 			return;
 		}
 	}

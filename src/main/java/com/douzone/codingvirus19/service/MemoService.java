@@ -17,6 +17,11 @@ public class MemoService {
 		memoRepository.personDeleteMemo(vo);
 		
 	}
+
+	public void peopleDeleteMemo(MemoVo vo) {
+		memoRepository.peopleDeleteMemo(vo);
+		
+	}
 	
 //	
 	
