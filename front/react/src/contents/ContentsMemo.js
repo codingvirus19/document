@@ -10,9 +10,6 @@ export default class Contents extends React.Component {
   }
 
   render() {
-    // test(_index){
-    //   for(let _index=0, _index<)
-    // }
     return (
       <div className={styles.memo}>
         {this.props.memo_bigArr && this.props.memo_bigArr.map((memos) =>
@@ -21,6 +18,7 @@ export default class Contents extends React.Component {
                   <Memo content={memos[index].content} />
                   <HashList />
                   <Toolbar
+                    no={memos[index].no}
                     groupBySidebar={this.props.groupBySidebar}
                     color={memos[index].color}
                   />
