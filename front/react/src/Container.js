@@ -19,7 +19,7 @@ export default class Container extends React.Component {
       users: { no: [], name: [] },
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
-      showChat: false
+      showChat: false,
     };
   }
 
@@ -128,6 +128,10 @@ export default class Container extends React.Component {
     console.log(this.state.showChat);
   }
 
+  callbackFromToolbar(_gNo) {
+    bringMemoByGroup(_gNo);
+  }
+
   render() {
     return (
       <div className={styles.container}>
@@ -152,6 +156,7 @@ export default class Container extends React.Component {
           group={this.state.group}
           users={this.state.users}
           showChat={this.state.showChat}
+          callbackFromToolbar={this.callbackFromToolbar.bind(this)}
           //변경된 결과 값 state :true false
         />
       </div>

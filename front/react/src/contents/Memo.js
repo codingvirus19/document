@@ -3,27 +3,27 @@ import React from "react";
 import styles from "./Memo.css";
 
 export default class Memo extends React.Component {
-
-  constructor(){
-    super(...arguments)
+  constructor() {
+    super(...arguments);
     this.state = {
-      showPopup: false
-    }
+      showPopup: false,
+    };
   }
 
-  viewPopup(){
+  viewPopup() {
     this.setState({
-      showPopup : !this.state.showPopup
-    })
+      showPopup: !this.state.showPopup,
+    });
   }
 
   render() {
     return (
-      <div onClick={this.viewPopup.bind(this)} value={this.props.content}
+      <div
+        onClick={this.viewPopup.bind(this)}
+        value={this.props.content}
         // onChange={}
         className={styles.memo}
       ></div>
     );
   }
 }
-//
