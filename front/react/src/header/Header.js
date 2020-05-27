@@ -6,9 +6,9 @@ import Serach from "./Serach";
 import Logo from "./Logo";
 import Popup2 from "../Popup2";
 import Popup from "./headerMemu/Popup";
-import Chatting from "../contents/chatting/chat.js";
+import Chat from "../contents/Chat.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faUser, faBell } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faUser, faBell, faSms } from "@fortawesome/free-solid-svg-icons";
 
 import dropdownstyles from "./Dropdown.css";
 import styles from "./Header.css";
@@ -25,6 +25,7 @@ export default class Header extends React.Component {
       showPopup: false,
       showProfile: false,
       _getProfileValue: null,
+      showChat: false
     };
   }
 
@@ -32,6 +33,12 @@ export default class Header extends React.Component {
     this.setState({
       showPopup: !this.state.showPopup,
     });
+  }
+  chattingClick() {
+    this.setState({
+      showChat: !this.state.showChat,
+    });
+    this.props.chattingPopup(this.state.showChat)
   }
   toggleShowProfile() {
     this.setState({
@@ -57,8 +64,8 @@ export default class Header extends React.Component {
   }
 
   logout() {
-    console.log("logout");
-    return <Redirect to="/codingvirus19/logout" />;
+    console.log("logout")
+    return <Redirect to="/codingvirus19/logout" />
   }
 
   render() {
@@ -112,7 +119,11 @@ export default class Header extends React.Component {
               </Dropdown.Menu>
             </Dropdown>
 
-            <Chatting group={this.props.group} users={this.props.users} />
+            <div>
+              <button onClick={this.chattingClick.bind(this)}>
+                <FontAwesomeIcon className={styles.faSms} icon={faSms} />
+              </button>
+            </div>
           </div>
         </div>
       </div>

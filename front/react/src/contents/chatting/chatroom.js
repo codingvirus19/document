@@ -16,7 +16,7 @@ export default class ChatRoomList extends React.Component {
         super(...arguments)
         this.state = {
             g_no: this.props.group_no,
-            clientConnected: true,
+            clientConnected: false,
             contents: [],
             oepn:false
         }
@@ -44,8 +44,6 @@ export default class ChatRoomList extends React.Component {
             //     containerId: this.autoscrollRef.current.data
             // });
     }
-
-
 
     onMessageReceive(msg) {
         console.log(msg);
@@ -84,7 +82,6 @@ export default class ChatRoomList extends React.Component {
             open:!this.state.oepn
         })
     }
-
     render() {
         const wsSourceUrl = "http://localhost:8080/codingvirus19/api/chat";
         return (
@@ -101,7 +98,9 @@ export default class ChatRoomList extends React.Component {
                         topics={[`/api/chat/${this.state.g_no}`]}
                         onMessage={this.onMessageReceive.bind(this)}
                         ref={(client) => { this.clientRef = client }}
-                        onConnect={() => { this.setState({ clientConnected: true }) }} />
+                        onConnect={() => { this.setState({ clientConnected: true })} }
+                        onDisconnect={ () => { return false }} >
+                    </SockJsClient>
                 </div>
             </Fragment>
         )
@@ -109,5 +108,4 @@ export default class ChatRoomList extends React.Component {
     componentWillUpdate(){
         this.scrollToBottom();
     }
-   
 }

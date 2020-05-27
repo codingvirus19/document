@@ -11,12 +11,10 @@ export default class Contents extends React.Component {
 
   render() {
     return (
-      <ul className={styles.memo}>
-        {this.props.memo_bigArr &&
-          this.props.memo_bigArr.map((memos) =>
+      <div className={styles.memo}>
+        {this.props.memo_bigArr && this.props.memo_bigArr.map((memos) =>
             memos.map((memo, index) => (
-              <li key={memos[index].no} className={styles.memo_container}>
-                <form className={styles.container_memo_form}>
+                <div key={memos[index].no} className={styles.container_memo_form}>
                   <Memo content={memos[index].content} />
                   <HashList />
                   <Toolbar
@@ -24,11 +22,11 @@ export default class Contents extends React.Component {
                     groupBySidebar={this.props.groupBySidebar}
                     color={memos[index].color}
                   />
-                </form>
-              </li>
+                </div>
             ))
           )}
-      </ul>
+      </div>
     );
   }
 }
+// 내가 할 부분
