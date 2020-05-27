@@ -74,9 +74,8 @@ public class MainApiController {
 		MemoVo memoVo = new MemoVo();
 		memoVo.setuNo(securityUser.getNo());
 		memoVo.setgNo(groupVo.getNo());
-		System.out.println(memoVo);
-//		List<HashVo> hashListByGroup = mainService.getHashListByGroup(memoVo);
-		return JsonResult.success(null);
+		List<HashVo> hashListByGroup = mainService.getHashListByGroup(memoVo);
+		return JsonResult.success(hashListByGroup);
 	}
 	
 }

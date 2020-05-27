@@ -13,12 +13,13 @@ export default class HashtagList extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-      hash: null
+      g_no: this.props.g_no,
+      name: null
     }
   }
 
   componentDidMount() {
-    let g_no = {no: this.props.g_no};
+    let g_no = {no: this.state.g_no};
     console.log(g_no);
     fetch(`${API_URL}/api/getHashListByGroup`, {
       method: "post",
@@ -27,12 +28,13 @@ export default class HashtagList extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
+        console.log(json.data);
       })
       .catch((err) => console.error(err));
   }
 
   render() {
+    console.log(this.state.g_no);
     return (
       <div>
         <h5>해시태그</h5>

@@ -4,13 +4,14 @@
 	
 	<select id="getHashListByGroup" resultType="hashvo" parameterType="memovo">
 		<![CDATA[
-			select a.no as no, a.g_no as gNo, a.m_no as mNo, a.name as name
-			  from hash a left outer join memo b on a.g_no=b.g_no
-			 where b.u_no=#{uNo} and a.g_no=#{gNo}
-			 union
-			select a.no as no, a.g_no as gNo, a.m_no as mNo, a.name as name
-			  from hash a right outer join memo b on a.m_no=b.no
-			 where b.u_no=3{uNo} and a.g_no=#{gNo};
+			select a.no, a.g_no, a.m_no, a.name
+			  from hash a, memo b
+			 where a.m_no=b.no 
+			   and b.u_no=#{uNo}
+			   and(
+				  (a.g_no is null and a.g_no is null)
+				   or
+				  (a.g_no is not null and a.g_no=#{gNo}));
  		]]>
 	</select>
 	
