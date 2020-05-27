@@ -1,5 +1,7 @@
 package com.douzone.codingvirus19.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -45,5 +47,9 @@ public class UserRepository {
 
 	public int join(UserVo vo) {
 		return sqlSession.insert("user.join", vo);
+	}
+
+	public List<UserVo> getUserList(Long no) {
+		return sqlSession.selectList("user.getUserList", no);
 	}
 }

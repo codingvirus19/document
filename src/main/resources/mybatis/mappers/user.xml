@@ -41,9 +41,18 @@
 			 value (null, #{id}, #{email}, #{password}, #{nickname}, #{image} );
  		]]>
 	</insert>
+	
 	<update id="modifyProfile" parameterType="uservo">
 		<![CDATA[
 			update user set id=#{id}, email=#{email}, password=#{password}, nickname=#{nickname}, image=#{image} where no=#{no};
  		]]>
 	</update>
+	
+		<select id="getUserList" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select no, id, email, nickname, image
+			  from user
+			 where no NOT IN (#{no}); 
+ 		]]>
+	</select>
 </mapper>

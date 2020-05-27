@@ -4,7 +4,7 @@ import styles from "./Memo.css";
 
 export default class Memo extends React.Component {
 
-  constructor(){
+  constructor() {
     super(...arguments)
     this.state = {
       showPopup: false,
@@ -16,8 +16,9 @@ export default class Memo extends React.Component {
   viewPopup(){
     console.log("click");
     this.setState({
-      showPopup : !this.state.showPopup
+      showPopup: !this.state.showPopup
     })
+    console.log(this.state.showPopup)
   }
   DrageStart(e){
     this.props.dragChange(e);
@@ -34,4 +35,3 @@ export default class Memo extends React.Component {
     );
   }
 }
-//

@@ -1,5 +1,7 @@
 package com.douzone.codingvirus19.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +41,9 @@ public class UserService {
 	public void modifyProfile(UserVo vo) {
 		userRepository.modifyProfile(vo);
 		
+	}
+
+	public List<UserVo> getUserList(Long no) {
+		return userRepository.getUserList(no);
 	}
 }
