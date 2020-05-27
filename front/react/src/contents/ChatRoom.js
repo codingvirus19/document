@@ -84,7 +84,7 @@ export default class Chat extends React.Component {
         >
         </SockJsClient>
 
-        <div onClick={this.props.close}>닫기버튼</div>
+        <button className={styles.close} onClick={this.props.close}>⏏︎</button>
 
 
         <div id={`${this.props.gNo}scroll`} className={styles.chatOutput} ref={this.autoscrollRef} >
