@@ -93,7 +93,7 @@ export default class Header extends React.Component {
               <Dropdown.Menu className={dropdownstyles.menu}>
                 <Dropdown.Item onClick={this.toggleShowProfile.bind(this)}>
                   개인프로필 수정
-          </Dropdown.Item>
+              </Dropdown.Item>
                 <Dropdown.Item
                   onClick={this.setRedirect.bind(this)} >
                   로그아웃
