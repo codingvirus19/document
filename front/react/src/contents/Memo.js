@@ -3,28 +3,28 @@ import React from "react";
 import styles from "./Memo.css";
 
 export default class Memo extends React.Component {
+
   constructor() {
-    super(...arguments);
+    super(...arguments)
     this.state = {
-      content: this.props.content,
-    };
+      showPopup: true
+    }
   }
 
-  onChangeContent(e) {
+  viewPopup() {
     this.setState({
-      content: e.target.value,
-    });
+      showPopup: !this.state.showPopup
+    })
+    console.log(this.state.showPopup)
   }
 
   render() {
     return (
-      <input
-        value={this.state.content}
-        onChange={this.onChangeContent.bind(this)}
-        disabled
-        className={styles.memo}
-        type="textarea"
-      ></input>
+      <div onClick={this.viewPopup.bind(this)}>
+        <input value={this.props.content} className={styles.memo} >
+            {/* onChange={} */}
+        </input>
+      </div>
     );
   }
 }

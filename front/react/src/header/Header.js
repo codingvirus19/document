@@ -1,14 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Redirect } from 'react-router-dom'
 import Dropdown from "react-bootstrap/Dropdown";
 
 import Serach from "./Serach";
 import Logo from "./Logo";
 import Popup2 from "../Popup2";
 import Popup from "./headerMemu/Popup";
-import Chatting from "../contents/chatting/chat.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faUser, faBell } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faUser, faBell, faSms } from "@fortawesome/free-solid-svg-icons";
 
 import dropdownstyles from "./Dropdown.css";
 import styles from "./Header.css";
@@ -25,6 +23,8 @@ export default class Header extends React.Component {
       showPopup: false,
       showProfile: false,
       _getProfileValue: null,
+      showChat: false,
+      redirect: false
     };
   }
 
@@ -32,6 +32,12 @@ export default class Header extends React.Component {
     this.setState({
       showPopup: !this.state.showPopup,
     });
+  }
+  chattingClick() {
+    this.setState({
+      showChat: !this.state.showChat,
+    });
+    this.props.chattingPopup(this.state.showChat)
   }
   toggleShowProfile() {
     this.setState({
@@ -49,7 +55,6 @@ export default class Header extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         let _getProfileValue = json.data;
-        console.log(_getProfileValue);
         this.setState({
           getProfileValue: _getProfileValue,
         });
@@ -57,9 +62,8 @@ export default class Header extends React.Component {
       .catch((err) => console.error(err));
   }
 
-  logout() {
-    console.log("logout")
-    return <Redirect to="/codingvirus19/logout"/>
+  setRedirect(){
+    window.location = "http://localhost:8080/codingvirus19/logout";
   }
 
   render() {
@@ -88,11 +92,11 @@ export default class Header extends React.Component {
               <Dropdown.Menu className={dropdownstyles.menu}>
                 <Dropdown.Item onClick={this.toggleShowProfile.bind(this)}>
                   개인프로필 수정
-          </Dropdown.Item>
+              </Dropdown.Item>
                 <Dropdown.Item
-                  onClick={this.logout.bind(this)}>
+                  onClick={this.setRedirect.bind(this)} >
                   로그아웃
-                  </Dropdown.Item>
+                </Dropdown.Item>
               </Dropdown.Menu>
               {this.state.showProfile ? (
                 <Popup2
@@ -114,7 +118,11 @@ export default class Header extends React.Component {
               </Dropdown.Menu>
             </Dropdown>
 
-            <Chatting group={this.props.group} users={this.props.users} />
+            <div>
+              <button onClick={this.chattingClick.bind(this)}>
+                <FontAwesomeIcon className={styles.faSms} icon={faSms} />
+              </button>
+            </div>
           </div>
         </div>
       </div>

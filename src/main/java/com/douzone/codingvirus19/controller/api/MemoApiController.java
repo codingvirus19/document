@@ -7,19 +7,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.douzone.codingvirus19.security.AuthUser;
+import com.douzone.codingvirus19.security.SecurityUser;
+import com.douzone.codingvirus19.service.MemoService;
 import com.douzone.codingvirus19.vo.EditorVo;
+import com.douzone.codingvirus19.vo.MemoVo;
 
 @RestController
 public class MemoApiController {
 
 	@Autowired
 	private SimpMessagingTemplate webSocket;
+	
+	@Autowired
+	private MemoService memoService;
 
 	static ArrayList<Long> version = new ArrayList<>();
 	static String str = "";
 
+	@PostMapping("/api/memo/delete")
+	public void deleteMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
+		vo.setuNo(securityUser.getNo());
+		System.out.println(vo);
+		if(vo.getgNo() == null) {
+			memoService.personDeleteMemo(vo);
+			return;
+		}
+	}
+	
 	@MessageMapping("/memo/{memo}")
 	public void sendmemo(EditorVo message, @DestinationVariable String memo) throws Exception {
 		ArrayList<String> arrData = new ArrayList<String>();

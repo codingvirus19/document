@@ -19,6 +19,7 @@ export default class Container extends React.Component {
       users: { no: [], name: [] },
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
+      showChat: false,
     };
   }
 
@@ -67,10 +68,9 @@ export default class Container extends React.Component {
   }
 
   bringMemoByGroup(_groupNumbers) {
-
     let data = {
-      no: _groupNumbers
-    }
+      no: _groupNumbers,
+    };
     let memo_bigArr = [];
     let _memoArr = null;
 
@@ -105,8 +105,7 @@ export default class Container extends React.Component {
 
   UpdateUser(users) {
     this.setState({
-      users: users
-
+      users: users,
     });
   }
 
@@ -120,6 +119,16 @@ export default class Container extends React.Component {
       },
     });
   }
+  chattingPopup(showChatClick) {
+    this.setState({
+      showChat: !showChatClick,
+    });
+    console.log(this.state.showChat);
+  }
+
+  callbackFromToolbar(_gNo) {
+    bringMemoByGroup(_gNo);
+  }
 
   render() {
     return (
@@ -131,8 +140,8 @@ export default class Container extends React.Component {
 
         <Header
           groupBySidebar={this.state.groupBySidebar}
-          group={this.state.group}
-          users={this.state.users}
+          //변경함수
+          chattingPopup={this.chattingPopup.bind(this)}
         />
         <Sidebar
           group={this.state.group}
@@ -143,6 +152,11 @@ export default class Container extends React.Component {
           group={this.state.group}
           groupBySidebar={this.state.groupBySidebar}
           memo_bigArr={this.state.memo_bigArr}
+          group={this.state.group}
+          users={this.state.users}
+          showChat={this.state.showChat}
+          callbackFromToolbar={this.callbackFromToolbar.bind(this)}
+          //변경된 결과 값 state :true false
         />
       </div>
     );

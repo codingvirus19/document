@@ -18,7 +18,14 @@ export default class Popup extends React.Component {
       markOpen: false
 
     });
-    this.state = { value: '', cursor: '', textSize: 0, memoNo: 0, version: 0, name: "test" + Math.round(Math.random() * 100) };
+    this.state = {
+      value: '',
+      cursor: '',
+      textSize: 0,
+      memoNo: 0,
+      version: 0,
+      name: "test" + Math.round(Math.random() * 100)
+    };
   }
   boldevent() {
     let input_index = this.getSnapshotBeforeUpdate(this.state.cursor);
@@ -274,18 +281,20 @@ export default class Popup extends React.Component {
               {(this.state.markOpen) ? <button className={styles.click} onClick={this.markOpen.bind(this)}>E</button> : <button onClick={this.markOpen.bind(this)}>M</button>}
               <button onClick={this.memoSave.bind(this)}>저장</button>
             </div>
-            {(this.state.markOpen) ? (<div
+            {(this.state.markOpen) ? (
+            <div
               className={styles.markDownView}
-              dangerouslySetInnerHTML={this.getReMarkDown()}></div>)
-              :(<textarea
-              wrap="hard"
-              rows="2"
-              cols="20"
-              className={styles.edit}
-              onBlur={this.cursorEvent.bind(this)}
-              onChange={this.editorPush.bind(this)}
-              value={this.state.value}></textarea>)
-              }
+              dangerouslySetInnerHTML={this.getReMarkDown()}></div>
+              )
+              : (<textarea
+                wrap="hard"
+                rows="2"
+                cols="20"
+                className={styles.edit}
+                onBlur={this.cursorEvent.bind(this)}
+                onChange={this.editorPush.bind(this)}
+                value={this.state.value}></textarea>)
+            }
 
           </div>
 
