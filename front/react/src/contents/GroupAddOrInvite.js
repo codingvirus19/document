@@ -1,5 +1,4 @@
 import React from "react";
-
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
 import styles from '../Popup2.css';
@@ -20,14 +19,32 @@ export default class GroupAddOrInvite extends React.Component {
                     label: gname
                 }
             }),
-            users: [
-                { value: '사용자1', label: '사용자1' },
-                { value: '사용자2', label: '사용자2' },
-                { value: '사용자3', label: '사용자3' },
-                { value: '사용자4', label: '사용자4' }
-            ]
+            users: [{ value: '', label: '' }],
+            selectGroup: null,
+            selectUsers: null
         }
-        // 다 삭제 안되는 오류
+    }
+
+    componentDidMount() {
+        let userDatas = null;
+        let users = { value: '', label: '' };
+        fetch(`${API_URL}/api/getUserList`, {
+            method: "post",
+            headers: API_HEADERS,
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                userDatas = json.data;
+
+                users = userDatas.map((element) => {
+                    return {
+                        value: element.nickname,
+                        label: element.nickname
+                    }
+                });
+                this.UpdateUser(users);
+            })
+            .catch((err) => console.error(err));
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -44,7 +61,12 @@ export default class GroupAddOrInvite extends React.Component {
                 }
             })
         })
+    }
 
+    UpdateUser(users) {
+        this.setState({
+            users: users
+        })
     }
 
     addGroup(event) {
@@ -66,6 +88,9 @@ export default class GroupAddOrInvite extends React.Component {
                 })
                 .catch((err) => console.error(err));
         }
+        this.setState({
+            selectGroup: event.value
+        })
 
     }
 
@@ -79,6 +104,11 @@ export default class GroupAddOrInvite extends React.Component {
     }
 
     addUser(event) {
+        this.setState({
+            selectUsers: event.map(event => {
+                return event.value
+            })
+        })
     }
 
     render() {

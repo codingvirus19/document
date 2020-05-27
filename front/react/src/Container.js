@@ -83,7 +83,6 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         _memoArr = json.data;
-
         memo_bigArr.push(_memoArr);
         this.UpdateMemo(memo_bigArr);
       })
@@ -103,7 +102,7 @@ export default class Container extends React.Component {
       group: group,
     });
   }
-  
+
   UpdateUser(users) {
     this.setState({
       users: users
@@ -117,7 +116,6 @@ export default class Container extends React.Component {
     this.setState({
       groupBySidebar: {
         no: no,
-
         name: name,
       },
     });
@@ -141,6 +139,8 @@ export default class Container extends React.Component {
           group_update={this.SidebarGroupUpdate.bind(this)}
         />
         <Contents
+          UpdateGroup={this.UpdateGroup.bind(this)}
+          group={this.state.group}
           groupBySidebar={this.state.groupBySidebar}
           memo_bigArr={this.state.memo_bigArr}
         />
