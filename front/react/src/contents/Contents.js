@@ -20,6 +20,7 @@ export default class Contents extends React.Component {
               group={this.props.group}
             />
             <ContentsMemo
+              memo_Change={this.props.memo_Change}
               groupBySidebar={this.props.groupBySidebar}
               group={this.props.group}
               memo_bigArr={this.props.memo_bigArr}

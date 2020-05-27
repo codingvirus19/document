@@ -83,9 +83,7 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        _memoArr = json.data;
-
-        memo_bigArr.push(_memoArr);
+        memo_bigArr = json.data;
         this.UpdateMemo(memo_bigArr);
       })
       .catch((err) => console.error(err));
@@ -129,7 +127,22 @@ export default class Container extends React.Component {
     });
     console.log(this.state.showChat);
   }
+  memo_Change(drag,drop){
+    let Arr = this.getSnapshotBeforeUpdate(this.state.memo_bigArr);
+    console.log(Arr[drop].no); // 서로 변경할 no값
+    console.log(Arr[drag].no);
+    const temp1 = Arr[drop];
+    const temp2 = Arr[drag];
+    Arr[drag] = temp1;
+    Arr[drop] = temp2;
+    this.setState({
+      memo_bigArr:Arr
+    })
 
+  }
+  getSnapshotBeforeUpdate(ab){
+    return ab;
+  }
   render() {
     return (
       <div className={styles.container}>
@@ -150,6 +163,7 @@ export default class Container extends React.Component {
         <Contents
           groupBySidebar={this.state.groupBySidebar}
           memo_bigArr={this.state.memo_bigArr}
+          memo_Change={this.memo_Change.bind(this)}
           group={this.state.group}
           users={this.state.users}
           showChat={this.state.showChat}

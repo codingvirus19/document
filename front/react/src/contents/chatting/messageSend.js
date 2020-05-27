@@ -44,7 +44,7 @@ export default class MessageList extends React.Component{
                     value={this.state.message}
                     onChange={this.onInputChanged.bind(this)}
                     onKeyPress={this.chatKeyPress.bind(this)} />
-                <button onClick={this.onChatSubmit.bind(this)}> <FontAwesomeIcon className={styles.faPaperPlane} icon={faPaperPlane}/> </button>
+                <button className={styles.button} onClick={this.onChatSubmit.bind(this)}> <FontAwesomeIcon className={styles.faPaperPlane} icon={faPaperPlane}/> </button>
             </form>
         )
     }

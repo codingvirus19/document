@@ -7,25 +7,48 @@ import styles from "./ContentsMemo.css";
 export default class Contents extends React.Component {
   constructor() {
     super(...arguments);
+    this.state={
+      dragEnd :false,
+      droptarget:'',
+      dragtarget:'',
+      droptargetno:'',
+      dragtargetno:'',
+    }
+  }
+
+  dropChange(a){
+    this.setState({
+      droptarget: a.target.id
+    })
+  }
+  
+  dragChange(a){
+    this.setState({
+      dragtarget: a.target.id
+    })
+  }
+  dragButton(){
+    if(this.state.dragEnd){
+      this.props.memo_Change(this.state.dragtarget,this.state.droptarget);
+    }
+    this.setState({
+      dragEnd: !this.state.dragEnd
+    })
   }
 
   render() {
-    // test(_index){
-    //   for(let _index=0, _index<)
-    // }
     return (
       <div className={styles.memo}>
-        {this.props.memo_bigArr && this.props.memo_bigArr.map((memos) =>
-            memos.map((memo, index) => (
-                <div key={memos[index].no} className={styles.container_memo_form}>
-                  <Memo content={memos[index].content} />
+        {this.props.memo_bigArr && this.props.memo_bigArr.map((memos,index) =>
+                (<div key={this.props.memo_bigArr[index].no} className={styles.container_memo_form}>
+                  <Memo dragButton={this.dragButton.bind(this)} dragChange={this.dragChange.bind(this)} dropChange={this.dropChange.bind(this)} index={index} no={this.props.memo_bigArr.no} content={this.props.memo_bigArr.content} />
                   <HashList />
                   <Toolbar
                     groupBySidebar={this.props.groupBySidebar}
-                    color={memos[index].color}
+                    color={this.props.memo_bigArr.color}
                   />
                 </div>
-            ))
+            )
           )}
       </div>
     );
