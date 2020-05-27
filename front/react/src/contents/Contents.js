@@ -25,8 +25,14 @@ export default class Contents extends React.Component {
               memo_bigArr={this.props.memo_bigArr}
             />
           </div>
+<<<<<<< HEAD
           <Chat group={this.props.group}
           users={this.props.users} />
+=======
+          {this.props.showChat ? (
+            <Chat group={this.props.group} users={this.props.users} />
+          ) : null}
+>>>>>>> branch 'jun' of https://github.com/codingvirus19/document.git
         </div>
         {/* <Footer /> */}
       </div>

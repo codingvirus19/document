@@ -20,6 +20,15 @@ export default class Chatting extends React.Component {
                   <ChatRoomList group={this.props.group} users={this.props.users} />
                </Accordion>
             </Dropdown.Menu>
+
+            {/* <SockJsClient
+               url={wsSourceUrl}
+               topics={[`/api/chat/${this.state.g_no}`]}
+               onMessage={this.onMessageReceive.bind(this)}
+               ref={(client) => { this.clientRef = client }}
+               onConnect={() => { this.setState({ clientConnected: true }) }}
+               disconnect={this.disconnect.bind(this)} /> */}
+
          </Dropdown>
       );
    }

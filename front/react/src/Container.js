@@ -19,6 +19,7 @@ export default class Container extends React.Component {
       users: { no: [], name: [] },
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
+      showChat: false
     };
   }
 
@@ -122,6 +123,12 @@ export default class Container extends React.Component {
       },
     });
   }
+  chattingPopup(showChatClick) {
+    this.setState({
+      showChat: !showChatClick,
+    });
+    console.log(this.state.showChat);
+  }
 
   render() {
     return (
@@ -133,8 +140,8 @@ export default class Container extends React.Component {
 
         <Header
           groupBySidebar={this.state.groupBySidebar}
-          group={this.state.group}
-          users={this.state.users}
+          //변경함수
+          chattingPopup={this.chattingPopup.bind(this)}
         />
         <Sidebar
           group={this.state.group}
@@ -145,6 +152,11 @@ export default class Container extends React.Component {
           memo_bigArr={this.state.memo_bigArr}
           group={this.state.group}
           users={this.state.users}
+<<<<<<< HEAD
+=======
+          showChat={this.state.showChat}
+          //변경된 결과 값 state :true false
+>>>>>>> branch 'jun' of https://github.com/codingvirus19/document.git
         />
       </div>
     );
