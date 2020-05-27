@@ -10,23 +10,21 @@ export default class Contents extends React.Component {
   }
 
   render() {
-    // test(_index){
-    //   for(let _index=0, _index<)
-    // }
     return (
       <div className={styles.memo}>
         {this.props.memo_bigArr && this.props.memo_bigArr.map((memos) =>
-          memos.map((memo, index) => (
-            <div key={memos[index].no} className={styles.container_memo_form}>
-              <Memo content={memos[index].content} />
-              <HashList />
-              <Toolbar
-                groupBySidebar={this.props.groupBySidebar}
-                color={memos[index].color}
-              />
-            </div>
-          ))
-        )}
+            memos.map((memo, index) => (
+                <div key={memos[index].no} className={styles.container_memo_form}>
+                  <Memo content={memos[index].content} />
+                  <HashList />
+                  <Toolbar
+                    no={memos[index].no}
+                    groupBySidebar={this.props.groupBySidebar}
+                    color={memos[index].color}
+                  />
+                </div>
+            ))
+          )}
       </div>
     );
   }

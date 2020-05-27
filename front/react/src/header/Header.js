@@ -55,7 +55,6 @@ export default class Header extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         let _getProfileValue = json.data;
-        console.log(_getProfileValue);
         this.setState({
           getProfileValue: _getProfileValue,
         });
@@ -97,7 +96,7 @@ export default class Header extends React.Component {
                 <Dropdown.Item
                   onClick={this.setRedirect.bind(this)} >
                   로그아웃
-                  </Dropdown.Item>
+                </Dropdown.Item>
               </Dropdown.Menu>
               {this.state.showProfile ? (
                 <Popup2
