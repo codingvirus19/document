@@ -152,11 +152,8 @@ export default class Container extends React.Component {
           memo_bigArr={this.state.memo_bigArr}
           group={this.state.group}
           users={this.state.users}
-<<<<<<< HEAD
-=======
           showChat={this.state.showChat}
           //변경된 결과 값 state :true false
->>>>>>> branch 'jun' of https://github.com/codingvirus19/document.git
         />
       </div>
     );
