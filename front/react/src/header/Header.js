@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect } from 'react-router-dom'
 import Dropdown from "react-bootstrap/Dropdown";
 
 import Serach from "./Serach";
@@ -59,7 +59,7 @@ export default class Header extends React.Component {
 
   logout() {
     console.log("logout")
-    return <Redirect path="/codingvirus19/logout" to="/codingvirus19/logout"/>
+    return <Redirect to="/codingvirus19/logout"/>
   }
 
   render() {

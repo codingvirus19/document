@@ -21,9 +21,7 @@ export default class ContentsHeader extends React.Component {
     this.setState({
       ShowGroupAddOrInvite: !this.state.ShowGroupAddOrInvite,
     });
-  }
-
-  
+  }  
   
   render() {
     return (

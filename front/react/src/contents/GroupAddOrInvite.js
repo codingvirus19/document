@@ -31,20 +31,19 @@ export default class GroupAddOrInvite extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log("shouldComponentUpdate");
-        if (nextProps != nextState) {
-            console.log("update")
-            return true;
-        }
+        return (JSON.stringify(nextState) != JSON.stringify(this.state));
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log("componentDidUpdate");
-        console.log(prevProps);
-        console.log(prevState);
-        const { group, UpdateGroup } = this.props;
-        console.log(group);
-        console.log(UpdateGroup);
+        this.props.UpdateGroup(this.state.group);
+        this.setState({
+            groups: this.state.group.gname.map(gname => {
+                return {
+                    value: gname,
+                    label: gname
+                }
+            })
+        })
 
     }
 
@@ -64,7 +63,6 @@ export default class GroupAddOrInvite extends React.Component {
                     group.no.push(json.data.no);
                     group.gname.push(json.data.name);
                     this.groupAdd(group);
-                    // this.getDerivedStateFromProps(group);
                 })
                 .catch((err) => console.error(err));
         }
@@ -78,22 +76,7 @@ export default class GroupAddOrInvite extends React.Component {
                 gname: this.state.group.gname.concat(group.gname)
             }
         })
-        this.props.UpdateGroup(this.state.group);
     }
-
-    // componentWillReceiveProps(nextProps){
-    //     console.log("componentWillReceiveProps");
-    //     console.log(nextProps);
-    // }
-
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     return true;
-    // }
-    // UpdateGroup(group) {
-    //     this.setState({
-    //       group: this.state.group.concat(group)
-    //     });
-    //   }
 
     addUser(event) {
     }
