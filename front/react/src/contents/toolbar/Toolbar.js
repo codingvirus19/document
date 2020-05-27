@@ -33,6 +33,7 @@ export default class Toolbar extends React.Component {
       clickHashButton: false,
       no: this.props.no,
       gNo: this.props.groupBySidebar.no,
+      gName: this.props.groupBySidebar.name,
     };
     this.toggleContainer = React.createRef();
     this.toggleContainer2 = React.createRef();
@@ -41,6 +42,9 @@ export default class Toolbar extends React.Component {
   }
 
   //   shouldComponentUpdate(nextProps, nextState) {
+  //     console.log(JSON.stringify(nextProps));
+  //     console.log(JSON.stringify(this.props));
+
   //     console.log(JSON.stringify(nextProps) != JSON.stringify(this.props));
   //     return JSON.stringify(nextProps) != JSON.stringify(this.props);
   //   }
@@ -127,6 +131,7 @@ export default class Toolbar extends React.Component {
     };
     console.log(input_deleteMemo);
     this.ajaxDeleteMemo(input_deleteMemo);
+    this.props.SidebarGroupUpdate(this.state.gNo, this.state.gName);
   }
   ajaxDeleteMemo(_deleteMemo) {
     fetch(`${API_URL}/api/memo/delete`, {
@@ -137,7 +142,6 @@ export default class Toolbar extends React.Component {
   }
 
   render() {
-    console.log(this.props.groupBySidebar.no);
     return (
       <div className={styles.toolbar}>
         <button
@@ -217,7 +221,7 @@ export default class Toolbar extends React.Component {
             toggleShareSheetHandler={this.toggleShareSheet.bind(this)}
           />
         ) : null}
-
+        {/* {this.props.SidebarGroupUpdate(this.state.no, this.state.gNo)} */}
         <button
           className={styles.tool}
           aria-label="메모 삭제"
