@@ -67,10 +67,9 @@ export default class Container extends React.Component {
   }
 
   bringMemoByGroup(_groupNumbers) {
-
     let data = {
-      no: _groupNumbers
-    }
+      no: _groupNumbers,
+    };
     let memo_bigArr = [];
     let _memoArr = null;
 
@@ -103,11 +102,10 @@ export default class Container extends React.Component {
       group: group,
     });
   }
-  
+
   UpdateUser(users) {
     this.setState({
-      users: users
-
+      users: users,
     });
   }
 
@@ -141,6 +139,7 @@ export default class Container extends React.Component {
           group_update={this.SidebarGroupUpdate.bind(this)}
         />
         <Contents
+          group={this.state.group}
           groupBySidebar={this.state.groupBySidebar}
           memo_bigArr={this.state.memo_bigArr}
         />

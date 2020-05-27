@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 
 import Serach from "./Serach";
@@ -49,7 +49,6 @@ export default class Header extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         let _getProfileValue = json.data;
-        console.log(_getProfileValue);
         this.setState({
           getProfileValue: _getProfileValue,
         });
@@ -58,8 +57,8 @@ export default class Header extends React.Component {
   }
 
   logout() {
-    console.log("logout")
-    return <Redirect to="/codingvirus19/logout"/>
+    console.log("logout");
+    return <Redirect to="/codingvirus19/logout" />;
   }
 
   render() {
@@ -88,11 +87,10 @@ export default class Header extends React.Component {
               <Dropdown.Menu className={dropdownstyles.menu}>
                 <Dropdown.Item onClick={this.toggleShowProfile.bind(this)}>
                   개인프로필 수정
-          </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={this.logout.bind(this)}>
+                </Dropdown.Item>
+                <Dropdown.Item onClick={this.logout.bind(this)}>
                   로그아웃
-                  </Dropdown.Item>
+                </Dropdown.Item>
               </Dropdown.Menu>
               {this.state.showProfile ? (
                 <Popup2
