@@ -2,6 +2,12 @@ import React from "react";
 import Nav from 'react-bootstrap/Nav';
 import styles from "./Sidebar.css";
 
+
+const API_URL = "http://localhost:8080/codingvirus19";
+const API_HEADERS = {
+  "Content-Type": "application/json",
+};
+
 export default class HashtagList extends React.Component {
 
   constructor() {
@@ -9,6 +15,21 @@ export default class HashtagList extends React.Component {
     this.state = {
       hash: null
     }
+  }
+
+  componentDidMount() {
+    let g_no = {no: this.props.g_no};
+    console.log(g_no);
+    fetch(`${API_URL}/api/getHashListByGroup`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(g_no)
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+      })
+      .catch((err) => console.error(err));
   }
 
   render() {

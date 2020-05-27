@@ -18,6 +18,7 @@ export default class Contents extends React.Component {
             <ContentsHeader
               groupBySidebar={this.props.groupBySidebar}
               group={this.props.group}
+              UpdateGroup={this.props.UpdateGroup}
             />
             <ContentsMemo
               callbackFromToolbar={this.props.callbackFromToolbar}
@@ -31,6 +32,7 @@ export default class Contents extends React.Component {
           ) : null}
         </div>
         {/* <Footer /> */}
+
       </div>
     );
   }
