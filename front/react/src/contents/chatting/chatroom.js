@@ -108,5 +108,4 @@ export default class ChatRoomList extends React.Component {
     componentWillUpdate(){
         this.scrollToBottom();
     }
-   
 }
