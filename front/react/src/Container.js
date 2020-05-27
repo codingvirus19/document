@@ -19,7 +19,7 @@ export default class Container extends React.Component {
       users: { no: [], name: [] },
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
-      showChat: false
+      showChat: false,
     };
   }
 
@@ -68,10 +68,9 @@ export default class Container extends React.Component {
   }
 
   bringMemoByGroup(_groupNumbers) {
-
     let data = {
-      no: _groupNumbers
-    }
+      no: _groupNumbers,
+    };
     let memo_bigArr = [];
     let _memoArr = null;
 
@@ -84,7 +83,6 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         _memoArr = json.data;
-
         memo_bigArr.push(_memoArr);
         this.UpdateMemo(memo_bigArr);
       })
@@ -104,11 +102,10 @@ export default class Container extends React.Component {
       group: group,
     });
   }
-  
+
   UpdateUser(users) {
     this.setState({
-      users: users
-
+      users: users,
     });
   }
 
@@ -118,7 +115,6 @@ export default class Container extends React.Component {
     this.setState({
       groupBySidebar: {
         no: no,
-
         name: name,
       },
     });
@@ -128,6 +124,10 @@ export default class Container extends React.Component {
       showChat: !showChatClick,
     });
     console.log(this.state.showChat);
+  }
+
+  callbackFromToolbar(_gNo) {
+    bringMemoByGroup(_gNo);
   }
 
   render() {
@@ -148,11 +148,14 @@ export default class Container extends React.Component {
           group_update={this.SidebarGroupUpdate.bind(this)}
         />
         <Contents
+          UpdateGroup={this.UpdateGroup.bind(this)}
+          group={this.state.group}
           groupBySidebar={this.state.groupBySidebar}
           memo_bigArr={this.state.memo_bigArr}
           group={this.state.group}
           users={this.state.users}
           showChat={this.state.showChat}
+          callbackFromToolbar={this.callbackFromToolbar.bind(this)}
           //변경된 결과 값 state :true false
         />
       </div>

@@ -7,13 +7,16 @@
 		<typeAlias alias="groupvo" type="com.douzone.codingvirus19.vo.GroupVo"/>
 		<typeAlias alias="chatvo" type="com.douzone.codingvirus19.vo.ChatVo"/>
     <typeAlias alias="groupuservo" type="com.douzone.codingvirus19.vo.GroupUserVo"/>
-
+    <typeAlias alias="hashvo" type="com.douzone.codingvirus19.vo.HashVo"/>
 	</typeAliases>
+	
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/main.xml" />
 		<mapper resource="mybatis/mappers/groups.xml" />
 		<mapper resource="mybatis/mappers/chat.xml" />
 		<mapper resource="mybatis/mappers/groupuser.xml" />
+		<mapper resource="mybatis/mappers/memo.xml" />
+		<mapper resource="mybatis/mappers/hash.xml" />
 	</mappers>
 </configuration>
