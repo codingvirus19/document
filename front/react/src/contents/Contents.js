@@ -20,7 +20,7 @@ export default class Contents extends React.Component {
               group={this.props.group}
             />
             <ContentsMemo
-              callbackFromToolbar={this.props.callbackFromToolbar}
+              SidebarGroupUpdate={this.props.SidebarGroupUpdate}
               groupBySidebar={this.props.groupBySidebar}
               group={this.props.group}
               memo_bigArr={this.props.memo_bigArr}
