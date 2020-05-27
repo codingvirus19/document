@@ -39,16 +39,20 @@ export default class Contents extends React.Component {
   render() {
     return (
       <div className={styles.memo}>
+
         {this.props.memo_bigArr && this.props.memo_bigArr.map((memos,index) =>
                 (<div key={this.props.memo_bigArr[index].no} className={styles.container_memo_form}>
                   <Memo dragButton={this.dragButton.bind(this)} dragChange={this.dragChange.bind(this)} dropChange={this.dropChange.bind(this)} index={index} no={this.props.memo_bigArr.no} content={this.props.memo_bigArr.content} />
                   <HashList />
-                  <Toolbar
-                    groupBySidebar={this.props.groupBySidebar}
-                    color={this.props.memo_bigArr.color}
-                  />
+                        <Toolbar
+                  SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+                  no={this.props.memo_bigArr[index].no}
+                  groupBySidebar={this.props.groupBySidebar}
+                  color={this.props.memo_bigArr[index].color}
+                />
                 </div>
             )
+
           )}
       </div>
     );

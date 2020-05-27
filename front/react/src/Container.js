@@ -28,7 +28,7 @@ export default class Container extends React.Component {
     let group = { no: [], gname: [] };
     let groupDatas = null;
 
-    this.bringMemoByGroup(null);
+    this.bringMemoByGroup(this.state.groupBySidebar.no);
 
     // call api
     fetch(`${API_URL}/api/container`, {
@@ -110,6 +110,8 @@ export default class Container extends React.Component {
 
   // sidebar에서 콜백된 파라미터 no와 name
   SidebarGroupUpdate(no, name) {
+    console.log(no);
+    console.log(name);
     this.bringMemoByGroup(no);
     this.setState({
       groupBySidebar: {
@@ -118,6 +120,7 @@ export default class Container extends React.Component {
       },
     });
   }
+
   chattingPopup(showChatClick) {
     this.setState({
       showChat: !showChatClick,
@@ -161,6 +164,7 @@ export default class Container extends React.Component {
         />
         <Contents
           UpdateGroup={this.UpdateGroup.bind(this)}
+          SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
           group={this.state.group}
           groupBySidebar={this.state.groupBySidebar}
           memo_bigArr={this.state.memo_bigArr}
@@ -168,7 +172,6 @@ export default class Container extends React.Component {
           group={this.state.group}
           users={this.state.users}
           showChat={this.state.showChat}
-          callbackFromToolbar={this.callbackFromToolbar.bind(this)}
           //변경된 결과 값 state :true false
         />
       </div>
