@@ -66,5 +66,4 @@ public class UserVo {
 		return "UserVo [no=" + no + ", id=" + id + ", email=" + email + ", password=" + password + ", nickname="
 				+ nickname + ", image=" + image + ", role=" + role + ", name=" + name + "]";
 	}
-	
 }

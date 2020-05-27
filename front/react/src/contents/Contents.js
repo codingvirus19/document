@@ -12,11 +12,14 @@ export default class Contents extends React.Component {
   render() {
     return (
       <div className={styles.contents}>
-        <ContentsHeader 
-        groupBySidebar={this.props.groupBySidebar}
-        UpdateGroup={this.props.UpdateGroup}
-        group={this.props.group} />
+
+        <ContentsHeader
+          groupBySidebar={this.props.groupBySidebar}
+          group={this.props.group}
+        />
+    
         <ContentsMemo
+          groupBySidebar={this.props.groupBySidebar}
           group={this.props.group}
           memo_bigArr={this.props.memo_bigArr}
         />

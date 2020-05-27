@@ -37,7 +37,6 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         groupDatas = json.data;
-        // console.log(groupDatas) 
 
         // group의 데이터값으로 sidebar를 불러오는 함수
         groupDatas.map((json) => {
@@ -65,7 +64,6 @@ export default class Container extends React.Component {
         this.UpdateUser(users);
       })
       .catch((err) => console.error(err));
-
   }
 
   bringMemoByGroup(_groupNumbers) {
@@ -90,7 +88,7 @@ export default class Container extends React.Component {
         this.UpdateMemo(memo_bigArr);
       })
       .catch((err) => console.error(err));
-    // // 그룹의 data로 memo의 db를 가져오는 코드
+    // 그룹의 data로 memo의 db를 가져오는 코드
   }
 
   UpdateMemo(_memo_bigArr) {
@@ -99,39 +97,51 @@ export default class Container extends React.Component {
     });
   }
 
+  // 렌더 시 통신으로 받은 group값을 Array화 시킨다.
   UpdateGroup(group) {
     this.setState({
-      group: group
+      group: group,
     });
   }
+  
   UpdateUser(users) {
     this.setState({
       users: users
+
     });
   }
 
+  // sidebar에서 콜백된 파라미터 no와 name
   SidebarGroupUpdate(no, name) {
     this.bringMemoByGroup(no);
     this.setState({
       groupBySidebar: {
         no: no,
+
         name: name,
-      }
-    })
+      },
+    });
   }
 
   render() {
     return (
       <div className={styles.container}>
-        <Header groupBySidebar={this.state.groupBySidebar} group={this.state.group} users={this.state.users} />
+        {/*속성 groupBySidebar : 사이드바의 개인/그룹 클릭 시 해당 group의 no, name을 전달 */}
+        {/*속성 group : 로그인 시 session user의 모든 그룹들의 no, name이 담겨있다.  */}
+        {/*속성 users : 유저 session이 담긴다. */}
+        {/*속성 memo_bigArr : 메모의 정보가 이중배열로 담겨있다.*/}
+
+        <Header
+          groupBySidebar={this.state.groupBySidebar}
+          group={this.state.group}
+          users={this.state.users}
+        />
         <Sidebar
           group={this.state.group}
           group_update={this.SidebarGroupUpdate.bind(this)}
         />
         <Contents
-          UpdateGroup={this.UpdateGroup.bind(this)}
           groupBySidebar={this.state.groupBySidebar}
-          group={this.state.group}
           memo_bigArr={this.state.memo_bigArr}
         />
       </div>
