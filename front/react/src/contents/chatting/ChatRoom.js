@@ -27,25 +27,21 @@ export default class Chat extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json.data);
         this.setState({
           contents: json.data
         });
       })
       .catch((err) => console.error(err));
       this.autoscrollRef.current.scrollTop = this.autoscrollRef.current.scrollHeight;
-      console.log(this.autoscrollRef.current.scrollHeight)
      
   }
 
   onMessageReceive(msg) {
-    console.log(msg);
     this.setState({
       contents: this.state.contents.concat(msg),
     })
 
     this.autoscrollRef.current.scrollTop = this.autoscrollRef.current.scrollHeight;
-    console.log(this.autoscrollRef.current.scrollHeight)
     // this.scrollToBottom();
   }
   scrollBottomChange() {
@@ -57,7 +53,6 @@ export default class Chat extends React.Component {
   }
 
   sendMessage(mg) {
-    console.log(mg);
     this.clientRef.sendMessage("/app/chat/" + this.props.gNo,
       JSON.stringify({
         gNo: this.props.gNo,
@@ -72,7 +67,6 @@ export default class Chat extends React.Component {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/chat";
     {if(!this.state.scrollBottom){
       this.autoscrollRef.current.scrollTop = this.autoscrollRef.current.scrollHeight;
-      console.log(this.autoscrollRef.current.scrollHeight)
     }}
     return (
       <Fragment>

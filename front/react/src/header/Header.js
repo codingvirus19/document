@@ -6,7 +6,7 @@ import Serach from "./Serach";
 import Logo from "./Logo";
 import Popup2 from "../Popup2";
 import Popup from "./headerMemu/Popup";
-import Chat from "../contents/Chat.js";
+import Chat from "../contents/chatting/Chat.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faUser, faBell, faSms } from "@fortawesome/free-solid-svg-icons";
 
