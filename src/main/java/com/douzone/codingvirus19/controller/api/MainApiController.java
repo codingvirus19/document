@@ -38,12 +38,10 @@ public class MainApiController {
  		memoVo.setuNo(securityUser.getNo());
  		memoVo.setgNo(vo.getNo());
  		if(vo.getNo() == null) {
- 			System.out.println("null 입니다.");
  			List<MemoVo> nulllist = mainService.memoAtNull(memoVo);
  			return JsonResult.success(nulllist);
  		}
  		else {
- 			System.out.println("값이 있습니다.");
  			List<MemoVo> list = mainService.findAllMemo(memoVo);
  			return JsonResult.success(list);
  		}
@@ -51,7 +49,6 @@ public class MainApiController {
 
 	@PostMapping("/getUserSession")
 	public JsonResult getUserSession(@AuthUser SecurityUser securityUser) {
-		System.out.println(securityUser);
 		return JsonResult.success(securityUser);
 	}
 
@@ -68,4 +65,11 @@ public class MainApiController {
 		
 		return JsonResult.success(groupVo);
 	}
+	
+//	@PostMapping("/getUserList")
+//	public JsonResult getUserList(@AuthUser SecurityUser securityUser) {
+//		
+//		mainService.getUserList(securityUser.getNo());
+//		return JsonResult.success()
+//	}
 }

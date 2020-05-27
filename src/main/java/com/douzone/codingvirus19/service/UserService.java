@@ -12,16 +12,14 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
+	public UserVo getProfile(UserVo userVo) {
+		return userRepository.getProfile(userVo);
+	}
+	
 	public UserVo findById(String id) {
 		UserVo authUser = userRepository.findByName(id); 
 		return authUser;
 	}
-
-	public UserVo findByIdAndPassword(UserVo vo) {
-		UserVo authUser = userRepository.findByIdAndPassword(vo);
-		return authUser;
-	}
-	
 
 	public boolean hasId(String Id) {
 		return userRepository.hasId(Id);
@@ -34,6 +32,12 @@ public class UserService {
 		int count = userRepository.join(vo);
 		return count == 1;
 	}
+	public void joinInsert(UserVo vo) {
+		userRepository.joinInsert(vo);
+	}
 
-
+	public void modifyProfile(UserVo vo) {
+		userRepository.modifyProfile(vo);
+		
+	}
 }

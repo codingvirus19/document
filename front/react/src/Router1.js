@@ -9,10 +9,10 @@ export default class Router1 extends React.Component {
   render() {
     return (
       <Router>
-        <Route path="/codingvirus19/" exact  component={Login }/>
+        <Route path="/codingvirus19/" exact component={Login }/>
         <Route path="/codingvirus19/main" exact component={Container}/>
         <Route path="*" component={NotFound} />
-        <Route path="/codingvirus19/logout" />
+        <Route path="/codingvirus19/logout" exact component={Login }/>
       </Router>
     );
   }
