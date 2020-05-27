@@ -104,7 +104,6 @@ export default class login extends React.Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         if(response.result=="fail" && (response.message=="id중복" || response.message=="email중복")) {
           this.setState({
             Error: true,
@@ -174,7 +173,7 @@ export default class login extends React.Component {
     if (this.state.result === "success") {
       console.log("성공");
       return (
-        <Redirect to="./main" />
+        <Redirect to="/codingvirus19/main" />
       );
     } else if (this.state.result === "fail") {
       console.log("실패");
