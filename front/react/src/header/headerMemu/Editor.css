@@ -31,7 +31,7 @@
 
   .edit {
     width: 96%;
-    height: 87%;
+    height: 83%;
     padding:3%;
     border: 0;
     resize: none;
@@ -45,3 +45,15 @@
     WORD-BREAK: break-all;
   }
 
+  .toolbar{
+    height:1.2rem;
+    width: 100%;
+    display: inline-flex;
+    background-color: aqua;
+  }
+  .btn{
+    background: no-repeat;
+  }
+.faPalette{
+  display: inline;
+}

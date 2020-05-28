@@ -13,3 +13,7 @@
     margin: 0.3rem;
     border: 1px solid;
   }
+  .drag{
+    background-color: yellow;
+    opacity: 0.1;
+  }
