@@ -40,12 +40,7 @@ public class MainService {
 	public boolean insertGroupUser(GroupUserVo groupUservo) {
 		int count = mainRepository.insertGroupUser(groupUservo); //유저 시큐리티도 같이		
 		return count == 1;
-	}
-
-	public List<HashVo> getHashListByGroup(MemoVo memoVo) {
-		return mainRepository.getHashListByGroup(memoVo);
-	}
-	
+	}	
 
 }
 

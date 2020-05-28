@@ -1,7 +1,7 @@
 .groupShareSheet,
-.shareSheet,
 .colorSheet,
-.hashSheet{
+.hashSheet,
+.shareSheet{
   position: absolute;
   padding: 5px;
   background-color: #f5f5f5;
@@ -12,6 +12,14 @@
   padding: 1rem;
   width: 15rem;
   height: 15rem;
+}
+
+.hashSheet {
+  width: 12rem;
+  height: 14rem;
+}
+.searchHash {
+  font-size: 0.8rem;
 }
 
 .shareSheet {
