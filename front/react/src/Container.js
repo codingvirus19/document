@@ -28,7 +28,7 @@ export default class Container extends React.Component {
     let group = { no: [], gname: [] };
     let groupDatas = null;
 
-    this.bringMemoByGroup(null);
+    this.bringMemoByGroup(this.state.groupBySidebar.no);
 
     // call api
     fetch(`${API_URL}/api/container`, {
@@ -82,8 +82,7 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        _memoArr = json.data;
-        memo_bigArr.push(_memoArr);
+        memo_bigArr = json.data;
         this.UpdateMemo(memo_bigArr);
       })
       .catch((err) => console.error(err));
@@ -111,6 +110,8 @@ export default class Container extends React.Component {
 
   // sidebar에서 콜백된 파라미터 no와 name
   SidebarGroupUpdate(no, name) {
+    console.log(no);
+    console.log(name);
     this.bringMemoByGroup(no);
     this.setState({
       groupBySidebar: {
@@ -119,13 +120,27 @@ export default class Container extends React.Component {
       },
     });
   }
+
   chattingPopup(showChatClick) {
     this.setState({
       showChat: !showChatClick,
     });
     console.log(this.state.showChat);
   }
+  memo_Change(drag,drop){
+    let Arr = this.getSnapshotBeforeUpdate(this.state.memo_bigArr);
+    console.log(Arr[drop].no); // 서로 변경할 no값
+    console.log(Arr[drag].no);
+    const temp1 = Arr[drop];
+    const temp2 = Arr[drag];
+    Arr[drag] = temp1;
+    Arr[drop] = temp2;
+    this.setState({
+      memo_bigArr:Arr
+    })
 
+  }
+ 
   callbackFromToolbar(_gNo) {
     bringMemoByGroup(_gNo);
   }
@@ -149,13 +164,14 @@ export default class Container extends React.Component {
         />
         <Contents
           UpdateGroup={this.UpdateGroup.bind(this)}
+          SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
           group={this.state.group}
           groupBySidebar={this.state.groupBySidebar}
           memo_bigArr={this.state.memo_bigArr}
+          memo_Change={this.memo_Change.bind(this)}
           group={this.state.group}
           users={this.state.users}
           showChat={this.state.showChat}
-          callbackFromToolbar={this.callbackFromToolbar.bind(this)}
           //변경된 결과 값 state :true false
         />
       </div>
