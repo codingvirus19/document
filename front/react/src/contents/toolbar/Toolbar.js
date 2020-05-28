@@ -144,7 +144,7 @@ export default class Toolbar extends React.Component {
   render() {
     return (
       <div className={styles.toolbar}>
-        <button
+        <button 
           className={styles.tool}
           aria-label="그룹공유"
           onClick={this.toggleGroupShareSheet.bind(this)}
