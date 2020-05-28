@@ -126,7 +126,7 @@ export default class Container extends React.Component {
       showChat: !showChatClick,
     });
   }
-  memo_Change(drag,drop){
+  memo_Change(drag, drop) {
     let Arr = this.getSnapshotBeforeUpdate(this.state.memo_bigArr);
     console.log(Arr[drop].no); // 서로 변경할 no값
     console.log(Arr[drag].no);
@@ -135,11 +135,10 @@ export default class Container extends React.Component {
     Arr[drag] = temp1;
     Arr[drop] = temp2;
     this.setState({
-      memo_bigArr:Arr
-    })
-
+      memo_bigArr: Arr,
+    });
   }
- 
+
   callbackFromToolbar(_gNo) {
     bringMemoByGroup(_gNo);
   }
@@ -152,7 +151,7 @@ export default class Container extends React.Component {
         {/*속성 group : 로그인 시 session user의 모든 그룹들의 no, name이 담겨있다.  */}
         {/*속성 users : 유저 session이 담긴다. */}
         {/*속성 memo_bigArr : 메모의 정보가 이중배열로 담겨있다.*/}
-
+        {/*속성 SidebarGroupUpdate : delete 버튼 클릭시 콜백으로 gno와 gname이 전달된다.  */}
         <Header
           groupBySidebar={this.state.groupBySidebar}
           //변경함수

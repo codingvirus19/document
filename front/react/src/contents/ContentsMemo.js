@@ -1,7 +1,7 @@
 import React from "react";
 import Memo from "./Memo";
 import HashList from "./HashList";
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Toolbar from "./toolbar/Toolbar";
 import styles from "./ContentsMemo.css";
 
@@ -30,6 +30,8 @@ export default class Contents extends React.Component {
                         <Memo content={this.props.memo_bigArr[index].content} />
                         <HashList memo_no={this.props.memo_bigArr[index].no}/>
                         <Toolbar
+                          SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+
                           no={this.props.memo_bigArr[index].no}
                           memo_gNo={this.props.memo_bigArr[index].gNo}
                           group={this.props.group}
@@ -37,9 +39,9 @@ export default class Contents extends React.Component {
                           color={this.props.memo_bigArr.color}
                         />
                       </div>
-                  )}
-                </Draggable>
-              ))}
+                    )}
+                  </Draggable>
+                ))}
               {provided.placeholder}
             </div>
           )}
