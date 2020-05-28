@@ -82,9 +82,7 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        _memoArr = json.data;
-
-        memo_bigArr.push(_memoArr);
+        memo_bigArr = json.data;
         this.UpdateMemo(memo_bigArr);
       })
       .catch((err) => console.error(err));
