@@ -32,7 +32,6 @@ public class MainApiController {
 		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
 		return JsonResult.success(returnValue);
 	}
-
 	
  	@PostMapping("/memoList")
  	public JsonResult contents(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo) {
@@ -66,17 +65,6 @@ public class MainApiController {
 		mainService.insertGroupUser(groupUservo);
 		
 		return JsonResult.success(groupVo);
-	}
-	
-	@PostMapping("/getHashListByGroup")
-	public JsonResult getHashListByGroup(@AuthUser SecurityUser securityUser, @RequestBody GroupVo groupVo) {
-		System.out.println("getHashListByGroup");
-		MemoVo memoVo = new MemoVo();
-		memoVo.setuNo(securityUser.getNo());
-		memoVo.setgNo(groupVo.getNo());
-		System.out.println(memoVo);
-//		List<HashVo> hashListByGroup = mainService.getHashListByGroup(memoVo);
-		return JsonResult.success(null);
 	}
 	
 }

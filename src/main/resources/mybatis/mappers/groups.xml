@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="groups">	
-		<insert id="insert" parameterType="groupvo">
+<mapper namespace="groups">
+
+	<insert id="insert" parameterType="groupvo">
 	 	<![CDATA[
 			insert 
 			  into groups (no, name)
 			 value (#{no}, #{name});
 		]]>
-      
+
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
 			select
 			last_insert_id()
 		</selectKey>
 	</insert>
-	
+
 	<select id="getGroupByAuth" resultType="groupvo" parameterType="uservo">
 		<![CDATA[
 			select c.no as no, c.name as name

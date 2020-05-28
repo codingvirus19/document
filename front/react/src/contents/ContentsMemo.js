@@ -1,11 +1,13 @@
 import React from "react";
 import Memo from "./Memo";
 import HashList from "./HashList";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Toolbar from "./toolbar/Toolbar";
 import styles from "./ContentsMemo.css";
 
 
 export default class Contents extends React.Component {
+
   constructor() {
     super(...arguments);
     this.state = {
@@ -39,8 +41,11 @@ export default class Contents extends React.Component {
     e.target.parentNode.insertBefore(this.state.dragStart, e.target);
   }
  
+
   render() {
+
     return (
+
       <div className={styles.memo} onDragOver={this.dragOver.bind(this)} >
         {this.props.memo_bigArr && this.props.memo_bigArr.map((memos, index) =>
           (<div key={this.props.memo_bigArr[index].no} data-id={index} draggable="true"  onDragStart={this.dragStart.bind(this)} onDragEnd={this.dragEnd.bind(this)} className={styles.container_memo_form}>
@@ -53,8 +58,8 @@ export default class Contents extends React.Component {
           </div>
           )
         )}
+
       </div>
     );
   }
 }
-// 내가 할 부분
