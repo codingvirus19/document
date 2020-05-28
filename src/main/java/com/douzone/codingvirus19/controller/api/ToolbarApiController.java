@@ -30,7 +30,6 @@ public class ToolbarApiController {
 	@PostMapping("/addHash")
 	public JsonResult addHash(@AuthUser SecurityUser securityUser, @RequestBody HashVo hashVo) {
 		toolbarService.addHash(hashVo);
-		System.out.println(hashVo);
 		return JsonResult.success(hashVo);
 	}
 

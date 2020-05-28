@@ -125,7 +125,6 @@ export default class Container extends React.Component {
     this.setState({
       showChat: !showChatClick,
     });
-    console.log(this.state.showChat);
   }
   memo_Change(drag,drop){
     let Arr = this.getSnapshotBeforeUpdate(this.state.memo_bigArr);
