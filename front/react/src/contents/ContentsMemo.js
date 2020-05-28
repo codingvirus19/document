@@ -28,6 +28,8 @@ export default class Contents extends React.Component {
                         <Toolbar
                           callbackFromToolbar={this.props.callbackFromToolbar}
                           no={this.props.memo_bigArr.no}
+                          memo_gNo={this.props.memo_bigArr.gNo}
+                          group={this.props.group}
                           groupBySidebar={this.props.groupBySidebar}
                           color={this.props.memo_bigArr.color}
                         />
@@ -37,7 +39,6 @@ export default class Contents extends React.Component {
               ))}
               {provided.placeholder}
             </div>
-
           )}
         </Droppable>
       </DragDropContext>
