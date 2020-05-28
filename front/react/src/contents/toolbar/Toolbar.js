@@ -34,34 +34,13 @@ export default class Toolbar extends React.Component {
       no: this.props.no,
       gNo: this.props.groupBySidebar.no,
       gName: this.props.groupBySidebar.name,
+      addNullToGroup: null,
     };
     this.toggleContainer = React.createRef();
     this.toggleContainer2 = React.createRef();
     this.toggleGroupShareSheet = this.toggleGroupShareSheet.bind(this);
     this.onClickOutsideHandler = this.onClickOutsideHandler.bind(this);
   }
-
-  //   shouldComponentUpdate(nextProps, nextState) {
-  //     console.log(JSON.stringify(nextProps));
-  //     console.log(JSON.stringify(this.props));
-
-  //     console.log(JSON.stringify(nextProps) != JSON.stringify(this.props));
-  //     return JSON.stringify(nextProps) != JSON.stringify(this.props);
-  //   }
-
-  //   componentDidUpdate(prevProps, prevState) {
-  //     this.props.callbackFromToolbar(this.state.gNo);
-  //     this.setState({
-  //       no: this.props.no,
-  //       gNo: this.props.groupBySidebar.no,
-  //       //   groups: this.state.group.gname.map(gname => {
-  //       //       return {
-  //       //           value: gname,
-  //       //           label: gname
-  //       //       }
-  //       //   })
-  //     });
-  //   }
 
   componentDidMount() {
     window.addEventListener("click", this.onClickOutsideHandler);
@@ -95,13 +74,30 @@ export default class Toolbar extends React.Component {
     }
   }
 
+  // 그룹공유
   toggleGroupShareSheet(e) {
     e.preventDefault();
+
+    // 그룹공유에서 개인을 추가하기위해 null을 추가하여 전달해주는 코드
+    let nullValue = { value: "null", label: "개인" };
+    let _addNullToGroup = this.props.group.gname.map((element) => {
+      return {
+        value: element,
+        label: element,
+      };
+    });
+
+    // null값 배열을 맨 앞(0번째배열)으로 추가시켜준다.
+    _addNullToGroup.unshift(nullValue);
+
     this.setState({
       showGroupShareSheet: !this.state.showGroupShareSheet,
       clickGroupShareButton: !this.state.clickGroupShareButton,
+      addNullToGroup: _addNullToGroup,
     });
   }
+  // 그룹공유
+
   toggleShareSheet(showShareSheet) {
     this.setState({
       showShareSheet,
@@ -144,6 +140,7 @@ export default class Toolbar extends React.Component {
   render() {
     return (
       <div className={styles.toolbar}>
+        {/* 그룹공유 */}
         <button
           className={styles.tool}
           aria-label="그룹공유"
@@ -154,15 +151,19 @@ export default class Toolbar extends React.Component {
             icon={faShareSquare}
           />
         </button>
+
         {this.state.showGroupShareSheet ? (
           //  {true ? (
           <GroupShareSheet
+            addNullToGroup={this.state.addNullToGroup}
             refChange={this.toggleContainer}
             closeGroupShareSheet={this.toggleGroupShareSheet.bind(this)}
             group={this.props.group}
           />
         ) : null}
+        {/* 그룹공유 */}
 
+        {/* 색상변경 */}
         <button
           className={styles.tool}
           aria-label="색상 변경"
@@ -176,7 +177,9 @@ export default class Toolbar extends React.Component {
             toggleColorSheetHandler={this.toggleColorSheet.bind(this)}
           />
         ) : null}
+        {/* 색상변경 */}
 
+        {/* 해시추가 */}
         <button
           className={styles.tool}
           aria-label="해시 추가"
@@ -187,7 +190,9 @@ export default class Toolbar extends React.Component {
         {this.state.showHashSheet ? (
           <HashSheet refChange={this.toggleContainer2} hash={this.props.hash} />
         ) : null}
+        {/* 해시추가 */}
 
+        {/* 내 컴퓨터에 저장 */}
         <button
           className={styles.tool}
           aria-label="내 컴퓨터에 저장"
@@ -203,7 +208,9 @@ export default class Toolbar extends React.Component {
             icon={faFileUpload}
           />
         </button>
+        {/* 내 컴퓨터에 저장 */}
 
+        {/* 외부공유 */}
         <button
           className={styles.tool}
           aria-label="외부 공유"
@@ -221,6 +228,9 @@ export default class Toolbar extends React.Component {
             toggleShareSheetHandler={this.toggleShareSheet.bind(this)}
           />
         ) : null}
+        {/* 외부공유 */}
+
+        {/* 메모삭제 */}
         {/* {this.props.SidebarGroupUpdate(this.state.no, this.state.gNo)} */}
         <button
           className={styles.tool}
@@ -229,6 +239,7 @@ export default class Toolbar extends React.Component {
         >
           <FontAwesomeIcon className={styles.faTrashAlt} icon={faTrashAlt} />
         </button>
+        {/* 메모삭제 */}
       </div>
     );
   }

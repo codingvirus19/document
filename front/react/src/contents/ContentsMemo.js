@@ -19,6 +19,7 @@ export default class Contents extends React.Component {
                 <Memo content={memos[index].content} />
                 <HashList />
                 <Toolbar
+                  group={this.props.group}
                   SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                   no={memos[index].no}
                   groupBySidebar={this.props.groupBySidebar}
