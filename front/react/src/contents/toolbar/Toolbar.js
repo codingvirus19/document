@@ -35,6 +35,7 @@ export default class Toolbar extends React.Component {
       memo_gNo: this.props.memo_gNo,
       gNo: this.props.groupBySidebar.no,
       gName: this.props.groupBySidebar.name,
+      // addNullToGroup: group에 null값 추가하기위한 것
       addNullToGroup: null,
     };
     this.toggleContainer = React.createRef();
@@ -80,7 +81,7 @@ export default class Toolbar extends React.Component {
     e.preventDefault();
 
     // 그룹공유에서 개인을 추가하기위해 null을 추가하여 전달해주는 코드
-    let nullValue = { value: "null", label: "개인" };
+    let nullValue = { value: null, label: "개인" };
     let _addNullToGroup = this.props.group.gname.map((element) => {
       return {
         value: element,
@@ -120,15 +121,20 @@ export default class Toolbar extends React.Component {
   saveLocal() {
     alert("local 저장");
   }
+
+  // delete기능
   onClickDelete(e) {
     e.preventDefault();
     let input_deleteMemo = {
       no: this.state.no,
       gNo: this.state.gNo,
     };
+    console.log(input_deleteMemo);
     this.ajaxDeleteMemo(input_deleteMemo);
     this.props.SidebarGroupUpdate(this.state.gNo, this.state.gName);
   }
+  // delete기능
+
   ajaxDeleteMemo(_deleteMemo) {
     fetch(`${API_URL}/api/memo/delete`, {
       method: "post",
@@ -155,6 +161,7 @@ export default class Toolbar extends React.Component {
         {this.state.showGroupShareSheet ? (
           //  {true ? (
           <GroupShareSheet
+            no={this.props.no}
             addNullToGroup={this.state.addNullToGroup}
             refChange={this.toggleContainer}
             closeGroupShareSheet={this.toggleGroupShareSheet.bind(this)}
@@ -187,13 +194,14 @@ export default class Toolbar extends React.Component {
         >
           <FontAwesomeIcon className={styles.faHashtag} icon={faHashtag} />
         </button>
-        {/* {this.state.showHashSheet ? ( */}
-        {true ? (
-          <HashSheet 
-          refChange={this.toggleContainer2} 
-          hash={this.props.hash} 
-          memo_no={this.state.no}
-          memo_gNo={this.state.memo_gNo}/>
+        {this.state.showHashSheet ? (
+          // {true ? (
+          <HashSheet
+            refChange={this.toggleContainer2}
+            hash={this.props.hash}
+            memo_no={this.state.no}
+            memo_gNo={this.state.memo_gNo}
+          />
         ) : null}
         {/* 해시추가 */}
 
@@ -236,7 +244,6 @@ export default class Toolbar extends React.Component {
         {/* 외부공유 */}
 
         {/* 메모삭제 */}
-        {/* {this.props.SidebarGroupUpdate(this.state.no, this.state.gNo)} */}
         <button
           className={styles.tool}
           aria-label="메모 삭제"
