@@ -26,7 +26,6 @@ export default class Contents extends React.Component {
                         <Memo content={this.props.memo_bigArr.content} />
                         <HashList />
                         <Toolbar
-                          callbackFromToolbar={this.props.callbackFromToolbar}
                           no={this.props.memo_bigArr.no}
                           memo_gNo={this.props.memo_bigArr.gNo}
                           group={this.props.group}
@@ -39,6 +38,7 @@ export default class Contents extends React.Component {
               ))}
               {provided.placeholder}
             </div>
+
           )}
         </Droppable>
       </DragDropContext>

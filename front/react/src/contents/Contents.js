@@ -37,7 +37,6 @@ export default class Contents extends React.Component {
           ) : null}
         </div>
         {/* <Footer /> */}
-
       </div>
     );
   }
