@@ -7,7 +7,7 @@ export default class Memo extends React.Component {
   constructor() {
     super(...arguments)
     this.state = {
-      showPopup: false,
+      showPopup: true,
       droptarget: '',
       dragtarget: ''
     }
@@ -18,6 +18,7 @@ export default class Memo extends React.Component {
       showPopup: !this.state.showPopup
     })
   }
+
   dragStart(e){
     this.props.dragStart(e);
   }
@@ -26,6 +27,7 @@ export default class Memo extends React.Component {
   render() {
     return (
       <input onClick={this.viewPopup.bind(this)} id={this.props.index} value={this.props.content}
+
         // onChange={}
         className={styles.memo}
       ></input>

@@ -2,6 +2,7 @@ package com.douzone.codingvirus19.controller.api;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.douzone.codingvirus19.dto.JsonResult;
 import com.douzone.codingvirus19.security.AuthUser;
 import com.douzone.codingvirus19.security.SecurityUser;
 import com.douzone.codingvirus19.service.MemoService;
 import com.douzone.codingvirus19.vo.EditorVo;
+import com.douzone.codingvirus19.vo.HashVo;
 import com.douzone.codingvirus19.vo.MemoVo;
 
 @RestController
@@ -29,6 +32,20 @@ public class MemoApiController {
 	static ArrayList<Long> version = new ArrayList<>();
 	static String str = "";
 
+	@PostMapping("/api/memo/shareMemo")
+	public void shareMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
+		System.out.println(vo);
+//		vo.setuNo(securityUser.getNo());
+//		System.out.println("/api/memo/delete"+vo);
+//		if(vo.getgNo() == null) {
+//			memoService.personDeleteMemo(vo);
+//			return;
+//		}else {
+//			memoService.peopleDeleteMemo(vo);
+//			return;
+//		}
+	}
+	
 	@PostMapping("/api/memo/delete")
 	public void deleteMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
 		vo.setuNo(securityUser.getNo());
@@ -84,6 +101,12 @@ public class MemoApiController {
 		System.out.println(str);
 		
 		webSocket.convertAndSend("/api/memo/" + memo, message);
+	}
+	
+	@PostMapping("/api/getHashListByMemo")
+	public JsonResult getHashListByMemo(@RequestBody MemoVo vo){
+		List<HashVo> HashListByMemo = memoService.getHashListByMemo(vo);
+		return JsonResult.success(HashListByMemo);
 	}
 
 }
