@@ -121,7 +121,6 @@ export default class Toolbar extends React.Component {
       no: this.state.no,
       gNo: this.state.gNo,
     };
-    console.log(input_deleteMemo);
     this.ajaxDeleteMemo(input_deleteMemo);
     this.props.SidebarGroupUpdate(this.state.gNo, this.state.gName);
   }

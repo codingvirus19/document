@@ -17,12 +17,17 @@ export default class Memo extends React.Component {
     this.setState({
       showPopup: !this.state.showPopup
     })
-    console.log(this.state.showPopup)
   }
+
+  dragStart(e){
+    this.props.dragStart(e);
+  }
+  
 
   render() {
     return (
-      <input onClick={this.viewPopup.bind(this)} id={this.props.index} name={this.props.no} value={this.props.content}
+      <input onClick={this.viewPopup.bind(this)} id={this.props.index} value={this.props.content}
+
         // onChange={}
         className={styles.memo}
       ></input>

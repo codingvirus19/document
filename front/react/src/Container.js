@@ -128,16 +128,24 @@ export default class Container extends React.Component {
   }
   memo_Change(drag, drop) {
     let Arr = this.getSnapshotBeforeUpdate(this.state.memo_bigArr);
-    console.log(Arr[drop].no); // 서로 변경할 no값
-    console.log(Arr[drag].no);
+    const change1 = Arr[drop].no;
+    const change2 = Arr[drag].no;
+
     const temp1 = Arr[drop];
     const temp2 = Arr[drag];
     Arr[drag] = temp1;
     Arr[drop] = temp2;
+    //change1,2를 서버로 보내야댐 ㅇㅋㅇㅋ;
+    
     this.setState({
       memo_bigArr: Arr,
     });
   }
+
+  getSnapshotBeforeUpdate(temp){
+    return temp;
+  }
+ 
 
   callbackFromToolbar(_gNo) {
     bringMemoByGroup(_gNo);
