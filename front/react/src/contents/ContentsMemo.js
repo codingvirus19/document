@@ -8,6 +8,7 @@ import styles from "./ContentsMemo.css";
 export default class Contents extends React.Component {
   
   render() {
+
     return (
       <div>
       <DragDropContext onDragEnd={(e)=>console.log(e)} >
@@ -27,10 +28,10 @@ export default class Contents extends React.Component {
                         {...provided.dragHandleProps}
                         >
                         <Memo content={this.props.memo_bigArr[index].content} />
-                        <HashList />
+                        <HashList memo_no={this.props.memo_bigArr[index].no}/>
                         <Toolbar
-                          no={this.props.memo_bigArr.no}
-                          memo_gNo={this.props.memo_bigArr.gNo}
+                          no={this.props.memo_bigArr[index].no}
+                          memo_gNo={this.props.memo_bigArr[index].gNo}
                           group={this.props.group}
                           groupBySidebar={this.props.groupBySidebar}
                           color={this.props.memo_bigArr.color}
