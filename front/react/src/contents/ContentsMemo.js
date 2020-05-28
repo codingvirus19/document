@@ -6,7 +6,6 @@ import Toolbar from "./toolbar/Toolbar";
 import styles from "./ContentsMemo.css";
 
 export default class Contents extends React.Component {
-
   render() {
     return (
       <DragDropContext >
@@ -38,6 +37,7 @@ export default class Contents extends React.Component {
               ))}
               {provided.placeholder}
             </div>
+
           )}
         </Droppable>
       </DragDropContext>

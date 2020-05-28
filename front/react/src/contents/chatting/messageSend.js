@@ -31,7 +31,7 @@ export default class MessageList extends React.Component{
     onChatSubmit(event) {
         event.preventDefault()
         //this.state.messageBox.push(this.state.message);
-        this.props.sendMessage(this.state.message, this.props.group_no);
+        this.props.sendMessage(this.state.message, this.props.gNo);
         this.setState({
             message: ''
         })
@@ -44,7 +44,7 @@ export default class MessageList extends React.Component{
                     value={this.state.message}
                     onChange={this.onInputChanged.bind(this)}
                     onKeyPress={this.chatKeyPress.bind(this)} />
-                <button onClick={this.onChatSubmit.bind(this)}> <FontAwesomeIcon className={styles.faPaperPlane} icon={faPaperPlane}/> </button>
+                <button className={styles.button} onClick={this.onChatSubmit.bind(this)}> <FontAwesomeIcon className={styles.faPaperPlane} icon={faPaperPlane}/> </button>
             </form>
         )
     }
