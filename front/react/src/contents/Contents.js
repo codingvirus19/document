@@ -21,7 +21,6 @@ export default class Contents extends React.Component {
               UpdateGroup={this.props.UpdateGroup}
             />
             <ContentsMemo
-
               memo_Change={this.props.memo_Change}
               callbackFromToolbar={this.props.callbackFromToolbar}
 
