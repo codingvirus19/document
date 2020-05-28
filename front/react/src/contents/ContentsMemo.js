@@ -21,6 +21,8 @@ export default class Contents extends React.Component {
                 <Toolbar
                   callbackFromToolbar={this.props.callbackFromToolbar}
                   no={memos[index].no}
+                  memo_gNo={memos[index].gNo}
+                  group={this.props.group}
                   groupBySidebar={this.props.groupBySidebar}
                   color={memos[index].color}
                 />

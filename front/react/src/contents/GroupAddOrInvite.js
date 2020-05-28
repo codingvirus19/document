@@ -91,7 +91,6 @@ export default class GroupAddOrInvite extends React.Component {
         this.setState({
             selectGroup: event.value
         })
-
     }
 
     groupAdd(group) {

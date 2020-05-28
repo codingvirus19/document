@@ -32,6 +32,7 @@ export default class Toolbar extends React.Component {
       clickGroupShareButton: false,
       clickHashButton: false,
       no: this.props.no,
+      memo_gNo: this.props.memo_gNo,
       gNo: this.props.groupBySidebar.no,
     };
     this.toggleContainer = React.createRef();
@@ -39,25 +40,6 @@ export default class Toolbar extends React.Component {
     this.toggleGroupShareSheet = this.toggleGroupShareSheet.bind(this);
     this.onClickOutsideHandler = this.onClickOutsideHandler.bind(this);
   }
-
-  //   shouldComponentUpdate(nextProps, nextState) {
-  //     console.log(JSON.stringify(nextProps) != JSON.stringify(this.props));
-  //     return JSON.stringify(nextProps) != JSON.stringify(this.props);
-  //   }
-
-  //   componentDidUpdate(prevProps, prevState) {
-  //     this.props.callbackFromToolbar(this.state.gNo);
-  //     this.setState({
-  //       no: this.props.no,
-  //       gNo: this.props.groupBySidebar.no,
-  //       //   groups: this.state.group.gname.map(gname => {
-  //       //       return {
-  //       //           value: gname,
-  //       //           label: gname
-  //       //       }
-  //       //   })
-  //     });
-  //   }
 
   componentDidMount() {
     window.addEventListener("click", this.onClickOutsideHandler);
@@ -125,7 +107,6 @@ export default class Toolbar extends React.Component {
       no: this.state.no,
       gNo: this.state.gNo,
     };
-    // console.log(input_deleteMemo);
     this.ajaxDeleteMemo(input_deleteMemo);
   }
   ajaxDeleteMemo(_deleteMemo) {
@@ -137,7 +118,6 @@ export default class Toolbar extends React.Component {
   }
 
   render() {
-    // console.log(this.props.groupBySidebar.no);
     return (
       <div className={styles.toolbar}>
         <button
@@ -180,8 +160,13 @@ export default class Toolbar extends React.Component {
         >
           <FontAwesomeIcon className={styles.faHashtag} icon={faHashtag} />
         </button>
-        {this.state.showHashSheet ? (
-          <HashSheet refChange={this.toggleContainer2} hash={this.props.hash} />
+        {/* {this.state.showHashSheet ? ( */}
+        {true ? (
+          <HashSheet 
+          refChange={this.toggleContainer2} 
+          hash={this.props.hash} 
+          memo_no={this.state.no}
+          memo_gNo={this.state.memo_gNo}/>
         ) : null}
 
         <button
