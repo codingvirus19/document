@@ -1,61 +1,46 @@
 import React from "react";
 import Memo from "./Memo";
 import HashList from "./HashList";
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import Toolbar from "./toolbar/Toolbar";
 import styles from "./ContentsMemo.css";
 
 export default class Contents extends React.Component {
-  constructor() {
-    super(...arguments);
-    this.state={
-      dragEnd :false,
-      droptarget:'',
-      dragtarget:'',
-      droptargetno:'',
-      dragtargetno:'',
-    }
-  }
-
-  dropChange(a){
-    this.setState({
-      droptarget: a.target.id
-    })
-  }
-  
-  dragChange(a){
-    this.setState({
-      dragtarget: a.target.id
-    })
-  }
-  dragButton(){
-    if(this.state.dragEnd){
-      this.props.memo_Change(this.state.dragtarget,this.state.droptarget);
-    }
-    this.setState({
-      dragEnd: !this.state.dragEnd
-    })
-  }
-
   render() {
     return (
-      <div className={styles.memo}>
+      <DragDropContext >
+        <Droppable droppableId='droppable'>
+          {(provided) => (
+            <div className={styles.memo} ref={provided.innerRef} >
 
-        {this.props.memo_bigArr && this.props.memo_bigArr.map((memos,index) =>
-                (<div key={this.props.memo_bigArr[index].no} className={styles.container_memo_form}>
-                  <Memo dragButton={this.dragButton.bind(this)} dragChange={this.dragChange.bind(this)} dropChange={this.dropChange.bind(this)} index={index} no={this.props.memo_bigArr.no} content={this.props.memo_bigArr.content} />
-                  <HashList />
+              {this.props.memo_bigArr && this.props.memo_bigArr.map((memos, index) => (
+
+                <Draggable key={`${this.props.memo_bigArr[index].no}`} draggableId={`${this.props.memo_bigArr[index].no}`}
+                  index={index} >
+                  {(provided) => (
+                      <div className={styles.container_memo_form}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef} >
+
+                        <Memo content={this.props.memo_bigArr.content} />
+                        <HashList />
                         <Toolbar
-                  SidebarGroupUpdate={this.props.SidebarGroupUpdate}
-                  no={this.props.memo_bigArr[index].no}
-                  groupBySidebar={this.props.groupBySidebar}
-                  color={this.props.memo_bigArr[index].color}
-                />
-                </div>
-            )
+                          callbackFromToolbar={this.props.callbackFromToolbar}
+                          no={this.props.memo_bigArr.no}
+                          groupBySidebar={this.props.groupBySidebar}
+                          color={this.props.memo_bigArr.color}
+                        />
+                      </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
 
           )}
-      </div>
+        </Droppable>
+      </DragDropContext>
     );
   }
 }
-// 내가 할 부분
