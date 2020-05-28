@@ -145,6 +145,7 @@ export default class Container extends React.Component {
   }
 
   render() {
+    console.log(this.state.memo_bigArr)
     return (
       <div className={styles.container}>
         {/*속성 groupBySidebar : 사이드바의 개인/그룹 클릭 시 해당 group의 no, name을 전달 */}

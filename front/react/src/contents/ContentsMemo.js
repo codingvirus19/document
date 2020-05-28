@@ -6,26 +6,30 @@ import Toolbar from "./toolbar/Toolbar";
 import styles from "./ContentsMemo.css";
 
 export default class Contents extends React.Component {
+  
   render() {
 
     return (
-      <DragDropContext >
-        <Droppable droppableId='droppable'>
+      <div>
+      <DragDropContext onDragEnd={(e)=>console.log(e)} >
+        <Droppable droppableId='droppable' >
           {(provided) => (
-            <div className={styles.memo} ref={provided.innerRef} >
+            <div className={styles.memo} ref={provided.innerRef}
+            {...provided.droppableProps} >
+
               {this.props.memo_bigArr && this.props.memo_bigArr.map((memos, index) => (
-                <Draggable key={`${this.props.memo_bigArr[index].no}`} draggableId={`${this.props.memo_bigArr[index].no}`}
+
+                <Draggable key={`${this.props.memo_bigArr[index].no}`}  draggableId={`${index}`}
                   index={index} >
                   {(provided) => (
                       <div className={styles.container_memo_form}
+                        ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        ref={provided.innerRef} >
-
-                        <Memo content={this.props.memo_bigArr.content} />
+                        >
+                        <Memo content={this.props.memo_bigArr[index].content} />
                         <HashList memo_no={this.props.memo_bigArr[index].no}/>
                         <Toolbar
-                          callbackFromToolbar={this.props.callbackFromToolbar}
                           no={this.props.memo_bigArr[index].no}
                           memo_gNo={this.props.memo_bigArr[index].gNo}
                           group={this.props.group}
@@ -41,6 +45,7 @@ export default class Contents extends React.Component {
           )}
         </Droppable>
       </DragDropContext>
+      </div>
     );
   }
 }
