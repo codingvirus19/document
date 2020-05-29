@@ -11,13 +11,29 @@ export default class GroupShareSheet extends React.Component {
       g_noUpdate: "",
       currentG_no: null,
       groups: this.props.addNullToGroup,
+      selectedOption: null,
 
       // 다 삭제 안되는 오류
     };
   }
 
-  share(e) {
+  handleChange(selectedOption) {
+    // 희망하는 그룹을 선택 시 Array에 해당 그룹의 value가 담긴다.
+    this.setState({
+      selectedOption: selectedOption,
+    });
+    console.log(selectedOption);
+  }
+
+  onClickSendShare(e) {
     e.preventDefault();
+    console.log(this.props.no);
+    let send_gNoAndMemoNo = {
+      no: this.props.no,
+      gName: this.state.selectedOption,
+    };
+    console.log(send_gNoAndMemoNo);
+
     toast("그룹에 메모가 공유되었습니다.", {
       position: "bottom-right",
       autoClose: 3000,
@@ -29,14 +45,30 @@ export default class GroupShareSheet extends React.Component {
     });
   }
 
+  ajaxShareMemo() {
+    // call api
+    fetch(`${API_URL}/api/memo/shareMemo`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        memo_bigArr = json.data;
+        this.UpdateMemo(memo_bigArr);
+      })
+      .catch((err) => console.error(err));
+  }
+
   render() {
-    console.log(this.state.groups);
     return (
       <div className={styles.groupShareSheet} ref={this.props.refChange}>
         <div className={styles.container}>
           <div className={styles.title}>공유할 그룹</div>
           <div className={styles.contents}>
             <Select
+              value={this.state.selectedOption}
+              onChange={this.handleChange.bind(this)}
               isMulti
               autoFocus={true}
               className={styles.select}
@@ -52,7 +84,7 @@ export default class GroupShareSheet extends React.Component {
         </div>
         <div className={styles.btns}>
           <button
-            onClick={this.share.bind(this)}
+            onClick={this.onClickSendShare.bind(this)}
             type="submit"
             className={styles.confirm_btn}
           >
