@@ -17,6 +17,7 @@ export default class Container extends React.Component {
     this.state = {
       group: { no: [], gname: [] },
       users: { no: [], name: [] },
+      hash: [{ no: "", name: "" }],
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
       showChat: false,
@@ -59,10 +60,35 @@ export default class Container extends React.Component {
       .then((json) => {
         users.no.push(json.data.no);
         users.name.push(json.data.name);
-
         this.UpdateUser(users);
       })
       .catch((err) => console.error(err));
+
+    // Sidebar의 HashtagList를 가져오는 코드
+    let g_no = { no: this.state.g_no };
+    let hash = [{ no: "", name: "" }]
+    fetch(`${API_URL}/api/getHashListByGroup`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(g_no)
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        hash = json.data.map(element => {
+          return {
+            no: element.no,
+            name: element.name
+          }
+        })
+        this.UpdateHash(hash);
+      })
+      .catch((err) => console.error(err));
+  }
+    
+  UpdateHash(hash) {
+    this.setState({
+      hash: hash
+    })
   }
 
   bringMemoByGroup(_groupNumbers) {
@@ -107,8 +133,6 @@ export default class Container extends React.Component {
 
   // sidebar에서 콜백된 파라미터 no와 name
   SidebarGroupUpdate(no, name) {
-    console.log(no);
-    console.log(name);
     this.bringMemoByGroup(no);
     this.setState({
       groupBySidebar: {
@@ -134,7 +158,6 @@ export default class Container extends React.Component {
   }
 
   render() {
-    console.log(this.state.memo_bigArr)
     return (
       <div className={styles.container}>
         {/*속성 groupBySidebar : 사이드바의 개인/그룹 클릭 시 해당 group의 no, name을 전달 */}
@@ -161,7 +184,7 @@ export default class Container extends React.Component {
           group={this.state.group}
           users={this.state.users}
           showChat={this.state.showChat}
-          //변경된 결과 값 state :true false
+        //변경된 결과 값 state :true false
         />
       </div>
     );

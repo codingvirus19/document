@@ -76,7 +76,7 @@ public class MemoApiController {
 		version.add(message.getVersion());
 		message.setVersion(message.getVersion() + 1L);
 		if (message.getType().equals("basic")) {
-			// 기본입력
+			// 기본 입력
 			arrData.add(message.getInputIndex() - 1, message.getKey());
 		} else if (message.getType().equals("korean")) {
 			// 한글입력
