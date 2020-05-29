@@ -28,9 +28,7 @@ export default class Container extends React.Component {
     // 그룹의 db를 가져오는 코드
     let group = { no: [], gname: [] };
     let groupDatas = null;
-
     this.bringMemoByGroup(this.state.groupBySidebar.no);
-
     // call api
     fetch(`${API_URL}/api/container`, {
       method: "post",
@@ -98,7 +96,6 @@ export default class Container extends React.Component {
       no: _groupNumbers,
     };
     let memo_bigArr = [];
-    let _memoArr = null;
 
     // call api
     fetch(`${API_URL}/api/memoList`, {
@@ -151,20 +148,10 @@ export default class Container extends React.Component {
     });
   }
   memo_Change(drag, drop) {
-    let Arr = this.getSnapshotBeforeUpdate(this.state.memo_bigArr);
-    const change1 = Arr[drop].no;
-    const change2 = Arr[drag].no;
+    //를 서버로 보내야댐 ㅇㅋㅇㅋ;
 
-    const temp1 = Arr[drop];
-    const temp2 = Arr[drag];
-    Arr[drag] = temp1;
-    Arr[drop] = temp2;
-    //change1,2를 서버로 보내야댐 ㅇㅋㅇㅋ;
-    
-    this.setState({
-      memo_bigArr: Arr
-    })
   }
+
 
   callbackFromToolbar(_gNo) {
     bringMemoByGroup(_gNo);
