@@ -55,6 +55,27 @@ export default class Sidebar extends React.Component {
     this.hashGetList(g_no);
   }
 
+  hashGetList(gNo){
+    let g_no = { no: gNo };
+    let hash = [{ no: "", name: "" }]
+    fetch(`${API_URL}/api/getHashListByGroup`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(g_no)
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        hash = json.data.map(element => {
+          return {
+            no: element.no,
+            name: element.name
+          }
+        })
+        this.UpdateHash(hash);
+      })
+      .catch((err) => console.error(err));
+  }
+
   render() {
     return (
       <div className={styles.sidebar}>
