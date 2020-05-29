@@ -7,7 +7,7 @@ const API_HEADERS = {
   "Content-Type": "application/json",
 };
 
-export default class HashSheet extends React.Component {
+export default class HashSheet extends React.PureComponent {
 
   constructor() {
     super(...arguments);
@@ -45,13 +45,15 @@ export default class HashSheet extends React.Component {
   }
 
   addHash(event) {
-    let lastetEvent = event[event.length -1] 
+    // 다 삭제 안되는 오류
+    let lastetEvent = event[event.length - 1]
     if (lastetEvent.__isNew__) {
       let data = {
         gNo: this.props.memo_gNo,
         mNo: this.props.memo_no,
         name: lastetEvent.label
       };
+      // console.log(data);
       let hash = { value: '', label: '' };
       fetch(`${API_URL}/api/addHash`, {
         method: "post",
@@ -60,29 +62,16 @@ export default class HashSheet extends React.Component {
       })
         .then((response) => response.json())
         .then((json) => {
-          this.setState({
-          hash: json.data.name
-          })
+          hash.value = json.data.name,
+            hash.label = json.data.name
+          this.state.hash.push(hash)
+          console.log(this.state.hash);
         })
         .catch((err) => console.error(err));
     }
-    this.setState({
-      selectGroup: event.value
-    })
-
   }
 
-  // HashAdd(hash) {
-  //   this.setState({
-  //     hash: {
-  //       no: this.state.hash.no.concat(hash.no),
-  //       name: this.state.hash.name.concat(hash.name)
-  //     }
-  //   })
-  // }
-
   render() {
-    // console.log(this.props.memo_gNo);
     return (
       <div className={styles.hashSheet} ref={this.props.refChange}>
         <div className={styles.container}>

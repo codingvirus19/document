@@ -1,8 +1,18 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Remarkable } from 'remarkable';
 import SockJsClient from "react-stomp";
 import popup from "./Popup.css";
 import styles from "./Editor.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faExternalLinkAlt,
+  faShareSquare,
+  faPalette,
+  faHashtag,
+  faSave,
+  faFileUpload,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default class Popup extends React.Component {
   constructor(props) {
@@ -282,18 +292,28 @@ export default class Popup extends React.Component {
               <button onClick={this.memoSave.bind(this)}>저장</button>
             </div>
             {(this.state.markOpen) ? (
-            <div
-              className={styles.markDownView}
-              dangerouslySetInnerHTML={this.getReMarkDown()}></div>
-              )
-              : (<textarea
+              <div
+                className={styles.markDownView}
+                dangerouslySetInnerHTML={this.getReMarkDown()}></div>
+            )
+              : (
+                <Fragment>
+              <textarea
                 wrap="hard"
                 rows="2"
                 cols="20"
                 className={styles.edit}
                 onBlur={this.cursorEvent.bind(this)}
                 onChange={this.editorPush.bind(this)}
-                value={this.state.value}></textarea>)
+                value={this.state.value}></textarea>
+                <div className={styles.toolbar}>
+                  <div className={styles.btn}><FontAwesomeIcon className={styles.faPalette} icon={faPalette} /></div>
+                  <div className={styles.btn}><FontAwesomeIcon className={styles.faPalette} icon={faPalette} /></div>
+                  <div className={styles.btn}><FontAwesomeIcon className={styles.faPalette} icon={faPalette} /></div>
+                  <div className={styles.btn}><FontAwesomeIcon className={styles.faPalette} icon={faPalette} /></div>
+                </div>
+                </Fragment>
+                )
             }
 
           </div>

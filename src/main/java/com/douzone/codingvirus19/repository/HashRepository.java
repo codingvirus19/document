@@ -27,4 +27,8 @@ public class HashRepository {
 		return sqlSession.insert("hash.insertHash", vo);
 	}
 
+	public List<HashVo> getHashListByMemo(MemoVo vo) {
+		return sqlSession.selectList("hash.getHashListByMemo", vo);
+	}
+
 }

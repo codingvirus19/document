@@ -5,15 +5,7 @@ import ShareSheet from "./ShareSheet";
 import ColorSheet from "./ColorSheet";
 import HashSheet from "./HashSheet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faExternalLinkAlt,
-  faShareSquare,
-  faPalette,
-  faHashtag,
-  faSave,
-  faFileUpload,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { faExternalLinkAlt, faShareSquare, faPalette, faHashtag, faSave, faFileUpload, faTrashAlt,} from "@fortawesome/free-solid-svg-icons";
 import styles from "./Toolbar.css";
 
 const API_URL = "http://localhost:8080/codingvirus19";
@@ -129,7 +121,6 @@ export default class Toolbar extends React.Component {
       no: this.state.no,
       gNo: this.state.gNo,
     };
-    console.log(input_deleteMemo);
     this.ajaxDeleteMemo(input_deleteMemo);
     this.props.SidebarGroupUpdate(this.state.gNo, this.state.gName);
   }
@@ -195,13 +186,13 @@ export default class Toolbar extends React.Component {
           <FontAwesomeIcon className={styles.faHashtag} icon={faHashtag} />
         </button>
         {this.state.showHashSheet ? (
-          // {true ? (
-          <HashSheet
-            refChange={this.toggleContainer2}
-            hash={this.props.hash}
-            memo_no={this.state.no}
-            memo_gNo={this.state.memo_gNo}
-          />
+        // {true ? (
+          <HashSheet 
+          refChange={this.toggleContainer2} 
+          hash={this.props.hash} 
+          memo_no={this.props.no}
+          memo_gNo={this.props.memo_gNo}/>
+
         ) : null}
         {/* 해시추가 */}
 

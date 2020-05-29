@@ -35,4 +35,12 @@
 		]]>
 	</insert>
 	
+	<select id="getHashListByMemo" parameterType="long" resultType="hashvo">
+		<![CDATA[
+			select no, g_no, m_no, name
+			  from hash
+			 where m_no=#{no};
+ 		]]>
+	</select>
+	
 </mapper>
