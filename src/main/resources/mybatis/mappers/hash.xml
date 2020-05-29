@@ -44,7 +44,8 @@
 		<![CDATA[
 			select no, g_no, m_no, name
 			  from hash
-			 where m_no=#{no};
+			 where m_no=#{no}
+			 group by name;
  		]]>
 	</select>
 	
