@@ -17,6 +17,11 @@
 			delete from memo where no=#{no} and g_no= #{gNo} and u_no=#{uNo};
  		]]>
 	</select>
+	<update id="memoUpdate" parameterType="memovo">
+	<![CDATA[
+		update memo set content = #{content}, color=#{color} where no = #{no};
+	]]>
+	</update>
 
 </mapper>
 	

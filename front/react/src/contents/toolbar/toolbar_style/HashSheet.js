@@ -67,7 +67,7 @@ export default class HashSheet extends React.PureComponent {
           .then((response) => response.json())
           .then((json) => {
             hash.value = json.data.name,
-              hash.label = json.data.name
+            hash.label = json.data.name
             this.state.hash.push(hash)
           })
           .catch((err) => console.error(err));
@@ -77,7 +77,7 @@ export default class HashSheet extends React.PureComponent {
 
   render() {
     if (!this.state.memo_hash) {
-      return <></>;
+      return;
     }
     return (
       <div className={styles.hashSheet} ref={this.props.refChange}>

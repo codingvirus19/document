@@ -29,6 +29,11 @@ public class MemoRepository {
 		
 	}
 
+	public void memoUpdate(MemoVo vo) {
+		sqlSession.update("memo.memoUpdate",vo);
+		
+	}
+
 //
 
 	
