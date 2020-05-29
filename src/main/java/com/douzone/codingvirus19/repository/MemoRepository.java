@@ -26,10 +26,5 @@ public class MemoRepository {
 
 	public void peopleDeleteMemo(MemoVo vo) {
 		sqlSession.delete("memo.peopleDeleteMemo",vo);
-		
 	}
-
-//
-
-	
 }

@@ -9,7 +9,7 @@ import MemoDelete from "./toolbar_style/MemoDelete";
 
 import styles from "./Toolbar.css";
 
-export default class Toolbar extends React.Component {
+export default class Toolbar extends React.PureComponent {
   constructor() {
     super(...arguments);
     this.state = {
@@ -33,7 +33,11 @@ export default class Toolbar extends React.Component {
         <ColorChange />
 
         {/* 해시추가 */}
-        <AddHash hash={this.props.hash} no={this.props.no} memo_gNo={this.state.memo_gNo} />
+        <AddHash 
+        hash={this.props.hash} 
+        no={this.props.no} 
+        memo_gNo={this.state.memo_gNo} 
+        memo_hash={this.props.memo_hash}/>
 
         {/* 내 컴퓨터에 저장 */}
         <SaveLocal />

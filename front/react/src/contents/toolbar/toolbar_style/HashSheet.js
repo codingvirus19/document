@@ -27,16 +27,22 @@ export default class HashSheet extends React.PureComponent {
       .then((response) => response.json())
       .then((json) => {
         hashDatas = json.data;
-          hash = hashDatas.map((element) => {
+        hash = hashDatas.map((element) => {
+          return {
+            value: element.name,
+            label: element.name
+          }
+        })
+        this.UpdateHash(hash);
+        this.setState({
+          memo_hash: this.props.memo_hash.map(element => {
             return {
-              value: element.name,
-              label: element.name
+              value: element.no,
+              label: element.name,
+              memo_no: element.memo_no
             }
           })
-        this.UpdateHash(hash);
-        // this.setState({
-        //   memo_hash: [hash[0]]
-        // })
+        })
       })
       .catch((err) => console.error(err));
   }
@@ -50,37 +56,38 @@ export default class HashSheet extends React.PureComponent {
   addHash(event) {
     if (event != null) {
       let lastetEvent = event[event.length - 1]
-      if (lastetEvent.__isNew__) {
-        let data = {
-          gNo: this.props.memo_gNo,
-          mNo: this.props.memo_no,
-          name: lastetEvent.label
-        };
-        let hash = { value: '', label: '' };
-        fetch(`${API_URL}/api/addHash`, {
-          method: "post",
-          headers: API_HEADERS,
-          body: JSON.stringify(data)
+      let data = {
+        gNo: this.props.memo_gNo,
+        mNo: this.props.memo_no,
+        name: lastetEvent.label
+      };
+      let hash = { value: '', label: '' };
+      fetch(`${API_URL}/api/addHash`, {
+        method: "post",
+        headers: API_HEADERS,
+        body: JSON.stringify(data)
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          hash.value = json.data.name,
+            hash.label = json.data.name
+          this.state.hash.push(hash)
         })
-          .then((response) => response.json())
-          .then((json) => {
-            hash.value = json.data.name,
-              hash.label = json.data.name
-            this.state.hash.push(hash)
-          })
-          .catch((err) => console.error(err));
-      }
+        .catch((err) => console.error(err));
     }
   }
 
   render() {
+    if (!this.state.memo_hash) {
+      return <></>;
+    }
     return (
       <div className={styles.hashSheet} ref={this.props.refChange}>
         <div className={styles.container}>
           <div className={styles.title}>해시 추가</div>
           <div onClick={(e) => e.stopPropagation()} className={styles.contents}>
             <CreatableSelect
-              // defaultValue={this.state.memo_hash}
+              defaultValue={this.state.memo_hash}
               autoFocus={true}
               isMulti
               className={styles.searchHash}
@@ -106,9 +113,7 @@ export default class HashSheet extends React.PureComponent {
             onClick={this.props.closeGroupShareSheet}>
             취소
               </button>
-
         </div>
-
       </div>
     );
   }

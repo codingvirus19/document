@@ -4,7 +4,7 @@ import { faHashtag } from "@fortawesome/free-solid-svg-icons";
 import styles from "../Toolbar.css";
 import HashSheet from "./HashSheet";
 
-export default class AddHash extends React.Component {
+export default class AddHash extends React.PureComponent {
 
     constructor() {
         super(...arguments)
@@ -25,7 +25,7 @@ export default class AddHash extends React.Component {
     componentWillUnmount() {
         window.removeEventListener("click", this.onClickOutsideHandler);
     }
-
+    
     onClickOutsideHandler(event) {
         if (this.state.clickHashButton) {
             this.setState({
@@ -59,9 +59,10 @@ export default class AddHash extends React.Component {
                     <FontAwesomeIcon className={styles.faHashtag} icon={faHashtag} />
                 </button>
                 {this.state.showHashSheet ? (
-                // {true ? (
+                // {/* {true ? ( */}
                     <HashSheet
                         refChange={this.toggleContainer2}
+                        memo_hash={this.props.memo_hash}
                         hash={this.props.hash}
                         memo_no={this.state.no}
                         memo_gNo={this.state.memo_gNo} />
