@@ -4,7 +4,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Serach from "./Serach";
 import Logo from "./Logo";
 import Popup2 from "../Popup2";
-import Popup from "./headerMemu/Popup";
+import ShareEditor from "./headerMemu/ShareEditor";
 
 import Chat from "../contents/chatting/Chat.js";
 
@@ -81,7 +81,7 @@ export default class Header extends React.Component {
                 <FontAwesomeIcon className={styles.faPlus} icon={faPlus} />
               </button>
               {this.state.showPopup ? (
-                <Popup
+                <ShareEditor
                   groupNoForGroupUser={this.props.groupNoForGroupUser}
                   closePopup={this.togglePopup.bind(this)}
                 />

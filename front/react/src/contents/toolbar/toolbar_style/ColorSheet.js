@@ -2,7 +2,7 @@ import React from "react";
 
 import Table from "react-bootstrap/Table"
 
-import styles from "./Sheets.css";
+import styles from "../Sheets.css";
 
 export default class ColorSheet extends React.Component {
 

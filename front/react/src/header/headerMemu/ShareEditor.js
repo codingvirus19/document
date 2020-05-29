@@ -2,7 +2,7 @@ import React from "react";
 import { Remarkable } from 'remarkable';
 import SockJsClient from "react-stomp";
 import popup from "./Popup.css";
-import styles from "./Editor.css";
+import styles from "./ShareEditor.css";
 
 export default class Popup extends React.Component {
   constructor(props) {

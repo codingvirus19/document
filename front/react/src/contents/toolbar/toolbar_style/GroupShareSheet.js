@@ -1,8 +1,8 @@
 import React from "react";
 import Select from "react-select";
 import { ToastContainer, toast, Slide } from "react-toastify";
-import "../../ReactToastify.scss";
-import styles from "./Sheets.css";
+import "../../../ReactToastify.scss";
+import styles from "../Sheets.css";
 
 export default class GroupShareSheet extends React.Component {
   constructor() {

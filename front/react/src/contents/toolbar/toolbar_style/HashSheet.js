@@ -1,6 +1,6 @@
-import React from "react";
+import React, { Fragment } from "react";
 import CreatableSelect from 'react-select/creatable';
-import styles from "./Sheets.css";
+import styles from "../Sheets.css";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
@@ -84,7 +84,8 @@ export default class HashSheet extends React.Component {
   render() {
     // console.log(this.props.memo_gNo);
     return (
-      <div className={styles.hashSheet} ref={this.props.refChange}>
+      <Fragment>
+      {/* <div className={styles.hashSheet} ref={this.props.refChange}>
         <div className={styles.container}>
           <div className={styles.title}>해시 추가</div>
           <div className={styles.contents}>
@@ -113,11 +114,12 @@ export default class HashSheet extends React.Component {
             className={styles.cancel_btn}
             onClick={this.props.closeGroupShareSheet}>
             취소
-              </button>
+            </button>
 
         </div>
 
-      </div>
+      </div> */}
+      </Fragment>
     );
   }
 }

@@ -6,27 +6,29 @@ import Toolbar from "./toolbar/Toolbar";
 import styles from "./ContentsMemo.css";
 
 export default class Contents extends React.Component {
-  
+
   render() {
     return (
       <div>
-      <DragDropContext onDragEnd={(e)=>console.log(e)} >
-        <Droppable droppableId='droppable' >
-          {(provided) => (
-            <div className={styles.memo} ref={provided.innerRef}
-            {...provided.droppableProps} >
+        <DragDropContext onDragEnd={(e) => console.log(e)} >
+          <Droppable droppableId='droppable' >
+            {(provided) => (
+              <div className={styles.memo} ref={provided.innerRef}
+                {...provided.droppableProps} >
 
-              {this.props.memo_bigArr && this.props.memo_bigArr.map((memos, index) => (
+                {this.props.memo_bigArr && this.props.memo_bigArr.map((memos, index) => (
 
-                <Draggable key={`${this.props.memo_bigArr[index].no}`}  draggableId={`${index}`}
-                  index={index} >
-                  {(provided) => (
+                  <Draggable key={`${this.props.memo_bigArr[index].no}`} draggableId={`${index}`}
+                    index={index} >
+                    {(provided) => (
                       <div className={styles.container_memo_form}
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        >
-                        <Memo content={this.props.memo_bigArr[index].content} />
+                      >
+                        <Memo groupBySidebar={this.props.groupBySidebar}
+                          group={this.props.group}
+                          memo_bigArr={this.props.memo_bigArr} content={this.props.memo_bigArr[index].content} />
                         <HashList />
                         <Toolbar
                           no={this.props.memo_bigArr.no}
@@ -36,14 +38,14 @@ export default class Contents extends React.Component {
                           color={this.props.memo_bigArr.color}
                         />
                       </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
     );
   }
