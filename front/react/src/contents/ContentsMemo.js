@@ -1,7 +1,6 @@
 import React from "react";
 import Memo from "./Memo";
 import HashList from "./HashList";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Toolbar from "./toolbar/Toolbar";
 import styles from "./ContentsMemo.css";
 
