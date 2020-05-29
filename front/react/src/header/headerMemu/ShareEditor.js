@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Remarkable } from 'remarkable';
 import SockJsClient from "react-stomp";
 import popup from "./Popup.css";
-import styles from "./Editor.css";
+import styles from "./ShareEditor.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faExternalLinkAlt,

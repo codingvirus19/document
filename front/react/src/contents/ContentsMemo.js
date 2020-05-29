@@ -38,7 +38,9 @@ export default class Contents extends React.Component {
     <div className={styles.memo} onDragOver={this.DragOver.bind(this)} >
         {this.props.memo_bigArr && this.props.memo_bigArr.map((memos, index) =>
           (<div key={this.props.memo_bigArr[index].no} data-id={index} draggable="true"  onDragStart={this.DragStart.bind(this)} onDragEnd={this.DragEnd.bind(this)} className={styles.container_memo_form}>
-            <Memo index={index} no={this.props.memo_bigArr[index].no} content={this.props.memo_bigArr[index].content} />
+             <Memo groupBySidebar={this.props.groupBySidebar}
+                          group={this.props.group}
+                          memo_bigArr={this.props.memo_bigArr} content={this.props.memo_bigArr[index].content} />
             <HashList
                           memo_no={this.props.memo_bigArr[index].no}/>
             <Toolbar
