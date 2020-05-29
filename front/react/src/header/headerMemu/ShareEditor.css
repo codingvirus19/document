@@ -45,15 +45,14 @@
     WORD-BREAK: break-all;
   }
 
-  .toolbar{
-    height:1.2rem;
-    width: 100%;
-    display: inline-flex;
-    background-color: aqua;
-  }
+ 
   .btn{
     background: no-repeat;
   }
 .faPalette{
   display: inline;
+}
+.toolbar{
+  text-align: center;
+  border-top: 1px solid;
 }
