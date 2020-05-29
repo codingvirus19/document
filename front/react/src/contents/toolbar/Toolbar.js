@@ -179,13 +179,14 @@ export default class Toolbar extends React.Component {
         >
           <FontAwesomeIcon className={styles.faHashtag} icon={faHashtag} />
         </button>
-        {this.state.showHashSheet ? (
-        // {true ? (
+        {/* {this.state.showHashSheet ? ( */}
+        {true ? (
           <HashSheet 
           refChange={this.toggleContainer2} 
           hash={this.props.hash} 
           memo_no={this.props.no}
-          memo_gNo={this.props.memo_gNo}/>
+          memo_gNo={this.props.memo_gNo}
+          memo_hash={this.props.memo_hash}/>
         ) : null}
         {/* 해시추가 */}
 

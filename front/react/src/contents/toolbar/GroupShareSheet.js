@@ -11,8 +11,6 @@ export default class GroupShareSheet extends React.Component {
       g_noUpdate: "",
       currentG_no: null,
       groups: this.props.addNullToGroup,
-
-      // 다 삭제 안되는 오류
     };
   }
 
@@ -35,7 +33,7 @@ export default class GroupShareSheet extends React.Component {
       <div className={styles.groupShareSheet} ref={this.props.refChange}>
         <div className={styles.container}>
           <div className={styles.title}>공유할 그룹</div>
-          <div className={styles.contents}>
+          <div onClick={(e) => e.stopPropagation()} className={styles.contents}>
             <Select
               isMulti
               autoFocus={true}
