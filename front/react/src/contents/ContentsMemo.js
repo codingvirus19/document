@@ -1,9 +1,10 @@
 import React from "react";
 import Memo from "./Memo";
 import HashList from "./HashList";
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Toolbar from "./toolbar/Toolbar";
 import styles from "./ContentsMemo.css";
+
 
 export default class Contents extends React.Component {
 
@@ -45,6 +46,7 @@ export default class Contents extends React.Component {
             )}
           </Droppable>
         </DragDropContext>
+
       </div>
     );
   }
