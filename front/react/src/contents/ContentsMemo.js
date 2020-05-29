@@ -9,45 +9,37 @@ export default class Contents extends React.Component {
 
   constructor() {
     super(...arguments);
-    this.state = {
-      dragEnd: '',
-      dragStart: '',
-      dragOver: '',
-    }
   }
-
-  dragStart(e) {
+  DragStart(e) {
+    this.dragStart = e.currentTarget;
     e.dataTransfer.effectAllowed = 'move';
     e.target.style.opacity = 0.1;
-    e.dataTransfer.setData('text/html', e.currentTarget);
-    this.setState({
-      dragStart: e.currentTarget
-    })
+    e.dataTransfer.setData('text/html', this.dragStart);
   }
-  dragEnd(e) {
-    this.state.dragStart.style.opacity = 1;
-    let from = Number(this.state.dragStart.dataset.id);
-    let to = Number(this.state.dragOver.dataset.id);
+  DragEnd() {
+    this.dragStart.style.opacity = 1;
+    let from = Number(this.dragStart.dataset.id);
+    let to = Number(this.dragOver.dataset.id);
     if (from < to) to--;
     this.props.memo_Change(from, to);
   }
-  dragOver(e) {
+  DragOver(e) {
     e.preventDefault();
     if (e.target.className != `${styles.container_memo_form}`) return;
-    this.setState({
-      dragOver: e.target
-    })
-    e.target.parentNode.insertBefore(this.state.dragStart, e.target);
+    this.dragOver = e.target;
+    e.target.parentNode.insertBefore(this.dragStart, e.target);
+  
   }
+
  
 
   render() {
 
     return (
 
-      <div className={styles.memo} onDragOver={this.dragOver.bind(this)} >
+      <div className={styles.memo} onDragOver={this.DragOver.bind(this)} >
         {this.props.memo_bigArr && this.props.memo_bigArr.map((memos, index) =>
-          (<div key={this.props.memo_bigArr[index].no} data-id={index} draggable="true"  onDragStart={this.dragStart.bind(this)} onDragEnd={this.dragEnd.bind(this)} className={styles.container_memo_form}>
+          (<div key={this.props.memo_bigArr[index].no} data-id={index} draggable="true"  onDragStart={this.DragStart.bind(this)} onDragEnd={this.DragEnd.bind(this)} className={styles.container_memo_form}>
             <Memo index={index} no={this.props.memo_bigArr.no} content={this.props.memo_bigArr.content} />
             <HashList />
             <Toolbar
