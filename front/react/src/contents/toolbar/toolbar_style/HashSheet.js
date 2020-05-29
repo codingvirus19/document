@@ -27,18 +27,16 @@ export default class HashSheet extends React.PureComponent {
       .then((response) => response.json())
       .then((json) => {
         hashDatas = json.data;
-        console.log(hashDatas);
           hash = hashDatas.map((element) => {
             return {
               value: element.name,
               label: element.name
             }
           })
-          console.log(hash);
         this.UpdateHash(hash);
-        this.setState({
-          memo_hash: [hash[0]]
-        })
+        // this.setState({
+        //   memo_hash: [hash[0]]
+        // })
       })
       .catch((err) => console.error(err));
   }
@@ -76,16 +74,13 @@ export default class HashSheet extends React.PureComponent {
   }
 
   render() {
-    if (!this.state.memo_hash) {
-      return <></>;
-    }
     return (
       <div className={styles.hashSheet} ref={this.props.refChange}>
         <div className={styles.container}>
           <div className={styles.title}>해시 추가</div>
           <div onClick={(e) => e.stopPropagation()} className={styles.contents}>
             <CreatableSelect
-              defaultValue={this.state.memo_hash}
+              // defaultValue={this.state.memo_hash}
               autoFocus={true}
               isMulti
               className={styles.searchHash}
