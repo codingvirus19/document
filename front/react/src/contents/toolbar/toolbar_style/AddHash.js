@@ -25,7 +25,7 @@ export default class AddHash extends React.Component {
     componentWillUnmount() {
         window.removeEventListener("click", this.onClickOutsideHandler);
     }
-    
+
     onClickOutsideHandler(event) {
         if (this.state.clickHashButton) {
             this.setState({
@@ -58,8 +58,8 @@ export default class AddHash extends React.Component {
 
                     <FontAwesomeIcon className={styles.faHashtag} icon={faHashtag} />
                 </button>
-                {/* {this.state.showHashSheet ? ( */}
-                {true ? (
+                {this.state.showHashSheet ? (
+                // {true ? (
                     <HashSheet
                         refChange={this.toggleContainer2}
                         hash={this.props.hash}
