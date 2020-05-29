@@ -11,10 +11,6 @@ export default class GroupShareSheet extends React.Component {
       g_noUpdate: "",
       currentG_no: null,
       groups: this.props.addNullToGroup,
-      selectedOption: null,
-      //   selectedOption: { value: null, label: "개인" },
-
-      // 다 삭제 안되는 오류
     };
   }
 

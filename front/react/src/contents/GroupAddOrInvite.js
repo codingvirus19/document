@@ -103,11 +103,13 @@ export default class GroupAddOrInvite extends React.Component {
     }
 
     addUser(event) {
-        this.setState({
-            selectUsers: event.map(event => {
-                return event.value
+        if (event != null) {
+            this.setState({
+                selectUsers: event.map(event => {
+                    return event.value
+                })
             })
-        })
+        }
     }
 
     render() {

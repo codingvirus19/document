@@ -7,56 +7,44 @@ import styles from "./ContentsMemo.css";
 
 export default class Contents extends React.Component {
 
-  constructor() {
-    super(...arguments);
-    this.state = {
-      dragEnd: '',
-      dragStart: '',
-      dragOver: '',
-    }
-  }
-
-  dragStart(e) {
-    e.dataTransfer.effectAllowed = 'move';
-    e.target.style.opacity = 0.1;
-    e.dataTransfer.setData('text/html', e.currentTarget);
-    this.setState({
-      dragStart: e.currentTarget
-    })
-  }
-  dragEnd(e) {
-    this.state.dragStart.style.opacity = 1;
-    let from = Number(this.state.dragStart.dataset.id);
-    let to = Number(this.state.dragOver.dataset.id);
-    if (from < to) to--;
-    this.props.memo_Change(from, to);
-  }
-  dragOver(e) {
-    e.preventDefault();
-    if (e.target.className != `${styles.container_memo_form}`) return;
-    this.setState({
-      dragOver: e.target
-    })
-    e.target.parentNode.insertBefore(this.state.dragStart, e.target);
-  }
- 
-
   render() {
-
     return (
+      <div>
+        <DragDropContext onDragEnd={(e) => console.log(e)} >
+          <Droppable droppableId='droppable' >
+            {(provided) => (
+              <div className={styles.memo} ref={provided.innerRef}
+                {...provided.droppableProps} >
 
-      <div className={styles.memo} onDragOver={this.dragOver.bind(this)} >
-        {this.props.memo_bigArr && this.props.memo_bigArr.map((memos, index) =>
-          (<div key={this.props.memo_bigArr[index].no} data-id={index} draggable="true"  onDragStart={this.dragStart.bind(this)} onDragEnd={this.dragEnd.bind(this)} className={styles.container_memo_form}>
-            <Memo index={index} no={this.props.memo_bigArr.no} content={this.props.memo_bigArr.content} />
-            <HashList />
-            <Toolbar
-              groupBySidebar={this.props.groupBySidebar}
-              color={this.props.memo_bigArr.color}
-            />
-          </div>
-          )
-        )}
+                {this.props.memo_bigArr && this.props.memo_bigArr.map((memos, index) => (
+
+                  <Draggable key={`${this.props.memo_bigArr[index].no}`} draggableId={`${index}`}
+                    index={index} >
+                    {(provided) => (
+                      <div className={styles.container_memo_form}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <Memo content={this.props.memo_bigArr[index].content} />
+                        <HashList
+                          memo_no={this.props.memo_bigArr[index].no}/>
+                        <Toolbar
+                          no={this.props.memo_bigArr[index].no}
+                          memo_gNo={this.props.memo_bigArr[index].gNo}
+                          group={this.props.group}
+                          groupBySidebar={this.props.groupBySidebar}
+                          color={this.props.memo_bigArr.color}
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
 
       </div>
     );

@@ -9,7 +9,6 @@ const API_HEADERS = {
   "Content-Type": "application/json",
 };
 
-
 export default class Sidebar extends React.Component {
   constructor() {
     super(...arguments);
@@ -19,21 +18,9 @@ export default class Sidebar extends React.Component {
       hash: [{ no: "", name: "" }]
     };
   }
-  componentDidMount(){
-    this.hashGetList(null);
-  }
 
-  update(g_no, g_name) {
-    this.setState({
-      g_no: g_no,
-      g_name: g_name
-    })
-    this.props.group_update(g_no, g_name);
-    this.hashGetList(g_no);
-  }
-
-  hashGetList(gNo){
-    let g_no = { no: gNo };
+  componentDidMount() {
+    let g_no = { no: this.state.g_no };
     let hash = [{ no: "", name: "" }]
     fetch(`${API_URL}/api/getHashListByGroup`, {
       method: "post",
@@ -52,11 +39,20 @@ export default class Sidebar extends React.Component {
       })
       .catch((err) => console.error(err));
   }
-
+  
   UpdateHash(hash) {
     this.setState({
       hash: hash
     })
+  }
+
+  update(g_no, g_name) {
+    this.setState({
+      g_no: g_no,
+      g_name: g_name
+    })
+    this.props.group_update(g_no, g_name);
+    this.hashGetList(g_no);
   }
 
   render() {
@@ -76,7 +72,7 @@ export default class Sidebar extends React.Component {
           </NavDropdown>
         </Nav>
         <div className={styles.hashtagList}>
-            <HashtagList g_no={this.state.g_no} hash={this.state.hash} />
+          <HashtagList g_no={this.state.g_no} hash={this.state.hash} />
         </div>
       </div>
     );

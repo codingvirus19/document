@@ -6,8 +6,7 @@ const API_HEADERS = {
   "Content-Type": "application/json",
 };
 
-export default class HashList extends React.PureComponent {
-
+export default class HashList extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
@@ -43,9 +42,7 @@ export default class HashList extends React.PureComponent {
       hash: hash
     })
   }
-
   render() {
-    console.log(this.state.hash);
     return (
       <div className={styles.hashlist}>
         {/* 메모1의 해시 */}

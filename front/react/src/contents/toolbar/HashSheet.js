@@ -13,6 +13,7 @@ export default class HashSheet extends React.PureComponent {
     super(...arguments);
     this.state = {
       hash: [{ value: '', label: '' }],
+      memo_hash: null
     }
   }
 
@@ -34,6 +35,9 @@ export default class HashSheet extends React.PureComponent {
           }
         });
         this.UpdateHash(hash);
+        this.setState({
+          memo_hash: [hash[0]]
+        })
       })
       .catch((err) => console.error(err));
   }
@@ -45,39 +49,42 @@ export default class HashSheet extends React.PureComponent {
   }
 
   addHash(event) {
-    // 다 삭제 안되는 오류
-    let lastetEvent = event[event.length - 1]
-    if (lastetEvent.__isNew__) {
-      let data = {
-        gNo: this.props.memo_gNo,
-        mNo: this.props.memo_no,
-        name: lastetEvent.label
-      };
-      // console.log(data);
-      let hash = { value: '', label: '' };
-      fetch(`${API_URL}/api/addHash`, {
-        method: "post",
-        headers: API_HEADERS,
-        body: JSON.stringify(data)
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          hash.value = json.data.name,
-            hash.label = json.data.name
-          this.state.hash.push(hash)
-          console.log(this.state.hash);
+    if (event != null) {
+      let lastetEvent = event[event.length - 1]
+      if (lastetEvent.__isNew__) {
+        let data = {
+          gNo: this.props.memo_gNo,
+          mNo: this.props.memo_no,
+          name: lastetEvent.label
+        };
+        let hash = { value: '', label: '' };
+        fetch(`${API_URL}/api/addHash`, {
+          method: "post",
+          headers: API_HEADERS,
+          body: JSON.stringify(data)
         })
-        .catch((err) => console.error(err));
+          .then((response) => response.json())
+          .then((json) => {
+            hash.value = json.data.name,
+              hash.label = json.data.name
+            this.state.hash.push(hash)
+          })
+          .catch((err) => console.error(err));
+      }
     }
   }
 
   render() {
+    if(!this.state.memo_hash){
+      return <></>;
+    }
     return (
       <div className={styles.hashSheet} ref={this.props.refChange}>
         <div className={styles.container}>
           <div className={styles.title}>해시 추가</div>
-          <div className={styles.contents}>
+          <div onClick={(e) => e.stopPropagation()} className={styles.contents}>
             <CreatableSelect
+              defaultValue={ this.state.memo_hash }
               autoFocus={true}
               isMulti
               className={styles.searchHash}
