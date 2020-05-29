@@ -4,6 +4,11 @@ import { ToastContainer, toast, Slide } from "react-toastify";
 import "../../../ReactToastify.scss";
 import styles from "../Sheets.css";
 
+const API_URL = "http://localhost:8080/codingvirus19";
+const API_HEADERS = {
+  "Content-Type": "application/json",
+};
+
 export default class GroupShareSheet extends React.Component {
   constructor() {
     super(...arguments);
@@ -17,8 +22,8 @@ export default class GroupShareSheet extends React.Component {
     };
   }
 
+  // 희망하는 그룹을 선택 시 selectedOption에 해당 그룹의 value가 담긴다.
   handleChange(selectedOption) {
-    // 희망하는 그룹을 선택 시 Array에 해당 그룹의 value가 담긴다.
     this.setState({
       selectedOption: selectedOption,
     });
@@ -28,12 +33,19 @@ export default class GroupShareSheet extends React.Component {
   onClickSendShare(e) {
     e.preventDefault();
     console.log(this.props.no);
-    let send_gNoAndMemoNo = {
-      no: this.props.no,
-      gName: this.state.selectedOption,
-    };
-    console.log(send_gNoAndMemoNo);
 
+    let send_memoNoAndGNo = {
+      // no: 메모의 no로 db에서 content, color를 뽑아온다.
+      no: this.props.no,
+      // gNo의 수만큼, user session, 위에서 가져온 content, color를 memo에 insert해준다.
+      gNo: this.state.selectedOption,
+    };
+    console.log(send_memoNoAndGNo);
+
+    // call api (GroupShare)
+    this.ajaxGroupShare(send_memoNoAndGNo);
+
+    // toast알림
     toast("그룹에 메모가 공유되었습니다.", {
       position: "bottom-right",
       autoClose: 3000,
@@ -45,19 +57,24 @@ export default class GroupShareSheet extends React.Component {
     });
   }
 
-  ajaxShareMemo() {
+  ajaxGroupShare(_send_memoNoAndGNo) {
     // call api
+    let memoVoObj = null;
+    let memoVoArr = [];
+
+    for (let i = 0; i < _send_memoNoAndGNo.gNo.length; i++) {
+      memoVoObj = {
+        no: _send_memoNoAndGNo.no,
+        gNo: _send_memoNoAndGNo.gNo[i].value,
+      };
+      memoVoArr.push(memoVoObj);
+    }
+    console.log(memoVoArr);
     fetch(`${API_URL}/api/memo/shareMemo`, {
       method: "post",
       headers: API_HEADERS,
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        memo_bigArr = json.data;
-        this.UpdateMemo(memo_bigArr);
-      })
-      .catch((err) => console.error(err));
+      body: JSON.stringify(memoVoArr),
+    }).catch((err) => console.error(err));
   }
 
   render() {

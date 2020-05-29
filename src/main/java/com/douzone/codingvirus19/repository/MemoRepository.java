@@ -29,6 +29,11 @@ public class MemoRepository {
 		
 	}
 
+	public void shareMemo(MemoVo memoVo) {
+		sqlSession.insert("memo.shareMemo",memoVo);
+		
+	}
+
 //
 
 	

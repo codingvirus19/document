@@ -49,6 +49,7 @@ export default class Contents extends React.Component {
               />
               <HashList memo_no={this.props.memo_bigArr[index].no} />
               <Toolbar
+                // 선택한 메모의 no
                 no={this.props.memo_bigArr[index].no}
                 memo_gNo={this.props.memo_bigArr[index].gNo}
                 group={this.props.group}

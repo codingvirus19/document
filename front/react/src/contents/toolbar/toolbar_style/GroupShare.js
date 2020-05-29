@@ -76,6 +76,8 @@ export default class GroupShare extends React.Component {
         {this.state.showGroupShareSheet ? (
           //  {true ? (
           <GroupShareSheet
+            // 선택한 메모의 no
+            no={this.props.no}
             addNullToGroup={this.state.addNullToGroup}
             refChange={this.toggleContainer}
             closeGroupShareSheet={this.toggleGroupShareSheet.bind(this)}

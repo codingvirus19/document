@@ -18,9 +18,7 @@ export default class Toolbar extends React.Component {
       memo_gNo: this.props.memo_gNo,
       gNo: this.props.groupBySidebar.no,
       gName: this.props.groupBySidebar.name,
-
     };
-
   }
 
   render() {
@@ -28,12 +26,19 @@ export default class Toolbar extends React.Component {
       <div className={styles.toolbar}>
         {/* 그룹공유 */}
         <GroupShare
-          group={this.props.group} />
+          // 선택한 메모의 no
+          no={this.props.no}
+          group={this.props.group}
+        />
 
         <ColorChange />
 
         {/* 해시추가 */}
-        <AddHash hash={this.props.hash} no={this.props.no} memo_gNo={this.state.memo_gNo} />
+        <AddHash
+          hash={this.props.hash}
+          no={this.props.no}
+          memo_gNo={this.state.memo_gNo}
+        />
 
         {/* 내 컴퓨터에 저장 */}
         <SaveLocal />
@@ -42,7 +47,11 @@ export default class Toolbar extends React.Component {
         <ExternalSharing />
 
         {/* 메모삭제 */}
-        <MemoDelete SidebarGroupUpdate={this.props.SidebarGroupUpdate} no={this.state.no} gNo={this.state.gNo} />
+        <MemoDelete
+          SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+          no={this.state.no}
+          gNo={this.state.gNo}
+        />
       </div>
     );
   }

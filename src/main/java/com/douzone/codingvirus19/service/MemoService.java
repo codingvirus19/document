@@ -32,5 +32,15 @@ public class MemoService {
 	public List<HashVo> getHashListByMemo(MemoVo vo) {
 		return hashRepository.getHashListByMemo(vo);
 	}
+
+	public void shareMemo(MemoVo memoVo) {
+		memoRepository.shareMemo(memoVo);
+		
+	}
+
+//	public void shareMemo(MemoVo memoVo) {
+//		
+//		
+//	}
 }
 

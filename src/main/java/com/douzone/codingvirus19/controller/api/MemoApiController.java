@@ -33,8 +33,18 @@ public class MemoApiController {
 	static String str = "";
 
 	@PostMapping("/api/memo/shareMemo")
-	public void shareMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
-		System.out.println(vo);
+	public void shareMemo(@AuthUser SecurityUser securityUser, @RequestBody List<MemoVo> vo) {
+//		
+//		List<String> arr = new ArrayList<>();
+//		arr.add(0, "안");
+//		arr.add(1, "녕");
+//		System.out.println(arr.get(0));
+		
+		for(int i=0 ; i< vo.size(); i++) {
+			vo.get(i).setuNo(securityUser.getNo());
+			System.out.println(vo.get(i));
+			memoService.shareMemo(vo.get(i));
+		}
 //		vo.setuNo(securityUser.getNo());
 //		System.out.println("/api/memo/delete"+vo);
 //		if(vo.getgNo() == null) {
