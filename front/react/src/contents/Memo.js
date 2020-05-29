@@ -2,6 +2,7 @@ import React from "react";
 
 import styles from "./Memo.css";
 import Editor from "./Editor";
+import { Remarkable } from 'remarkable';
 import ShareEditor from "../header/headerMemu/ShareEditor";
 
 export default class Memo extends React.Component {
@@ -12,6 +13,19 @@ export default class Memo extends React.Component {
       showPopup: false,
       shareEditorPopup: false,
     }
+    this.md = new Remarkable('full', {
+      html: false,        // Enable HTML tags in source
+      xhtmlOut: false,        // Use '/' to close single tags (<br />)
+      breaks: false,        // Convert '\n' in paragraphs into <br>
+      langPrefix: 'language-',  // CSS language prefix for fenced blocks
+      linkify: true,         // autoconvert URL-like texts to links
+      linkTarget: '',           // set target to open link in
+      typographer: false,
+      markOpen: false
+
+  });
+
+
   }
 
   viewPopup(popdown) {
@@ -20,19 +34,26 @@ export default class Memo extends React.Component {
     })
   }
 
+  getReMarkDown() {
+    return { __html: this.md.render(this.props.content) };
+  }
+
+
   render() {
     return (
       <div onClick={this.viewPopup.bind(this)} id={this.props.index} name={this.props.no} value={this.props.content}
         className={styles.memo}>
-        <input value={this.props.content} />
-        {this.state.showPopup ? (
-          <Editor groupBySidebar={this.props.groupBySidebar}
-            group={this.props.group}
-            memo_bigArr={this.props.memo_bigArr} 
-            content={this.props.content} 
-            viewPopup={this.viewPopup.bind(this)} />
-        ) : null}
-      </div>
+        <div
+          dangerouslySetInnerHTML={this.getReMarkDown()}/>
+
+          {this.state.showPopup ? (
+            <Editor groupBySidebar={this.props.groupBySidebar}
+              group={this.props.group}
+              memo_bigArr={this.props.memo_bigArr}
+              content={this.props.content}
+              viewPopup={this.viewPopup.bind(this)} />
+          ) : null}
+        </div>
     );
   }
 }

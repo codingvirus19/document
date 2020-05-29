@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="hash">	
-	
-	<select id="getHashListByGroup" parameterType="memovo" resultType="hashvo">
+<mapper namespace="hash">
+
+	<select id="getHashListByGroup" parameterType="memovo"
+		resultType="hashvo">
 		<![CDATA[
 			select a.no, a.g_no, a.m_no, a.name
 			  from hash a, memo b
@@ -14,19 +15,20 @@
 				  (#{gNo} is not null and a.g_no=#{gNo}));
  		]]>
 	</select>
-	
-	<select id="getHashListByUser" parameterType="long" resultType="hashvo">
+
+	<select id="getHashListByUser" parameterType="long"
+		resultType="hashvo">
 		<![CDATA[
 			select a.no, a.g_no, a.m_no, a.name, b.u_no
-			from hash a left outer join memo b on a.g_no=b.g_no
-			where b.u_no=#{no}
-			union
-			select a.no, a.g_no, a.m_no, a.name, b.u_no
-			from hash a right outer join memo b on a.m_no=b.no
-			where b.u_no=#{no};
+         from hash a left outer join memo b on a.g_no=b.g_no
+         where b.u_no=#{no}
+         union
+         select a.no, a.g_no, a.m_no, a.name, b.u_no
+         from hash a, memo b where a.m_no=b.no
+         and b.u_no=#{no}
  		]]>
 	</select>
-	
+
 	<insert id="insertHash" parameterType="hashvo">
 	 	<![CDATA[
 			insert 
@@ -34,13 +36,14 @@
 			 value (null, #{gNo}, #{mNo}, #{name});
 		]]>
 	</insert>
-	
-	<select id="getHashListByMemo" parameterType="long" resultType="hashvo">
+
+	<select id="getHashListByMemo" parameterType="long"
+		resultType="hashvo">
 		<![CDATA[
 			select no, g_no, m_no, name
 			  from hash
 			 where m_no=#{no};
  		]]>
 	</select>
-	
+
 </mapper>

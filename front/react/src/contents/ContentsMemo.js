@@ -31,8 +31,6 @@ export default class Contents extends React.Component {
   
   }
 
- 
-
   render() {
     return (
     <div className={styles.memo} onDragOver={this.DragOver.bind(this)} >
@@ -43,12 +41,13 @@ export default class Contents extends React.Component {
                           memo_bigArr={this.props.memo_bigArr} content={this.props.memo_bigArr[index].content} />
             <HashList
                           memo_no={this.props.memo_bigArr[index].no}/>
-            <Toolbar
+            <Toolbar      
                           no={this.props.memo_bigArr[index].no}
                           memo_gNo={this.props.memo_bigArr[index].gNo}
                           group={this.props.group}
                           groupBySidebar={this.props.groupBySidebar}
                           color={this.props.memo_bigArr.color}
+                          SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                         />
           </div>
           )

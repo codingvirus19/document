@@ -37,7 +37,7 @@ export default class AddHash extends React.Component {
             this.setState({ showHashSheet: false });
         }
     }
-
+ 
     toggleHashSheet(e) {
         e.preventDefault();
         this.setState({
@@ -45,7 +45,6 @@ export default class AddHash extends React.Component {
             clickHashButton: !this.state.clickHashButton,
         });
     }
-    // 색상변경
     render() {
         return (
             <Fragment>
@@ -57,8 +56,8 @@ export default class AddHash extends React.Component {
 
                     <FontAwesomeIcon className={styles.faHashtag} icon={faHashtag} />
                 </button>
-                {/* {this.state.showHashSheet ? ( */}
-                {true ? (
+                {this.state.showHashSheet ? (
+                // {true ? (
                     <HashSheet
                         refChange={this.toggleContainer2}
                         hash={this.props.hash}

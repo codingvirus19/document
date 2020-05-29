@@ -20,6 +20,7 @@ public class MemoRepository {
 	private SqlSession sqlSession;
 
 	public void personDeleteMemo(MemoVo vo) {
+		sqlSession.delete("memo.memoHashDeleteMemo",vo);
 		sqlSession.delete("memo.personDeleteMemo",vo);
 	}
 

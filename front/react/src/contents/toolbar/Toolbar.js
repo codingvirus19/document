@@ -18,15 +18,17 @@ export default class Toolbar extends React.Component {
       memo_gNo: this.props.memo_gNo,
       gNo: this.props.groupBySidebar.no,
       gName: this.props.groupBySidebar.name,
+
     };
-    
+
   }
 
   render() {
     return (
       <div className={styles.toolbar}>
         {/* 그룹공유 */}
-        <GroupShare group={this.props.group} />
+        <GroupShare
+          group={this.props.group} />
 
         <ColorChange />
 
@@ -40,7 +42,7 @@ export default class Toolbar extends React.Component {
         <ExternalSharing />
 
         {/* 메모삭제 */}
-        <MemoDelete no={this.state.no} gNo={this.state.gNo} />
+        <MemoDelete SidebarGroupUpdate={this.props.SidebarGroupUpdate} no={this.state.no} gNo={this.state.gNo} />
       </div>
     );
   }

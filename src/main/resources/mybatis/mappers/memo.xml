@@ -7,11 +7,16 @@
 			delete from memo where no=#{no} and g_no is #{gNo} and u_no=#{uNo};
  		]]>
 	</select>
+	<select id="memoHashDeleteMemo" parameterType="memovo">
+		<![CDATA[
+		 delete from hash where no in (select * from (select b.no from memo a,hash b where a.no = #{uNo} group by b.no) t);
+ 		]]>
+	</select>
 	<select id="peopleDeleteMemo" parameterType="memovo">
 		<![CDATA[
 			delete from memo where no=#{no} and g_no= #{gNo} and u_no=#{uNo};
  		]]>
 	</select>
-	
+
 </mapper>
 	
