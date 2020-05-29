@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Remarkable } from 'remarkable';
 import styles from "../header/headerMemu/ShareEditor.css";
 import ShareEditor from "../header/headerMemu/ShareEditor";
@@ -43,26 +43,39 @@ export default class Editor extends React.Component {
                 <div className={editorstyles.inner}
                     onClick={(e) => { e.stopPropagation() }}>
 
-                    <div className={styles.editor}>
-                        <div className={styles.markDownView}
-                            dangerouslySetInnerHTML={this.getReMarkDown()}>
-                        </div>
-                        <div className={editorstyles.toolbar}>
-                            <Toolbar
-                                no={this.props.memo_bigArr.no}
-                                memo_gNo={this.props.memo_bigArr.gNo}
-                                group={this.props.group}
-                                groupBySidebar={this.props.groupBySidebar}
-                                color={this.props.memo_bigArr.color}
-                            />
-                        </div>
-                    </div>
-                    <button className={editorstyles.ShareEditorButton} onClick={this.togglePopdown.bind(this)}>
-                        <p>수정하기</p>
-                    </button>
                     {this.state.showPopup ? (
-                        <ShareEditor />
-                    ) : null}
+                        <Fragment>
+                            <ShareEditor  no={this.props.memo_bigArr.no}
+                                    memo_gNo={this.props.memo_bigArr.gNo}
+                                    group={this.props.group}
+                                    groupBySidebar={this.props.groupBySidebar}
+                                    color={this.props.memo_bigArr.color}
+                                    content={this.state.content} />
+                            <button className={editorstyles.ShareEditorButtonBack} onClick={this.togglePopdown.bind(this)}>
+                                <p>뒤로가기</p>
+                            </button>
+                        </Fragment>
+                    ) :
+                    <Fragment>
+                        <div className={styles.editor}>
+                            <div className={styles.markDownView}
+                                dangerouslySetInnerHTML={this.getReMarkDown()}>
+                            </div>
+                            <div className={editorstyles.toolbar}>
+                                <Toolbar
+                                    no={this.props.memo_bigArr.no}
+                                    memo_gNo={this.props.memo_bigArr.gNo}
+                                    group={this.props.group}
+                                    groupBySidebar={this.props.groupBySidebar}
+                                    color={this.props.memo_bigArr.color}
+                                />
+                            </div>
+                        </div>
+                        <button className={editorstyles.ShareEditorButton} onClick={this.togglePopdown.bind(this)}>
+                            <p>수정하기</p>
+                        </button>
+                        </Fragment>
+                        }
                 </div>
             </div>
         )

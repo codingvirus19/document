@@ -18,6 +18,9 @@ export default class Contents extends React.Component {
   }
   DragEnd() {
     this.dragStart.style.opacity = 1;
+    if(this.dragOver == undefined){
+      return;
+    }
     let from = Number(this.dragStart.dataset.id);
     let to = Number(this.dragOver.dataset.id);
     if (from < to) to--;
