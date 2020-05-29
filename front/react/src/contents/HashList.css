@@ -1,17 +1,35 @@
 .hashlist {
-    padding: 3px 0px;
-    display: flex;
-  }
+  padding: 3px 0px;
+  display: flex;
+}
 
-  .hash {
-    margin: auto 4px;
-    max-width: 150px;
-    display: inline-block;
-    padding: 3px 5px;
-    border: 1px solid rgba(170, 155, 155, 0.452);
-    background-color: rgb(226, 226, 226);
-    border-radius: 8px;
-    overflow: hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-  }
+.hash {
+  margin: auto 4px;
+  max-width: 150px;
+  display: inline-block;
+  padding: 3px 5px;
+  border: 1px solid rgba(170, 155, 155, 0.452);
+  background-color: rgb(226, 226, 226);
+  border-radius: 8px;
+}
+
+.hash_name {
+  padding: 0rem;
+  width: 80%;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.delete_btn {
+  padding: 0rem;
+  width: 10%;
+  display: none;
+}
+
+.delete_btn_hover {
+  padding: 0rem;
+  width: 10%;
+  display: inline;
+}
