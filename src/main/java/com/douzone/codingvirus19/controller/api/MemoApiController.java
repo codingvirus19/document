@@ -57,15 +57,16 @@ public class MemoApiController {
 	}
 	
 	@PostMapping("/api/memo/delete")
-	public void deleteMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
+	public JsonResult deleteMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
 		System.out.println(vo);
 		vo.setuNo(securityUser.getNo());
 		if(vo.getgNo() == null) {
-			memoService.personDeleteMemo(vo);
-			return;
+			boolean asyncTest = memoService.personDeleteMemo(vo);
+			System.out.println(asyncTest);
+			return JsonResult.success(asyncTest);
 		}else {
 			memoService.peopleDeleteMemo(vo);
-			return;
+			return JsonResult.success(null);
 		}
 	}
 	

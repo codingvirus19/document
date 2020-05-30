@@ -19,9 +19,10 @@ public class MemoRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public void personDeleteMemo(MemoVo vo) {
+	public int personDeleteMemo(MemoVo vo) {
 		sqlSession.delete("memo.memoHashDeleteMemo",vo);
-		sqlSession.delete("memo.personDeleteMemo",vo);
+		int asyncTest = sqlSession.delete("memo.personDeleteMemo",vo);
+		return asyncTest;
 	}
 
 	public void peopleDeleteMemo(MemoVo vo) {

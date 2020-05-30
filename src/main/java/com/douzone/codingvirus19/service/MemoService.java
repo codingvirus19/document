@@ -19,8 +19,9 @@ public class MemoService {
 	@Autowired
 	private HashRepository hashRepository;
 
-	public void personDeleteMemo(MemoVo vo) {
-		memoRepository.personDeleteMemo(vo);
+	public boolean personDeleteMemo(MemoVo vo) {
+		int asyncTestCount = memoRepository.personDeleteMemo(vo);
+		return asyncTestCount == 1;
 		
 	}
 

@@ -138,6 +138,7 @@ export default class Container extends React.Component {
   // sidebar에서 콜백된 파라미터 no와 name
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
   SidebarGroupUpdate(no, name) {
+    console.log(no);
     this.bringMemoByGroup(no);
     this.setState({
       groupBySidebar: {
