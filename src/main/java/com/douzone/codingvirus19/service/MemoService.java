@@ -25,9 +25,9 @@ public class MemoService {
 		
 	}
 
-	public void peopleDeleteMemo(MemoVo vo) {
-		memoRepository.peopleDeleteMemo(vo);
-		
+	public boolean peopleDeleteMemo(MemoVo vo) {
+		int asyncTestCount = memoRepository.peopleDeleteMemo(vo);
+		return asyncTestCount == 1;
 	}
 
 	public List<HashVo> getHashListByMemo(MemoVo vo) {

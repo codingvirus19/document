@@ -76,8 +76,15 @@ export default class GroupShare extends React.Component {
         {this.state.showGroupShareSheet ? (
           //  {true ? (
           <GroupShareSheet
-            // 선택한 메모의 no
+            // SidebarGroupUpdate: shareMemo 전송 후 수정된 메모list를 다시뿌려주기 위한 callback함수
+            SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+            // memo_gNo: 선택한 메모의 g_no이다. callback함수에 input되며,
+            //  메모리스트를 새로 불러올 때 해당 gNo페이지를 불러옴
+            memo_gNo={this.props.memo_gNo}
+            // no: 선택한 메모의 no
             no={this.props.no}
+            // addNullToGroup: 기존 그룹에 null을 추가하여 넣은 값,
+            // GroupShareSheet에서 Select 시 value값에 null을 넣기 위함.
             addNullToGroup={this.state.addNullToGroup}
             refChange={this.toggleContainer}
             closeGroupShareSheet={this.toggleGroupShareSheet.bind(this)}

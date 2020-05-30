@@ -40,7 +40,6 @@ export default class GroupShareSheet extends React.Component {
       // gNo의 수만큼, user session, 위에서 가져온 content, color를 memo에 insert해준다.
       gNo: this.state.selectedOption,
     };
-    console.log(send_memoNoAndGNo);
 
     // call api (GroupShare)
     this.ajaxGroupShare(send_memoNoAndGNo);
@@ -61,6 +60,7 @@ export default class GroupShareSheet extends React.Component {
     // call api
     let memoVoObj = null;
     let memoVoArr = [];
+    let getTrue = null;
 
     for (let i = 0; i < _send_memoNoAndGNo.gNo.length; i++) {
       memoVoObj = {
@@ -74,7 +74,15 @@ export default class GroupShareSheet extends React.Component {
       method: "post",
       headers: API_HEADERS,
       body: JSON.stringify(memoVoArr),
-    }).catch((err) => console.error(err));
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        getTrue = json.data;
+        if (getTrue != false) {
+          this.props.SidebarGroupUpdate(this.props.memo_gNo, this.state.gName);
+        }
+      })
+      .catch((err) => console.error(err));
   }
 
   render() {

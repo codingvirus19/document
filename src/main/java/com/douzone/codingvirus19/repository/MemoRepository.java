@@ -25,9 +25,9 @@ public class MemoRepository {
 		return asyncTest;
 	}
 
-	public void peopleDeleteMemo(MemoVo vo) {
-		sqlSession.delete("memo.peopleDeleteMemo",vo);
-		
+	public int peopleDeleteMemo(MemoVo vo) {
+		int asyncTest = sqlSession.delete("memo.peopleDeleteMemo",vo);
+		return asyncTest;
 	}
 
 	public void shareMemo(MemoVo memoVo) {

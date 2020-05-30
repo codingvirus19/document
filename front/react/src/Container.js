@@ -109,7 +109,6 @@ export default class Container extends React.Component {
       .then((json) => {
         // memo_bigArr : input한 그룹의 memo db 전부를 가져온다.
         memo_bigArr = json.data;
-        console.log(memo_bigArr);
         this.UpdateMemo(memo_bigArr);
       })
       .catch((err) => console.error(err));
@@ -137,8 +136,8 @@ export default class Container extends React.Component {
 
   // sidebar에서 콜백된 파라미터 no와 name
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
+  // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo 클릭 시....
   SidebarGroupUpdate(no, name) {
-    console.log(no);
     this.bringMemoByGroup(no);
     this.setState({
       groupBySidebar: {

@@ -33,40 +33,34 @@ public class MemoApiController {
 	static String str = "";
 
 	@PostMapping("/api/memo/shareMemo")
-	public void shareMemo(@AuthUser SecurityUser securityUser, @RequestBody List<MemoVo> vo) {
-//		
-//		List<String> arr = new ArrayList<>();
-//		arr.add(0, "안");
-//		arr.add(1, "녕");
-//		System.out.println(arr.get(0));
-		
-		for(int i=0 ; i< vo.size(); i++) {
+	public JsonResult shareMemo(@AuthUser SecurityUser securityUser, @RequestBody List<MemoVo> vo) {
+		int i;
+		boolean asyncTest = true;
+		for(i=0 ; i< vo.size(); i++) {
 			vo.get(i).setuNo(securityUser.getNo());
 			System.out.println(vo.get(i));
 			memoService.shareMemo(vo.get(i));
+			System.out.println(i);
+			if(i == vo.size()-1) {
+				break;
+			}else if(i != vo.size()-1) {
+				continue;
+			}
 		}
-//		vo.setuNo(securityUser.getNo());
-//		System.out.println("/api/memo/delete"+vo);
-//		if(vo.getgNo() == null) {
-//			memoService.personDeleteMemo(vo);
-//			return;
-//		}else {
-//			memoService.peopleDeleteMemo(vo);
-//			return;
-//		}
+		return JsonResult.success(asyncTest);
 	}
 	
 	@PostMapping("/api/memo/delete")
 	public JsonResult deleteMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
-		System.out.println(vo);
 		vo.setuNo(securityUser.getNo());
 		if(vo.getgNo() == null) {
 			boolean asyncTest = memoService.personDeleteMemo(vo);
 			System.out.println(asyncTest);
 			return JsonResult.success(asyncTest);
-		}else {
-			memoService.peopleDeleteMemo(vo);
-			return JsonResult.success(null);
+		}
+		else {
+			boolean asyncTest = memoService.peopleDeleteMemo(vo);
+			return JsonResult.success(asyncTest);
 		}
 	}
 	
