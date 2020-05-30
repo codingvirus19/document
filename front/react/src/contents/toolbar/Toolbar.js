@@ -14,9 +14,9 @@ export default class Toolbar extends React.Component {
     super(...arguments);
     this.state = {
       // showShareSheet: false,
-      no: this.props.no,
+      // no: this.props.no,
       memo_gNo: this.props.memo_gNo,
-      gNo: this.props.groupBySidebar.no,
+      // gNo: this.props.groupBySidebar.no,
       gName: this.props.groupBySidebar.name,
     };
   }
@@ -49,8 +49,8 @@ export default class Toolbar extends React.Component {
         {/* 메모삭제 */}
         <MemoDelete
           SidebarGroupUpdate={this.props.SidebarGroupUpdate}
-          no={this.state.no}
-          gNo={this.state.gNo}
+          no={this.props.no}
+          gNo={this.props.groupBySidebar.no}
         />
       </div>
     );

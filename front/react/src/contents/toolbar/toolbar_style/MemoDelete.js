@@ -11,25 +11,26 @@ const API_HEADERS = {
 };
 
 export default class MemoDelete extends React.Component {
-
   constructor() {
-    super(...arguments)
+    super(...arguments);
     this.state = {
       no: this.props.no,
       gNo: this.props.gNo,
-    }
+    };
   }
 
   // delete기능
   onClickDelete(e) {
     e.preventDefault();
     let input_deleteMemo = {
+      // memo의 no와 gNo이다.
       no: this.state.no,
       gNo: this.state.gNo,
     };
+    console.log(input_deleteMemo);
     this.ajaxDeleteMemo(input_deleteMemo);
+    // 해야할 것(dongeun)0530 맨처음 delete시 작동안됨 오류 수정 필요!
     this.props.SidebarGroupUpdate(this.state.gNo, this.state.gName);
-
   }
   // delete기능
 
@@ -53,7 +54,7 @@ export default class MemoDelete extends React.Component {
         >
           <FontAwesomeIcon className={styles.faTrashAlt} icon={faTrashAlt} />
         </button>
-      </Fragment >
-    )
+      </Fragment>
+    );
   }
 }
