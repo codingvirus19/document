@@ -33,6 +33,7 @@ export default class Toolbar extends React.Component {
           memo_gNo={this.props.memo_gNo}
           // no: 선택한 메모의 no
           no={this.props.no}
+          // 해당 세션no에 포함되어있는 모든 group이다.
           group={this.props.group}
         />
 

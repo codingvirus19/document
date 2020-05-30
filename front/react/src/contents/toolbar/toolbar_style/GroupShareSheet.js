@@ -32,7 +32,6 @@ export default class GroupShareSheet extends React.Component {
 
   onClickSendShare(e) {
     e.preventDefault();
-    console.log(this.props.no);
 
     let send_memoNoAndGNo = {
       // no: 메모의 no로 db에서 content, color를 뽑아온다.
@@ -61,15 +60,16 @@ export default class GroupShareSheet extends React.Component {
     let memoVoObj = null;
     let memoVoArr = [];
     let getTrue = null;
+    let gNameFromGroupsState;
+    let i = null;
 
-    for (let i = 0; i < _send_memoNoAndGNo.gNo.length; i++) {
+    for (i = 0; i < _send_memoNoAndGNo.gNo.length; i++) {
       memoVoObj = {
         no: _send_memoNoAndGNo.no,
         gNo: _send_memoNoAndGNo.gNo[i].value,
       };
       memoVoArr.push(memoVoObj);
     }
-    console.log(memoVoArr);
     fetch(`${API_URL}/api/memo/shareMemo`, {
       method: "post",
       headers: API_HEADERS,
@@ -77,9 +77,22 @@ export default class GroupShareSheet extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
+        // memoShare전송 후 내가 클릭한 메모의 gName페이지로 이동하기위해
+        // 클릭한 메모의 gNo를 전체 그룹과 비교하여 gName을 찾아내는 반복문
+        for (i = 0; i < this.state.groups.length; i++) {
+          if (this.props.memo_gNo == this.state.groups[i].value) {
+            gNameFromGroupsState = this.state.groups[i].label;
+          }
+        }
         getTrue = json.data;
+
+        // shareGroup 전송 클릭시 쿼리 삭제 전에 콜백에서 메모를 뿌려주기 때문에 실시간으로 작동 x
+        // 아래에서 db에서 삭제 진행 완료 후 true신호가 오면 콜백을 보내도록 설정한 코드이다.
         if (getTrue != false) {
-          this.props.SidebarGroupUpdate(this.props.memo_gNo, this.state.gName);
+          this.props.SidebarGroupUpdate(
+            this.props.memo_gNo,
+            gNameFromGroupsState
+          );
         }
       })
       .catch((err) => console.error(err));
