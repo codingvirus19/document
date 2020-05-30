@@ -4,7 +4,6 @@ import HashList from "./HashList";
 import Toolbar from "./toolbar/Toolbar";
 import styles from "./ContentsMemo.css";
 
-
 export default class Contents extends React.PureComponent {
 
   constructor() {
@@ -15,9 +14,9 @@ export default class Contents extends React.PureComponent {
   }
   DragStart(e) {
     this.dragStart = e.currentTarget;
-    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.effectAllowed = "move";
     e.target.style.opacity = 0.1;
-    e.dataTransfer.setData('text/html', this.dragStart);
+    e.dataTransfer.setData("text/html", this.dragStart);
   }
   DragEnd() {
     this.dragStart.style.opacity = 1;
@@ -58,6 +57,7 @@ export default class Contents extends React.PureComponent {
               setMemo_hash={this.setMemo_hash.bind(this)}
             />
             <Toolbar
+              // 선택한 메모의 no
               no={this.props.memo_bigArr[index].no}
               memo_gNo={this.props.memo_bigArr[index].gNo}
               group={this.props.group}
@@ -69,7 +69,6 @@ export default class Contents extends React.PureComponent {
           </div>
           )
         )}
-
       </div>
     );
   }

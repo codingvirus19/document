@@ -19,14 +19,15 @@ public class MemoService {
 	@Autowired
 	private HashRepository hashRepository;
 
-	public void personDeleteMemo(MemoVo vo) {
-		memoRepository.personDeleteMemo(vo);
+	public boolean personDeleteMemo(MemoVo vo) {
+		int asyncTestCount = memoRepository.personDeleteMemo(vo);
+		return asyncTestCount == 1;
 		
 	}
 
-	public void peopleDeleteMemo(MemoVo vo) {
-		memoRepository.peopleDeleteMemo(vo);
-		
+	public boolean peopleDeleteMemo(MemoVo vo) {
+		int asyncTestCount = memoRepository.peopleDeleteMemo(vo);
+		return asyncTestCount == 1;
 	}
 
 	public List<HashVo> getHashListByMemo(MemoVo vo) {
@@ -35,6 +36,10 @@ public class MemoService {
 
 	public void deleteHash(Long no) {
 		hashRepository.deleteHash(no);
+	}
+	public void shareMemo(MemoVo memoVo) {
+		memoRepository.shareMemo(memoVo);
+		
 	}
 }
 
