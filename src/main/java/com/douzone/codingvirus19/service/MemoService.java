@@ -34,14 +34,12 @@ public class MemoService {
 		return hashRepository.getHashListByMemo(vo);
 	}
 
+	public void deleteHash(Long no) {
+		hashRepository.deleteHash(no);
+	}
 	public void shareMemo(MemoVo memoVo) {
 		memoRepository.shareMemo(memoVo);
 		
 	}
-
-//	public void shareMemo(MemoVo memoVo) {
-//		
-//		
-//	}
 }
 

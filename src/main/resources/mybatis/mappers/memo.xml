@@ -8,6 +8,7 @@
  		]]>
 	</select>
 	<select id="memoHashDeleteMemo" parameterType="memovo">
+
       <![CDATA[
       delete
         from hash 

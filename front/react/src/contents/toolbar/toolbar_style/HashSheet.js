@@ -27,17 +27,21 @@ export default class HashSheet extends React.PureComponent {
       .then((response) => response.json())
       .then((json) => {
         hashDatas = json.data;
-        console.log(hashDatas);
-          hash = hashDatas.map((element) => {
-            return {
-              value: element.name,
-              label: element.name
-            }
-          })
-          console.log(hash);
+        hash = hashDatas.map((element) => {
+          return {
+            value: element.name,
+            label: element.name
+          }
+        })
         this.UpdateHash(hash);
         this.setState({
-          memo_hash: [hash[0]]
+          memo_hash: this.props.memo_hash.map(element => {
+            return {
+              value: element.no,
+              label: element.name,
+              memo_no: element.memo_no
+            }
+          })
         })
       })
       .catch((err) => console.error(err));
@@ -52,26 +56,24 @@ export default class HashSheet extends React.PureComponent {
   addHash(event) {
     if (event != null) {
       let lastetEvent = event[event.length - 1]
-      if (lastetEvent.__isNew__) {
-        let data = {
-          gNo: this.props.memo_gNo,
-          mNo: this.props.memo_no,
-          name: lastetEvent.label
-        };
-        let hash = { value: '', label: '' };
-        fetch(`${API_URL}/api/addHash`, {
-          method: "post",
-          headers: API_HEADERS,
-          body: JSON.stringify(data)
+      let data = {
+        gNo: this.props.memo_gNo,
+        mNo: this.props.memo_no,
+        name: lastetEvent.label
+      };
+      let hash = { value: '', label: '' };
+      fetch(`${API_URL}/api/addHash`, {
+        method: "post",
+        headers: API_HEADERS,
+        body: JSON.stringify(data)
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          hash.value = json.data.name,
+            hash.label = json.data.name
+          this.state.hash.push(hash)
         })
-          .then((response) => response.json())
-          .then((json) => {
-            hash.value = json.data.name,
-              hash.label = json.data.name
-            this.state.hash.push(hash)
-          })
-          .catch((err) => console.error(err));
-      }
+        .catch((err) => console.error(err));
     }
   }
 
@@ -111,9 +113,7 @@ export default class HashSheet extends React.PureComponent {
             onClick={this.props.closeGroupShareSheet}>
             취소
               </button>
-
         </div>
-
       </div>
     );
   }

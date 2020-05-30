@@ -113,5 +113,12 @@ public class MemoApiController {
 		List<HashVo> HashListByMemo = memoService.getHashListByMemo(vo);
 		return JsonResult.success(HashListByMemo);
 	}
+	
+	
+	@PostMapping("/api/deleteHash")
+	public void deleteHash(@RequestBody HashVo vo){
+		memoService.deleteHash(vo.getNo());
+		return;
+	}
 
 }

@@ -25,6 +25,7 @@ public class MemoRepository {
 		return asyncTest;
 	}
 
+
 	public int peopleDeleteMemo(MemoVo vo) {
 		int asyncTest = sqlSession.delete("memo.peopleDeleteMemo",vo);
 		return asyncTest;
@@ -32,10 +33,5 @@ public class MemoRepository {
 
 	public void shareMemo(MemoVo memoVo) {
 		sqlSession.insert("memo.shareMemo",memoVo);
-		
 	}
-
-//
-
-	
 }
