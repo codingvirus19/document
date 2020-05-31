@@ -50,6 +50,7 @@ export default class Memo extends React.Component {
             <Editor groupBySidebar={this.props.groupBySidebar}
               group={this.props.group}
               memo_bigArr={this.props.memo_bigArr}
+              index = {this.props.index}
               content={this.props.content}
               viewPopup={this.viewPopup.bind(this)} />
           ) : null}

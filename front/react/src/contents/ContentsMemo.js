@@ -50,8 +50,10 @@ export default class Contents extends React.PureComponent {
               groupBySidebar={this.props.groupBySidebar}
               group={this.props.group}
               memo_bigArr={this.props.memo_bigArr}
+              index={index} 
               content={this.props.memo_bigArr[index].content}
             />
+
             <HashList
               memo_no={this.props.memo_bigArr[index].no}
               setMemo_hash={this.setMemo_hash.bind(this)}

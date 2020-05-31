@@ -18,6 +18,7 @@ import {
 export default class Popup extends React.Component {
   constructor(props) {
     super(props);
+    console.log(this.props.no);
     this.md = new Remarkable('full', {
       html: false,        // Enable HTML tags in source
       xhtmlOut: false,        // Use '/' to close single tags (<br />)
@@ -29,11 +30,11 @@ export default class Popup extends React.Component {
       markOpen: false
 
     });
+    this.temp = null;
     this.state = {
       value: this.props.content,
       cursor: '',
       textSize: 0,
-      memoNo: 0,
       version: 0,
       name: "test" + Math.round(Math.random() * 100)
     };
@@ -103,7 +104,7 @@ export default class Popup extends React.Component {
 
   send(input_index, size, key, version, type) {
     this.clientRef
-      .sendMessage('/app/memo/' + this.state.memoNo,
+      .sendMessage('/app/memo/' + this.props.no,
         JSON.stringify({
           inputIndex: input_index,
           size: size,
@@ -163,21 +164,20 @@ export default class Popup extends React.Component {
     let textsize = e.target.value.length;
     let input_index = e.target.selectionStart;
     let key = e.target.value.substring(input_index - 1, input_index);
-    let temp = this.getSnapshotBeforeUpdate(this.state.textSize);
+    this.temp = this.getSnapshotBeforeUpdate(this.state.textSize);
 
     // this.send(input_index,textsize,key,(this.state.version));
-    console.log("temp", temp, "textsize", textsize)
-    if (temp > textsize) {
-      this.deleteInput(input_index, (temp - (e.target.value.split('').length + 1)));
-      this.send(input_index, (temp - (e.target.value.split('').length + 1)), "", (this.state.version), "delete");
+    if (this.temp > textsize) {
+      this.deleteInput(input_index, (this.temp - (e.target.value.split('').length + 1)));
+      this.send(input_index, (this.temp - (e.target.value.split('').length + 1)), "", (this.state.version), "delete");
       // console.log("글자지우기");
-    } else if (temp == textsize) {
+    } else if (this.temp == textsize) {
       // console.log("한글입력")
       this.send(input_index, textsize, key, (this.state.version), "korean");
       this.koreanInput(input_index, key);
       //한글입력 오류 잡기~
-    } else if ((temp + 1) < textsize) {
-      let key = e.target.value.substring((input_index - ((textsize) - temp)), input_index);
+    } else if ((this.temp + 1) < textsize) {
+      let key = e.target.value.substring((input_index - ((textsize) - this.temp)), input_index);
       let text = this.getSnapshotBeforeUpdate(this.state.value);
       text = text.split('');
       this.send(input_index, (textsize - text.length), key, (this.state.version), "copy");
@@ -185,6 +185,7 @@ export default class Popup extends React.Component {
       // console.log("복사");
     } else {
       // console.log("기본입력",input_index);
+      console.log(textsize);
       this.send(input_index, textsize, key, (this.state.version), "basic");
       this.keyInput(input_index, key);
     }
@@ -201,18 +202,17 @@ export default class Popup extends React.Component {
   receiveHevent(inputIndex, key) {
     let text = this.getSnapshotBeforeUpdate(this.state.value);
     text = text.split('');
-    console.log(inputIndex, key);
     text.splice(inputIndex, 0, key);
     this.viewSet(text);
   }
-  reciveBevent1(inputIndex) {
+  receiveBevent1(inputIndex) {
     let text = this.getSnapshotBeforeUpdate(this.state.value);
     text = text.split('');
     text.splice(0, 0, "**");
     text.splice(inputIndex, 0, "**");
     this.viewSet(text);
   }
-  reciveBevent2(inputIndex, lastIndex) {
+  receiveBevent2(inputIndex, lastIndex) {
     let text = this.getSnapshotBeforeUpdate(this.state.value);
     text = text.split('');
     text.splice(inputIndex, 0, "**");
@@ -224,8 +224,14 @@ export default class Popup extends React.Component {
     this.setState({
       version: message.version
     })
-    if (message.type == "error" && message.name == this.state.name) {
-      console.log(message.version, "error");
+    if (message.type == "allKey" && message.name == this.state.name) {
+      this.setState({
+        value: message.key,
+        textSize: message.key.split('').length,
+        version: message.version
+      })
+    }
+    else if (message.type == "error" && message.name == this.state.name) {
       this.setState({
         value: message.key,
         textSize: message.key.split('').length,
@@ -245,26 +251,28 @@ export default class Popup extends React.Component {
     } else if (message.type == "hevent") {
       this.receiveHevent(message.inputIndex, message.key);
     } else if (message.type == "boldevent1") {
-      this.reciveBevent1(message.inputIndex);
+      this.receiveBevent1(message.inputIndex);
     } else if (message.type == "boldevent2") {
-      console.log("2");
-      this.reciveBevent2(message.inputIndex, message.size);
+      this.receiveBevent2(message.inputIndex, message.size);
     }
   }
   memoSave() {
-    console.log()
+    this.send(0,0,0,0,"save");
   }
   markOpen() {
     this.setState({
       markOpen: !this.state.markOpen
     })
   }
-  render() {
-    const tempStyle = {
-      width: "200px",
-      height: "200px",
-      background: "#ff2"
+  editorStart() {
+    console.log("start");
+    if (this.temp == null) {
+      this.send(0, 0, this.props.content, 0, "allKey");
+      this.temp = this.props.content.split('').length;
+      console.log(this.temp);
     }
+  }
+  render() {
 
     return (
 
@@ -272,7 +280,7 @@ export default class Popup extends React.Component {
         <div>
           <SockJsClient
             url='./api/memo'
-            topics={[`/api/memo/${this.state.memoNo}`]}
+            topics={[`/api/memo/${this.props.no}`]}
             onMessage={this.receive.bind(this)}
             ref={(client) => { this.clientRef = client }} />
         </div>
@@ -300,6 +308,7 @@ export default class Popup extends React.Component {
                   rows="2"
                   cols="20"
                   className={styles.edit}
+                  onClick={this.editorStart.bind(this)}
                   onBlur={this.cursorEvent.bind(this)}
                   onChange={this.editorPush.bind(this)}
                   value={this.state.value}></textarea>
