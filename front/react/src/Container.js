@@ -28,7 +28,7 @@ export default class Container extends React.Component {
   }
 
   componentDidMount() {
-    // 그룹의 db를 가져오는 코드
+    // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
     let group = { no: [], gname: [] };
     let groupDatas = null;
     this.bringMemoByGroup(this.state.groupBySidebar.no);
@@ -46,6 +46,7 @@ export default class Container extends React.Component {
           group.no.push(json.no);
           group.gname.push(json.name);
         });
+        // UpdateGroup(): group에 setState하는 함수
         this.UpdateGroup(group);
       })
       .catch((err) => console.error(err));
@@ -69,20 +70,20 @@ export default class Container extends React.Component {
 
     // Sidebar의 HashtagList를 가져오는 코드
     let g_no = { no: this.state.g_no };
-    let hash = [{ no: "", name: "" }]
+    let hash = [{ no: "", name: "" }];
     fetch(`${API_URL}/api/getHashListByGroup`, {
       method: "post",
       headers: API_HEADERS,
-      body: JSON.stringify(g_no)
+      body: JSON.stringify(g_no),
     })
       .then((response) => response.json())
       .then((json) => {
-        hash = json.data.map(element => {
+        hash = json.data.map((element) => {
           return {
             no: element.no,
-            name: element.name
-          }
-        })
+            name: element.name,
+          };
+        });
         this.UpdateHash(hash);
       })
       .catch((err) => console.error(err));
@@ -95,10 +96,11 @@ export default class Container extends React.Component {
 
   UpdateHash(hash) {
     this.setState({
-      hash: hash
-    })
+      hash: hash,
+    });
   }
 
+  // group의 no와 Session no로
   bringMemoByGroup(_groupNumbers) {
     let data = {
       no: _groupNumbers,
@@ -113,6 +115,7 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
+        // memo_bigArr : input한 그룹의 memo db 전부를 가져온다.
         memo_bigArr = json.data;
         this.UpdateMemo(memo_bigArr);
       })
@@ -140,6 +143,8 @@ export default class Container extends React.Component {
   }
 
   // sidebar에서 콜백된 파라미터 no와 name
+  // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
+  // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo 클릭 시....
   SidebarGroupUpdate(no, name) {
     this.bringMemoByGroup(no);
     this.setState({
@@ -157,7 +162,6 @@ export default class Container extends React.Component {
   }
   memo_Change(drag, drop) {
     //를 서버로 보내야댐 ㅇㅋㅇㅋ;
-
   }
 
   callbackFromToolbar(_gNo) {

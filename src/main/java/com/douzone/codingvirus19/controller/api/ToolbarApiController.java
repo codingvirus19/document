@@ -24,7 +24,6 @@ public class ToolbarApiController {
 	@PostMapping("/getHashListByUser")
 	public JsonResult getHashListByUser(@AuthUser SecurityUser securityUser) {
 		List<HashVo> hashListByUser = toolbarService.getHashListByUser(securityUser.getNo());
-		System.out.println(hashListByUser);
 		return JsonResult.success(hashListByUser);
 	}
 	

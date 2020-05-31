@@ -11,34 +11,46 @@ const API_HEADERS = {
 };
 
 export default class MemoDelete extends React.Component {
-
   constructor() {
-    super(...arguments)
+    super(...arguments);
     this.state = {
       no: this.props.no,
       gNo: this.props.gNo,
-    }
+    };
   }
 
   // delete기능
   onClickDelete(e) {
     e.preventDefault();
     let input_deleteMemo = {
+      // memo의 no와 gNo이다.
       no: this.state.no,
       gNo: this.state.gNo,
     };
+    console.log(input_deleteMemo);
     this.ajaxDeleteMemo(input_deleteMemo);
-    this.props.SidebarGroupUpdate(this.state.gNo, this.state.gName);
-
   }
   // delete기능
 
   ajaxDeleteMemo(_deleteMemo) {
+    let getTrue = null;
     fetch(`${API_URL}/api/memo/delete`, {
       method: "post",
       headers: API_HEADERS,
       body: JSON.stringify(_deleteMemo),
-    }).catch((err) => console.error(err));
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        getTrue = json.data;
+        // delete를 클릭시 쿼리 삭제 전에 콜백에서 메모를 뿌려주기 때문에 실시간으로 작동 x
+        // 아래에서 db에서 삭제 진행 완료 후 true신호가 오면 콜백을 보내도록 설정한 코드이다.
+        if (getTrue != false) {
+          this.props.SidebarGroupUpdate(this.state.gNo, this.state.gName);
+        }
+      })
+      .catch((err) => console.error(err));
+
+    // 해야할 것(dongeun)0530 맨처음 delete시 작동안됨 오류 수정 필요!
   }
 
   render() {
@@ -53,7 +65,7 @@ export default class MemoDelete extends React.Component {
         >
           <FontAwesomeIcon className={styles.faTrashAlt} icon={faTrashAlt} />
         </button>
-      </Fragment >
-    )
+      </Fragment>
+    );
   }
 }
