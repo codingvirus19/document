@@ -35,28 +35,35 @@ public class MemoApiController {
 	static Map<Long, ArrayList<Long>> versionList = new HashMap<>();
 	static boolean first = true;
 	@PostMapping("/api/memo/shareMemo")
-	public void shareMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
-//		vo.setuNo(securityUser.getNo());
-//		System.out.println("/api/memo/delete"+vo);
-//		if(vo.getgNo() == null) {
-//			memoService.personDeleteMemo(vo);
-//			return;
-//		}else {
-//			memoService.peopleDeleteMemo(vo);
-//			return;
-//		}
+
+	public JsonResult shareMemo(@AuthUser SecurityUser securityUser, @RequestBody List<MemoVo> vo) {
+		int i;
+		boolean asyncTest = true;
+		for(i=0 ; i< vo.size(); i++) {
+			vo.get(i).setuNo(securityUser.getNo());
+			System.out.println(vo.get(i));
+			memoService.shareMemo(vo.get(i));
+			System.out.println(i);
+			if(i == vo.size()-1) {
+				break;
+			}else if(i != vo.size()-1) {
+				continue;
+			}
+		}
+		return JsonResult.success(asyncTest);
 	}
 	
 	@PostMapping("/api/memo/delete")
-	public void deleteMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
-		System.out.println(vo);
+	public JsonResult deleteMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
 		vo.setuNo(securityUser.getNo());
 		if(vo.getgNo() == null) {
-			memoService.personDeleteMemo(vo);
-			return;
-		}else {
-			memoService.peopleDeleteMemo(vo);
-			return;
+			boolean asyncTest = memoService.personDeleteMemo(vo);
+			System.out.println(asyncTest);
+			return JsonResult.success(asyncTest);
+		}
+		else {
+			boolean asyncTest = memoService.peopleDeleteMemo(vo);
+			return JsonResult.success(asyncTest);
 		}
 	}
 	
@@ -135,6 +142,13 @@ public class MemoApiController {
 	public JsonResult getHashListByMemo(@RequestBody MemoVo vo){
 		List<HashVo> HashListByMemo = memoService.getHashListByMemo(vo);
 		return JsonResult.success(HashListByMemo);
+	}
+	
+	
+	@PostMapping("/api/deleteHash")
+	public void deleteHash(@RequestBody HashVo vo){
+		memoService.deleteHash(vo.getNo());
+		return;
 	}
 
 }

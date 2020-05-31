@@ -8,20 +8,47 @@
  		]]>
 	</select>
 	<select id="memoHashDeleteMemo" parameterType="memovo">
-		<![CDATA[
-		 delete from hash where no in (select * from (select b.no from memo a,hash b where a.no = #{uNo} group by b.no) t);
- 		]]>
-	</select>
+
+      <![CDATA[
+      delete
+        from hash 
+       where no in (select * 
+                     from (select b.no 
+                              from memo a, hash b 
+                        where a.no = #{no}
+                              and a.no = b.m_no
+                             group by b.no) t);
+       ]]>
+   </select>
 	<select id="peopleDeleteMemo" parameterType="memovo">
 		<![CDATA[
 			delete from memo where no=#{no} and g_no= #{gNo} and u_no=#{uNo};
  		]]>
 	</select>
+
+	<insert id="shareMemo" parameterType="memovo">
+		<![CDATA[
+			insert into memo(no, g_no, u_no, content, color, date) 
+			values (
+				null,
+				#{gNo},
+				#{uNo},
+			    (select a.content
+				from memo a
+				where a.no=#{no}),
+			    (select a.color
+				from memo a
+				where no=#{no}),
+			    now());
+ 		]]>
+	</insert>
+
 	<update id="memoUpdate" parameterType="memovo">
 	<![CDATA[
 		update memo set content = #{content}, color=#{color} where no = #{no};
 	]]>
 	</update>
+
 
 </mapper>
 	
