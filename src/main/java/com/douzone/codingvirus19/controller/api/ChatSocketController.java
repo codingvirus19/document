@@ -7,6 +7,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import com.douzone.codingvirus19.service.ChatService;
+import com.douzone.codingvirus19.vo.AlarmVo;
 import com.douzone.codingvirus19.vo.ChatVo;
 
 @Controller
@@ -26,6 +27,19 @@ public class ChatSocketController {
 		chatService.addChattin(chatVo);
 		
 		webSocket.convertAndSend("/api/chat/" + room, chatVo);
+//			webSocket.setUserDestinationPrefix("dd");
+//			webSocket.convertAndSend("/api/chat/"+room, chatMessage);
+	}
+	
+	@MessageMapping("/alarm/{room}")
+	public void alarmMessage(AlarmVo alarmVo, @DestinationVariable String room) throws Exception {
+		System.out.println("알람 소켓 들어 왔습니다.");
+		System.out.println(room);
+		System.out.println(alarmVo);
+//
+//		chatService.addChattin(chatVo);
+		
+		webSocket.convertAndSend("/api/chat/" + room, alarmVo);
 //			webSocket.setUserDestinationPrefix("dd");
 //			webSocket.convertAndSend("/api/chat/"+room, chatMessage);
 	}

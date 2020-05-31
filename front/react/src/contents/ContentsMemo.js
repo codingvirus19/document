@@ -65,6 +65,7 @@ export default class Contents extends React.PureComponent {
               memo_hash={this.state.memo_hash.filter(element => element.memo_no===this.props.memo_bigArr[index].no)}
               color={this.props.memo_bigArr.color}
               SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+              clientRef={this.props.clientRef}
             />
           </div>
           )
@@ -73,3 +74,4 @@ export default class Contents extends React.PureComponent {
     );
   }
 }
+//

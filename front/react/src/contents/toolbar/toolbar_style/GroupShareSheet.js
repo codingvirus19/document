@@ -16,8 +16,8 @@ export default class GroupShareSheet extends React.Component {
       g_noUpdate: "",
       currentG_no: null,
       groups: this.props.addNullToGroup,
+      clientRef: this.props.clientRef
       selectedOption: null,
-
       // 다 삭제 안되는 오류
     };
   }
@@ -30,9 +30,14 @@ export default class GroupShareSheet extends React.Component {
     console.log(selectedOption);
   }
 
-  onClickSendShare(e) {
+  onClickSendShare(e, g_no) {
     e.preventDefault();
 
+    this.props.clientRef.share("/app/alarm/" + g_no, JSON.stringify({
+      gNo : g_no,
+      chat : "그룹에 메모가 공유되었습니다."
+    }));
+    
     let send_memoNoAndGNo = {
       // no: 메모의 no로 db에서 content, color를 뽑아온다.
       no: this.props.no,
@@ -122,7 +127,7 @@ export default class GroupShareSheet extends React.Component {
         </div>
         <div className={styles.btns}>
           <button
-            onClick={this.onClickSendShare.bind(this)}
+            onClick={this.onClickSendShare.bind(this, this.state.groups.gNo)}
             type="submit"
             className={styles.confirm_btn}
           >
@@ -151,3 +156,4 @@ export default class GroupShareSheet extends React.Component {
     );
   }
 }
+//

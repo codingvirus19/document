@@ -35,6 +35,7 @@ export default class Toolbar extends React.PureComponent {
           no={this.props.no}
           // 해당 세션no에 포함되어있는 모든 group이다.
           group={this.props.group}
+          clientRef={this.props.clientRef}
         />
 
         <ColorChange />

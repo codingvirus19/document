@@ -27,6 +27,7 @@ export default class Contents extends React.Component {
               groupBySidebar={this.props.groupBySidebar}
               group={this.props.group}
               memo_bigArr={this.props.memo_bigArr}
+              clientRef={this.props.clientRef}
             />
           </div>
           {this.props.showChat ? (
@@ -38,3 +39,4 @@ export default class Contents extends React.Component {
     );
   }
 }
+//
