@@ -35,8 +35,9 @@ export default class GroupShare extends React.Component {
 
         // 그룹공유에서 개인을 추가하기위해 null을 추가하여 전달해주는 코드
         let nullValue = { value: "null", label: "개인" };
-        let _addNullToGroup = this.props.group.gname.map((element) => {
+        let _addNullToGroup = this.props.group.gname.map((element, index) => {
             return {
+                gNo: this.props.group.no[index],
                 value: element,
                 label: element,
             };

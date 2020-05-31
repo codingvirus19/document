@@ -74,8 +74,7 @@ export default class Chat extends React.Component {
           url={wsSourceUrl}
           topics={[`/api/chat/${this.props.gNo}`]}
           onMessage={this.onMessageReceive.bind(this)}
-          ref={(client) => { this.clientRef = client }}
-        >
+          ref={(client) => { this.clientRef = client }}>
         </SockJsClient>
 
         <button className={styles.close} onClick={this.props.close}>⏏︎</button>

@@ -28,7 +28,8 @@ export default class Toolbar extends React.Component {
       <div className={styles.toolbar}>
         {/* 그룹공유 */}
         <GroupShare
-          group={this.props.group} />
+          group={this.props.group}
+          clientRef={this.props.clientRef} />
 
         <ColorChange />
 
@@ -47,3 +48,4 @@ export default class Toolbar extends React.Component {
     );
   }
 }
+//

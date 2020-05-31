@@ -51,6 +51,7 @@ export default class Contents extends React.Component {
                           groupBySidebar={this.props.groupBySidebar}
                           color={this.props.memo_bigArr.color}
                           SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+                          clientRef={this.props.clientRef}
                         />
           </div>
           )
@@ -60,3 +61,4 @@ export default class Contents extends React.Component {
     );
   }
 }
+//
