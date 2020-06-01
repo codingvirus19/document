@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import Contents from "./contents/Contents";
+import SockJsClient from "react-stomp";
 
 import styles from "./Container.css";
 import { faBoxTissue } from "@fortawesome/free-solid-svg-icons";
@@ -21,6 +22,8 @@ export default class Container extends React.Component {
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
       showChat: false,
+      clientRef: '',
+      alarmMessage: ''
     };
   }
 
@@ -84,6 +87,11 @@ export default class Container extends React.Component {
         this.UpdateHash(hash);
       })
       .catch((err) => console.error(err));
+
+
+    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    // 알람 소켓
+
   }
 
   UpdateHash(hash) {
@@ -160,9 +168,22 @@ export default class Container extends React.Component {
     bringMemoByGroup(_gNo);
   }
 
+  alarmReceive(alarm_msg) {
+    this.setState({
+      alarmMessage: alarm_msg,
+    })
+  }
+
   render() {
+    const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
     return (
       <div className={styles.container}>
+        <SockJsClient
+          url={wsSourceUrl}
+          topics={[`/api/alarm/${this.props.gNo}`]}
+          onMessage={this.alarmReceive.bind(this)}
+          ref={(client) => { this.setState.clientRef = client }}>
+        </SockJsClient>
         {/*속성 groupBySidebar : 사이드바의 개인/그룹 클릭 시 해당 group의 no, name을 전달 */}
         {/*속성 group : 로그인 시 session user의 모든 그룹들의 no, name이 담겨있다.  */}
         {/*속성 users : 유저 session이 담긴다. */}
@@ -187,7 +208,8 @@ export default class Container extends React.Component {
           group={this.state.group}
           users={this.state.users}
           showChat={this.state.showChat}
-          //변경된 결과 값 state :true false
+          clientRef={this.state.clientRef}
+        //변경된 결과 값 state :true false
         />
       </div>
     );

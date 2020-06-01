@@ -25,7 +25,7 @@
 			delete from memo where no=#{no} and g_no= #{gNo} and u_no=#{uNo};
  		]]>
 	</select>
-	
+
 	<insert id="shareMemo" parameterType="memovo">
 		<![CDATA[
 			insert into memo(no, g_no, u_no, content, color, date) 
@@ -42,6 +42,13 @@
 			    now());
  		]]>
 	</insert>
+
+	<update id="memoUpdate" parameterType="memovo">
+	<![CDATA[
+		update memo set content = #{content}, color=#{color} where no = #{no};
+	]]>
+	</update>
+
 
 </mapper>
 	

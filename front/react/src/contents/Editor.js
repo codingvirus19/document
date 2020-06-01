@@ -18,8 +18,8 @@ export default class Editor extends React.Component {
             linkTarget: '',           // set target to open link in
             typographer: false,
             markOpen: false
-
         });
+        console.log(this.props.no);
         this.state = {
             content: this.props.content,
             showPopup: false
@@ -27,6 +27,7 @@ export default class Editor extends React.Component {
     }
 
     togglePopdown() {
+
         this.setState({
             showPopup: !this.state.showPopup,
         });
@@ -34,7 +35,7 @@ export default class Editor extends React.Component {
     getReMarkDown() {
         return { __html: this.md.render(this.state.content) };
     }
-
+    
     render() {
         return (
             <div
@@ -45,37 +46,38 @@ export default class Editor extends React.Component {
 
                     {this.state.showPopup ? (
                         <Fragment>
-                            <ShareEditor  no={this.props.memo_bigArr.no}
-                                    memo_gNo={this.props.memo_bigArr.gNo}
-                                    group={this.props.group}
-                                    groupBySidebar={this.props.groupBySidebar}
-                                    color={this.props.memo_bigArr.color}
-                                    content={this.state.content} />
+                            <ShareEditor
+                                no={this.props.memo_bigArr[this.props.index].no}
+                                memo_gNo={this.props.memo_bigArr.gNo}
+                                group={this.props.group}
+                                groupBySidebar={this.props.groupBySidebar}
+                                color={this.props.memo_bigArr.color}
+                                content={this.state.content} />
                             <button className={editorstyles.ShareEditorButtonBack} onClick={this.togglePopdown.bind(this)}>
                                 <p>뒤로가기</p>
                             </button>
                         </Fragment>
                     ) :
-                    <Fragment>
-                        <div className={styles.editor}>
-                            <div className={styles.markDownView}
-                                dangerouslySetInnerHTML={this.getReMarkDown()}>
+                        <Fragment>
+                            <div className={styles.editor}>
+                                <div className={styles.markDownView}
+                                    dangerouslySetInnerHTML={this.getReMarkDown()}>
+                                </div>
+                                <div className={editorstyles.toolbar}>
+                                    <Toolbar
+                                        no={this.props.memo_bigArr.no}
+                                        memo_gNo={this.props.memo_bigArr.gNo}
+                                        group={this.props.group}
+                                        groupBySidebar={this.props.groupBySidebar}
+                                        color={this.props.memo_bigArr.color}
+                                    />
+                                </div>
                             </div>
-                            <div className={editorstyles.toolbar}>
-                                <Toolbar
-                                    no={this.props.memo_bigArr.no}
-                                    memo_gNo={this.props.memo_bigArr.gNo}
-                                    group={this.props.group}
-                                    groupBySidebar={this.props.groupBySidebar}
-                                    color={this.props.memo_bigArr.color}
-                                />
-                            </div>
-                        </div>
-                        <button className={editorstyles.ShareEditorButton} onClick={this.togglePopdown.bind(this)}>
-                            <p>수정하기</p>
-                        </button>
+                            <button className={editorstyles.ShareEditorButton} onClick={this.togglePopdown.bind(this)}>
+                                <p>수정하기</p>
+                            </button>
                         </Fragment>
-                        }
+                    }
                 </div>
             </div>
         )
