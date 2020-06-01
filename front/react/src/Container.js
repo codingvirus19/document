@@ -171,12 +171,12 @@ export default class Container extends React.Component {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
     return (
       <div className={styles.container}>
-        <SockJsClient
+        {/* <SockJsClient
           url={wsSourceUrl}
           topics={[`/api/alarm/${this.state.users.no}`]}
           onMessage={this.alarmReceive.bind(this)}
           ref={(client) => { this.clientRef = client }}>
-        </SockJsClient>
+        </SockJsClient> */}
         {/*속성 groupBySidebar : 사이드바의 개인/그룹 클릭 시 해당 group의 no, name을 전달 */}
         {/*속성 group : 로그인 시 session user의 모든 그룹들의 no, name이 담겨있다.  */}
         {/*속성 users : 유저 session이 담긴다. */}
