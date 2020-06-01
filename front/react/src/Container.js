@@ -64,6 +64,7 @@ export default class Container extends React.Component {
         users.no.push(json.data.no);
         users.name.push(json.data.name);
         this.UpdateUser(users);
+        console.log(users);
       })
       .catch((err) => console.error(err));
 
@@ -86,11 +87,6 @@ export default class Container extends React.Component {
         this.UpdateHash(hash);
       })
       .catch((err) => console.error(err));
-
-
-    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-    // 알람 소켓
-
   }
 
   UpdateHash(hash) {
@@ -177,9 +173,9 @@ export default class Container extends React.Component {
       <div className={styles.container}>
         <SockJsClient
           url={wsSourceUrl}
-          topics={[`/api/alarm/${this.props.gNo}`]}
+          topics={[`/api/alarm/${this.state.users.no}`]}
           onMessage={this.alarmReceive.bind(this)}
-          ref={(client) => { this.setState.clientRef = client }}>
+          ref={(client) => { this.clientRef = client }}>
         </SockJsClient>
         {/*속성 groupBySidebar : 사이드바의 개인/그룹 클릭 시 해당 group의 no, name을 전달 */}
         {/*속성 group : 로그인 시 session user의 모든 그룹들의 no, name이 담겨있다.  */}
@@ -204,7 +200,7 @@ export default class Container extends React.Component {
           memo_Change={this.memo_Change.bind(this)}
           users={this.Users}
           showChat={this.state.showChat}
-          clientRef={this.state.clientRef}
+          clientRef={this.clientRef}
         //변경된 결과 값 state :true false
         />
       </div>

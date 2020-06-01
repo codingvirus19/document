@@ -10,5 +10,14 @@
 		]]>
 	</insert>
 
+	<select id="getGroupinUser" parameterType="groupuservo" resultType="long">
+		<![CDATA[
+		 select u_no as uNo
+		   from groupuser 
+		  where g_no=#{gNo}
+		    and u_no not in(#{uNo});
+ 		]]>
+	</select>
+
 </mapper>
 

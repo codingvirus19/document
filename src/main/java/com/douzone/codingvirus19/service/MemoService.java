@@ -40,7 +40,7 @@ public class MemoService {
 	public void shareMemo(MemoVo memoVo) {
 		memoRepository.shareMemo(memoVo);
 	}
-	
+
 	public void memoUpdate(MemoVo vo) {
 		memoRepository.memoUpdate(vo);
 

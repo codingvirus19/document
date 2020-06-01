@@ -28,6 +28,7 @@ export default class Contents extends React.Component {
               group={this.props.group}
               memo_bigArr={this.props.memo_bigArr}
               clientRef={this.props.clientRef}
+              users={this.props.users}
             />
           </div>
           {this.props.showChat ? (
