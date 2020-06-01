@@ -1,14 +1,18 @@
 package com.douzone.codingvirus19.controller.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import com.douzone.codingvirus19.service.AlarmService;
 import com.douzone.codingvirus19.service.ChatService;
 import com.douzone.codingvirus19.vo.AlarmVo;
 import com.douzone.codingvirus19.vo.ChatVo;
+import com.douzone.codingvirus19.vo.GroupUserVo;
 
 @Controller
 public class ChatSocketController {
@@ -17,6 +21,9 @@ public class ChatSocketController {
 
 	@Autowired
 	private ChatService chatService;
+	
+	@Autowired
+	private AlarmService alarmService;
 
 	@MessageMapping("/chat/{room}")
 	public void sendMessage(ChatVo chatVo, @DestinationVariable String room) throws Exception {
@@ -31,15 +38,20 @@ public class ChatSocketController {
 //			webSocket.convertAndSend("/api/chat/"+room, chatMessage);
 	}
 	
-	@MessageMapping("/alarm/{room}")
-	public void alarmMessage(AlarmVo alarmVo, @DestinationVariable String room) throws Exception {
+	@MessageMapping("/alarm/{userno}")
+	public void alarmMessage(AlarmVo alarmVo, @DestinationVariable Long userno) throws Exception {
 		System.out.println("알람 소켓 들어 왔습니다.");
-		System.out.println(room);
-		System.out.println(alarmVo);
-//
+		
+		GroupUserVo groupUserVo = new GroupUserVo();
+		groupUserVo.setuNo(userno);
+		groupUserVo.setgNo(alarmVo.getgNo());
+		
+		List<GroupUserVo> list = alarmService.getGroupinUser(groupUserVo);
+		System.out.println(list);
+		
 //		chatService.addChattin(chatVo);
 		
-		webSocket.convertAndSend("/api/chat/" + room, alarmVo);
+		webSocket.convertAndSend("/api/alarm/" + userno, alarmVo);
 //			webSocket.setUserDestinationPrefix("dd");
 //			webSocket.convertAndSend("/api/chat/"+room, chatMessage);
 	}

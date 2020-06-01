@@ -66,6 +66,7 @@ export default class Contents extends React.PureComponent {
               color={this.props.memo_bigArr.color}
               SidebarGroupUpdate={this.props.SidebarGroupUpdate}
               clientRef={this.props.clientRef}
+              users={this.props.users}
             />
           </div>
           )

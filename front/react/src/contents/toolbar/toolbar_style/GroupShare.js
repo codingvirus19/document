@@ -89,6 +89,8 @@ export default class GroupShare extends React.Component {
             refChange={this.toggleContainer}
             closeGroupShareSheet={this.toggleGroupShareSheet.bind(this)}
             group={this.props.group}
+            clientRef={this.props.clientRef}
+            users={this.props.users}
           />
         ) : null}
       </Fragment>
