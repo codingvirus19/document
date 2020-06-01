@@ -34,8 +34,15 @@ public class MemoApiController {
 	static Map<Long, String> strList = new HashMap<>();
 	static Map<Long, ArrayList<Long>> versionList = new HashMap<>();
 	static boolean first = true;
+	
+	@PostMapping("/api/memo/changeColor")
+	public JsonResult changeColor(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
+		System.out.println(vo);
+		boolean asyncTest = memoService.changeColor(vo);
+		return JsonResult.success(asyncTest);
+	}
+	
 	@PostMapping("/api/memo/shareMemo")
-
 	public JsonResult shareMemo(@AuthUser SecurityUser securityUser, @RequestBody List<MemoVo> vo) {
 		int i;
 		boolean asyncTest = true;
