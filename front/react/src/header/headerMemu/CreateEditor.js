@@ -1,43 +1,31 @@
 import React, { Fragment } from "react";
-import { Remarkable } from 'remarkable';
+import { Remarkable } from "remarkable";
 import popup from "./Popup.css";
 import styles from "./ShareEditor.css";
 import FileUpload from "../../contents/FileUpload.js";
-import fetchProgress from 'fetch-progress';
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faExternalLinkAlt,
-  faShareSquare,
-  faPalette,
-  faHashtag,
-  faSave,
-  faFileUpload,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
 
 export default class Popup extends React.Component {
   constructor(props) {
     super(props);
-    this.md = new Remarkable('full', {
-      html: false,        // Enable HTML tags in source
-      xhtmlOut: false,        // Use '/' to close single tags (<br />)
-      breaks: false,        // Convert '\n' in paragraphs into <br>
-      langPrefix: 'language-',  // CSS language prefix for fenced blocks
-      linkify: true,         // autoconvert URL-like texts to links
-      linkTarget: '',           // set target to open link in
+    this.md = new Remarkable("full", {
+      html: false, // Enable HTML tags in source
+      xhtmlOut: false, // Use '/' to close single tags (<br />)
+      breaks: false, // Convert '\n' in paragraphs into <br>
+      langPrefix: "language-", // CSS language prefix for fenced blocks
+      linkify: true, // autoconvert URL-like texts to links
+      linkTarget: "", // set target to open link in
       typographer: false,
       markOpen: false,
     });
     this.state = {
-      value: '',
-      cursor: '',
+      value: "",
+      cursor: "",
       textSize: 0,
       memoNo: 0,
       version: 0,
       name: "test" + Math.round(Math.random() * 100),
       image: null,
-      color: "white"
+      color: "white",
     };
     this.image = null;
   }
@@ -46,9 +34,9 @@ export default class Popup extends React.Component {
     let line_index = 0;
     let textLastLine = [0];
     let keyAll = this.getSnapshotBeforeUpdate(this.state.value);
-    keyAll = keyAll.split('');
+    keyAll = keyAll.split("");
     let keyAll2 = this.getSnapshotBeforeUpdate(this.state.value);
-    keyAll2 = keyAll2.split('\n');
+    keyAll2 = keyAll2.split("\n");
     for (let i = 0; i < keyAll2.length; i++) {
       line_index += keyAll2[i].length;
       if (line_index < input_index) {
@@ -64,12 +52,12 @@ export default class Popup extends React.Component {
       keyAll.splice(textLastLine[textLastLine.length - 2], 0, "**");
       keyAll.splice(textLastLine[textLastLine.length - 1] + 1, 0, "**");
     }
-    keyAll = keyAll.join('');
-    keyAll = keyAll.split('');
+    keyAll = keyAll.join("");
+    keyAll = keyAll.split("");
     this.setState({
       textSize: keyAll.length,
-      value: keyAll.join(''),
-    })
+      value: keyAll.join(""),
+    });
   }
   hevent(hsize) {
     let input_index = this.getSnapshotBeforeUpdate(this.state.cursor);
@@ -81,11 +69,11 @@ export default class Popup extends React.Component {
     }
     pushText += " ";
     let b = this.getSnapshotBeforeUpdate(this.state.value);
-    b = b.split('');
+    b = b.split("");
     let state2 = this.getSnapshotBeforeUpdate(this.state.value);
-    state2 = state2.split('\n');
+    state2 = state2.split("\n");
     let state3 = this.getSnapshotBeforeUpdate(this.state.value);
-    state3 = state3.split('');
+    state3 = state3.split("");
     for (let i = 0; i < state2.length; i++) {
       line_index += state2[i].length;
       if (line_index < input_index) {
@@ -96,19 +84,18 @@ export default class Popup extends React.Component {
     b.splice(textLastLine[textLastLine.length - 1], 0, pushText);
     console.log(this.state.version);
     this.setState({
-      value: b.join(''),
-      textSize: (state3.length + hsize + 1)
-    })
+      value: b.join(""),
+      textSize: state3.length + hsize + 1,
+    });
   }
 
-
   viewSet(text) {
-    text = text.join('');
-    text = text.split('');
+    text = text.join("");
+    text = text.split("");
     this.setState({
       textSize: text.length,
-      value: text.join('')
-    })
+      value: text.join(""),
+    });
   }
 
   cursorEvent(e) {
@@ -117,28 +104,29 @@ export default class Popup extends React.Component {
   }
   keyInput(cursorPosition, key) {
     let text = this.getSnapshotBeforeUpdate(this.state.value);
-    text = text.split('');
+    text = text.split("");
     text.splice(cursorPosition - 1, 0, key);
     this.viewSet(text);
   }
   deleteInput(cursorPosition, deleteSize) {
     let text = this.getSnapshotBeforeUpdate(this.state.value);
-    text = text.split('');
+    text = text.split("");
     text.splice(cursorPosition, deleteSize + 1);
     this.viewSet(text);
   }
-  koreanInput(cursorPosition, key) { //한글입력 중복오류 잡기
+  koreanInput(cursorPosition, key) {
+    //한글입력 중복오류 잡기
     let text = this.getSnapshotBeforeUpdate(this.state.value);
-    text = text.split('');
+    text = text.split("");
     text.splice(cursorPosition - 1, 1, key);
     this.viewSet(text);
   }
   copyInput(cursorPosition, textsize, key) {
     let text = this.getSnapshotBeforeUpdate(this.state.value);
-    text = text.split('');
+    text = text.split("");
     text.splice(cursorPosition - (textsize - text.length), 0, key);
-    text = text.join('');
-    text = text.split('');
+    text = text.join("");
+    text = text.split("");
     this.viewSet(text);
   }
 
@@ -154,25 +142,35 @@ export default class Popup extends React.Component {
     let key = e.target.value.substring(input_index - 1, input_index);
     let temp = this.getSnapshotBeforeUpdate(this.state.textSize);
 
-    console.log("temp", temp, "textsize", textsize)
+    console.log("temp", temp, "textsize", textsize);
     if (temp > textsize) {
-      this.deleteInput(input_index, (temp - (e.target.value.split('').length + 1)));
+      this.deleteInput(
+        input_index,
+        temp - (e.target.value.split("").length + 1)
+      );
       // console.log("글자지우기");
     } else if (temp == textsize) {
       // console.log("한글입력")
       this.koreanInput(input_index, key);
       //한글입력 오류 잡기~
-    } else if ((temp + 1) < textsize) {
-      let key = e.target.value.substring((input_index - ((textsize) - temp)), input_index);
+    } else if (temp + 1 < textsize) {
+      let key = e.target.value.substring(
+        input_index - (textsize - temp),
+        input_index
+      );
       let text = this.getSnapshotBeforeUpdate(this.state.value);
-      text = text.split('');
+      text = text.split("");
       this.copyInput(input_index, textsize, key);
       // console.log("복사");
     } else {
       // console.log("기본입력",input_index);
       this.keyInput(input_index, key);
     }
-    this.setState({ cursor: input_index, textSize: e.target.value.split('').length, version: this.state.version }); //변경값을 표출한다.
+    this.setState({
+      cursor: input_index,
+      textSize: e.target.value.split("").length,
+      version: this.state.version,
+    }); //변경값을 표출한다.
   }
 
   getReMarkDown() {
@@ -186,43 +184,43 @@ export default class Popup extends React.Component {
   memoSave() {
     fetch("http://localhost:8080/codingvirus19/api/memo/save", {
       method: "post",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({ 
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
         content: this.state.value,
-        gNo : this.props.groupNoForGroupUser.no,
-        color: this.state.color
-       })
+        gNo: this.props.groupNoForGroupUser.no,
+        color: this.state.color,
+      }),
     })
       .then((response) => response.json())
       .catch((err) => console.error(err));
   }
   markOpen() {
     this.setState({
-      markOpen: !this.state.markOpen
-    })
+      markOpen: !this.state.markOpen,
+    });
   }
   FileInputOpen() {
-    document.getElementById('hiddenFileInput').click();
+    document.getElementById("hiddenFileInput").click();
   }
   FileUpload(e) {
     const formData = new FormData();
     formData.append("multipartFile", e.currentTarget.files[0]);
     fetch("http://localhost:8080/codingvirus19/api/upload", {
       method: "post",
-      headers: { "append": "application/json", },
-      body: formData
+      headers: { append: "application/json" },
+      body: formData,
     })
       .then((response) => response.json())
       .then((json) => {
         this.image = json.data;
-        this.setState({ image: json.data })
+        this.setState({ image: json.data });
       })
       .catch((err) => console.error(err));
   }
   ImageSave(e) {
     console.log(e);
     let text = this.getSnapshotBeforeUpdate(this.state.value);
-    text = text.split('');
+    text = text.split("");
     text.splice(this.state.cursor, 0, `\n![img](.${this.image})\n`);
     this.viewSet(text);
   }
@@ -230,55 +228,100 @@ export default class Popup extends React.Component {
     const tempStyle = {
       width: "200px",
       height: "200px",
-      background: "#ff2"
-    }
+      background: "#ff2",
+    };
 
     return (
-      <div
-        className={popup.popup}
-        onClick={this.props.closePopup}>
+      <div className={popup.popup} onClick={this.props.closePopup}>
         <div
           className={popup.inner}
-          onClick={(e) => { e.stopPropagation() }}>
-          <div>
-          </div>
-          <div className={styles.header}>
-          </div>
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <div></div>
+          <div className={styles.header}></div>
           <div className={styles.editor}>
             <div className={styles.btn}>
-              <button className={styles.button} onClick={this.hevent.bind(this, 1)}>H1</button>
-              <button className={styles.button} onClick={this.hevent.bind(this, 2)}>H2</button>
-              <button className={styles.button} onClick={this.hevent.bind(this, 3)}>H3</button>
-              <button className={styles.button} onClick={this.hevent.bind(this, 4)}>H4</button>
-              <button className={styles.button} onClick={this.boldevent.bind(this)}>B</button>
-              {(this.state.markOpen) ? <button className={`${styles.click} ${styles.button}`} onClick={this.markOpen.bind(this)}>E</button> : <button className={styles.button} onClick={this.markOpen.bind(this)}>M</button>}
-              <button className={styles.button} onClick={this.memoSave.bind(this)}>저장</button>
-              <FileUpload className={styles.button} File={e => this.FileUpload(e)} image={this.state.image} save={this.ImageSave.bind(this)} />
+              <button
+                className={styles.button}
+                onClick={this.hevent.bind(this, 1)}
+              >
+                H1
+              </button>
+              <button
+                className={styles.button}
+                onClick={this.hevent.bind(this, 2)}
+              >
+                H2
+              </button>
+              <button
+                className={styles.button}
+                onClick={this.hevent.bind(this, 3)}
+              >
+                H3
+              </button>
+              <button
+                className={styles.button}
+                onClick={this.hevent.bind(this, 4)}
+              >
+                H4
+              </button>
+              <button
+                className={styles.button}
+                onClick={this.boldevent.bind(this)}
+              >
+                B
+              </button>
+              {this.state.markOpen ? (
+                <button
+                  className={`${styles.click} ${styles.button}`}
+                  onClick={this.markOpen.bind(this)}
+                >
+                  E
+                </button>
+              ) : (
+                <button
+                  className={styles.button}
+                  onClick={this.markOpen.bind(this)}
+                >
+                  M
+                </button>
+              )}
+              <button
+                className={styles.button}
+                onClick={this.memoSave.bind(this)}
+              >
+                저장
+              </button>
+              <FileUpload
+                className={styles.button}
+                File={(e) => this.FileUpload(e)}
+                image={this.state.image}
+                save={this.ImageSave.bind(this)}
+              />
             </div>
-            {(this.state.markOpen) ? (
+            {this.state.markOpen ? (
               <div
                 className={styles.markDownView}
-                dangerouslySetInnerHTML={this.getReMarkDown()}></div>
-            )
-              : (
-                <Fragment>
-                  <textarea
-                    wrap="hard"
-                    rows="2"
-                    cols="20"
-                    className={styles.edit}
-                    onBlur={this.cursorEvent.bind(this)}
-                    onChange={this.editorPush.bind(this)}
-                    value={this.state.value}></textarea>
-                </Fragment>
-              )
-            }
+                dangerouslySetInnerHTML={this.getReMarkDown()}
+              ></div>
+            ) : (
+              <Fragment>
+                <textarea
+                  wrap="hard"
+                  rows="2"
+                  cols="20"
+                  className={styles.edit}
+                  onBlur={this.cursorEvent.bind(this)}
+                  onChange={this.editorPush.bind(this)}
+                  value={this.state.value}
+                ></textarea>
+              </Fragment>
+            )}
           </div>
         </div>
       </div>
-
-
-
     );
   }
 }
