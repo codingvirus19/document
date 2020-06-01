@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.douzone.codingvirus19.dto.JsonResult;
 import com.douzone.codingvirus19.security.AuthUser;
 import com.douzone.codingvirus19.security.SecurityUser;
+import com.douzone.codingvirus19.service.FileService;
 import com.douzone.codingvirus19.service.MemoService;
 import com.douzone.codingvirus19.vo.EditorVo;
+import com.douzone.codingvirus19.vo.FileUpLoadVo;
 import com.douzone.codingvirus19.vo.HashVo;
 import com.douzone.codingvirus19.vo.MemoVo;
 
@@ -30,6 +32,9 @@ public class MemoApiController {
 	
 	@Autowired
 	private MemoService memoService;
+	
+	@Autowired
+	private FileService filesService;
 
 	static Map<Long, String> strList = new HashMap<>();
 	static Map<Long, ArrayList<Long>> versionList = new HashMap<>();
@@ -58,6 +63,14 @@ public class MemoApiController {
 		return JsonResult.success(asyncTest);
 	}
 	
+	@PostMapping("/api/memo/save")
+	public JsonResult saveMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
+		vo.setuNo(securityUser.getNo());
+		System.out.println(vo);
+		memoService.insert(vo);
+		return JsonResult.success("ab");
+	}
+	
 	@PostMapping("/api/memo/delete")
 	public JsonResult deleteMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
 		vo.setuNo(securityUser.getNo());
@@ -69,6 +82,10 @@ public class MemoApiController {
 			boolean asyncTest = memoService.peopleDeleteMemo(vo);
 			return JsonResult.success(asyncTest);
 		}
+	}
+	@PostMapping("/api/upload")
+	public JsonResult imgUpload(@AuthUser SecurityUser securityUser,FileUpLoadVo fileUpLoadVo) {
+		return JsonResult.success(filesService.upload(fileUpLoadVo));
 	}
 	
 	@MessageMapping("/memo/{memo}")
