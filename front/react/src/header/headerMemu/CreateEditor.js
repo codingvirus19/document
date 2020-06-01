@@ -134,6 +134,7 @@ export default class Popup extends React.Component {
     })
       .then((response) => response.json())
       .catch((err) => console.error(err));
+    this.props.bringMemoByGroup(this.props.groupNoForGroupUser.no);
   }
   markOpen() {
     this.setState({

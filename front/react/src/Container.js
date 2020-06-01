@@ -167,6 +167,7 @@ export default class Container extends React.Component {
     });
   }
 
+
   render() {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
     return (
@@ -188,6 +189,7 @@ export default class Container extends React.Component {
         <Header
           groupBySidebar={this.state.groupBySidebar}
           //변경함수
+          bringMemoByGroup={this.bringMemoByGroup.bind(this)}
           chattingPopup={this.chattingPopup.bind(this)}
         />
         <Sidebar

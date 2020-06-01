@@ -81,6 +81,7 @@ export default class Header extends React.Component {
               </button>
               {this.state.showPopup ? (
                 <CreateEditor
+                  bringMemoByGroup={this.props.bringMemoByGroup}
                   groupNoForGroupUser={this.props.groupBySidebar}
                   closePopup={this.togglePopup.bind(this)}
                 />
