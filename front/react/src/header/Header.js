@@ -30,6 +30,7 @@ export default class Header extends React.Component {
   }
 
   togglePopup() {
+    console.log(this.props.groupNoForGroupUser);
     this.setState({
       showPopup: !this.state.showPopup,
     });
@@ -80,7 +81,7 @@ export default class Header extends React.Component {
               </button>
               {this.state.showPopup ? (
                 <CreateEditor
-                  groupNoForGroupUser={this.props.groupNoForGroupUser}
+                  groupNoForGroupUser={this.props.groupBySidebar}
                   closePopup={this.togglePopup.bind(this)}
                 />
               ) : null}

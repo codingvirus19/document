@@ -39,10 +39,16 @@ public class MemoService {
 	}
 	public void shareMemo(MemoVo memoVo) {
 		memoRepository.shareMemo(memoVo);
-
+	}
+	
 	public void memoUpdate(MemoVo vo) {
 		memoRepository.memoUpdate(vo);
 
+	}
+
+	public boolean insert(MemoVo vo) {
+		return memoRepository.memoInsert(vo);
+		
 	}
 }
 

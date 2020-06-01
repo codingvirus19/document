@@ -288,13 +288,13 @@ export default class Popup extends React.Component {
         </div>
         <div className={styles.editor}>
           <div className={styles.btn}>
-            <button onClick={this.hevent.bind(this, 1)}>H1</button>
-            <button onClick={this.hevent.bind(this, 2)}>H2</button>
-            <button onClick={this.hevent.bind(this, 3)}>H3</button>
-            <button onClick={this.hevent.bind(this, 4)}>H4</button>
-            <button onClick={this.boldevent.bind(this)}>B</button>
-            {(this.state.markOpen) ? <button className={styles.click} onClick={this.markOpen.bind(this)}>E</button> : <button onClick={this.markOpen.bind(this)}>M</button>}
-            <button onClick={this.memoSave.bind(this)}>저장</button>
+            <button className={styles.button} onClick={this.hevent.bind(this, 1)}>H1</button>
+            <button className={styles.button} onClick={this.hevent.bind(this, 2)}>H2</button>
+            <button className={styles.button} onClick={this.hevent.bind(this, 3)}>H3</button>
+            <button className={styles.button} onClick={this.hevent.bind(this, 4)}>H4</button>
+            <button className={styles.button} onClick={this.boldevent.bind(this)}>B</button>
+            {(this.state.markOpen) ? <button className={`${styles.click} ${styles.button}`} onClick={this.markOpen.bind(this)}>E</button> : <button className={styles.button} onClick={this.markOpen.bind(this)}>M</button>}
+            <button className={styles.button} onClick={this.memoSave.bind(this)}>저장</button>
           </div>
           {(this.state.markOpen) ? (
             <div

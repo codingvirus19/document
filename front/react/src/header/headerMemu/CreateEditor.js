@@ -1,8 +1,10 @@
 import React, { Fragment } from "react";
 import { Remarkable } from 'remarkable';
-import SockJsClient from "react-stomp";
 import popup from "./Popup.css";
 import styles from "./ShareEditor.css";
+import FileUpload from "../../contents/FileUpload.js";
+import fetchProgress from 'fetch-progress';
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faExternalLinkAlt,
@@ -25,8 +27,7 @@ export default class Popup extends React.Component {
       linkify: true,         // autoconvert URL-like texts to links
       linkTarget: '',           // set target to open link in
       typographer: false,
-      markOpen: false
-
+      markOpen: false,
     });
     this.state = {
       value: '',
@@ -34,8 +35,11 @@ export default class Popup extends React.Component {
       textSize: 0,
       memoNo: 0,
       version: 0,
-      name: "test" + Math.round(Math.random() * 100)
+      name: "test" + Math.round(Math.random() * 100),
+      image: null,
+      color: "white"
     };
+    this.image = null;
   }
   boldevent() {
     let input_index = this.getSnapshotBeforeUpdate(this.state.cursor);
@@ -180,12 +184,47 @@ export default class Popup extends React.Component {
   }
 
   memoSave() {
-    console.log()
+    fetch("http://localhost:8080/codingvirus19/api/memo/save", {
+      method: "post",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ 
+        content: this.state.value,
+        gNo : this.props.groupNoForGroupUser.no,
+        color: this.state.color
+       })
+    })
+      .then((response) => response.json())
+      .catch((err) => console.error(err));
   }
   markOpen() {
     this.setState({
       markOpen: !this.state.markOpen
     })
+  }
+  FileInputOpen() {
+    document.getElementById('hiddenFileInput').click();
+  }
+  FileUpload(e) {
+    const formData = new FormData();
+    formData.append("multipartFile", e.currentTarget.files[0]);
+    fetch("http://localhost:8080/codingvirus19/api/upload", {
+      method: "post",
+      headers: { "append": "application/json", },
+      body: formData
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        this.image = json.data;
+        this.setState({ image: json.data })
+      })
+      .catch((err) => console.error(err));
+  }
+  ImageSave(e) {
+    console.log(e);
+    let text = this.getSnapshotBeforeUpdate(this.state.value);
+    text = text.split('');
+    text.splice(this.state.cursor, 0, `\n![img](.${this.image})\n`);
+    this.viewSet(text);
   }
   render() {
     const tempStyle = {
@@ -195,29 +234,26 @@ export default class Popup extends React.Component {
     }
 
     return (
-
       <div
         className={popup.popup}
         onClick={this.props.closePopup}>
         <div
           className={popup.inner}
           onClick={(e) => { e.stopPropagation() }}>
-
-
           <div>
-          
           </div>
           <div className={styles.header}>
           </div>
           <div className={styles.editor}>
             <div className={styles.btn}>
-              <button onClick={this.hevent.bind(this, 1)}>H1</button>
-              <button onClick={this.hevent.bind(this, 2)}>H2</button>
-              <button onClick={this.hevent.bind(this, 3)}>H3</button>
-              <button onClick={this.hevent.bind(this, 4)}>H4</button>
-              <button onClick={this.boldevent.bind(this)}>B</button>
-              {(this.state.markOpen) ? <button className={styles.click} onClick={this.markOpen.bind(this)}>E</button> : <button onClick={this.markOpen.bind(this)}>M</button>}
-              <button onClick={this.memoSave.bind(this)}>저장</button>
+              <button className={styles.button} onClick={this.hevent.bind(this, 1)}>H1</button>
+              <button className={styles.button} onClick={this.hevent.bind(this, 2)}>H2</button>
+              <button className={styles.button} onClick={this.hevent.bind(this, 3)}>H3</button>
+              <button className={styles.button} onClick={this.hevent.bind(this, 4)}>H4</button>
+              <button className={styles.button} onClick={this.boldevent.bind(this)}>B</button>
+              {(this.state.markOpen) ? <button className={`${styles.click} ${styles.button}`} onClick={this.markOpen.bind(this)}>E</button> : <button className={styles.button} onClick={this.markOpen.bind(this)}>M</button>}
+              <button className={styles.button} onClick={this.memoSave.bind(this)}>저장</button>
+              <FileUpload className={styles.button} File={e => this.FileUpload(e)} image={this.state.image} save={this.ImageSave.bind(this)} />
             </div>
             {(this.state.markOpen) ? (
               <div

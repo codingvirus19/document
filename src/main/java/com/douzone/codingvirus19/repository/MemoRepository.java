@@ -42,4 +42,11 @@ public class MemoRepository {
 	public void shareMemo(MemoVo memoVo) {
 		sqlSession.insert("memo.shareMemo",memoVo);
 	}
+
+
+	public boolean memoInsert(MemoVo vo) {
+		int i = sqlSession.insert("memo.insertMemo",vo);
+		if(i==0)return false;
+		else return true;
+	}
 }
