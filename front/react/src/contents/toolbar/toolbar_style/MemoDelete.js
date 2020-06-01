@@ -16,6 +16,7 @@ export default class MemoDelete extends React.Component {
     this.state = {
       no: this.props.no,
       gNo: this.props.gNo,
+      gName: this.props.gName,
     };
   }
 

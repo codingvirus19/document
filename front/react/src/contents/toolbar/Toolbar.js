@@ -17,7 +17,7 @@ export default class Toolbar extends React.PureComponent {
       // no: this.props.no,
       memo_gNo: this.props.memo_gNo,
       // gNo: this.props.groupBySidebar.no,
-      gName: this.props.groupBySidebar.name,
+      // gName: this.props.groupBySidebar.name,
     };
   }
 
@@ -26,6 +26,9 @@ export default class Toolbar extends React.PureComponent {
       <div className={styles.toolbar}>
         {/* 그룹공유 */}
         <GroupShare
+          // gName,gNo : 임의의 작동을 한 그룹의 no와 name으로 콜백이동하기위한 props
+          gName={this.props.groupBySidebar.name}
+          gNo={this.props.groupBySidebar.no}
           // SidebarGroupUpdate: shareMemo 전송 후 수정된 메모list를 다시뿌려주기 위한 callback함수
           SidebarGroupUpdate={this.props.SidebarGroupUpdate}
           // memo_gNo: 선택한 메모의 g_no이다. callback함수에 input되며,
@@ -42,12 +45,12 @@ export default class Toolbar extends React.PureComponent {
         <ColorChange />
 
         {/* 해시추가 */}
-        <AddHash 
-        hash={this.props.hash} 
-        no={this.props.no} 
-        memo_gNo={this.state.memo_gNo} 
-        memo_hash={this.props.memo_hash}/>
-
+        <AddHash
+          hash={this.props.hash}
+          no={this.props.no}
+          memo_gNo={this.state.memo_gNo}
+          memo_hash={this.props.memo_hash}
+        />
 
         {/* 내 컴퓨터에 저장 */}
         <SaveLocal />
@@ -60,6 +63,7 @@ export default class Toolbar extends React.PureComponent {
           // SidebarGroupUpdate: delete클릭 후 수정된 메모list를 다시뿌려주기 위한 callback함수
           SidebarGroupUpdate={this.props.SidebarGroupUpdate}
           no={this.props.no}
+          gName={this.props.groupBySidebar.name}
           gNo={this.props.groupBySidebar.no}
         />
       </div>

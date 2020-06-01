@@ -3,41 +3,65 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPalette } from "@fortawesome/free-solid-svg-icons";
 import ColorSheet from "./ColorSheet";
 import styles from "../Toolbar.css";
+import { TwitterPicker } from "react-color";
 
 export default class ColorChange extends React.Component {
+  constructor() {
+    super(...arguments);
+    this.state = {
+      displayColorPicker: false,
+      color: "#fff",
+    };
+  }
 
-    constructor(){
-        super(...arguments)
-        this.state={
-            showColorSheet: false
-        }
-    }
+  handleClick() {
+    this.setState({ displayColorPicker: !this.state.displayColorPicker });
+  }
 
-    toggleColorSheet(showColorSheet) {
-        this.setState({
-          showColorSheet,
-        });
-      }
+  handleClose() {
+    this.setState({ displayColorPicker: false });
+  }
 
-    // 색상변경
-    render() {
-        return (
-            <Fragment>
-                {/* 색상변경 */}
-                <button
-                    className={styles.tool}
-                    aria-label="색상 변경"
-                    onMouseEnter={() => this.setState({ showColorSheet: true })}
-                    onMouseLeave={() => this.setState({ showColorSheet: false })}
-                >
-                    <FontAwesomeIcon className={styles.faPalette} icon={faPalette} />
-                </button>
-                {this.state.showColorSheet ? (
-                    <ColorSheet
-                        toggleColorSheetHandler={this.toggleColorSheet.bind(this)}
-                    />
-                ) : null}
-            </Fragment >
-        )
-    }
+  handleChange(color) {
+    this.setState({
+      color: color,
+    });
+  }
+
+  // 색상변경
+  render() {
+    const popover = {
+      position: "absolute",
+      zIndex: "10",
+    };
+    const cover = {
+      position: "fixed",
+      top: "0px",
+      right: "0px",
+      bottom: "0px",
+      left: "0px",
+    };
+    return (
+      <Fragment>
+        {/* 색상변경 */}
+
+        <button
+          className={styles.tool}
+          aria-label="색상 변경"
+          onClick={this.handleClick.bind(this)}
+        >
+          <FontAwesomeIcon className={styles.faPalette} icon={faPalette} />
+        </button>
+        {this.state.displayColorPicker ? (
+          <div style={popover}>
+            <div style={cover} onClick={this.handleClose.bind(this)} />
+            <TwitterPicker
+              color={this.state.color}
+              onChange={this.handleChange.bind(this)}
+            />
+          </div>
+        ) : null}
+      </Fragment>
+    );
+  }
 }

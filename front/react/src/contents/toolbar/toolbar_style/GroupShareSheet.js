@@ -46,11 +46,14 @@ export default class GroupShareSheet extends React.Component {
     console.log(this.state.selectedOption);
     console.log(this.props.users.no);
     this.state.selectedOption.map((no) => {
-      this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0], JSON.stringify({
-        gNo: no.value,
-        chat: "그룹에 메모가 공유되었습니다."
-  }))
-});
+      this.props.clientRef.sendMessage(
+        "/app/alarm/" + this.props.users.no[0],
+        JSON.stringify({
+          gNo: no.value,
+          chat: "그룹에 메모가 공유되었습니다.",
+        })
+      );
+    });
 
     // call api (GroupShare)
     this.ajaxGroupShare(send_memoNoAndGNo);
@@ -72,7 +75,6 @@ export default class GroupShareSheet extends React.Component {
     let memoVoObj = null;
     let memoVoArr = [];
     let getTrue = null;
-    let gNameFromGroupsState;
     let i = null;
 
     for (i = 0; i < _send_memoNoAndGNo.gNo.length; i++) {
@@ -89,22 +91,12 @@ export default class GroupShareSheet extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        // memoShare전송 후 내가 클릭한 메모의 gName페이지로 이동하기위해
-        // 클릭한 메모의 gNo를 전체 그룹과 비교하여 gName을 찾아내는 반복문
-        for (i = 0; i < this.state.groups.length; i++) {
-          if (this.props.memo_gNo == this.state.groups[i].value) {
-            gNameFromGroupsState = this.state.groups[i].label;
-          }
-        }
         getTrue = json.data;
 
         // shareGroup 전송 클릭시 쿼리 삭제 전에 콜백에서 메모를 뿌려주기 때문에 실시간으로 작동 x
         // 아래에서 db에서 삭제 진행 완료 후 true신호가 오면 콜백을 보내도록 설정한 코드이다.
         if (getTrue != false) {
-          this.props.SidebarGroupUpdate(
-            this.props.memo_gNo,
-            gNameFromGroupsState
-          );
+          this.props.SidebarGroupUpdate(this.props.memo_gNo, this.props.gName);
         }
       })
       .catch((err) => console.error(err));

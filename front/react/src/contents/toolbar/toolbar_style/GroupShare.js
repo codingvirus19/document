@@ -76,6 +76,9 @@ export default class GroupShare extends React.Component {
         {this.state.showGroupShareSheet ? (
           //  {true ? (
           <GroupShareSheet
+            // gName,gNo : 임의의 작동을 한 그룹의 no와 name으로 콜백이동하기위한 props
+            gName={this.props.gName}
+            gNo={this.props.gNo}
             // SidebarGroupUpdate: shareMemo 전송 후 수정된 메모list를 다시뿌려주기 위한 callback함수
             SidebarGroupUpdate={this.props.SidebarGroupUpdate}
             // memo_gNo: 선택한 메모의 g_no이다. callback함수에 input되며,
