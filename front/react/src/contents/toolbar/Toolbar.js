@@ -36,6 +36,7 @@ export default class Toolbar extends React.PureComponent {
           // 해당 세션no에 포함되어있는 모든 group이다.
           group={this.props.group}
           clientRef={this.props.clientRef}
+          users={this.props.users}
         />
 
         <ColorChange />
