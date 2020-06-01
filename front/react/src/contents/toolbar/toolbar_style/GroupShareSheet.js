@@ -30,16 +30,8 @@ export default class GroupShareSheet extends React.Component {
     console.log(selectedOption);
   }
 
-  onClickSendShare(e, g_no) {
+  onClickSendShare(e) {
     e.preventDefault();
-
-    this.props.clientRef.share(
-      "/app/alarm/" + g_no,
-      JSON.stringify({
-        gNo: g_no,
-        chat: "그룹에 메모가 공유되었습니다.",
-      })
-    );
 
     let send_memoNoAndGNo = {
       // no: 메모의 no로 db에서 content, color를 뽑아온다.
@@ -47,6 +39,18 @@ export default class GroupShareSheet extends React.Component {
       // gNo의 수만큼, user session, 위에서 가져온 content, color를 memo에 insert해준다.
       gNo: this.state.selectedOption,
     };
+
+    // for(let a in this.props.clientRef){
+    //   console.log(a);
+    // }
+    console.log(this.state.selectedOption);
+    console.log(this.props.users.no);
+    this.state.selectedOption.map((no) => {
+      this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0], JSON.stringify({
+        gNo: no.value,
+        chat: "그룹에 메모가 공유되었습니다."
+  }))
+});
 
     // call api (GroupShare)
     this.ajaxGroupShare(send_memoNoAndGNo);
@@ -130,7 +134,7 @@ export default class GroupShareSheet extends React.Component {
         </div>
         <div className={styles.btns}>
           <button
-            onClick={this.onClickSendShare.bind(this, this.state.groups.gNo)}
+            onClick={this.onClickSendShare.bind(this)}
             type="submit"
             className={styles.confirm_btn}
           >
