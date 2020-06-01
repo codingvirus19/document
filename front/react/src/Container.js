@@ -22,8 +22,8 @@ export default class Container extends React.Component {
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
       showChat: false,
-      clientRef: '',
-      alarmMessage: ''
+      clientRef: "",
+      alarmMessage: "",
     };
   }
 
@@ -140,7 +140,7 @@ export default class Container extends React.Component {
 
   // sidebar에서 콜백된 파라미터 no와 name
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
-  // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo 클릭 시....
+  // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo , changeColor 클릭 시....
   SidebarGroupUpdate(no, name) {
     this.bringMemoByGroup(no);
     this.setState({
@@ -167,7 +167,7 @@ export default class Container extends React.Component {
   alarmReceive(alarm_msg) {
     this.setState({
       alarmMessage: alarm_msg,
-    })
+    });
   }
 
   render() {
@@ -178,8 +178,10 @@ export default class Container extends React.Component {
           url={wsSourceUrl}
           topics={[`/api/alarm/${this.state.users.no}`]}
           onMessage={this.alarmReceive.bind(this)}
-          ref={(client) => { this.clientRef = client }}>
-        </SockJsClient>
+          ref={(client) => {
+            this.clientRef = client;
+          }}
+        ></SockJsClient>
         {/*속성 groupBySidebar : 사이드바의 개인/그룹 클릭 시 해당 group의 no, name을 전달 */}
         {/*속성 group : 로그인 시 session user의 모든 그룹들의 no, name이 담겨있다.  */}
         {/*속성 users : 유저 session이 담긴다. */}
@@ -205,7 +207,7 @@ export default class Container extends React.Component {
           users={this.state.users}
           showChat={this.state.showChat}
           clientRef={this.clientRef}
-        //변경된 결과 값 state :true false
+          //변경된 결과 값 state :true false
         />
       </div>
     );
