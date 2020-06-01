@@ -63,6 +63,7 @@ export default class GroupShare extends React.Component {
       <Fragment>
         {/* 그룹공유 */}
         <button
+          style={this.props.setStyle}
           className={styles.tool}
           aria-label="그룹공유"
           onClick={this.toggleGroupShareSheet.bind(this)}

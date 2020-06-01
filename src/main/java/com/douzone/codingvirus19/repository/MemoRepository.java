@@ -19,8 +19,7 @@ public class MemoRepository {
 		sqlSession.delete("memo.memoHashDeleteMemo",vo);
 		int asyncTest = sqlSession.delete("memo.personDeleteMemo",vo);
 		return asyncTest;
-	}
-
+	}	
 
 
 	public int peopleDeleteMemo(MemoVo vo) {
@@ -34,8 +33,12 @@ public class MemoRepository {
 	}
 
 
-
 	public void shareMemo(MemoVo memoVo) {
 		sqlSession.insert("memo.shareMemo",memoVo);
+	}
+	
+	public int changeColor(MemoVo vo) {
+		int asyncTest = sqlSession.delete("memo.changeColor",vo);
+		return asyncTest;
 	}
 }

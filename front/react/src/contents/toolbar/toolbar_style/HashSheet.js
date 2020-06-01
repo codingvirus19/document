@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import CreatableSelect from 'react-select/creatable';
+import CreatableSelect from "react-select/creatable";
 import styles from "../Sheets.css";
 
 const API_URL = "http://localhost:8080/codingvirus19";
@@ -8,18 +8,17 @@ const API_HEADERS = {
 };
 
 export default class HashSheet extends React.PureComponent {
-
   constructor() {
     super(...arguments);
     this.state = {
-      hash: [{ value: '', label: '' }],
-      memo_hash: null
-    }
+      hash: [{ value: "", label: "" }],
+      memo_hash: null,
+    };
   }
 
   componentDidMount() {
     let hashDatas = null;
-    let hash = { value: '', label: '' };
+    let hash = { value: "", label: "" };
     fetch(`${API_URL}/api/getHashListByUser`, {
       method: "post",
       headers: API_HEADERS,
@@ -30,51 +29,49 @@ export default class HashSheet extends React.PureComponent {
         hash = hashDatas.map((element) => {
           return {
             value: element.name,
-            label: element.name
-          }
-        })
+            label: element.name,
+          };
+        });
         this.UpdateHash(hash);
         this.setState({
-          memo_hash: this.props.memo_hash.map(element => {
+          memo_hash: this.props.memo_hash.map((element) => {
             return {
               value: element.no,
               label: element.name,
-              memo_no: element.memo_no
-            }
-          })
-        })
+              memo_no: element.memo_no,
+            };
+          }),
+        });
       })
       .catch((err) => console.error(err));
   }
 
   UpdateHash(hash) {
     this.setState({
-      hash: hash
-    })
+      hash: hash,
+    });
   }
 
   addHash(event) {
     if (event != null) {
-      let lastetEvent = event[event.length - 1]
+      let lastetEvent = event[event.length - 1];
       let data = {
         gNo: this.props.memo_gNo,
         mNo: this.props.memo_no,
-        name: lastetEvent.label
+        name: lastetEvent.label,
       };
-      let hash = { value: '', label: '' };
+      let hash = { value: "", label: "" };
       fetch(`${API_URL}/api/addHash`, {
         method: "post",
         headers: API_HEADERS,
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       })
         .then((response) => response.json())
         .then((json) => {
-          hash.value = json.data.name,
-            hash.label = json.data.name
-          this.state.hash.push(hash)
+          (hash.value = json.data.name), (hash.label = json.data.name);
+          this.state.hash.push(hash);
         })
         .catch((err) => console.error(err));
-
     }
   }
 
@@ -99,7 +96,7 @@ export default class HashSheet extends React.PureComponent {
               maxMenuHeight={120}
               options={this.state.hash}
               placeholder="해시선택 및 생성할 해시 입력"
-            // deleteRemoves={true}
+              // deleteRemoves={true}
             />
           </div>
         </div>
@@ -108,12 +105,16 @@ export default class HashSheet extends React.PureComponent {
           <button
             // onClick={this.share.bind(this)}
             type="submit"
-            className={styles.confirm_btn}>추가</button>
+            className={styles.confirm_btn}
+          >
+            추가
+          </button>
           <button
             className={styles.cancel_btn}
-            onClick={this.props.closeGroupShareSheet}>
+            onClick={this.props.closeGroupShareSheet}
+          >
             취소
-              </button>
+          </button>
         </div>
       </div>
     );
