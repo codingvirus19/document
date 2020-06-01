@@ -48,6 +48,13 @@
 		update memo set content = #{content}, color=#{color} where no = #{no};
 	]]>
 	</update>
+	
+	<insert id="insertMemo" parameterType="memovo">
+	<![CDATA[
+		insert into memo values (null,#{gNo},#{uNo},#{content},#{color},now());
+		
+	]]>
+	</insert>
 
 
 </mapper>

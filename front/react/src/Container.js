@@ -17,7 +17,6 @@ export default class Container extends React.Component {
     super(...arguments);
     this.state = {
       group: { no: [], gname: [] },
-      users: { no: [], name: [] },
       hash: [{ no: "", name: "" }],
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
@@ -133,9 +132,7 @@ export default class Container extends React.Component {
   }
 
   UpdateUser(users) {
-    this.setState({
-      users: users,
-    });
+    this.Users = users;
   }
 
   // sidebar에서 콜백된 파라미터 no와 name
@@ -201,8 +198,7 @@ export default class Container extends React.Component {
           groupBySidebar={this.state.groupBySidebar}
           memo_bigArr={this.state.memo_bigArr}
           memo_Change={this.memo_Change.bind(this)}
-          group={this.state.group}
-          users={this.state.users}
+          users={this.Users}
           showChat={this.state.showChat}
           clientRef={this.clientRef}
         //변경된 결과 값 state :true false

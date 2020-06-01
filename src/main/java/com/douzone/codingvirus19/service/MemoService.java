@@ -45,5 +45,10 @@ public class MemoService {
 		memoRepository.memoUpdate(vo);
 
 	}
+
+	public boolean insert(MemoVo vo) {
+		return memoRepository.memoInsert(vo);
+		
+	}
 }
 
