@@ -2,7 +2,9 @@ package com.douzone.codingvirus19.controller.api;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -29,10 +31,11 @@ public class MemoApiController {
 	@Autowired
 	private MemoService memoService;
 
-	static ArrayList<Long> version = new ArrayList<>();
-	static String str = "";
-
+	static Map<Long, String> strList = new HashMap<>();
+	static Map<Long, ArrayList<Long>> versionList = new HashMap<>();
+	static boolean first = true;
 	@PostMapping("/api/memo/shareMemo")
+
 	public JsonResult shareMemo(@AuthUser SecurityUser securityUser, @RequestBody List<MemoVo> vo) {
 		int i;
 		boolean asyncTest = true;
@@ -65,9 +68,35 @@ public class MemoApiController {
 	}
 	
 	@MessageMapping("/memo/{memo}")
-	public void sendmemo(EditorVo message, @DestinationVariable String memo) throws Exception {
+	public void sendmemo(EditorVo message, @DestinationVariable Long memo) throws Exception {
 		ArrayList<String> arrData = new ArrayList<String>();
-		Collections.addAll(arrData, str.split(""));
+		ArrayList<Long> version = new ArrayList<Long>();
+		String str = null;
+		if(strList.get(memo) != null && versionList.get(memo) != null) {
+			Collections.addAll(arrData, strList.get(memo).split(""));
+			version = versionList.get(memo);
+			 str = strList.get(memo);
+		}
+		
+		if(message.getType().equals("save")) {
+			MemoVo memoVo = new MemoVo();
+			memoVo.setNo(memo);
+			memoVo.setContent(str);
+			memoVo.setColor("Color");
+			memoService.memoUpdate(memoVo);
+			return;
+		}
+		
+		
+		if (message.getType().equals("allKey")) {
+			Collections.addAll(arrData,message.getKey().split(""));
+			str = message.getKey();
+			first = false;
+			strList.put(memo,str);
+			versionList.put(memo,version);
+			webSocket.convertAndSend("/api/memo/" + memo, message);
+			return;
+		}
 		if (version.size() > 0) {
 			if (message.getVersion() < version.get(version.size() - 1)) {
 				message.setType("error");
@@ -78,11 +107,12 @@ public class MemoApiController {
 				return;
 			}
 		}
+		
 		version.add(message.getVersion());
 		message.setVersion(message.getVersion() + 1L);
 		if (message.getType().equals("basic")) {
 			// 기본 입력
-			arrData.add(message.getInputIndex() - 1, message.getKey());
+//			arrData.add(message.getInputIndex() - 1, message.getKey());
 		} else if (message.getType().equals("korean")) {
 			// 한글입력
 			arrData.set(message.getInputIndex() - 1, message.getKey());
@@ -101,13 +131,13 @@ public class MemoApiController {
 			arrData.add(message.getInputIndex(), message.getKey());
 			arrData.add(message.getSize().intValue()+1, message.getKey());
 		}
-		System.out.println(message);
 		str = String.join("", arrData);
-		System.out.println(str);
-		
+		strList.put(memo,str);
+		versionList.put(memo,version);
 		webSocket.convertAndSend("/api/memo/" + memo, message);
 	}
 	
+
 	@PostMapping("/api/getHashListByMemo")
 	public JsonResult getHashListByMemo(@RequestBody MemoVo vo){
 		List<HashVo> HashListByMemo = memoService.getHashListByMemo(vo);

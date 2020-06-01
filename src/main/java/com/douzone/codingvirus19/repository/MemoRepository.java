@@ -26,10 +26,18 @@ public class MemoRepository {
 	}
 
 
+
 	public int peopleDeleteMemo(MemoVo vo) {
 		int asyncTest = sqlSession.delete("memo.peopleDeleteMemo",vo);
 		return asyncTest;
 	}
+
+	public void memoUpdate(MemoVo vo) {
+		sqlSession.update("memo.memoUpdate",vo);
+		
+	}
+
+
 
 	public void shareMemo(MemoVo memoVo) {
 		sqlSession.insert("memo.shareMemo",memoVo);
