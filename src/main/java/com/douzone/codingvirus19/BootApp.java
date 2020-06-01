@@ -9,4 +9,3 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 			SpringApplication.run(BootApp.class, args);
 		}
 }
- 
