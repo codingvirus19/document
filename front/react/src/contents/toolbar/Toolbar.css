@@ -1,19 +1,19 @@
 .toolbar {
-    min-height: 1.8rem;
-    min-width: 12rem;
-  }
-  
-  .tool {
-    margin: 3px 5px 0px 5px;
-  }
-  
-  .faExternalLinkAlt,
-  .faShareSquare,
-  .faPalette,
-  .faHashtag,
-  .faSave,
-  .faFileUpload,
-  .faTrashAlt {
-    font-size: large;
-    color: #24252b;
-  }
+  min-height: 1.8rem;
+  min-width: 12rem;
+}
+
+.tool {
+  margin: 3px 5px 0px 5px;
+}
+
+.faExternalLinkAlt,
+.faShareSquare,
+.faPalette,
+.faHashtag,
+.faSave,
+.faFileUpload,
+.faTrashAlt {
+  font-size: large;
+  color: #24252b;
+}

@@ -16,6 +16,7 @@ export default class MemoDelete extends React.Component {
     this.state = {
       no: this.props.no,
       gNo: this.props.gNo,
+      gName: this.props.gName,
     };
   }
 
@@ -59,6 +60,7 @@ export default class MemoDelete extends React.Component {
         {/* 메모삭제 */}
         {/* {this.props.SidebarGroupUpdate(this.state.no, this.state.gNo)} */}
         <button
+          style={this.props.setStyle}
           className={styles.tool}
           aria-label="메모 삭제"
           onClick={this.onClickDelete.bind(this)}

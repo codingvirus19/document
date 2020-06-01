@@ -39,16 +39,21 @@ public class MemoApiController {
 	static Map<Long, String> strList = new HashMap<>();
 	static Map<Long, ArrayList<Long>> versionList = new HashMap<>();
 	static boolean first = true;
+	
+	@PostMapping("/api/memo/changeColor")
+	public JsonResult changeColor(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
+		System.out.println(vo);
+		boolean asyncTest = memoService.changeColor(vo);
+		return JsonResult.success(asyncTest);
+	}
+	
 	@PostMapping("/api/memo/shareMemo")
-
 	public JsonResult shareMemo(@AuthUser SecurityUser securityUser, @RequestBody List<MemoVo> vo) {
 		int i;
 		boolean asyncTest = true;
 		for(i=0 ; i< vo.size(); i++) {
 			vo.get(i).setuNo(securityUser.getNo());
-			System.out.println(vo.get(i));
 			memoService.shareMemo(vo.get(i));
-			System.out.println(i);
 			if(i == vo.size()-1) {
 				break;
 			}else if(i != vo.size()-1) {
@@ -71,7 +76,6 @@ public class MemoApiController {
 		vo.setuNo(securityUser.getNo());
 		if(vo.getgNo() == null) {
 			boolean asyncTest = memoService.personDeleteMemo(vo);
-			System.out.println(asyncTest);
 			return JsonResult.success(asyncTest);
 		}
 		else {

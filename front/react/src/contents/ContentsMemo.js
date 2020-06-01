@@ -5,12 +5,12 @@ import Toolbar from "./toolbar/Toolbar";
 import styles from "./ContentsMemo.css";
 
 export default class Contents extends React.PureComponent {
-
   constructor() {
     super(...arguments);
     this.state = {
-      memo_hash: [{ no: '', name: '', memo_no: '' }],
-    }
+      memo_hash: [{ no: "", name: "", memo_no: "" }],
+      color: "#ffffff",
+    };
   }
   DragStart(e) {
     this.dragStart = e.currentTarget;
@@ -20,7 +20,7 @@ export default class Contents extends React.PureComponent {
   }
   DragEnd() {
     this.dragStart.style.opacity = 1;
-    if(this.dragOver == undefined){
+    if (this.dragOver == undefined) {
       return;
     }
     let from = Number(this.dragStart.dataset.id);
@@ -36,43 +36,56 @@ export default class Contents extends React.PureComponent {
   }
 
   setMemo_hash(memo_hash) {
-      this.setState({
-        memo_hash: this.state.memo_hash.concat(memo_hash),
-      })
+    this.setState({
+      memo_hash: this.state.memo_hash.concat(memo_hash),
+    });
   }
 
   render() {
     return (
-      <div className={styles.memo} onDragOver={this.DragOver.bind(this)} >
-        {this.props.memo_bigArr && this.props.memo_bigArr.map((memos, index) =>
-          (<div key={this.props.memo_bigArr[index].no} data-id={index} draggable="true" onDragStart={this.DragStart.bind(this)} onDragEnd={this.DragEnd.bind(this)} className={styles.container_memo_form}>
-            <Memo
-              groupBySidebar={this.props.groupBySidebar}
-              group={this.props.group}
-              memo_bigArr={this.props.memo_bigArr}
-              index={index} 
-              content={this.props.memo_bigArr[index].content}
-            />
+      <div className={styles.memo} onDragOver={this.DragOver.bind(this)}>
+        {this.props.memo_bigArr &&
+          this.props.memo_bigArr.map((memos, index) => (
+            <div
+              style={{ background: this.props.memo_bigArr[index].color }}
+              key={this.props.memo_bigArr[index].no}
+              data-id={index}
+              draggable="true"
+              onDragStart={this.DragStart.bind(this)}
+              onDragEnd={this.DragEnd.bind(this)}
+              className={styles.container_memo_form}
+            >
+              <Memo
+                groupBySidebar={this.props.groupBySidebar}
+                group={this.props.group}
+                memo_bigArr={this.props.memo_bigArr}
+                index={index}
+                content={this.props.memo_bigArr[index].content}
+              />
 
-            <HashList
-              memo_no={this.props.memo_bigArr[index].no}
-              setMemo_hash={this.setMemo_hash.bind(this)}
-            />
-            <Toolbar
-              // 선택한 메모의 no
-              no={this.props.memo_bigArr[index].no}
-              memo_gNo={this.props.memo_bigArr[index].gNo}
-              group={this.props.group}
-              groupBySidebar={this.props.groupBySidebar}
-              memo_hash={this.state.memo_hash.filter(element => element.memo_no===this.props.memo_bigArr[index].no)}
-              color={this.props.memo_bigArr.color}
-              SidebarGroupUpdate={this.props.SidebarGroupUpdate}
-              clientRef={this.props.clientRef}
-              users={this.props.users}
-            />
-          </div>
-          )
-        )}
+              <HashList
+                memo_no={this.props.memo_bigArr[index].no}
+                setMemo_hash={this.setMemo_hash.bind(this)}
+              />
+              <Toolbar
+                // 색을 변화시킬 때 툴바의 색도 함께 변화시킬 props이다.
+                setStyle={{ background: this.props.memo_bigArr[index].color }}
+                // 선택한 메모의 no
+                no={this.props.memo_bigArr[index].no}
+                memo_gNo={this.props.memo_bigArr[index].gNo}
+                group={this.props.group}
+                groupBySidebar={this.props.groupBySidebar}
+                memo_hash={this.state.memo_hash.filter(
+                  (element) =>
+                    element.memo_no === this.props.memo_bigArr[index].no
+                )}
+                color={this.props.memo_bigArr[index].color}
+                SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+                clientRef={this.props.clientRef}
+                users={this.props.users}
+              />
+            </div>
+          ))}
       </div>
     );
   }
