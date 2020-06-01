@@ -171,10 +171,11 @@ export default class Container extends React.Component {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
     return (
       <div className={styles.container}>
-        <SockJsClient
+        {/* <SockJsClient
           url={wsSourceUrl}
           topics={[`/api/alarm/${this.state.users.no}`]}
           onMessage={this.alarmReceive.bind(this)}
+
           ref={(client) => {
             this.clientRef = client;
           }}
