@@ -12,5 +12,8 @@
     display: inline-flex;
   }
   .contentsMemo{
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-wrap: anywhere;
     width: 100%;
   }

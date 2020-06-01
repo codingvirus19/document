@@ -8,4 +8,6 @@
 **/.DS_Store
 /bin/
 **/node_modules
-
+**/logback.xml
+**/.log
+/.log
