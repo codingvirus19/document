@@ -46,13 +46,14 @@ public class ChatSocketController {
 		System.out.println("알람 소켓 들어 왔습니다.");
 		
 		GroupUserVo groupUserVo = new GroupUserVo();
+		AlarmVo vo = new AlarmVo();
+		vo.setuNo(userno);
+		
 		groupUserVo.setuNo(userno);
 		groupUserVo.setgNo(alarmVo.getgNo());
 		
 		long alarmNo = alarmService.addAlarm(alarmVo);
 		List<Long> list  = alarmService.getGroupinUser(groupUserVo);
-		System.out.println(alarmVo.getNo());
-		System.out.println(list);
 		
 		Long[] array =  new Long[list.size()];
 		int size = 0;
@@ -74,9 +75,12 @@ public class ChatSocketController {
 			pushSandUserList.add(pushSandUserMap);
 		}
 		SandUserMap.put("pushSandUserList", pushSandUserList);
-		System.out.println(SandUserMap);
 		alarmService.insertAccptAlarm(SandUserMap);
 		
-		webSocket.convertAndSend("/api/alarm/" + userno, alarmVo);
+		List<AlarmVo> alarmList = alarmService.getSocketAlarmList(vo);
+		System.out.println(alarmList);
+		System.out.println(userno);
+		
+		webSocket.convertAndSend("/api/alarm/", alarmList);
 	}
 }

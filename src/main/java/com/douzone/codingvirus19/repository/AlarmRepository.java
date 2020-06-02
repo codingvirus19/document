@@ -36,4 +36,9 @@ public class AlarmRepository {
 		return alarmList;
 	}
 
+	public List<AlarmVo> getSocketAlarmList(AlarmVo vo) {
+		List<AlarmVo> alarmList = sqlSession.selectList("alarm.getSocketAlarmList", vo);
+		return alarmList;
+	}
+
 }
