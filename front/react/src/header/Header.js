@@ -7,7 +7,12 @@ import Popup2 from "../Popup2";
 import CreateEditor from "./headerMemu/CreateEditor";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faUser, faBell, faSms } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faUser,
+  faBell,
+  faSms,
+} from "@fortawesome/free-solid-svg-icons";
 
 import dropdownstyles from "./Dropdown.css";
 import styles from "./Header.css";
@@ -26,7 +31,7 @@ export default class Header extends React.Component {
       _getProfileValue: null,
       showChat: false,
       redirect: false,
-      alarm: this.props.alarm
+      alarm: this.props.alarm,
     };
   }
 
@@ -40,7 +45,7 @@ export default class Header extends React.Component {
     this.setState({
       showChat: !this.state.showChat,
     });
-    this.props.chattingPopup(this.state.showChat)
+    this.props.chattingPopup(this.state.showChat);
   }
   toggleShowProfile() {
     this.setState({
@@ -69,19 +74,22 @@ export default class Header extends React.Component {
     window.location = "http://localhost:8080/codingvirus19/logout";
   }
   alarmCall() {
-    console.log("알림!")
-    return (
-      <span className={styles.alarmbell} />
-    )
+    console.log("알림!");
+    return <span className={styles.alarmbell} />;
   }
 
   render() {
-    console.log(this.props.alarm)
+    // console.log(this.props.alarm);
     return (
       <div className={styles.header}>
         <div className={styles.wrapper}>
           <Logo />
-          <Serach />
+          <Serach
+            // search 검색 콜백함수
+            onCallbackKeywordChange={this.props.onCallbackKeywordChange}
+            // 검색창에 입력한 keyword
+            keyword={this.props.keyword}
+          />
           <div className={styles.right_header}>
             <div className={styles.addmemo}>
               <button onClick={this.togglePopup.bind(this)}>
@@ -103,9 +111,8 @@ export default class Header extends React.Component {
               <Dropdown.Menu className={dropdownstyles.menu}>
                 <Dropdown.Item onClick={this.toggleShowProfile.bind(this)}>
                   개인프로필 수정
-              </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={this.setRedirect.bind(this)} >
+                </Dropdown.Item>
+                <Dropdown.Item onClick={this.setRedirect.bind(this)}>
                   로그아웃
                 </Dropdown.Item>
               </Dropdown.Menu>
@@ -120,8 +127,10 @@ export default class Header extends React.Component {
             </Dropdown>
 
             <Dropdown className={styles.userbell}>
-              <Dropdown.Toggle >
-                {(this.props.alarm.readcheck[0] == undefined) ? null : <span className={styles.alarmbell} />}  
+              <Dropdown.Toggle>
+                {this.props.alarm.readcheck[0] == undefined ? null : (
+                  <span className={styles.alarmbell} />
+                )}
                 <FontAwesomeIcon className={styles.faBell} icon={faBell} />
               </Dropdown.Toggle>
               <Dropdown.Menu className={dropdownstyles.menu}>

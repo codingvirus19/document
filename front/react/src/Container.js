@@ -21,16 +21,24 @@ export default class Container extends React.Component {
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
       showChat: false,
-      clientRef: '',
-      alarm: { readcheck: [], type: [], content: [], date: [], userNo: [] }
+      clientRef: "",
+      alarm: { readcheck: [], type: [], content: [], date: [], userNo: [] },
+      keyword: "",
     };
   }
 
+  // search 검색 콜백함수
+  onCallbackKeywordChange(keyword) {
+    this.setState({
+      keyword: keyword,
+    });
+  }
+
   componentDidMount() {
+    this.bringMemoByGroup(this.state.groupBySidebar.no);
     // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
     let group = { no: [], gname: [] };
     let groupDatas = null;
-    this.bringMemoByGroup(this.state.groupBySidebar.no);
     // call api
     fetch(`${API_URL}/api/container`, {
       method: "post",
@@ -95,7 +103,7 @@ export default class Container extends React.Component {
     // call api
     fetch(`${API_URL}/api/alarm`, {
       method: "post",
-      headers: API_HEADERS
+      headers: API_HEADERS,
     })
       .then((response) => response.json())
       .then((json) => {
@@ -115,6 +123,17 @@ export default class Container extends React.Component {
     // 읽지 않은건 false = 0, 읽은 건 true = 1
   }
 
+  // 검색창에 value를 입력 시 작동하는 함수
+  ajaxSearchHash() {
+    fetch(`${API_URL}/api/searchHash`, {
+      method: "post",
+      headers: API_HEADERS,
+    })
+      .then((response) => response.json())
+      .then((json) => {})
+      .catch((err) => console.error(err));
+  }
+
   UpdateHash(hash) {
     this.setState({
       hash: hash,
@@ -126,8 +145,8 @@ export default class Container extends React.Component {
     let data = {
       no: _groupNumbers,
     };
-    let memo_bigArr = [];
-
+    let memo_bigArr;
+    let filteredMemo_bigArr;
     // call api
     fetch(`${API_URL}/api/memoList`, {
       method: "post",
@@ -136,9 +155,27 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        // memo_bigArr : input한 그룹의 memo db 전부를 가져온다.
-        memo_bigArr = json.data;
-        this.UpdateMemo(memo_bigArr);
+        // keyword가 변화할 때는 검색한 내용에 대한 memolist를 뿌려준다.
+        // keyword가 "" 일 때는 전체 memolist를 뿌려준다.
+        if (this.state.keyword != "") {
+          console.log(this.state.keyword);
+          console.log("검색 value에 대한 memoList");
+          // memo_bigArr : input한 그룹의 memo db 전부를 가져온다.
+          memo_bigArr = json.data;
+          // console.log(memo_bigArr);
+          //indexOf() 메서드는 호출한 String 객체에서 주어진 값과
+          //일치하는 첫 번째 인덱스를 반환. 일치하는 값이 없으면 -1을 반환
+          filteredMemo_bigArr = memo_bigArr.filter(
+            (element) => element.content.indexOf(this.state.keyword) != -1
+          );
+          this.UpdateMemo(filteredMemo_bigArr);
+        } else {
+          console.log("일반 memoList");
+
+          // memo_bigArr : input한 그룹의 memo db 전부를 가져온다.
+          memo_bigArr = json.data;
+          this.UpdateMemo(memo_bigArr);
+        }
       })
       .catch((err) => console.error(err));
     // 그룹의 data로 memo의 db를 가져오는 코드
@@ -163,8 +200,8 @@ export default class Container extends React.Component {
 
   UpdateAlarm(alarm) {
     this.setState({
-      alarm: alarm
-    })
+      alarm: alarm,
+    });
   }
   // sidebar에서 콜백된 파라미터 no와 name
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
@@ -188,14 +225,9 @@ export default class Container extends React.Component {
     //를 서버로 보내야댐 ㅇㅋㅇㅋ;
   }
 
-  callbackFromToolbar(_gNo) {
-    bringMemoByGroup(_gNo);
-  }
-
   alarmReceive(alarm_msg) {
     alarm_msg.map((alarmdata) => {
       if (this.Users.no[0] == alarmdata.uNo) {
-
         console.log("됐");
         this.setState({
           alarm: {
@@ -204,24 +236,27 @@ export default class Container extends React.Component {
             content: this.state.alarm.content.concat(alarmdata.chat),
             date: this.state.alarm.date.concat(alarmdata.date),
             userNo: this.state.alarm.userNo.concat(alarmdata.uNo),
-          }
-        })
+          },
+        });
       }
-    })
+    });
   }
 
   render() {
-    console.log(this.state.alarm)
+    // console.log(this.state.alarm);
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
     return (
       <div className={styles.container}>
-        {this.Users != undefined ?
+        {this.Users != undefined ? (
           <SockJsClient
             url={wsSourceUrl}
             topics={[`/api/alarm/`]}
             onMessage={this.alarmReceive.bind(this)}
-            ref={(client) => { this.clientRef = client; }}>
-          </SockJsClient> : null}
+            ref={(client) => {
+              this.clientRef = client;
+            }}
+          ></SockJsClient>
+        ) : null}
 
         {/*속성 groupBySidebar : 사이드바의 개인/그룹 클릭 시 해당 group의 no, name을 전달 */}
         {/*속성 group : 로그인 시 session user의 모든 그룹들의 no, name이 담겨있다.  */}
@@ -229,6 +264,10 @@ export default class Container extends React.Component {
         {/*속성 memo_bigArr : 메모의 정보가 이중배열로 담겨있다.*/}
         {/*속성 SidebarGroupUpdate : delete 버튼 클릭시 콜백으로 gno와 gname이 전달된다.  */}
         <Header
+          // search 검색 콜백함수
+          onCallbackKeywordChange={this.onCallbackKeywordChange.bind(this)}
+          // 검색창에 입력한 keyword
+          keyword={this.state.keyword}
           groupBySidebar={this.state.groupBySidebar}
           //변경함수
           bringMemoByGroup={this.bringMemoByGroup.bind(this)}
@@ -249,7 +288,7 @@ export default class Container extends React.Component {
           users={this.Users}
           showChat={this.state.showChat}
           clientRef={this.clientRef}
-        //변경된 결과 값 state :true false
+          //변경된 결과 값 state :true false
         />
       </div>
     );

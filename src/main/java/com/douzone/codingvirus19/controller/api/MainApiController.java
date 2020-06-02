@@ -25,6 +25,15 @@ public class MainApiController {
 	@Autowired
  	private MainService mainService;
 	
+	@PostMapping("/searchHash")
+	public JsonResult searchHash(@AuthUser SecurityUser securityUser) {
+		UserVo userVo = new UserVo();
+		userVo.setNo(securityUser.getNo());
+		System.out.println(userVo);
+//		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
+		return JsonResult.success(null);
+	}
+	
 	@PostMapping("/container")
 	public JsonResult getGroupList(@AuthUser SecurityUser securityUser) {
 		UserVo userVo = new UserVo();
