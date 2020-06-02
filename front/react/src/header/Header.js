@@ -36,12 +36,6 @@ export default class Header extends React.Component {
       showPopup: !this.state.showPopup,
     });
   }
-  chattingClick() {
-    this.setState({
-      showChat: !this.state.showChat,
-    });
-    this.props.chattingPopup(this.state.showChat)
-  }
   toggleShowProfile() {
     this.setState({
       showProfile: !this.state.showProfile,
@@ -68,15 +62,20 @@ export default class Header extends React.Component {
   setRedirect() {
     window.location = "http://localhost:8080/codingvirus19/logout";
   }
-  alarmCall() {
-    console.log("알림!")
-    return (
-      <span className={styles.alarmbell} />
-    )
+
+  chattingClick() {
+    this.setState({
+      showChat: !this.state.showChat,
+    });
+    this.props.chattingPopup(this.state.showChat)
+  }
+
+  alarmUpdate(){
+    console.log("gd")
   }
 
   render() {
-    console.log(this.props.alarm)
+    console.log(this.state.alarm)
     return (
       <div className={styles.header}>
         <div className={styles.wrapper}>
@@ -120,8 +119,8 @@ export default class Header extends React.Component {
             </Dropdown>
 
             <Dropdown className={styles.userbell}>
-              <Dropdown.Toggle >
-                {(this.props.alarm.readcheck[0] == undefined) ? null : <span className={styles.alarmbell} />}  
+              <Dropdown.Toggle onClick={this.alarmUpdate.bind(this)} >
+                {(this.props.alarm.type == true && this.props.alarm.readcheck == true) ? <span className={styles.alarmbell}/> : null }  
                 <FontAwesomeIcon className={styles.faBell} icon={faBell} />
               </Dropdown.Toggle>
               <Dropdown.Menu className={dropdownstyles.menu}>
@@ -132,6 +131,7 @@ export default class Header extends React.Component {
 
             <div>
               <button onClick={this.chattingClick.bind(this)}>
+              {(this.props.alarm.type == false && this.props.alarm.readcheck == true) ?  <span className={styles.alarmbell}/> : null } 
                 <FontAwesomeIcon className={styles.faSms} icon={faSms} />
               </button>
             </div>
