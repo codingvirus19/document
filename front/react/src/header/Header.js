@@ -85,6 +85,8 @@ export default class Header extends React.Component {
         <div className={styles.wrapper}>
           <Logo />
           <Serach
+            groupBySidebar={this.props.groupBySidebar}
+            SidebarGroupUpdate={this.props.SidebarGroupUpdate}
             // search 검색 콜백함수
             onCallbackKeywordChange={this.props.onCallbackKeywordChange}
             // 검색창에 입력한 keyword

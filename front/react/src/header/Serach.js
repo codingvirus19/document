@@ -8,6 +8,15 @@ export default class Search extends React.Component {
     console.log(event.target.value);
   }
 
+  onClickCallback(e) {
+    e.preventDefault();
+    this.props.SidebarGroupUpdate(
+      this.props.groupBySidebar.no,
+      this.props.groupBySidebar.name
+    );
+    console.log(this.props.groupBySidebar);
+  }
+
   render() {
     return (
       <div className={styles.div}>
@@ -25,7 +34,7 @@ export default class Search extends React.Component {
               type="submit"
               className={styles.submit}
               value="검색"
-              onClick={(e) => e.preventDefault()}
+              onClick={this.onClickCallback.bind(this)}
             >
               <i className="fas fa-hashtag"></i>
             </button>

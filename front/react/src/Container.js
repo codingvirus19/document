@@ -158,14 +158,16 @@ export default class Container extends React.Component {
         // keyword가 변화할 때는 검색한 내용에 대한 memolist를 뿌려준다.
         // keyword가 "" 일 때는 전체 memolist를 뿌려준다.
         if (this.state.keyword != "") {
-          console.log(this.state.keyword);
           console.log("검색 value에 대한 memoList");
+          console.log(this.state.keyword);
           // memo_bigArr : input한 그룹의 memo db 전부를 가져온다.
           memo_bigArr = json.data;
           // console.log(memo_bigArr);
-          //indexOf() 메서드는 호출한 String 객체에서 주어진 값과
-          //일치하는 첫 번째 인덱스를 반환. 일치하는 값이 없으면 -1을 반환
+
+          // filteredMemo_bigArr: keyword에 해당하는 memoList를 filter한 값을 Array로 종합
           filteredMemo_bigArr = memo_bigArr.filter(
+            //indexOf() 메서드는 호출한 String 객체에서 주어진 값과
+            //일치하는 첫 번째 인덱스를 반환. 일치하는 값이 없으면 -1을 반환
             (element) => element.content.indexOf(this.state.keyword) != -1
           );
           this.UpdateMemo(filteredMemo_bigArr);
@@ -268,7 +270,10 @@ export default class Container extends React.Component {
           onCallbackKeywordChange={this.onCallbackKeywordChange.bind(this)}
           // 검색창에 입력한 keyword
           keyword={this.state.keyword}
+          // gNo와 gName의 정보 들어있다.
           groupBySidebar={this.state.groupBySidebar}
+          // gNo, gName을 사용하는 callback함수
+          SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
           //변경함수
           bringMemoByGroup={this.bringMemoByGroup.bind(this)}
           chattingPopup={this.chattingPopup.bind(this)}
