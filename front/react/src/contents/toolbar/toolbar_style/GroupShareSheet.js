@@ -27,7 +27,6 @@ export default class GroupShareSheet extends React.Component {
     this.setState({
       selectedOption: selectedOption,
     });
-    console.log(selectedOption[0].label);
   }
 
   onClickSendShare(e) {
@@ -43,11 +42,12 @@ export default class GroupShareSheet extends React.Component {
     // for(let a in this.props.clientRef){
     //   console.log(a);
     // }
-    this.state.selectedOption.map((no) => {
+    this.state.selectedOption.map((no, index) => {
       this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0], JSON.stringify({
         gNo: no.value,
-        chat: this.state.selectedOption[0].label + " 그룹에 메모가 공유되었습니다.",
-        type: true
+        chat: this.state.selectedOption[index].label + " 그룹에 메모가 공유되었습니다.",
+        date: new Date(),
+        type: true,
         // 알람 넣을 때, type이 true이면 기본 알람, false이면 채팅 알람 구별
         // db에서 받을때는 true = 1, false = 0
   }))

@@ -25,10 +25,13 @@ public class AlarmApiController {
 	public JsonResult getAlarmList(@AuthUser SecurityUser securityUser) {
 		AlarmVo vo = new AlarmVo();
 		vo.setuNo(securityUser.getNo());
-		List<AlarmVo> alarmList = alarmService.getAlarmList(vo);
+		AlarmVo alarmReadCheck = alarmService.getAlarmList(vo);
 		
-		System.out.println(alarmList);
-		
-		return JsonResult.success(alarmList);
+		if(alarmReadCheck == null) {
+			vo.setType(true);
+			vo.setReadCheck(false);
+			return JsonResult.success(vo);
+		}
+		return JsonResult.success(alarmReadCheck);
 	}
 }

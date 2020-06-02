@@ -22,7 +22,7 @@ export default class Container extends React.Component {
       groupBySidebar: { no: null, name: null },
       showChat: false,
       clientRef: '',
-      alarm: { readcheck: [], type: [], content: [], date: [], userNo: [] }
+      alarm: {type:'', readcheck:''}
     };
   }
 
@@ -89,7 +89,6 @@ export default class Container extends React.Component {
       .catch((err) => console.error(err));
 
     // 처음 알람 가져오는 통신
-    let alarm = { readcheck: [], type: [], content: [], date: [], userNo: [] };
     // let alarm = [];
     let alarmDatas = null;
     // call api
@@ -100,14 +99,8 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         alarmDatas = json.data;
-        alarmDatas.map((json) => {
-          alarm.readcheck.push(json.readCheck);
-          alarm.type.push(json.type);
-          alarm.content.push(json.chat);
-          alarm.date.push(json.date);
-          alarm.userNo.push(json.uNo);
-        });
-        this.UpdateAlarm(alarm);
+        console.log(alarmDatas);
+        this.UpdateAlarm(alarmDatas);
       })
       .catch((err) => console.error(err));
     // 알람 가져올 때, type이 true이면 기본 알람, false이면 채팅 알람 구별
@@ -161,9 +154,9 @@ export default class Container extends React.Component {
     this.Users = users;
   }
 
-  UpdateAlarm(alarm) {
+  UpdateAlarm(alarmDatas) {
     this.setState({
-      alarm: alarm
+      alarm: {type:alarmDatas.type, readcheck:alarmDatas.readCheck}
     })
   }
   // sidebar에서 콜백된 파라미터 no와 name
@@ -193,21 +186,22 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
-    alarm_msg.map((alarmdata) => {
-      if (this.Users.no[0] == alarmdata.uNo) {
-
-        console.log("됐");
-        this.setState({
-          alarm: {
-            readcheck: this.state.alarm.readcheck.concat(alarmdata.readCheck),
-            type: this.state.alarm.type.concat(alarmdata.type),
-            content: this.state.alarm.content.concat(alarmdata.chat),
-            date: this.state.alarm.date.concat(alarmdata.date),
-            userNo: this.state.alarm.userNo.concat(alarmdata.uNo),
-          }
-        })
+    console.log(alarm_msg);
+    this.setState({
+      alarm:{
+        type:alarm_msg.type,
+        readcheck:alarm_msg.readCheck
       }
     })
+        // this.setState({
+        //   alarm: {
+        //     readcheck: this.state.alarm.readcheck.concat(alarmdata.readCheck),
+        //     type: this.state.alarm.type.concat(alarmdata.type),
+        //     content: this.state.alarm.content.concat(alarmdata.chat),
+        //     date: this.state.alarm.date.concat(alarmdata.date),
+        //     userNo: this.state.alarm.userNo.concat(alarmdata.uNo),
+        //   }
+        // })
   }
 
   render() {
@@ -218,7 +212,7 @@ export default class Container extends React.Component {
         {this.Users != undefined ?
           <SockJsClient
             url={wsSourceUrl}
-            topics={[`/api/alarm/`]}
+            topics={[`/api/alarm/${this.Users.no}`]}
             onMessage={this.alarmReceive.bind(this)}
             ref={(client) => { this.clientRef = client; }}>
           </SockJsClient> : null}
