@@ -93,6 +93,7 @@ export default class ColorChange extends React.Component {
               color={this.state.color}
               onChange={this.handleChange.bind(this)}
             />
+
             {/* {this.state.color && (
             )} */}
           </div>
