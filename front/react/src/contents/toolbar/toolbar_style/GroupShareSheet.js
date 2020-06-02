@@ -44,17 +44,26 @@ export default class GroupShareSheet extends React.Component {
     //   console.log(a);
     // }
     this.state.selectedOption.map((no) => {
-      this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0], JSON.stringify({
-        gNo: no.value,
-        chat: this.state.selectedOption[0].label + " 그룹에 메모가 공유되었습니다.",
-        type: true
-        // 알람 넣을 때, type이 true이면 기본 알람, false이면 채팅 알람 구별
-        // db에서 받을때는 true = 1, false = 0
-  }))
-});
+      this.props.clientRef.sendMessage(
+        "/app/alarm/" + this.props.users.no[0],
+        JSON.stringify({
+          gNo: no.value,
+          chat:
+            this.state.selectedOption[0].label +
+            " 그룹에 메모가 공유되었습니다.",
+          type: true,
+          // 알람 넣을 때, type이 true이면 기본 알람, false이면 채팅 알람 구별
+          // db에서 받을때는 true = 1, false = 0
+        })
+      );
+    });
 
     // call api (GroupShare)
     this.ajaxGroupShare(send_memoNoAndGNo);
+
+    // groupShareSheet 닫기
+
+    this.props.closeGroupShareSheet();
 
     // toast알림
     toast("그룹에 메모가 공유되었습니다.", {
@@ -101,7 +110,7 @@ export default class GroupShareSheet extends React.Component {
   }
 
   render() {
-    console.log(this.props.group.gname)
+    console.log(this.props.group.gname);
     return (
       <div className={styles.groupShareSheet} ref={this.props.refChange}>
         <div className={styles.container}>
