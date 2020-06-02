@@ -41,7 +41,7 @@ public class MemoRepository {
 		int asyncTest = sqlSession.delete("memo.changeColor",vo);
 		return asyncTest;
 	}
-	
+
 	public boolean memoInsert(MemoVo vo) {
 		int i = sqlSession.insert("memo.insertMemo",vo);
 		if(i==0)return false;
