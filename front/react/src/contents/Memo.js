@@ -47,7 +47,8 @@ export default class Memo extends React.Component {
           dangerouslySetInnerHTML={this.getReMarkDown()}/>
 
           {this.state.showPopup ? (
-            <Editor groupBySidebar={this.props.groupBySidebar}
+            <Editor 
+              groupBySidebar={this.props.groupBySidebar}
               group={this.props.group}
               memo_bigArr={this.props.memo_bigArr}
               index = {this.props.index}
