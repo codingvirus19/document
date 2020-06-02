@@ -19,10 +19,8 @@ public class ChatService {
 		return list;
 	}
 
-	public boolean addChattin(ChatVo chatVo) {
+	public boolean addChatting(ChatVo chatVo) {
 		int count = chatRepository.addChatting(chatVo);
 		return count == 1;
 	}
-	
-	
 }

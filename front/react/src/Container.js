@@ -23,7 +23,7 @@ export default class Container extends React.Component {
       groupBySidebar: { no: null, name: null },
       showChat: false,
       clientRef: '',
-      alarmMessage: ''
+      alarm: { readcheck: [], type: [], content: [], date: [], userNo: [] }
     };
   }
 
@@ -88,6 +88,31 @@ export default class Container extends React.Component {
         this.UpdateHash(hash);
       })
       .catch((err) => console.error(err));
+
+    let alarm = { readcheck: [], type: [], content: [], date: [], userNo: [] };
+    // let alarm = [];
+    let alarmDatas = null;
+    // call api
+    fetch(`${API_URL}/api/alarm`, {
+      method: "post",
+      headers: API_HEADERS
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        alarmDatas = json.data;
+        alarmDatas.map((json) => {
+          alarm.readcheck.push(json.readCheck);
+          alarm.type.push(json.type);
+          alarm.content.push(json.chat);
+          alarm.date.push(json.date);
+          alarm.userNo.push(json.uNo);
+        });
+        this.UpdateAlarm(alarm);
+      })
+      .catch((err) => console.error(err));
+    // 알람 가져올 때, type이 true이면 기본 알람, false이면 채팅 알람 구별
+    // db에서 받을때는 true = 1, false = 0
+    // 읽지 않은건 false = 0, 읽은 건 true = 1
   }
 
   UpdateHash(hash) {
@@ -138,6 +163,11 @@ export default class Container extends React.Component {
     });
   }
 
+  UpdateAlarm(alarm) {
+    this.setState({
+      alarm: alarm
+    })
+  }
   // sidebar에서 콜백된 파라미터 no와 name
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
   // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo 클릭 시....
@@ -171,6 +201,7 @@ export default class Container extends React.Component {
   }
 
   render() {
+    console.log(this.state.alarm)
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
     return (
       <div className={styles.container}>
@@ -189,6 +220,7 @@ export default class Container extends React.Component {
           groupBySidebar={this.state.groupBySidebar}
           //변경함수
           chattingPopup={this.chattingPopup.bind(this)}
+          alarm={this.state.alarm}
         />
         <Sidebar
           group={this.state.group}

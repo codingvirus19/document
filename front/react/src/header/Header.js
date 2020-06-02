@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 
 import Serach from "./Serach";
@@ -19,13 +19,14 @@ const API_HEADERS = {
 
 export default class Header extends React.Component {
   constructor() {
-    super();
+    super(...arguments);
     this.state = {
       showPopup: false,
       showProfile: false,
       _getProfileValue: null,
       showChat: false,
-      redirect: false
+      redirect: false,
+      alarm: this.props.alarm
     };
   }
 
@@ -63,11 +64,18 @@ export default class Header extends React.Component {
       .catch((err) => console.error(err));
   }
 
-  setRedirect(){
+  setRedirect() {
     window.location = "http://localhost:8080/codingvirus19/logout";
+  }
+  alarmCall() {
+    console.log("알림!")
+    return (
+      <span className={styles.alarmbell} />
+    )
   }
 
   render() {
+    console.log(this.props.alarm.readcheck);
     return (
       <div className={styles.header}>
         <div className={styles.wrapper}>
@@ -110,7 +118,8 @@ export default class Header extends React.Component {
             </Dropdown>
 
             <Dropdown className={styles.userbell}>
-              <Dropdown.Toggle>
+              <Dropdown.Toggle >
+                {(this.props.alarm.readcheck[0] == undefined) ? null : <span className={styles.alarmbell} />}  
                 <FontAwesomeIcon className={styles.faBell} icon={faBell} />
               </Dropdown.Toggle>
               <Dropdown.Menu className={dropdownstyles.menu}>

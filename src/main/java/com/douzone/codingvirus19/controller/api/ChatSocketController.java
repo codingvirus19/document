@@ -1,6 +1,9 @@
 package com.douzone.codingvirus19.controller.api;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -31,7 +34,7 @@ public class ChatSocketController {
 		System.out.println(room);
 		System.out.println(chatVo);
 
-		chatService.addChattin(chatVo);
+		chatService.addChatting(chatVo);
 		
 		webSocket.convertAndSend("/api/chat/" + room, chatVo);
 //			webSocket.setUserDestinationPrefix("dd");
@@ -46,13 +49,34 @@ public class ChatSocketController {
 		groupUserVo.setuNo(userno);
 		groupUserVo.setgNo(alarmVo.getgNo());
 		
-		List<GroupUserVo> list = alarmService.getGroupinUser(groupUserVo);
+		long alarmNo = alarmService.addAlarm(alarmVo);
+		List<Long> list  = alarmService.getGroupinUser(groupUserVo);
+		System.out.println(alarmVo.getNo());
 		System.out.println(list);
 		
-//		chatService.addChattin(chatVo);
+		Long[] array =  new Long[list.size()];
+		int size = 0;
+		for(Long temp : list){
+			array[size++] = temp;
+		}
+		System.out.println(array[0] + ":" + array[1] + ":" + array[2]);
+		
+		Map<String, Object> SandUserMap = new HashMap<String, Object>();
+		Map<String, Object> pushSandUserMap = null;
+		List<Map<String, Object>> pushSandUserList = new ArrayList<Map<String, Object>>();
+		for(int i = 0; i < list.size(); i++) {
+			
+			pushSandUserMap = new HashMap<String, Object>();
+			
+			pushSandUserMap.put("read_check", false);
+			pushSandUserMap.put("noti_no", alarmVo.getNo());
+			pushSandUserMap.put("u_no", array[i]);
+			pushSandUserList.add(pushSandUserMap);
+		}
+		SandUserMap.put("pushSandUserList", pushSandUserList);
+		System.out.println(SandUserMap);
+		alarmService.insertAccptAlarm(SandUserMap);
 		
 		webSocket.convertAndSend("/api/alarm/" + userno, alarmVo);
-//			webSocket.setUserDestinationPrefix("dd");
-//			webSocket.convertAndSend("/api/chat/"+room, chatMessage);
 	}
 }
