@@ -63,17 +63,6 @@ export default class ColorChange extends React.Component {
 
   // 색상변경
   render() {
-    const popover = {
-      position: "absolute",
-      zIndex: "10",
-    };
-    const cover = {
-      position: "fixed",
-      top: "0px",
-      right: "0px",
-      bottom: "0px",
-      left: "0px",
-    };
     return (
       <Fragment>
         {/* 색상변경 */}
@@ -87,14 +76,15 @@ export default class ColorChange extends React.Component {
           <FontAwesomeIcon className={styles.faPalette} icon={faPalette} />
         </button>
         {this.state.displayColorPicker ? (
-          <div style={popover}>
-            <div style={cover} onClick={this.handleClose.bind(this)} />
+          <div className={styles.popover}>
+            <div
+              className={styles.cover}
+              onClick={this.handleClose.bind(this)}
+            />
             <TwitterPicker
               color={this.state.color}
               onChange={this.handleChange.bind(this)}
             />
-            {/* {this.state.color && (
-            )} */}
           </div>
         ) : null}
       </Fragment>
