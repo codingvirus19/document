@@ -68,6 +68,10 @@ export default class Toolbar extends React.PureComponent {
           memo_hash={this.props.memo_hash}
           // memo 색변경 시 toolbar의 버튼도 색변경을 도와주는 props
           setStyle={this.props.setStyle}
+          group_hash_for_select={this.props.group_hash_for_select}
+          IsHashUpdate={this.props.IsHashUpdate}
+          groupBySidebar={this.props.groupBySidebar}
+          SidebarGroupUpdate={this.props.SidebarGroupUpdate}
         />
 
         {/* 내 컴퓨터에 저장 */}

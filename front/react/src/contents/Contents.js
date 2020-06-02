@@ -29,6 +29,9 @@ export default class Contents extends React.Component {
               memo_bigArr={this.props.memo_bigArr}
               clientRef={this.props.clientRef}
               users={this.props.users}
+              group_hash_for_select={this.props.group_hash_for_select}
+              group_hash={this.props.group_hash}
+              IsHashUpdate={this.props.IsHashUpdate}
             />
           </div>
           {this.props.showChat ? (
@@ -40,4 +43,3 @@ export default class Contents extends React.Component {
     );
   }
 }
-//

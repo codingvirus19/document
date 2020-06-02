@@ -31,7 +31,6 @@ export default class Header extends React.Component {
   }
 
   togglePopup() {
-    console.log(this.props.groupNoForGroupUser);
     this.setState({
       showPopup: !this.state.showPopup,
     });
@@ -76,7 +75,6 @@ export default class Header extends React.Component {
   }
 
   render() {
-    console.log(this.props.alarm)
     return (
       <div className={styles.header}>
         <div className={styles.wrapper}>

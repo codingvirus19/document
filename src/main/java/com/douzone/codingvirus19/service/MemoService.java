@@ -34,8 +34,8 @@ public class MemoService {
 		return hashRepository.getHashListByMemo(vo);
 	}
 
-	public void deleteHash(Long no) {
-		hashRepository.deleteHash(no);
+	public boolean deleteHash(Long no) {
+		return 1 == hashRepository.deleteHash(no);
 	}
 	public void shareMemo(MemoVo memoVo) {
 		memoRepository.shareMemo(memoVo);
