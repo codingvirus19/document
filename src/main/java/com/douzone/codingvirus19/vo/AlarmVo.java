@@ -7,6 +7,11 @@ public class AlarmVo {
 	private String chat;
 	private String date;
 	private boolean type;
+	
+	private boolean readCheck;
+	private Long notiNo;
+	private Long uNo;
+	
 	public Long getNo() {
 		return no;
 	}
@@ -37,8 +42,29 @@ public class AlarmVo {
 	public void setType(boolean type) {
 		this.type = type;
 	}
+	
+	
+	public boolean isReadCheck() {
+		return readCheck;
+	}
+	public void setReadCheck(boolean readCheck) {
+		this.readCheck = readCheck;
+	}
+	public Long getNotiNo() {
+		return notiNo;
+	}
+	public void setNotiNo(Long notiNo) {
+		this.notiNo = notiNo;
+	}
+	public Long getuNo() {
+		return uNo;
+	}
+	public void setuNo(Long uNo) {
+		this.uNo = uNo;
+	}
 	@Override
 	public String toString() {
-		return "AlarmVo [no=" + no + ", gNo=" + gNo + ", chat=" + chat + ", date=" + date + ", type=" + type + "]";
+		return "AlarmVo [no=" + no + ", gNo=" + gNo + ", chat=" + chat + ", date=" + date + ", type=" + type
+				+ ", readCheck=" + readCheck + ", notiNo=" + notiNo + ", uNo=" + uNo + "]";
 	}
 }
