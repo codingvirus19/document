@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memo">
 
-	<select id="personDeleteMemo" parameterType="memovo">
+	<delete id="personDeleteMemo" parameterType="memovo">
 		<![CDATA[
 			delete from memo where no=#{no} and g_no is #{gNo} and u_no=#{uNo};
  		]]>
-	</select>
-	<select id="memoHashDeleteMemo" parameterType="memovo">
+	</delete>
+	<delete id="memoHashDeleteMemo" parameterType="memovo">
 
       <![CDATA[
       delete
@@ -19,12 +19,12 @@
                               and a.no = b.m_no
                              group by b.no) t);
        ]]>
-   </select>
-	<select id="peopleDeleteMemo" parameterType="memovo">
+   </delete>
+	<delete id="peopleDeleteMemo" parameterType="memovo">
 		<![CDATA[
 			delete from memo where no=#{no} and g_no= #{gNo} and u_no=#{uNo};
  		]]>
-	</select>
+	</delete>
 
 	<insert id="shareMemo" parameterType="memovo">
 		<![CDATA[
@@ -48,7 +48,19 @@
 		update memo set content = #{content}, color=#{color} where no = #{no};
 	]]>
 	</update>
+	
+	<update id="changeColor" parameterType="memovo">
+	<![CDATA[
+		update memo set color=#{color} where no = #{no};
+	]]>
+	</update>
 
+	<insert id="insertMemo" parameterType="memovo">
+	<![CDATA[
+		insert into memo values (null,#{gNo},#{uNo},#{content},#{color},now());
+		
+	]]>
+	</insert>
 
 </mapper>
 	

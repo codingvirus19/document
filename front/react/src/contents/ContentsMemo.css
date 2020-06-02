@@ -1,19 +1,20 @@
 .memo {
-    height: auto;
-    width: 91%;
-    display: inline-block;
-    border: 0.5px solid black;
-    padding: 5% 4%;
-  }
+  height: auto;
+  width: 91%;
+  display: inline-block;
+  padding: 5% 4%;
+}
+
+.container_memo_form {
+  padding: 10px;
+  width: 15rem;
+  display: inline-block;
+  margin: 0.3rem;
+  border-radius: 0.7rem;
+  border: thin solid gray;
   
-  .container_memo_form {
-    padding: 10px;
-    width: 15rem;
-    display: inline-block;
-    margin: 0.3rem;
-    border: 1px solid;
-  }
-  .drag{
-    background-color: yellow;
-    opacity: 0.1;
-  }
+}
+.drag {
+  background-color: yellow;
+  opacity: 0.1;
+}

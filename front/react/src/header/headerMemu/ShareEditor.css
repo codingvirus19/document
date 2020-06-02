@@ -16,7 +16,7 @@
     height: 10%;
   }
 
-  .btn button{
+  .btn .button{
     width:8%;
     height:75%;
     margin: 1%;
@@ -25,7 +25,7 @@
   .click{
     background-color: lightcoral;
   }
-  .btn button:hover{
+  .btn .button:hover{
     background-color: lightcoral;
   }
 
@@ -55,4 +55,10 @@
 .toolbar{
   text-align: center;
   border-top: 1px solid;
+}
+.file_UpLoad{ 
+  width:40%;
+}
+.file_UpLoad:no-button{
+  width:8%;
 }

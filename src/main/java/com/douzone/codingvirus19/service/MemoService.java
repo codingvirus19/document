@@ -45,5 +45,15 @@ public class MemoService {
 		memoRepository.memoUpdate(vo);
 
 	}
+
+	public boolean changeColor(MemoVo vo) {
+		int asyncTestCount = memoRepository.changeColor(vo);
+		return asyncTestCount == 1;
+	}
+
+	public boolean insert(MemoVo vo) {
+		return memoRepository.memoInsert(vo);
+		
+	}
 }
 

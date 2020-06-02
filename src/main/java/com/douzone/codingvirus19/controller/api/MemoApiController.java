@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.douzone.codingvirus19.dto.JsonResult;
 import com.douzone.codingvirus19.security.AuthUser;
 import com.douzone.codingvirus19.security.SecurityUser;
+import com.douzone.codingvirus19.service.FileService;
 import com.douzone.codingvirus19.service.MemoService;
 import com.douzone.codingvirus19.vo.EditorVo;
+import com.douzone.codingvirus19.vo.FileUpLoadVo;
 import com.douzone.codingvirus19.vo.HashVo;
 import com.douzone.codingvirus19.vo.MemoVo;
 
@@ -30,20 +32,28 @@ public class MemoApiController {
 	
 	@Autowired
 	private MemoService memoService;
+	
+	@Autowired
+	private FileService filesService;
 
 	static Map<Long, String> strList = new HashMap<>();
 	static Map<Long, ArrayList<Long>> versionList = new HashMap<>();
 	static boolean first = true;
+	
+	@PostMapping("/api/memo/changeColor")
+	public JsonResult changeColor(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
+		System.out.println(vo);
+		boolean asyncTest = memoService.changeColor(vo);
+		return JsonResult.success(asyncTest);
+	}
+	
 	@PostMapping("/api/memo/shareMemo")
-
 	public JsonResult shareMemo(@AuthUser SecurityUser securityUser, @RequestBody List<MemoVo> vo) {
 		int i;
 		boolean asyncTest = true;
 		for(i=0 ; i< vo.size(); i++) {
 			vo.get(i).setuNo(securityUser.getNo());
-			System.out.println(vo.get(i));
 			memoService.shareMemo(vo.get(i));
-			System.out.println(i);
 			if(i == vo.size()-1) {
 				break;
 			}else if(i != vo.size()-1) {
@@ -53,18 +63,29 @@ public class MemoApiController {
 		return JsonResult.success(asyncTest);
 	}
 	
+	@PostMapping("/api/memo/save")
+	public JsonResult saveMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
+		vo.setuNo(securityUser.getNo());
+		System.out.println(vo);
+		memoService.insert(vo);
+		return JsonResult.success("ab");
+	}
+	
 	@PostMapping("/api/memo/delete")
 	public JsonResult deleteMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
 		vo.setuNo(securityUser.getNo());
 		if(vo.getgNo() == null) {
 			boolean asyncTest = memoService.personDeleteMemo(vo);
-			System.out.println(asyncTest);
 			return JsonResult.success(asyncTest);
 		}
 		else {
 			boolean asyncTest = memoService.peopleDeleteMemo(vo);
 			return JsonResult.success(asyncTest);
 		}
+	}
+	@PostMapping("/api/upload")
+	public JsonResult imgUpload(@AuthUser SecurityUser securityUser,FileUpLoadVo fileUpLoadVo) {
+		return JsonResult.success(filesService.upload(fileUpLoadVo));
 	}
 	
 	@MessageMapping("/memo/{memo}")
