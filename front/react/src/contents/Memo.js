@@ -22,9 +22,7 @@ export default class Memo extends React.Component {
       linkTarget: '',           // set target to open link in
       typographer: false,
       markOpen: false
-
   });
-
 
   }
 
