@@ -180,7 +180,6 @@ export default class Popup extends React.Component {
             e.stopPropagation();
           }}
         >
-          <div></div>
           <div className={styles.header}></div>
           <div className={styles.editor}>
             <div className={styles.btn}>
