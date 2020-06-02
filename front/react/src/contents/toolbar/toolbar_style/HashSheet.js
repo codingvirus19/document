@@ -77,7 +77,7 @@ export default class HashSheet extends React.PureComponent {
 
   render() {
     if (!this.state.memo_hash) {
-      return;
+      return null;
     }
     return (
       <div className={styles.hashSheet} ref={this.props.refChange}>

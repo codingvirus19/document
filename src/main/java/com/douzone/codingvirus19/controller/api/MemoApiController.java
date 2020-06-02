@@ -42,7 +42,6 @@ public class MemoApiController {
 	
 	@PostMapping("/api/memo/changeColor")
 	public JsonResult changeColor(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
-		System.out.println(vo);
 		boolean asyncTest = memoService.changeColor(vo);
 		return JsonResult.success(asyncTest);
 	}
@@ -66,7 +65,6 @@ public class MemoApiController {
 	@PostMapping("/api/memo/save")
 	public JsonResult saveMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
 		vo.setuNo(securityUser.getNo());
-		System.out.println(vo);
 		memoService.insert(vo);
 		return JsonResult.success("ab");
 	}
@@ -103,13 +101,11 @@ public class MemoApiController {
 			MemoVo memoVo = new MemoVo();
 			memoVo.setNo(memo);
 			memoVo.setContent(str);
-			memoVo.setColor("Color");
+			memoVo.setColor(message.getKey());
 			memoService.memoUpdate(memoVo);
 			return;
 		}
-		
-		
-		if (message.getType().equals("allKey")) {
+		if (message.getType().equals("allKey")&& first) {
 			Collections.addAll(arrData,message.getKey().split(""));
 			str = message.getKey();
 			first = false;
@@ -133,7 +129,7 @@ public class MemoApiController {
 		message.setVersion(message.getVersion() + 1L);
 		if (message.getType().equals("basic")) {
 			// 기본 입력
-//			arrData.add(message.getInputIndex() - 1, message.getKey());
+			arrData.add(message.getInputIndex() - 1, message.getKey());
 		} else if (message.getType().equals("korean")) {
 			// 한글입력
 			arrData.set(message.getInputIndex() - 1, message.getKey());

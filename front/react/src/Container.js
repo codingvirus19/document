@@ -244,6 +244,7 @@ export default class Container extends React.Component {
           SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
           group={this.state.group}
           groupBySidebar={this.state.groupBySidebar}
+          bringMemoByGroup={this.bringMemoByGroup.bind(this)}
           memo_bigArr={this.state.memo_bigArr}
           memo_Change={this.memo_Change.bind(this)}
           users={this.Users}
@@ -251,7 +252,7 @@ export default class Container extends React.Component {
           clientRef={this.clientRef}
         //변경된 결과 값 state :true false
         />
-      </div>
+        </div>
     );
   }
 }
