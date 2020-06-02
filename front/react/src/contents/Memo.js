@@ -23,7 +23,7 @@ export default class Memo extends React.Component {
       typographer: false,
       markOpen: false
 
-  });
+    });
 
 
   }
@@ -44,18 +44,28 @@ export default class Memo extends React.Component {
       <div onClick={this.viewPopup.bind(this)} id={this.props.index} name={this.props.no} value={this.props.content}
         className={styles.memo}>
         <div
-          dangerouslySetInnerHTML={this.getReMarkDown()}/>
+          dangerouslySetInnerHTML={this.getReMarkDown()} />
 
-          {this.state.showPopup ? (
-            <Editor 
-              groupBySidebar={this.props.groupBySidebar}
-              group={this.props.group}
-              memo_bigArr={this.props.memo_bigArr}
-              index = {this.props.index}
-              content={this.props.content}
-              viewPopup={this.viewPopup.bind(this)} />
+        {this.state.showPopup ? (
+
+          <ShareEditor
+          bringMemoByGroup={this.props.bringMemoByGroup}
+            no={this.props.memo_bigArr[this.props.index].no}
+            memo_gNo={this.props.memo_bigArr.gNo}
+            group={this.props.group}
+            groupBySidebar={this.props.groupBySidebar}
+            color={this.props.memo_bigArr.color}
+            content={this.props.content} />
+
+          // <Editor
+          //   groupBySidebar={this.props.groupBySidebar}
+          //   group={this.props.group}
+          //   memo_bigArr={this.props.memo_bigArr}
+          //   index={this.props.index}
+          //   content={this.props.content}
+          //   viewPopup={this.viewPopup.bind(this)} />
           ) : null}
-        </div>
+      </div>
     );
   }
 }

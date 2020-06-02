@@ -70,16 +70,16 @@ export default class Toolbar extends React.PureComponent {
         <SaveLocal setStyle={this.props.setStyle} />
 
         {/* 외부공유 */}
-        <ExternalSharing setStyle={this.props.setStyle} />
+        <ExternalSharing setStyle={this.props.setStyle} /> 
 
         {/* 메모삭제 */}
         <MemoDelete
-          setStyle={this.props.setStyle}
+          setStyle={this.props.setStyle} // 삭제버튼 스타일
           // SidebarGroupUpdate: delete클릭 후 수정된 메모list를 다시뿌려주기 위한 callback함수
-          SidebarGroupUpdate={this.props.SidebarGroupUpdate}
-          no={this.props.no}
-          gName={this.props.groupBySidebar.name}
-          gNo={this.props.groupBySidebar.no}
+          SidebarGroupUpdate={this.props.SidebarGroupUpdate} // 그룹정보 업데이트
+          no={this.props.no} // no
+          gName={this.props.groupBySidebar.name} //그룹 이름
+          gNo={this.props.groupBySidebar.no} // 그룹 no
         />
       </div>
     );
