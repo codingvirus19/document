@@ -69,6 +69,8 @@ export default class Contents extends React.PureComponent {
                 setMemo_hash={this.setMemo_hash.bind(this)}
               />
               <Toolbar
+                // SaveLocal에서 저장시킬 contents값
+                content={this.props.memo_bigArr[index].content}
                 // 색을 변화시킬 때 툴바의 색도 함께 변화시킬 props이다.
                 setStyle={{ background: this.props.memo_bigArr[index].color }}
                 // 선택한 메모의 no

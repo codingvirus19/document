@@ -76,7 +76,7 @@ export default class Header extends React.Component {
   }
 
   render() {
-    console.log(this.props.alarm.readcheck);
+    console.log(this.props.alarm)
     return (
       <div className={styles.header}>
         <div className={styles.wrapper}>

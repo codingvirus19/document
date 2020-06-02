@@ -34,5 +34,10 @@ public class AlarmService {
 		List<AlarmVo> alarmList = alarmRepository.getAlarmList(vo);
 		return alarmList;
 	}
+
+	public List<AlarmVo> getSocketAlarmList(AlarmVo vo) {
+		List<AlarmVo> alarmList = alarmRepository.getSocketAlarmList(vo);
+		return alarmList;
+	}
 	
 }
