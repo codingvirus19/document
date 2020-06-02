@@ -88,6 +88,7 @@ export default class Container extends React.Component {
       })
       .catch((err) => console.error(err));
 
+    // 처음 알람 가져오는 통신
     let alarm = { readcheck: [], type: [], content: [], date: [], userNo: [] };
     // let alarm = [];
     let alarmDatas = null;
@@ -192,26 +193,36 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
-    this.setState({
-      alarmMessage: alarm_msg,
-    });
-  }
+    alarm_msg.map((alarmdata) => {
+      if (this.Users.no[0] == alarmdata.uNo) {
 
+        console.log("됐");
+        this.setState({
+          alarm: {
+            readcheck: this.state.alarm.readcheck.concat(alarmdata.readCheck),
+            type: this.state.alarm.type.concat(alarmdata.type),
+            content: this.state.alarm.content.concat(alarmdata.chat),
+            date: this.state.alarm.date.concat(alarmdata.date),
+            userNo: this.state.alarm.userNo.concat(alarmdata.uNo),
+          }
+        })
+      }
+    })
+  }
 
   render() {
     console.log(this.state.alarm)
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
     return (
       <div className={styles.container}>
-        {/* <SockJsClient
-          url={wsSourceUrl}
-          topics={[`/api/alarm/${this.state.users.no}`]}
-          onMessage={this.alarmReceive.bind(this)}
+        {this.Users != undefined ?
+          <SockJsClient
+            url={wsSourceUrl}
+            topics={[`/api/alarm/`]}
+            onMessage={this.alarmReceive.bind(this)}
+            ref={(client) => { this.clientRef = client; }}>
+          </SockJsClient> : null}
 
-          ref={(client) => {
-            this.clientRef = client;
-          }}
-        ></SockJsClient>
         {/*속성 groupBySidebar : 사이드바의 개인/그룹 클릭 시 해당 group의 no, name을 전달 */}
         {/*속성 group : 로그인 시 session user의 모든 그룹들의 no, name이 담겨있다.  */}
         {/*속성 users : 유저 session이 담긴다. */}
@@ -238,7 +249,7 @@ export default class Container extends React.Component {
           users={this.Users}
           showChat={this.state.showChat}
           clientRef={this.clientRef}
-          //변경된 결과 값 state :true false
+        //변경된 결과 값 state :true false
         />
       </div>
     );
