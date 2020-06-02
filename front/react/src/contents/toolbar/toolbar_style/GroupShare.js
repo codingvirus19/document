@@ -16,21 +16,14 @@ export default class GroupShare extends React.Component {
     this.toggleGroupShareSheet = this.toggleGroupShareSheet.bind(this);
   }
 
-  onClickOutsideHandler(event) {
-    if (this.state.clickGroupShareButton) {
-      this.setState({
-        clickGroupShareButton: !this.state.clickGroupShareButton,
-      });
-    } else if (
-      this.state.showGroupShareSheet &&
-      !this.toggleContainer.current.contains(event.target)
-    ) {
-      this.setState({ showGroupShareSheet: false });
-    }
+  handleClose() {
+    this.setState({ showGroupShareSheet: false });
   }
 
   // 그룹공유
   toggleGroupShareSheet(e) {
+    // 클릭 시 true로 바뀌면서 groupShareSheet가 열린다.
+    this.setState({ showGroupShareSheet: !this.state.showGroupShareSheet });
     e.preventDefault();
 
     let nullValueAndLabel = { value: null, label: "개인" };
@@ -76,26 +69,32 @@ export default class GroupShare extends React.Component {
 
         {this.state.showGroupShareSheet ? (
           //  {true ? (
-          <GroupShareSheet
-            // gName,gNo : 임의의 작동을 한 그룹의 no와 name으로 콜백이동하기위한 props
-            gName={this.props.gName}
-            gNo={this.props.gNo}
-            // SidebarGroupUpdate: shareMemo 전송 후 수정된 메모list를 다시뿌려주기 위한 callback함수
-            SidebarGroupUpdate={this.props.SidebarGroupUpdate}
-            // memo_gNo: 선택한 메모의 g_no이다. callback함수에 input되며,
-            //  메모리스트를 새로 불러올 때 해당 gNo페이지를 불러옴
-            memo_gNo={this.props.memo_gNo}
-            // no: 선택한 메모의 no
-            no={this.props.no}
-            // addNullToGroup: 기존 그룹에 null을 추가하여 넣은 값,
-            // GroupShareSheet에서 Select 시 value값에 null을 넣기 위함.
-            addNullToGroup={this.state.addNullToGroup}
-            refChange={this.toggleContainer}
-            closeGroupShareSheet={this.toggleGroupShareSheet.bind(this)}
-            group={this.props.group}
-            clientRef={this.props.clientRef}
-            users={this.props.users}
-          />
+          <div className={styles.popover}>
+            <div
+              className={styles.cover}
+              onClick={this.handleClose.bind(this)}
+            />
+            <GroupShareSheet
+              // gName,gNo : 임의의 작동을 한 그룹의 no와 name으로 콜백이동하기위한 props
+              gName={this.props.gName}
+              gNo={this.props.gNo}
+              // SidebarGroupUpdate: shareMemo 전송 후 수정된 메모list를 다시뿌려주기 위한 callback함수
+              SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+              // memo_gNo: 선택한 메모의 g_no이다. callback함수에 input되며,
+              //  메모리스트를 새로 불러올 때 해당 gNo페이지를 불러옴
+              memo_gNo={this.props.memo_gNo}
+              // no: 선택한 메모의 no
+              no={this.props.no}
+              // addNullToGroup: 기존 그룹에 null을 추가하여 넣은 값,
+              // GroupShareSheet에서 Select 시 value값에 null을 넣기 위함.
+              addNullToGroup={this.state.addNullToGroup}
+              refChange={this.toggleContainer}
+              closeGroupShareSheet={this.toggleGroupShareSheet.bind(this)}
+              group={this.props.group}
+              clientRef={this.props.clientRef}
+              users={this.props.users}
+            />
+          </div>
         ) : null}
       </Fragment>
     );
