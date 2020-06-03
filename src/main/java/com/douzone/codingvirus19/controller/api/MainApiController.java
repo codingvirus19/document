@@ -21,19 +21,19 @@ import com.douzone.codingvirus19.vo.UserVo;
 @RestController
 @RequestMapping("/api")
 public class MainApiController {
-	
+
 	@Autowired
- 	private MainService mainService;
-	
+	private MainService mainService;
+
 	@PostMapping("/searchHash")
 	public JsonResult searchHash(@AuthUser SecurityUser securityUser) {
 		UserVo userVo = new UserVo();
 		userVo.setNo(securityUser.getNo());
 		System.out.println(userVo);
-//		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
+		//		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
 		return JsonResult.success(null);
 	}
-	
+
 	@PostMapping("/container")
 	public JsonResult getGroupList(@AuthUser SecurityUser securityUser) {
 		UserVo userVo = new UserVo();
@@ -41,26 +41,20 @@ public class MainApiController {
 		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
 		return JsonResult.success(returnValue);
 	}
-	
- 	@PostMapping("/memoList")
- 	public JsonResult contents(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo) {
- 		MemoVo memoVo = new MemoVo();
- 		// uNo와 gNo를 memoVo에 담아서 전달
- 		memoVo.setuNo(securityUser.getNo());
- 		memoVo.setgNo(vo.getNo());
- 		if(vo.getNo() == null) {
- 			List<MemoVo> nulllist = mainService.memoAtNull(memoVo);
- 			return JsonResult.success(nulllist);
- 		}
- 		else {
- 			List<MemoVo> list = mainService.findAllMemo(memoVo);
- 			return JsonResult.success(list);
- 		}
+
+	@PostMapping("/memoList")
+	public JsonResult contents(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo) {
+		MemoVo memoVo = new MemoVo();
+		// uNo와 gNo를 memoVo에 담아서 전달
+		memoVo.setuNo(securityUser.getNo());
+		memoVo.setgNo(vo.getNo());
+		List<MemoVo> list = mainService.findAllMemo(memoVo);
+		return JsonResult.success(list);
 	}
 
 	@PostMapping("/getUserSession")
 	public JsonResult getUserSession(@AuthUser SecurityUser securityUser) {
-//		System.out.println(securityUser);
+		//		System.out.println(securityUser);
 		return JsonResult.success(securityUser);
 	}
 
@@ -73,14 +67,14 @@ public class MainApiController {
 		groupUservo.setgNo(groupVo.getNo());
 		groupUservo.setaNo((long) 1);
 		mainService.insertGroupUser(groupUservo);
-		
+
 		return JsonResult.success(groupVo);
 	}
-	
+
 	@PostMapping("/deleteGroup")
 	public JsonResult deleteGroup(@RequestBody GroupVo groupVo){
 		boolean result = mainService.deleteGroup(groupVo.getNo());
 		return JsonResult.success(result);
 	}
-	
+
 }
