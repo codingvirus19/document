@@ -129,8 +129,8 @@ public class MemoApiController {
 			memoVo.setNo(memo);
 			memoVo.setContent(str);
 			memoVo.setColor(message.getKey());
-		
 			memoService.memoUpdate(memoVo);
+			webSocket.convertAndSend("/api/memo/" + memo, message);
 			return;
 		}
 		
