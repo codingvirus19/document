@@ -13,7 +13,6 @@ public class MainController implements ErrorController {
 	
 	@GetMapping({"/","/error"})
 	public String index(@AuthUser SecurityUser securityUser) {
-		System.out.println(securityUser);
 		return "main/index"; 
 	}
 	

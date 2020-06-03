@@ -112,6 +112,7 @@ export default class GroupShareSheet extends React.Component {
           <div className={styles.title}>공유할 그룹</div>
           <div className={styles.contents}>
             <Select
+              ref={(e)=>(e != null)?(e.select.menuListRef.parentNode.style.position="relative"):null}
               value={this.state.selectedOption}
               onChange={this.handleChange.bind(this)}
               isMulti
