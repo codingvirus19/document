@@ -11,7 +11,6 @@
 .groupShareSheet {
   padding: 1rem;
   width: 15rem;
-  height: 15rem;
 }
 
 .hashSheet {
@@ -41,7 +40,7 @@
 }
 
 .select {
-  display: block;
+  display: inline-block;
   width: 100%;
 }
 
