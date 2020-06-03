@@ -163,9 +163,9 @@ public class MemoApiController {
 	
 	
 	@PostMapping("/api/deleteHash")
-	public void deleteHash(@RequestBody HashVo vo){
-		memoService.deleteHash(vo.getNo());
-		return;
+	public JsonResult deleteHash(@RequestBody HashVo vo){
+		boolean result = memoService.deleteHash(vo.getNo());
+		return JsonResult.success(result);
 	}
 
 }

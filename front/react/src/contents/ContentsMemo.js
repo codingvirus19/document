@@ -56,7 +56,7 @@ export default class Contents extends React.PureComponent {
               className={styles.container_memo_form}
             >
               <Memo
-                bringMemoByGroup ={this.props.bringMemoByGroup}
+                bringMemoByGroup={this.props.bringMemoByGroup}
                 groupBySidebar={this.props.groupBySidebar}
                 group={this.props.group}
                 memo_bigArr={this.props.memo_bigArr}
@@ -67,6 +67,9 @@ export default class Contents extends React.PureComponent {
               <HashList
                 memo_no={this.props.memo_bigArr[index].no}
                 setMemo_hash={this.setMemo_hash.bind(this)}
+                memo_hash={this.props.group_hash.filter((element) =>
+                  element.memo_no === this.props.memo_bigArr[index].no)}
+                IsHashUpdate={this.props.IsHashUpdate}
               />
               <Toolbar
                 // SaveLocal에서 저장시킬 contents값
@@ -78,14 +81,14 @@ export default class Contents extends React.PureComponent {
                 memo_gNo={this.props.memo_bigArr[index].gNo}
                 group={this.props.group}
                 groupBySidebar={this.props.groupBySidebar}
-                memo_hash={this.state.memo_hash.filter(
-                  (element) =>
-                    element.memo_no === this.props.memo_bigArr[index].no
-                )}
+                memo_hash={this.props.group_hash.filter((element) =>
+                  element.memo_no === this.props.memo_bigArr[index].no)}
                 color={this.props.memo_bigArr[index].color}
                 SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                 clientRef={this.props.clientRef}
                 users={this.props.users}
+                group_hash_for_select={this.props.group_hash_for_select}
+                IsHashUpdate={this.props.IsHashUpdate}
               />
             </div>
           ))}

@@ -66,6 +66,10 @@ export default class AddHash extends React.PureComponent {
             hash={this.props.hash}
             memo_no={this.state.no}
             memo_gNo={this.state.memo_gNo}
+            group_hash_for_select={this.props.group_hash_for_select}
+            groupBySidebar={this.props.groupBySidebar}
+            SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+            IsHashUpdate={this.props.IsHashUpdate}
           />
         ) : null}
       </>

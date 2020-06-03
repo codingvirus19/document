@@ -5,7 +5,7 @@
 	<select id="getHashListByGroup" parameterType="memovo"
 		resultType="hashvo">
 		<![CDATA[
-			select a.no, a.g_no, a.m_no, a.name
+			select a.no, a.g_no as gNo, a.m_no as mNo, a.name
 			  from hash a, memo b
 			 where a.m_no=b.no 
 			   and b.u_no=#{uNo}

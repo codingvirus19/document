@@ -31,8 +31,8 @@ public class HashRepository {
 		return sqlSession.selectList("hash.getHashListByMemo", vo);
 	}
 
-	public void deleteHash(Long no) {
-		sqlSession.delete("hash.deleteHash",no);
+	public int deleteHash(Long no) {
+		return sqlSession.delete("hash.deleteHash",no);
 	}
 
 }
