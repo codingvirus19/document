@@ -4,16 +4,6 @@ import SockJsClient from "react-stomp";
 import popup from "./Popup.css";
 import Toolbar from "../../contents/toolbar/Toolbar";
 import styles from "./ShareEditor.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faExternalLinkAlt,
-  faShareSquare,
-  faPalette,
-  faHashtag,
-  faSave,
-  faFileUpload,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
 
 export default class Popup extends React.Component {
   constructor(props) {
@@ -28,7 +18,6 @@ export default class Popup extends React.Component {
       linkTarget: '',           // set target to open link in
       typographer: false,
       markOpen: false
-
     });
     this.temp = null;
     this.state = {
@@ -36,7 +25,8 @@ export default class Popup extends React.Component {
       cursor: '',
       textSize: 0,
       version: 0,
-      name: "test" + Math.round(Math.random() * 100)
+      name: "test" + Math.round(Math.random() * 100),
+      color: "whilte"
     };
   }
   boldevent() {
@@ -257,7 +247,8 @@ export default class Popup extends React.Component {
     }
   }
   memoSave() {
-    this.send(0,0,0,0,"save");
+    this.send(0, 0,this.state.color, 0, "save");
+    this.props.bringMemoByGroup(this.props.memo_gNo == undefined ? null : this.props.memo_gNo);
   }
   markOpen() {
     this.setState({
@@ -265,66 +256,64 @@ export default class Popup extends React.Component {
     })
   }
   editorStart() {
-    console.log("start");
     if (this.temp == null) {
       this.send(0, 0, this.props.content, 0, "allKey");
       this.temp = this.props.content.split('').length;
-      console.log(this.temp);
     }
   }
   render() {
+    console.log(this.props.no);
 
     return (
 
       <Fragment>
-        <div>
+        <div className={popup.popup}>
           <SockJsClient
             url='./api/memo'
             topics={[`/api/memo/${this.props.no}`]}
             onMessage={this.receive.bind(this)}
             ref={(client) => { this.clientRef = client }} />
-        </div>
-        <div className={styles.header}>
-        </div>
-        <div className={styles.editor}>
-          <div className={styles.btn}>
-            <button className={styles.button} onClick={this.hevent.bind(this, 1)}>H1</button>
-            <button className={styles.button} onClick={this.hevent.bind(this, 2)}>H2</button>
-            <button className={styles.button} onClick={this.hevent.bind(this, 3)}>H3</button>
-            <button className={styles.button} onClick={this.hevent.bind(this, 4)}>H4</button>
-            <button className={styles.button} onClick={this.boldevent.bind(this)}>B</button>
-            {(this.state.markOpen) ? <button className={`${styles.click} ${styles.button}`} onClick={this.markOpen.bind(this)}>E</button> : <button className={styles.button} onClick={this.markOpen.bind(this)}>M</button>}
-            <button className={styles.button} onClick={this.memoSave.bind(this)}>저장</button>
+          <div className={popup.inner} onClick={e=>e.stopPropagation()}>
+            <div className={styles.editor}>
+              <div className={styles.btn}>
+                <button className={styles.button} onClick={this.hevent.bind(this, 1)}>H1</button>
+                <button className={styles.button} onClick={this.hevent.bind(this, 2)}>H2</button>
+                <button className={styles.button} onClick={this.hevent.bind(this, 3)}>H3</button>
+                <button className={styles.button} onClick={this.hevent.bind(this, 4)}>H4</button>
+                <button className={styles.button} onClick={this.boldevent.bind(this)}>B</button>
+                {(this.state.markOpen) ? <button className={`${styles.click} ${styles.button}`} onClick={this.markOpen.bind(this)}>E</button> : <button className={styles.button} onClick={this.markOpen.bind(this)}>M</button>}
+                <button className={styles.button} onClick={this.memoSave.bind(this)}>저장</button>
+              </div>
+              {(this.state.markOpen) ? (
+                <div
+                  className={styles.markDownView}
+                  dangerouslySetInnerHTML={this.getReMarkDown()}></div>
+              )
+                : (
+                  <Fragment>
+                    <textarea
+                      wrap="hard"
+                      rows="2"
+                      cols="20"
+                      className={styles.edit}
+                      onClick={this.editorStart.bind(this)}
+                      onBlur={this.cursorEvent.bind(this)}
+                      onChange={this.editorPush.bind(this)}
+                      value={this.state.value}></textarea>
+                    <div className={styles.toolbar}>
+                      <Toolbar
+                        no={this.props.no}
+                        memo_gNo={this.props.gNo}
+                        group={this.props.group}
+                        groupBySidebar={this.props.groupBySidebar}
+                        color={this.props.color}
+                      />
+                    </div>
+                  </Fragment>
+                )
+              }
+            </div>
           </div>
-          {(this.state.markOpen) ? (
-            <div
-              className={styles.markDownView}
-              dangerouslySetInnerHTML={this.getReMarkDown()}></div>
-          )
-            : (
-              <Fragment>
-                <textarea
-                  wrap="hard"
-                  rows="2"
-                  cols="20"
-                  className={styles.edit}
-                  onClick={this.editorStart.bind(this)}
-                  onBlur={this.cursorEvent.bind(this)}
-                  onChange={this.editorPush.bind(this)}
-                  value={this.state.value}></textarea>
-                <div className={styles.toolbar}>
-                  <Toolbar
-                    no={this.props.no}
-                    memo_gNo={this.props.gNo}
-                    group={this.props.group}
-                    groupBySidebar={this.props.groupBySidebar}
-                    color={this.props.color}
-                  />
-                </div>
-              </Fragment>
-            )
-          }
-
         </div>
       </Fragment>
 

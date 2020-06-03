@@ -24,7 +24,7 @@ export default class Container extends React.Component {
       groupBySidebar: { no: null, name: null },
       showChat: false,
       clientRef: '',
-      alarm: { readcheck: [], type: [], content: [], date: [], userNo: [] }
+      alarm: {type:'', readcheck:''}
     };
   }
 
@@ -69,7 +69,28 @@ export default class Container extends React.Component {
       })
       .catch((err) => console.error(err));
 
-    let alarm = { readcheck: [], type: [], content: [], date: [], userNo: [] };
+    // Sidebar의 HashtagList를 가져오는 코드
+    let g_no = { no: this.state.g_no };
+    let hash = [{ no: "", name: "" }];
+    fetch(`${API_URL}/api/getHashListByGroup`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(g_no),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        hash = json.data.map((element) => {
+          return {
+            no: element.no,
+            name: element.name,
+          };
+        });
+        this.UpdateHash(hash);
+      })
+      .catch((err) => console.error(err));
+
+    // 처음 알람 가져오는 통신
+
     // let alarm = [];
     let alarmDatas = null;
     // call api
@@ -80,14 +101,8 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         alarmDatas = json.data;
-        alarmDatas.map((json) => {
-          alarm.readcheck.push(json.readCheck);
-          alarm.type.push(json.type);
-          alarm.content.push(json.chat);
-          alarm.date.push(json.date);
-          alarm.userNo.push(json.uNo);
-        });
-        this.UpdateAlarm(alarm);
+        console.log(alarmDatas);
+        this.UpdateAlarm(alarmDatas);
       })
       .catch((err) => console.error(err));
     // 알람 가져올 때, type이 true이면 기본 알람, false이면 채팅 알람 구별
@@ -181,9 +196,9 @@ export default class Container extends React.Component {
     this.Users = users;
   }
 
-  UpdateAlarm(alarm) {
+  UpdateAlarm(alarmDatas) {
     this.setState({
-      alarm: alarm
+      alarm: {type:alarmDatas.type, readcheck:alarmDatas.readCheck}
     })
   }
   // sidebar에서 콜백된 파라미터 no와 name
@@ -218,20 +233,23 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
-    this.setState({
-      alarmMessage: alarm_msg,
-    });
-  }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return (JSON.stringify(nextState) != JSON.stringify(this.state));
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    this.getHashListByGroup(this.state.groupBySidebar.no);
+    console.log(alarm_msg);
     this.setState({
-      IsHashUpdate: false
+      alarm:{
+        type:alarm_msg.type,
+        readcheck:alarm_msg.readCheck
+      }
     })
+        // this.setState({
+        //   alarm: {
+        //     readcheck: this.state.alarm.readcheck.concat(alarmdata.readCheck),
+        //     type: this.state.alarm.type.concat(alarmdata.type),
+        //     content: this.state.alarm.content.concat(alarmdata.chat),
+        //     date: this.state.alarm.date.concat(alarmdata.date),
+        //     userNo: this.state.alarm.userNo.concat(alarmdata.uNo),
+        //   }
+        // })
   }
 
 
@@ -239,10 +257,15 @@ export default class Container extends React.Component {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
     return (
       <div className={styles.container}>
-        {/* <SockJsClient
-          url={wsSourceUrl}
-          topics={[`/api/alarm/${this.state.users.no}`]}
-          onMessage={this.alarmReceive.bind(this)}
+
+        {this.Users != undefined ?
+          <SockJsClient
+            url={wsSourceUrl}
+            topics={[`/api/alarm/${this.Users.no}`]}
+            onMessage={this.alarmReceive.bind(this)}
+            ref={(client) => { this.clientRef = client; }}>
+          </SockJsClient> : null}
+
 
           ref={(client) => {
             this.clientRef = client;
@@ -270,6 +293,7 @@ export default class Container extends React.Component {
           SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
           group={this.state.group}
           groupBySidebar={this.state.groupBySidebar}
+          bringMemoByGroup={this.bringMemoByGroup.bind(this)}
           memo_bigArr={this.state.memo_bigArr}
           memo_Change={this.memo_Change.bind(this)}
           users={this.Users}
@@ -280,7 +304,7 @@ export default class Container extends React.Component {
           IsHashUpdate={this.IsHashUpdate.bind(this)}
         //변경된 결과 값 state :true false
         />
-      </div>
+        </div>
     );
   }
 }
