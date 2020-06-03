@@ -59,7 +59,7 @@ export default class AddHash extends React.PureComponent {
           <FontAwesomeIcon className={styles.faHashtag} icon={faHashtag} />
         </button>
         {this.state.showHashSheet ? (
-          // {/* {true ? ( */}
+          // {true ? (
           <HashSheet
             refChange={this.toggleContainer2}
             memo_hash={this.props.memo_hash}

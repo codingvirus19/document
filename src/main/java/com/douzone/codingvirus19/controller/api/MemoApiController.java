@@ -154,7 +154,7 @@ public class MemoApiController {
 		webSocket.convertAndSend("/api/memo/" + memo, message);
 	}
 	
-
+// 이거 안씀 getHashListByGroup에서 filter처리함
 	@PostMapping("/api/getHashListByMemo")
 	public JsonResult getHashListByMemo(@RequestBody MemoVo vo){
 		List<HashVo> HashListByMemo = memoService.getHashListByMemo(vo);

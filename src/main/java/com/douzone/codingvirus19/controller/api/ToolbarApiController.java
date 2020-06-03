@@ -20,12 +20,11 @@ public class ToolbarApiController {
 	@Autowired
 	ToolbarService toolbarService;
 	
-	
-	@PostMapping("/getHashListByUser")
-	public JsonResult getHashListByUser(@AuthUser SecurityUser securityUser) {
-		List<HashVo> hashListByUser = toolbarService.getHashListByUser(securityUser.getNo());
-		return JsonResult.success(hashListByUser);
-	}
+//	@PostMapping("/getHashListByUser")
+//	public JsonResult getHashListByUser(@AuthUser SecurityUser securityUser) {
+//		List<HashVo> hashListByUser = toolbarService.getHashListByUser(securityUser.getNo());
+//		return JsonResult.success(hashListByUser);
+//	}
 	
 	@PostMapping("/addHash")
 	public JsonResult addHash(@AuthUser SecurityUser securityUser, @RequestBody HashVo hashVo) {

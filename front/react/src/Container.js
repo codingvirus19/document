@@ -71,6 +71,7 @@ export default class Container extends React.Component {
       .catch((err) => console.error(err));
 
     // 처음 알람 가져오는 통신
+
     // let alarm = [];
     let alarmDatas = null;
     // call api
@@ -87,9 +88,9 @@ export default class Container extends React.Component {
     // 알람 가져올 때, type이 true이면 기본 알람, false이면 채팅 알람 구별
     // db에서 받을때는 true = 1, false = 0
     // 읽지 않은건 false = 0, 읽은 건 true = 1
-
     // Sidebar의 HashtagList를 가져오는 코드
     this.getHashListByGroup(this.state.groupBySidebar.no)
+
   }
 
   getHashListByGroup(gNo) {
@@ -198,6 +199,11 @@ export default class Container extends React.Component {
       },
     });
   }
+  IsHashUpdate() {
+    this.setState({
+      IsHashUpdate: true
+    })
+  }
 
   // sidebar 해시태그에서 클릭한 해시를 가지고 있는 메모
   grouppingHashtag(memo_no) {
@@ -254,10 +260,12 @@ export default class Container extends React.Component {
     })
   }
 
+
   render() {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
     return (
       <div className={styles.container}>
+
         {this.Users != undefined ?
           <SockJsClient
             url={wsSourceUrl}
@@ -266,6 +274,11 @@ export default class Container extends React.Component {
             ref={(client) => { this.clientRef = client; }}>
           </SockJsClient> : null}
 
+
+          ref={(client) => {
+            this.clientRef = client;
+          }}
+        ></SockJsClient>
         {/*속성 groupBySidebar : 사이드바의 개인/그룹 클릭 시 해당 group의 no, name을 전달 */}
         {/*속성 group : 로그인 시 session user의 모든 그룹들의 no, name이 담겨있다.  */}
         {/*속성 users : 유저 session이 담긴다. */}

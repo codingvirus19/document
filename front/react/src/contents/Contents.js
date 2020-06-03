@@ -44,4 +44,3 @@ export default class Contents extends React.Component {
     );
   }
 }
-//

@@ -16,7 +16,7 @@
 			group by name;
  		]]>
 	</select>
-
+	
 	<select id="getHashListByUser" parameterType="long"
 		resultType="hashvo">
 		<![CDATA[

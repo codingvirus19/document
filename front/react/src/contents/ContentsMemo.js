@@ -4,7 +4,7 @@ import HashList from "./HashList";
 import Toolbar from "./toolbar/Toolbar";
 import styles from "./ContentsMemo.css";
 
-export default class Contents extends React.PureComponent {
+export default class Contents extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
@@ -43,6 +43,8 @@ export default class Contents extends React.PureComponent {
 
   render() {
     return (
+      /*memo_hash: 해당 메모의 해시들
+        IsHashUpdate: 해시값이 변경되면 sidebar를 변경*/
       <div className={styles.memo} onDragOver={this.DragOver.bind(this)}>
         {this.props.memo_bigArr &&
           this.props.memo_bigArr.map((memos, index) => (
@@ -63,7 +65,6 @@ export default class Contents extends React.PureComponent {
                 index={index}
                 content={this.props.memo_bigArr[index].content}
               />
-
               <HashList
                 memo_no={this.props.memo_bigArr[index].no}
                 setMemo_hash={this.setMemo_hash.bind(this)}

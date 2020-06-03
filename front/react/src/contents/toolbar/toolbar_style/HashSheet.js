@@ -29,6 +29,7 @@ export default class HashSheet extends React.PureComponent {
   }
 
   addHash(event) {
+    console.log(event)
     if (event != null) {
       let lastetEvent = event[event.length - 1];
       if(lastetEvent.__isNew__) {
@@ -59,6 +60,7 @@ export default class HashSheet extends React.PureComponent {
   }
 
   render() {
+    console.log(this.state.memo_hash)
     if (!this.state.memo_hash) {
       return null;
     }

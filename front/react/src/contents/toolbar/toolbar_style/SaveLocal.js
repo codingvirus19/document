@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faFileUpload } from "@fortawesome/free-solid-svg-icons";
-import ColorSheet from "./ColorSheet";
 import styles from "../Toolbar.css";
 
 export default class SaveLocal extends React.Component {
