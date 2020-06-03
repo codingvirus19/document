@@ -58,7 +58,7 @@ export default class Contents extends React.Component {
               className={styles.container_memo_form}
             >
               <Memo
-                bringMemoByGroup ={this.props.bringMemoByGroup}
+                bringMemoByGroup={this.props.bringMemoByGroup}
                 groupBySidebar={this.props.groupBySidebar}
                 group={this.props.group}
                 memo_bigArr={this.props.memo_bigArr}
@@ -69,8 +69,7 @@ export default class Contents extends React.Component {
                 memo_no={this.props.memo_bigArr[index].no}
                 setMemo_hash={this.setMemo_hash.bind(this)}
                 memo_hash={this.props.group_hash.filter((element) =>
-                    element.memo_no === this.props.memo_bigArr[index].no
-                )}
+                  element.memo_no === this.props.memo_bigArr[index].no)}
                 IsHashUpdate={this.props.IsHashUpdate}
               />
               <Toolbar
@@ -84,8 +83,7 @@ export default class Contents extends React.Component {
                 group={this.props.group}
                 groupBySidebar={this.props.groupBySidebar}
                 memo_hash={this.props.group_hash.filter((element) =>
-                  element.memo_no === this.props.memo_bigArr[index].no
-              )}
+                  element.memo_no === this.props.memo_bigArr[index].no)}
                 color={this.props.memo_bigArr[index].color}
                 SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                 clientRef={this.props.clientRef}

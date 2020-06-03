@@ -10,7 +10,6 @@ export default class Sidebar extends React.Component {
     this.state = {
       g_no: null,
       g_name: null,
-      hash: this.props.hash
     };
   }
 
@@ -39,7 +38,12 @@ export default class Sidebar extends React.Component {
           </NavDropdown>
         </Nav>
         <div className={styles.hashtagList}>
-          <HashtagList hash={this.props.hash} />
+        <HashtagList
+            hash={this.props.hash}
+            grouppingHashtag={this.props.grouppingHashtag}
+            SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+            groupBySidebar={this.props.groupBySidebar}
+          />
         </div>
       </div>
     );

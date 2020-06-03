@@ -70,13 +70,9 @@ export default class Header extends React.Component {
   }
 
   alarmUpdate(){
-    console.log("gd")
   }
 
   render() {
-
-    console.log(this.state.alarm)
-
     return (
       <div className={styles.header}>
         <div className={styles.wrapper}>
