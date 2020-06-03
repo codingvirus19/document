@@ -8,6 +8,7 @@ export default class Search extends React.Component {
     console.log(event.target.value);
   }
 
+  // 검색버튼 클릭시 해당 group의 no와 name으로 memoList를 뿌려주는 콜백함수
   onClickCallback(e) {
     e.preventDefault();
     this.props.SidebarGroupUpdate(

@@ -120,7 +120,7 @@ export default class GroupShareSheet extends React.Component {
               value={this.state.selectedOption}
               onChange={this.handleChange.bind(this)}
               isMulti
-              autoFocus={true}
+              autoFocus={false}
               className={styles.select}
               defaultMenuIsOpen={true}
               closeMenuOnSelect={false}

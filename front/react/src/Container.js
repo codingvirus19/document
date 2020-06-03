@@ -270,9 +270,9 @@ export default class Container extends React.Component {
           onCallbackKeywordChange={this.onCallbackKeywordChange.bind(this)}
           // 검색창에 입력한 keyword
           keyword={this.state.keyword}
-          // gNo와 gName의 정보 들어있다.
+          // group의 no와 name의 정보 들어있다.
           groupBySidebar={this.state.groupBySidebar}
-          // gNo, gName을 사용하는 callback함수
+          // group의 no와 name을 사용하는 callback함수
           SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
           //변경함수
           bringMemoByGroup={this.bringMemoByGroup.bind(this)}
