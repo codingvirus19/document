@@ -53,6 +53,9 @@ export default class HashSheet extends React.PureComponent {
         })
         .catch((err) => console.error(err));
       }
+      else {
+      console.log(event)
+      }
     }
   }
 
