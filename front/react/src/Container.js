@@ -167,7 +167,6 @@ export default class Container extends React.Component {
           this.state.keyword == "" &&
           this.state.memo_noSelectedByHash == null
         ) {
-          console.log("일반 memoList");
           memo_bigArr = json.data;
           this.UpdateMemo(memo_bigArr);
         }
