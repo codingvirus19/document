@@ -6,6 +6,7 @@
 .popover {
   position: absolute;
   z-index: 10;
+  transform: translate(1.4rem, 0.6rem);
 }
 
 .cover {

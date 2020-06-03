@@ -267,6 +267,8 @@ export default class Container extends React.Component {
     });
   }
   memo_Change(drag, drop) {
+    console.log(drag,drop);
+    
     //를 서버로 보내야댐 ㅇㅋㅇㅋ;
   }
 
