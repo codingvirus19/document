@@ -1,18 +1,25 @@
 .memo {
-  height: auto;
+  height: 89%;
   width: 91%;
-  display: inline-block;
-  padding: 5% 4%;
+  position: relative;
+  padding: 5% 5% 7% 5%;
+  overflow: hidden;
+  overflow-y: scroll;
+  overflow-wrap: anywhere;
 }
 
 .container_memo_form {
-  padding: 10px;
-  width: 15rem;
-  display: inline-block;
+  padding: 1rem;
+  width: 14rem;
+  display: inline-grid;
   margin: 0.3rem;
   border-radius: 0.7rem;
-  border: thin solid gray;
-  
+  /* border: thin solid gray; */
+  box-shadow: gray 1px 2px 1px 2px;
+}
+.container_memo_form:hover {
+  box-shadow: gray 2px 2px 2px 3px;
+  background-color: bisque;
 }
 .drag {
   background-color: yellow;

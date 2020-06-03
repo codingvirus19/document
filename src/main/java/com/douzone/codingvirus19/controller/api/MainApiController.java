@@ -60,7 +60,7 @@ public class MainApiController {
 
 	@PostMapping("/getUserSession")
 	public JsonResult getUserSession(@AuthUser SecurityUser securityUser) {
-		System.out.println(securityUser);
+//		System.out.println(securityUser);
 		return JsonResult.success(securityUser);
 	}
 

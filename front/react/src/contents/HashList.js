@@ -8,37 +8,12 @@ const API_HEADERS = {
   "Content-Type": "application/json",
 };
 
-export default class HashList extends React.PureComponent {
+export default class HashList extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
       hash: [{ no: "", name: "", memo_no: "" }],
     }
-  }
-
-  componentDidMount() {
-    let data = { no: this.props.memo_no }
-    let hashDatas = null;
-    let hash = { no: "", name: "" }
-    fetch(`${API_URL}/api/getHashListByMemo`, {
-      method: "post",
-      headers: API_HEADERS,
-      body: JSON.stringify(data)
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        hashDatas = json.data;
-        hash = hashDatas.map((element) => {
-          return {
-            no: element.no,
-            name: element.name,
-            memo_no: this.props.memo_no
-          }
-        });
-        this.UpdateHash(hash);
-        this.props[`setMemo_hash`](hash);
-      })
-      .catch((err) => console.error(err));
   }
 
   onmouseEnter(e) {
@@ -59,22 +34,25 @@ export default class HashList extends React.PureComponent {
   deleteHash(no) {
     let data = { no: no }
     fetch(`${API_URL}/api/deleteHash`, {
-    method: "post",
-    headers: API_HEADERS,
-    body: JSON.stringify(data)
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      console.log(json.data);
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(data)
     })
-    .catch((err) => console.error(err));
+      .then((response) => response.json())
+      .then((json) => {
+        this.props.IsHashUpdate();
+      })
+      .catch((err) => console.error(err));
   }
 
   render() {
+    if (!this.props.memo_hash) {
+      return null;
+    }
     return (
       <div className={styles.hashlist}>
         {/* 메모1의 해시 */}
-        {this.state.hash.map(({ no, name }) => (
+        {this.props.memo_hash.map(({ no, name }) => (
           <div className={styles.hash} key={no}
             onMouseEnter={this.onmouseEnter}
             onMouseLeave={this.onmouseLeave}>

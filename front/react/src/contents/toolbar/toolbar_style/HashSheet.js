@@ -11,54 +11,33 @@ export default class HashSheet extends React.PureComponent {
   constructor() {
     super(...arguments);
     this.state = {
-      hash: [{ value: "", label: "" }],
       memo_hash: null,
+      selectedHash: [{value: '', label: ''}]
     };
   }
 
   componentDidMount() {
-    let hashDatas = null;
-    let hash = { value: "", label: "" };
-    fetch(`${API_URL}/api/getHashListByUser`, {
-      method: "post",
-      headers: API_HEADERS,
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        hashDatas = json.data;
-        hash = hashDatas.map((element) => {
-          return {
-            value: element.name,
-            label: element.name,
-          };
-        });
-        this.UpdateHash(hash);
-        this.setState({
-          memo_hash: this.props.memo_hash.map((element) => {
-            return {
-              value: element.no,
-              label: element.name,
-              memo_no: element.memo_no,
-            };
-          }),
-        });
-      })
-      .catch((err) => console.error(err));
-  }
-
-  UpdateHash(hash) {
     this.setState({
-      hash: hash,
+      memo_hash: this.props.memo_hash.map((element) => {
+        return {
+          value: element.no,
+          label: element.name,
+          memo_no: element.memo_no,
+        };
+      }),
     });
   }
 
   addHash(event) {
+    console.log(event)
     if (event != null) {
       let lastetEvent = event[event.length - 1];
+      if(lastetEvent.__isNew__) {
       let data = {
         gNo: this.props.memo_gNo,
         mNo: this.props.memo_no,
         name: lastetEvent.label,
+        // name: lastetEvent.label,
       };
       let hash = { value: "", label: "" };
       fetch(`${API_URL}/api/addHash`, {
@@ -68,16 +47,22 @@ export default class HashSheet extends React.PureComponent {
       })
         .then((response) => response.json())
         .then((json) => {
-          (hash.value = json.data.name), (hash.label = json.data.name);
-          this.state.hash.push(hash);
+          this.state.memo_hash.push(hash);
+          this.props.IsHashUpdate();
+          this.props.SidebarGroupUpdate(this.props.groupBySidebar.no, this.props.groupBySidebar.name)
         })
         .catch((err) => console.error(err));
+      }
+      else {
+      console.log(event)
+      }
     }
   }
 
   render() {
+    console.log(this.state.memo_hash)
     if (!this.state.memo_hash) {
-      return;
+      return null;
     }
     return (
       <div className={styles.hashSheet} ref={this.props.refChange}>
@@ -94,9 +79,8 @@ export default class HashSheet extends React.PureComponent {
               menuIsOpen={true}
               onChange={this.addHash.bind(this)}
               maxMenuHeight={120}
-              options={this.state.hash}
+              options={this.props.group_hash_for_select}
               placeholder="해시선택 및 생성할 해시 입력"
-              // deleteRemoves={true}
             />
           </div>
         </div>

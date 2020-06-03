@@ -18,6 +18,7 @@
 
 .tool {
   margin: 3px 5px 0px 5px;
+  background: none;
 }
 
 .faExternalLinkAlt,
@@ -29,4 +30,9 @@
 .faTrashAlt {
   font-size: large;
   color: #24252b;
+  background: none;
+}
+
+.colorSelcet{
+  width:100px;
 }

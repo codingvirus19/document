@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPalette } from "@fortawesome/free-solid-svg-icons";
-import ColorSheet from "./ColorSheet";
 import styles from "../Toolbar.css";
 import { TwitterPicker } from "react-color";
 
@@ -82,6 +81,8 @@ export default class ColorChange extends React.Component {
               onClick={this.handleClose.bind(this)}
             />
             <TwitterPicker
+              className={styles.colorSelcet}
+            // triangle='top-hide'
               color={this.state.color}
               onChange={this.handleChange.bind(this)}
             />

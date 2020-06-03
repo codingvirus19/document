@@ -42,7 +42,6 @@ public class MemoApiController {
 	
 	@PostMapping("/api/memo/changeColor")
 	public JsonResult changeColor(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
-		System.out.println(vo);
 		boolean asyncTest = memoService.changeColor(vo);
 		return JsonResult.success(asyncTest);
 	}
@@ -66,7 +65,6 @@ public class MemoApiController {
 	@PostMapping("/api/memo/save")
 	public JsonResult saveMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
 		vo.setuNo(securityUser.getNo());
-		System.out.println(vo);
 		memoService.insert(vo);
 		return JsonResult.success("ab");
 	}
@@ -103,11 +101,10 @@ public class MemoApiController {
 			MemoVo memoVo = new MemoVo();
 			memoVo.setNo(memo);
 			memoVo.setContent(str);
-			memoVo.setColor("Color");
+			memoVo.setColor(message.getKey());
 			memoService.memoUpdate(memoVo);
 			return;
 		}
-		
 		
 		if (message.getType().equals("allKey")) {
 			Collections.addAll(arrData,message.getKey().split(""));
@@ -133,7 +130,7 @@ public class MemoApiController {
 		message.setVersion(message.getVersion() + 1L);
 		if (message.getType().equals("basic")) {
 			// 기본 입력
-//			arrData.add(message.getInputIndex() - 1, message.getKey());
+			arrData.add(message.getInputIndex() - 1, message.getKey());
 		} else if (message.getType().equals("korean")) {
 			// 한글입력
 			arrData.set(message.getInputIndex() - 1, message.getKey());
@@ -158,7 +155,7 @@ public class MemoApiController {
 		webSocket.convertAndSend("/api/memo/" + memo, message);
 	}
 	
-
+// 이거 안씀 getHashListByGroup에서 filter처리함
 	@PostMapping("/api/getHashListByMemo")
 	public JsonResult getHashListByMemo(@RequestBody MemoVo vo){
 		List<HashVo> HashListByMemo = memoService.getHashListByMemo(vo);
@@ -167,9 +164,9 @@ public class MemoApiController {
 	
 	
 	@PostMapping("/api/deleteHash")
-	public void deleteHash(@RequestBody HashVo vo){
-		memoService.deleteHash(vo.getNo());
-		return;
+	public JsonResult deleteHash(@RequestBody HashVo vo){
+		boolean result = memoService.deleteHash(vo.getNo());
+		return JsonResult.success(result);
 	}
 
 }

@@ -14,9 +14,9 @@ public class ToolbarService {
 	@Autowired
 	private HashRepository hashRepository;
 
-	public List<HashVo> getHashListByUser(Long no) {
-		return hashRepository.getHashListByUser(no);
-	}
+//	public List<HashVo> getHashListByUser(Long no) {
+//		return hashRepository.getHashListByUser(no);
+//	}
 
 	public boolean addHash(HashVo vo) {
 		int count = hashRepository.insertHash(vo);		

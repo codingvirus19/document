@@ -4,6 +4,7 @@
     float: right;
     width: 89%;
     height: 90%;
+    
   }
 
   .box{
@@ -11,9 +12,8 @@
     height: 100%;
     display: inline-flex;
   }
+
   .contentsMemo{
-    overflow: hidden;
-    overflow-y: scroll;
-    overflow-wrap: anywhere;
+    height:90%;
     width: 100%;
   }
