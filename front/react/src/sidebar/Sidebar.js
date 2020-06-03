@@ -4,46 +4,14 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import HashtagList from "./HashtagList"
 import styles from "./Sidebar.css";
 
-const API_URL = "http://localhost:8080/codingvirus19";
-const API_HEADERS = {
-  "Content-Type": "application/json",
-};
-
 export default class Sidebar extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
       g_no: null,
       g_name: null,
-      hash: [{ no: "", name: "" }]
+      hash: this.props.hash
     };
-  }
-
-  componentDidMount() {
-    let g_no = { no: this.state.g_no };
-    let hash = [{ no: "", name: "" }]
-    fetch(`${API_URL}/api/getHashListByGroup`, {
-      method: "post",
-      headers: API_HEADERS,
-      body: JSON.stringify(g_no)
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        hash = json.data.map(element => {
-          return {
-            no: element.no,
-            name: element.name
-          }
-        })
-        this.UpdateHash(hash);
-      })
-      .catch((err) => console.error(err));
-  }
-  
-  UpdateHash(hash) {
-    this.setState({
-      hash: hash
-    })
   }
 
   update(g_no, g_name) {
@@ -52,28 +20,6 @@ export default class Sidebar extends React.Component {
       g_name: g_name
     })
     this.props.group_update(g_no, g_name);
-    this.hashGetList(g_no);
-  }
-
-  hashGetList(gNo){
-    let g_no = { no: gNo };
-    let hash = [{ no: "", name: "" }]
-    fetch(`${API_URL}/api/getHashListByGroup`, {
-      method: "post",
-      headers: API_HEADERS,
-      body: JSON.stringify(g_no)
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        hash = json.data.map(element => {
-          return {
-            no: element.no,
-            name: element.name
-          }
-        })
-        this.UpdateHash(hash);
-      })
-      .catch((err) => console.error(err));
   }
 
   render() {
@@ -93,7 +39,7 @@ export default class Sidebar extends React.Component {
           </NavDropdown>
         </Nav>
         <div className={styles.hashtagList}>
-          <HashtagList g_no={this.state.g_no} hash={this.state.hash} />
+          <HashtagList hash={this.props.hash} />
         </div>
       </div>
     );

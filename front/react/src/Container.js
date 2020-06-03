@@ -17,7 +17,9 @@ export default class Container extends React.Component {
     super(...arguments);
     this.state = {
       group: { no: [], gname: [] },
-      hash: [{ no: "", name: "" }],
+      group_hash: [{ no: "", name: "", memo_no: "" }],
+      group_hash_for_select: [{ value: "", label: "", memo_no: "" }],
+      IsHashUpdate: false,
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
       showChat: false,
@@ -64,7 +66,6 @@ export default class Container extends React.Component {
         users.no.push(json.data.no);
         users.name.push(json.data.name);
         this.UpdateUser(users);
-        console.log(users);
       })
       .catch((err) => console.error(err));
 
@@ -89,6 +90,7 @@ export default class Container extends React.Component {
       .catch((err) => console.error(err));
 
     // 처음 알람 가져오는 통신
+
     // let alarm = [];
     let alarmDatas = null;
     // call api
@@ -106,11 +108,51 @@ export default class Container extends React.Component {
     // 알람 가져올 때, type이 true이면 기본 알람, false이면 채팅 알람 구별
     // db에서 받을때는 true = 1, false = 0
     // 읽지 않은건 false = 0, 읽은 건 true = 1
+
+    // Sidebar의 HashtagList를 가져오는 코드
+    this.getHashListByGroup(this.state.groupBySidebar.no)
   }
 
-  UpdateHash(hash) {
+  getHashListByGroup(gNo) {
+    let g_no = { no: gNo }
+    let group_hash = [{ no: "", name: "", memo_no: ""}];
+    let group_hash_forselect = [{ value: "", label: "", memo_no: "" }];
+    fetch(`${API_URL}/api/getHashListByGroup`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(g_no),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        group_hash = json.data.map((element) => {
+          return {
+            no: element.no,
+            name: element.name,
+            memo_no: element.mNo,
+          };
+        });
+        this.UpdateHash(group_hash);
+        group_hash_forselect = json.data.map((element) => {
+          return {
+            value: element.no,
+            label: element.name,
+            memo_no: element.mNo,
+          };
+        });
+        this.UpdateGroupHashForSelect(group_hash_forselect);
+      })
+      .catch((err) => console.error(err));
+  }
+
+  UpdateHash(group_hash) {
     this.setState({
-      hash: hash,
+      group_hash: group_hash,
+    });
+  }
+
+  UpdateGroupHashForSelect(group_hash_for_select) {
+    this.setState({
+      group_hash_for_select: group_hash_for_select,
     });
   }
 
@@ -171,6 +213,11 @@ export default class Container extends React.Component {
       },
     });
   }
+  IsHashUpdate() {
+    this.setState({
+      IsHashUpdate: true
+    })
+  }
 
   chattingPopup(showChatClick) {
     this.setState({
@@ -186,6 +233,7 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
+
     console.log(alarm_msg);
     this.setState({
       alarm:{
@@ -204,11 +252,12 @@ export default class Container extends React.Component {
         // })
   }
 
+
   render() {
-    console.log(this.state.alarm)
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
     return (
       <div className={styles.container}>
+
         {this.Users != undefined ?
           <SockJsClient
             url={wsSourceUrl}
@@ -217,6 +266,11 @@ export default class Container extends React.Component {
             ref={(client) => { this.clientRef = client; }}>
           </SockJsClient> : null}
 
+
+          ref={(client) => {
+            this.clientRef = client;
+          }}
+        ></SockJsClient>
         {/*속성 groupBySidebar : 사이드바의 개인/그룹 클릭 시 해당 group의 no, name을 전달 */}
         {/*속성 group : 로그인 시 session user의 모든 그룹들의 no, name이 담겨있다.  */}
         {/*속성 users : 유저 session이 담긴다. */}
@@ -230,6 +284,7 @@ export default class Container extends React.Component {
           alarm={this.state.alarm}
         />
         <Sidebar
+          hash={this.state.group_hash}
           group={this.state.group}
           group_update={this.SidebarGroupUpdate.bind(this)}
         />
@@ -244,6 +299,9 @@ export default class Container extends React.Component {
           users={this.Users}
           showChat={this.state.showChat}
           clientRef={this.clientRef}
+          group_hash_for_select={this.state.group_hash_for_select}
+          group_hash={this.state.group_hash}
+          IsHashUpdate={this.IsHashUpdate.bind(this)}
         //변경된 결과 값 state :true false
         />
         </div>

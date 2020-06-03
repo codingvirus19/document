@@ -18,10 +18,6 @@ public class HashRepository {
 	public List<HashVo> getHashListByGroup(MemoVo memoVo) {
 		return sqlSession.selectList("hash.getHashListByGroup", memoVo);
 	}
-
-	public List<HashVo> getHashListByUser(Long no) {
-		return sqlSession.selectList("hash.getHashListByUser", no);
-	}
 	
 	public int insertHash(HashVo vo) {
 		return sqlSession.insert("hash.insertHash", vo);
@@ -31,8 +27,8 @@ public class HashRepository {
 		return sqlSession.selectList("hash.getHashListByMemo", vo);
 	}
 
-	public void deleteHash(Long no) {
-		sqlSession.delete("hash.deleteHash",no);
+	public int deleteHash(Long no) {
+		return sqlSession.delete("hash.deleteHash",no);
 	}
 
 }
