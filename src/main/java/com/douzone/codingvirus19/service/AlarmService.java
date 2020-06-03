@@ -30,8 +30,17 @@ public class AlarmService {
 		alarmRepository.insertAccptAlarm(pushSandUserMap);
 	}
 
-	public AlarmVo getAlarmList(AlarmVo vo) {
-		AlarmVo alarmList = alarmRepository.getAlarmList(vo);
+	public AlarmVo getAlarmReadList(AlarmVo vo) {
+		AlarmVo alarmList = alarmRepository.getAlarmReadList(vo);
+		return alarmList;
+	}
+
+	public void readCheckUpdate(AlarmVo alarmVo) {
+		alarmRepository.readCheckUpdate(alarmVo);
+	}
+
+	public List<AlarmVo> getAlarmContents(AlarmVo vo) {
+		List<AlarmVo> alarmList = alarmRepository.getAlarmContents(vo);
 		return alarmList;
 	}
 	
