@@ -38,16 +38,6 @@
 			 value (null, #{gNo}, #{mNo}, #{name});
 		]]>
 	</insert>
-
-	<select id="getHashListByMemo" parameterType="long"
-		resultType="hashvo">
-		<![CDATA[
-			select no, g_no, m_no, name
-			  from hash
-			 where m_no=#{no}
-			 group by name;
- 		]]>
-	</select>
 	
 	<delete id="deleteHash" parameterType="long">
 		<![CDATA[
