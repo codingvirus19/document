@@ -36,13 +36,6 @@ export default class Popup2 extends React.Component {
     }).catch((err) => console.error(err));
   }
 
-  onPressEnter(e) {
-    if (e.key == "Enter") {
-      this.callBackFromProfile(_id, _email, _password, _nickname, _image);
-      this.props.closePopup();
-    }
-  }
-
   render() {
     let contents;
     let popup2_confirm_btn = "확인";
@@ -80,11 +73,9 @@ export default class Popup2 extends React.Component {
                 this.callBackFromProfile.bind(this) && this.props.closePopup
               }
               className={popupStyles.confirm_btn}
-              onKeyPress={this.onPressEnter.bind(this)}
             >
               {popup2_confirm_btn}
             </button>
-
             <button
               className={popupStyles.cancel_btn}
               onClick={this.props.closePopup}
