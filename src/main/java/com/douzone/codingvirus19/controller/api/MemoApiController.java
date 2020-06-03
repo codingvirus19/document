@@ -191,6 +191,12 @@ public class MemoApiController {
 		webSocket.convertAndSend("/api/memo/" + memo, message);
 	}
 	
+	@PostMapping("/api/chageMemoListNo")
+	public JsonResult chageMemoListNo(@RequestBody MemoVo memoVo) {
+		boolean result = memoService.chageMemoListNo(memoVo);
+		return JsonResult.success(result);
+	}
+	
 	@PostMapping("/api/deleteHash")
 	public JsonResult deleteHash(@RequestBody HashVo vo){
 		boolean result = memoService.deleteHash(vo.getNo());
