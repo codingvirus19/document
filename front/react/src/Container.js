@@ -274,11 +274,6 @@ export default class Container extends React.Component {
             ref={(client) => { this.clientRef = client; }}>
           </SockJsClient> : null}
 
-
-          ref={(client) => {
-            this.clientRef = client;
-          }}
-        ></SockJsClient>
         {/*속성 groupBySidebar : 사이드바의 개인/그룹 클릭 시 해당 group의 no, name을 전달 */}
         {/*속성 group : 로그인 시 session user의 모든 그룹들의 no, name이 담겨있다.  */}
         {/*속성 users : 유저 session이 담긴다. */}

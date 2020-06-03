@@ -10,7 +10,7 @@ export default class HashtagList extends React.PureComponent {
   }
 
   render() {
-    if(!this.props.hash[0].memo_no){
+    if(this.props.hash == null){
       return null;
     }
     return (
