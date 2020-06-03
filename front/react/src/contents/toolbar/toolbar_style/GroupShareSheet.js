@@ -56,6 +56,10 @@ export default class GroupShareSheet extends React.Component {
     // call api (GroupShare)
     this.ajaxGroupShare(send_memoNoAndGNo);
 
+    // groupShareSheet 닫기
+
+    this.props.closeGroupShareSheet();
+
     // toast알림
     toast("그룹에 메모가 공유되었습니다.", {
       position: "bottom-right",
@@ -101,7 +105,7 @@ export default class GroupShareSheet extends React.Component {
   }
 
   render() {
-    console.log(this.props.group.gname)
+    console.log(this.props.group.gname);
     return (
       <div className={styles.groupShareSheet} ref={this.props.refChange}>
         <div className={styles.container}>
@@ -111,7 +115,7 @@ export default class GroupShareSheet extends React.Component {
               value={this.state.selectedOption}
               onChange={this.handleChange.bind(this)}
               isMulti
-              autoFocus={true}
+              autoFocus={false}
               className={styles.select}
               defaultMenuIsOpen={true}
               closeMenuOnSelect={false}
