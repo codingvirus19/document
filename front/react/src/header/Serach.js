@@ -17,6 +17,12 @@ export default class Search extends React.Component {
     console.log(this.props.groupBySidebar);
   }
 
+  onClickEnter(e) {
+    if (e.key == "Enter") {
+      this.onClickCallback();
+    }
+  }
+
   render() {
     return (
       <div className={styles.div}>
@@ -35,6 +41,7 @@ export default class Search extends React.Component {
               className={styles.submit}
               value="검색"
               onClick={this.onClickCallback.bind(this)}
+              onKeyPress={this.onClickEnter.bind(this)}
             >
               <i className="fas fa-hashtag"></i>
             </button>
