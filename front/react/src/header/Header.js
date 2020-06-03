@@ -26,6 +26,7 @@ export default class Header extends React.Component {
       _getProfileValue: null,
       showChat: false,
       redirect: false,
+      showAlarm: false,
       alarm: this.props.alarm
     };
   }
@@ -69,7 +70,16 @@ export default class Header extends React.Component {
     this.props.chattingPopup(this.state.showChat)
   }
 
-  alarmUpdate(){
+  alarmClick(){
+    console.log(this.props.users.no[0]);
+    this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0], JSON.stringify({
+      type: true,
+      readCheck: false
+    }))
+    this.setState({
+      showAlarm: !this.state.showAlarm,
+    });
+    this.props.AlarmPopup(this.state.showAlarm)
   }
 
   render() {
@@ -116,7 +126,7 @@ export default class Header extends React.Component {
             </Dropdown>
 
             <Dropdown className={styles.userbell}>
-              <Dropdown.Toggle onClick={this.alarmUpdate.bind(this)} >
+              <Dropdown.Toggle onClick={this.alarmClick.bind(this)} >
                 {(this.props.alarm.type == true && this.props.alarm.readcheck == true) ? <span className={styles.alarmbell}/> : null }  
                 <FontAwesomeIcon className={styles.faBell} icon={faBell} />
               </Dropdown.Toggle>

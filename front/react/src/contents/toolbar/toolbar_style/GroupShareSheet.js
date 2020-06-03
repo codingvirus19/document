@@ -48,6 +48,7 @@ export default class GroupShareSheet extends React.Component {
         chat: this.state.selectedOption[index].label + " 그룹에 메모가 공유되었습니다.",
         date: new Date(),
         type: true,
+        readCheck: true
         // 알람 넣을 때, type이 true이면 기본 알람, false이면 채팅 알람 구별
         // db에서 받을때는 true = 1, false = 0
   }))

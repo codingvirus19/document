@@ -24,6 +24,7 @@ export default class Container extends React.Component {
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
       showChat: false,
+      showAlarm: false,
       clientRef: '',
       alarm: { type: '', readcheck: '' }
     };
@@ -75,7 +76,7 @@ export default class Container extends React.Component {
     // let alarm = [];
     let alarmDatas = null;
     // call api
-    fetch(`${API_URL}/api/alarm`, {
+    fetch(`${API_URL}/api/alarmCheck`, {
       method: "post",
       headers: API_HEADERS
     })
@@ -90,7 +91,6 @@ export default class Container extends React.Component {
     // 읽지 않은건 false = 0, 읽은 건 true = 1
     // Sidebar의 HashtagList를 가져오는 코드
     this.getHashListByGroup(this.state.groupBySidebar.no)
-
   }
 
   getHashListByGroup(gNo) {
@@ -223,6 +223,11 @@ export default class Container extends React.Component {
       showChat: !showChatClick,
     });
   }
+  AlarmPopup(showAlarmClick) {
+    this.setState({
+      showAlarm: !showAlarmClick,
+    });
+  }
   memo_Change(drag, drop) {
     //를 서버로 보내야댐 ㅇㅋㅇㅋ;
   }
@@ -232,12 +237,13 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
+    console.log(alarm_msg)
     this.setState({
       alarm: {
         type: alarm_msg.type,
         readcheck: alarm_msg.readCheck
       }
-    })
+  })
     // this.setState({
     //   alarm: {
     //     readcheck: this.state.alarm.readcheck.concat(alarmdata.readCheck),
@@ -284,7 +290,10 @@ export default class Container extends React.Component {
           //변경함수
           bringMemoByGroup={this.bringMemoByGroup.bind(this)}
           chattingPopup={this.chattingPopup.bind(this)}
+          AlarmPopup={this.AlarmPopup.bind(this)}
           alarm={this.state.alarm}
+          clientRef={this.clientRef}
+          users={this.Users}
         />
         <Sidebar
           grouppingHashtag={this.grouppingHashtag.bind(this)}
@@ -305,6 +314,7 @@ export default class Container extends React.Component {
           memo_Change={this.memo_Change.bind(this)}
           users={this.Users}
           showChat={this.state.showChat}
+          showAlarm={this.state.showAlarm}
           clientRef={this.clientRef}
           group_hash_for_select={this.state.group_hash_for_select}
           group_hash={this.state.group_hash}
