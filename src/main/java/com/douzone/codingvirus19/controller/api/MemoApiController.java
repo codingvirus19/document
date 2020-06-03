@@ -105,7 +105,8 @@ public class MemoApiController {
 			memoService.memoUpdate(memoVo);
 			return;
 		}
-		if (message.getType().equals("allKey")&& first) {
+		
+		if (message.getType().equals("allKey")) {
 			Collections.addAll(arrData,message.getKey().split(""));
 			str = message.getKey();
 			first = false;

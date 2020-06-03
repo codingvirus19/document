@@ -1,6 +1,11 @@
 .memo {
-  width: 220px;
-  height: 160px;
-  border-radius: 8px;
+  width: 100%;
+  min-height: 4rem;
+  max-height: 10rem;
+  padding: 0.3rem;
+  border-radius: 1.2rem;
   display: inline-block;
+  overflow: hidden;
+  overflow-y: scroll;
+  overflow-wrap: anywhere;
 }
