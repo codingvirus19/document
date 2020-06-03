@@ -22,11 +22,7 @@ public class HashRepository {
 	public int insertHash(HashVo vo) {
 		return sqlSession.insert("hash.insertHash", vo);
 	}
-
-	public List<HashVo> getHashListByMemo(MemoVo vo) {
-		return sqlSession.selectList("hash.getHashListByMemo", vo);
-	}
-
+	
 	public int deleteHash(Long no) {
 		return sqlSession.delete("hash.deleteHash",no);
 	}

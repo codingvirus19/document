@@ -68,6 +68,7 @@ export default class Contents extends React.Component {
               <HashList
                 memo_no={this.props.memo_bigArr[index].no}
                 setMemo_hash={this.setMemo_hash.bind(this)}
+                //메모의 해시
                 memo_hash={this.props.group_hash.filter((element) =>
                   element.memo_no === this.props.memo_bigArr[index].no)}
                 IsHashUpdate={this.props.IsHashUpdate}
@@ -83,12 +84,12 @@ export default class Contents extends React.Component {
                 group={this.props.group}
                 groupBySidebar={this.props.groupBySidebar}
                 memo_hash={this.props.group_hash.filter((element) =>
-                  element.memo_no === this.props.memo_bigArr[index].no)}
+                    element.memo_no === this.props.memo_bigArr[index].no)}
                 color={this.props.memo_bigArr[index].color}
                 SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                 clientRef={this.props.clientRef}
                 users={this.props.users}
-                group_hash_for_select={this.props.group_hash_for_select}
+                group_hash={this.props.group_hash}
                 IsHashUpdate={this.props.IsHashUpdate}
               />
             </div>

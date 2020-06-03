@@ -7,6 +7,7 @@ public class MemoVo {
 	private String content;
 	private String color;
 	private String date;
+	private Long listNo;
 
 	public Long getNo() {
 		return no;
@@ -56,10 +57,18 @@ public class MemoVo {
 		this.date = date;
 	}
 
+	public Long getListNo() {
+		return listNo;
+	}
+
+	public void setListNo(Long listNo) {
+		this.listNo = listNo;
+	}
+
 	@Override
 	public String toString() {
 		return "MemoVo [no=" + no + ", gNo=" + gNo + ", uNo=" + uNo + ", content=" + content + ", color=" + color
-				+ ", date=" + date + "]";
+				+ ", date=" + date + ", listNo=" + listNo + "]";
 	}
 
 }

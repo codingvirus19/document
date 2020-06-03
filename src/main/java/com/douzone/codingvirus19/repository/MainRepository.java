@@ -17,18 +17,10 @@ public class MainRepository {
 
 	@Autowired
 	private SqlSession sqlSession;
-
-	public List<GroupVo> getGroupByAuth(UserVo userVo) {
-		return sqlSession.selectList("groups.getGroupByAuth", userVo);
-	}
-
+	
 	public List<MemoVo> findAllMemo(MemoVo memoVo) {
 		List<MemoVo> memoList = sqlSession.selectList("main.findAllMemo", memoVo);
 		return memoList;
-	}
-
-	public int insertGroup(GroupVo vo) {
-		return sqlSession.insert("groups.insert", vo);
 	}
 
 	public List<MemoVo> memoAtNull(MemoVo memoVo) {

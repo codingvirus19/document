@@ -7,12 +7,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.socket.messaging.SessionConnectEvent;
+import org.springframework.web.socket.messaging.SessionConnectedEvent;
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import com.douzone.codingvirus19.dto.JsonResult;
 import com.douzone.codingvirus19.security.AuthUser;
@@ -37,6 +41,7 @@ public class MemoApiController {
 	private FileService filesService;
 
 	static Map<Long, String> strList = new HashMap<>();
+	static Map<Long, Boolean> booleanList = new HashMap<>();
 	static Map<Long, ArrayList<Long>> versionList = new HashMap<>();
 	static boolean first = true;
 	
@@ -86,32 +91,62 @@ public class MemoApiController {
 		return JsonResult.success(filesService.upload(fileUpLoadVo));
 	}
 	
+	@EventListener
+	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
+		String username = event.getUser().getName();
+		if (username != null) {
+////	    logger.info("User Connected : " + username);
+//			
+		}
+	}
+
+//	@EventListener
+	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
+		String username = event.getUser().getName();
+		if (username != null) {
+////	    logger.info("User Disconnected : " + username);
+		}
+	}
+	
+	
 	@MessageMapping("/memo/{memo}")
 	public void sendmemo(EditorVo message, @DestinationVariable Long memo) throws Exception {
 		ArrayList<String> arrData = new ArrayList<String>();
 		ArrayList<Long> version = new ArrayList<Long>();
 		String str = null;
-		if(strList.get(memo) != null && versionList.get(memo) != null) {
+		Boolean first = true;
+//		System.out.println(event.getUser().getName());
+		if(strList.get(memo) != null && versionList.get(memo) != null && booleanList.get(memo) != null) {
 			Collections.addAll(arrData, strList.get(memo).split(""));
 			version = versionList.get(memo);
 			 str = strList.get(memo);
+			 first = booleanList.get(memo);
 		}
-		
 		if(message.getType().equals("save")) {
+			if(str == null)return;
+			
 			MemoVo memoVo = new MemoVo();
 			memoVo.setNo(memo);
 			memoVo.setContent(str);
 			memoVo.setColor(message.getKey());
+		
 			memoService.memoUpdate(memoVo);
 			return;
 		}
 		
-		if (message.getType().equals("allKey")) {
+		if (message.getType().equals("allKey")&& first ) {
 			Collections.addAll(arrData,message.getKey().split(""));
 			str = message.getKey();
 			first = false;
+			version.add(message.getVersion());
 			strList.put(memo,str);
 			versionList.put(memo,version);
+			booleanList.put(memo, first);
+			webSocket.convertAndSend("/api/memo/" + memo, message);
+			return;
+		}else if(message.getType().equals("allKey")){
+			message.setKey(str);
+			message.setVersion(version.get(version.size()-1));
 			webSocket.convertAndSend("/api/memo/" + memo, message);
 			return;
 		}
@@ -152,16 +187,9 @@ public class MemoApiController {
 		str = String.join("", arrData);
 		strList.put(memo,str);
 		versionList.put(memo,version);
+		booleanList.put(memo, first);
 		webSocket.convertAndSend("/api/memo/" + memo, message);
 	}
-	
-// 이거 안씀 getHashListByGroup에서 filter처리함
-	@PostMapping("/api/getHashListByMemo")
-	public JsonResult getHashListByMemo(@RequestBody MemoVo vo){
-		List<HashVo> HashListByMemo = memoService.getHashListByMemo(vo);
-		return JsonResult.success(HashListByMemo);
-	}
-	
 	
 	@PostMapping("/api/deleteHash")
 	public JsonResult deleteHash(@RequestBody HashVo vo){

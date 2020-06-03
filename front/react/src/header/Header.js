@@ -7,7 +7,12 @@ import Popup2 from "../Popup2";
 import CreateEditor from "./headerMemu/CreateEditor";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faUser, faBell, faSms } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faUser,
+  faBell,
+  faSms,
+} from "@fortawesome/free-solid-svg-icons";
 
 import dropdownstyles from "./Dropdown.css";
 import styles from "./Header.css";
@@ -36,6 +41,7 @@ export default class Header extends React.Component {
       showPopup: !this.state.showPopup,
     });
   }
+
   toggleShowProfile() {
     this.setState({
       showProfile: !this.state.showProfile,
@@ -87,7 +93,14 @@ export default class Header extends React.Component {
       <div className={styles.header}>
         <div className={styles.wrapper}>
           <Logo />
-          <Serach />
+          <Serach
+            groupBySidebar={this.props.groupBySidebar}
+            SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+            // search 검색 콜백함수
+            onCallbackKeywordChange={this.props.onCallbackKeywordChange}
+            // 검색창에 입력한 keyword
+            keyword={this.props.keyword}
+          />
           <div className={styles.right_header}>
             <div className={styles.addmemo}>
               <button onClick={this.togglePopup.bind(this)}>
@@ -109,9 +122,8 @@ export default class Header extends React.Component {
               <Dropdown.Menu className={dropdownstyles.menu}>
                 <Dropdown.Item onClick={this.toggleShowProfile.bind(this)}>
                   개인프로필 수정
-              </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={this.setRedirect.bind(this)} >
+                </Dropdown.Item>
+                <Dropdown.Item onClick={this.setRedirect.bind(this)}>
                   로그아웃
                 </Dropdown.Item>
               </Dropdown.Menu>
@@ -128,6 +140,7 @@ export default class Header extends React.Component {
             <Dropdown className={styles.userbell}>
               <Dropdown.Toggle onClick={this.alarmClick.bind(this)} >
                 {(this.props.alarm.type == true && this.props.alarm.readcheck == true) ? <span className={styles.alarmbell}/> : null }  
+
                 <FontAwesomeIcon className={styles.faBell} icon={faBell} />
               </Dropdown.Toggle>
               <Dropdown.Menu className={dropdownstyles.menu}>

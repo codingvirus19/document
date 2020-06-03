@@ -10,8 +10,6 @@ export default class AddHash extends React.PureComponent {
     this.state = {
       showHashSheet: false,
       clickHashButton: false,
-      no: this.props.no,
-      memo_gNo: this.props.memo_gNo,
     };
     this.toggleContainer2 = React.createRef();
     this.onClickOutsideHandler = this.onClickOutsideHandler.bind(this);
@@ -63,10 +61,9 @@ export default class AddHash extends React.PureComponent {
           <HashSheet
             refChange={this.toggleContainer2}
             memo_hash={this.props.memo_hash}
-            hash={this.props.hash}
-            memo_no={this.state.no}
-            memo_gNo={this.state.memo_gNo}
-            group_hash_for_select={this.props.group_hash_for_select}
+            memo_no={this.props.memo_no}
+            memo_gNo={this.props.memo_gNo}
+            group_hash={this.props.group_hash}
             groupBySidebar={this.props.groupBySidebar}
             SidebarGroupUpdate={this.props.SidebarGroupUpdate}
             IsHashUpdate={this.props.IsHashUpdate}

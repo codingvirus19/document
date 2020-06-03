@@ -29,7 +29,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		SavedRequest savedRequest = requestCache.getRequest(request, response);
-		System.out.println("로그인성공 핸들러");
 		if (savedRequest != null) {
 			requestCache.removeRequest(request, response);
 			clearAuthenticationAttributes(request);
@@ -41,12 +40,10 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if (principal != null && principal instanceof UserDetails) {
 				securityUser = (SecurityUser) principal;
-				System.out.println(securityUser);
 			}
 		}
 		// 일반 응답일 경우
 		if (accept == null || accept.matches(".*application/json.*") == false) {
-			System.out.println("error");
 			request.getSession(true).setAttribute("loginNow", true);
 //			getRedirectStrategy().sendRedirect(request, response, "/");
 			// 메인으로 돌아가!

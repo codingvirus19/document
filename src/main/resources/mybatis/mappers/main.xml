@@ -4,15 +4,16 @@
 	
 	<select id="findAllMemo" parameterType="memovo" resultType="memovo">
 		<![CDATA[
-			select no, g_no as gNo, u_no as uNo, content, color, date
+			select no, g_no as gNo, u_no as uNo, content, color, date, list_no
 				from memo 
 				where g_no= #{gNo}
-				and u_no= #{uNo};
+				and u_no= #{uNo}
+				order by list_no;
  		]]>
 	</select>
 	<select id="memoAtNull" parameterType="memovo" resultType="memovo">
 		<![CDATA[
-		 select no, u_no as uNo, content, color, date from memo where g_no is #{gNo} and u_no=#{uNo}
+		 select no, u_no as uNo, content, color, date , list_no from memo where g_no is #{gNo} and u_no=#{uNo} order by  list_no;
  		]]>
 	</select>
 	

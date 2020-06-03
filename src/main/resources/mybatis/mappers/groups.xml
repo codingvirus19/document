@@ -8,14 +8,14 @@
 			  into groups (no, name)
 			 value (#{no}, #{name});
 		]]>
-
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
 			select
 			last_insert_id()
 		</selectKey>
 	</insert>
 
-	<select id="getGroupByAuth" resultType="groupvo" parameterType="uservo">
+	<select id="getGroupByAuth" resultType="groupvo"
+		parameterType="uservo">
 		<![CDATA[
 			select c.no as no, c.name as name
            from user a, groupuser b, groups c
@@ -24,4 +24,12 @@
            and a.no=#{no}; 
  		]]>
 	</select>
+
+	<delete id="deleteGroup" parameterType="long">
+		<![CDATA[
+			delete
+			  from group
+			 where no=#{no};
+		]]>
+	</delete>
 </mapper>

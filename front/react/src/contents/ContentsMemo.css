@@ -1,6 +1,6 @@
 .memo {
   height: 89%;
-  width: 91%;
+  width: 100%;
   position: relative;
   padding: 5% 5% 7% 5%;
   overflow: hidden;
@@ -10,16 +10,15 @@
 
 .container_memo_form {
   padding: 1rem;
-  width: 14rem;
+  width: 13.5rem;
   display: inline-grid;
-  margin: 0.3rem;
+  margin: 0.6%;
   border-radius: 0.7rem;
-  /* border: thin solid gray; */
-  box-shadow: gray 1px 2px 1px 2px;
+  border: thin solid gray;
+  box-shadow: gray 1px 1px 1px 1px;
 }
 .container_memo_form:hover {
   box-shadow: gray 2px 2px 2px 3px;
-  background-color: bisque;
 }
 .drag {
   background-color: yellow;
