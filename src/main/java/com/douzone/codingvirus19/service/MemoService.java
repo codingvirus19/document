@@ -30,20 +30,16 @@ public class MemoService {
 		return asyncTestCount == 1;
 	}
 
-	public List<HashVo> getHashListByMemo(MemoVo vo) {
-		return hashRepository.getHashListByMemo(vo);
-	}
-
 	public boolean deleteHash(Long no) {
 		return 1 == hashRepository.deleteHash(no);
 	}
+	
 	public void shareMemo(MemoVo memoVo) {
 		memoRepository.shareMemo(memoVo);
 	}
 
 	public void memoUpdate(MemoVo vo) {
 		memoRepository.memoUpdate(vo);
-
 	}
 
 	public boolean changeColor(MemoVo vo) {

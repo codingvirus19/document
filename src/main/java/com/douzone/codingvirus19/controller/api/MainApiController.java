@@ -68,4 +68,10 @@ public class MainApiController {
 		return JsonResult.success(groupVo);
 	}
 	
+	@PostMapping("/deleteGroup")
+	public JsonResult deleteGroup(@RequestBody GroupVo groupVo){
+		boolean result = mainService.deleteGroup(groupVo.getNo());
+		return JsonResult.success(result);
+	}
+	
 }

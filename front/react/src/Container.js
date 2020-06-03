@@ -18,8 +18,7 @@ export default class Container extends React.Component {
     this.state = {
       group: { no: [], gname: [] },
       group_hash: [{ no: "", name: "", memo_no: "" }],
-      group_hash_for_select: [{ value: "", label: "", memo_no: "" }],
-      memo_noSelectedByHash: '',
+      memo_noSelectedByHash: null,
       IsHashUpdate: false,
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
@@ -33,7 +32,9 @@ export default class Container extends React.Component {
     // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
     let group = { no: [], gname: [] };
     let groupDatas = null;
+
     this.bringMemoByGroup(this.state.groupBySidebar.no);
+
     // call api
     fetch(`${API_URL}/api/container`, {
       method: "post",
@@ -89,14 +90,13 @@ export default class Container extends React.Component {
     // db에서 받을때는 true = 1, false = 0
     // 읽지 않은건 false = 0, 읽은 건 true = 1
     // Sidebar의 HashtagList를 가져오는 코드
-    this.getHashListByGroup(this.state.groupBySidebar.no)
 
+    this.getHashListByGroup(this.state.groupBySidebar.no)
   }
 
   getHashListByGroup(gNo) {
     let g_no = { no: gNo }
-    let group_hash = [{ no: "", name: "", memo_no: ""}];
-    let group_hash_forselect = [{ value: "", label: "", memo_no: "" }];
+    let group_hash = [{ no: "", name: "", memo_no: "" }];
     fetch(`${API_URL}/api/getHashListByGroup`, {
       method: "post",
       headers: API_HEADERS,
@@ -112,17 +112,10 @@ export default class Container extends React.Component {
           };
         });
         this.UpdateGroupHash(group_hash);
-        group_hash_forselect = json.data.map((element) => {
-          return {
-            value: element.no,
-            label: element.name,
-            memo_no: element.mNo,
-          };
-        });
-        this.UpdateGroupHashForSelect(group_hash_forselect);
       })
       .catch((err) => console.error(err));
   }
+
   // group의 no와 Session no로
   bringMemoByGroup(_groupNumbers) {
     let data = {
@@ -139,12 +132,14 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         // memo_bigArr : input한 그룹의 memo db 전부를 가져온다.
-        if (!this.state.memo_noSelectedByHash) {
+        if (this.state.memo_noSelectedByHash == null) {
           memo_bigArr = json.data;
         }
         //sidebar에서 해시태그를 선택하면 해당 메모만 가져온다
         else {
           memo_bigArr = json.data.filter(element => element.no === this.state.memo_noSelectedByHash);
+          //memo_noSelectedByHash 를 다시 초기화
+          this.grouppingHashtag(null)
         }
         this.UpdateMemo(memo_bigArr);
       })
@@ -178,12 +173,6 @@ export default class Container extends React.Component {
   UpdateGroupHash(group_hash) {
     this.setState({
       group_hash: group_hash,
-    });
-  }
-  
-  UpdateGroupHashForSelect(group_hash_for_select) {
-    this.setState({
-      group_hash_for_select: group_hash_for_select,
     });
   }
 
@@ -260,7 +249,6 @@ export default class Container extends React.Component {
     })
   }
 
-
   render() {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
     return (
@@ -306,7 +294,6 @@ export default class Container extends React.Component {
           users={this.Users}
           showChat={this.state.showChat}
           clientRef={this.clientRef}
-          group_hash_for_select={this.state.group_hash_for_select}
           group_hash={this.state.group_hash}
           IsHashUpdate={this.IsHashUpdate.bind(this)}
         //변경된 결과 값 state :true false
