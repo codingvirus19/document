@@ -26,7 +26,7 @@ const FileUpload = (props) => {
     return (
         <Fragment>
             <button className={className} onClick={() => PopupChange(true)}>{value}</button>
-            <Popup open={popupChange} close={() => PopupChange()} >
+            <Popup open={popupChange} close={() => PopxupChange()} >
                 <div className={styles.upload}>
                     <button className={styles.upload_btn} onClick={FileUploadBtn}>이미지추가</button>
                 </div>
