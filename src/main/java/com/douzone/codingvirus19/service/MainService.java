@@ -28,8 +28,7 @@ public class MainService {
 	}
 
 	public List<MemoVo> findAllMemo(MemoVo memoVo) {
- 		List<MemoVo> memoList = memoRepository.findAllMemo(memoVo);
- 		return memoList;
+ 		 return memoRepository.findAllMemo(memoVo);
 	}
 
 	public boolean insertGroup(GroupVo vo) {
@@ -42,6 +41,10 @@ public class MainService {
 
 	public boolean deleteGroup(Long no) {
 		return 1 == groupRepository.deleteGroup(no);
+	}
+
+	public List<MemoVo> memoListByHash(MemoVo memoVo) {
+		return memoRepository.memoListByHash(memoVo);
 	}	
 
 }

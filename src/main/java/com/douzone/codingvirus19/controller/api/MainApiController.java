@@ -25,15 +25,6 @@ public class MainApiController {
 	@Autowired
 	private MainService mainService;
 
-	@PostMapping("/searchHash")
-	public JsonResult searchHash(@AuthUser SecurityUser securityUser) {
-		UserVo userVo = new UserVo();
-		userVo.setNo(securityUser.getNo());
-		System.out.println(userVo);
-		//		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
-		return JsonResult.success(null);
-	}
-
 	@PostMapping("/container")
 	public JsonResult getGroupList(@AuthUser SecurityUser securityUser) {
 		UserVo userVo = new UserVo();
@@ -49,6 +40,14 @@ public class MainApiController {
 		memoVo.setuNo(securityUser.getNo());
 		memoVo.setgNo(vo.getNo());
 		List<MemoVo> list = mainService.findAllMemo(memoVo);
+		return JsonResult.success(list);
+	}
+	
+	@PostMapping("/memoListByHash")
+	public JsonResult memoListByHash(@AuthUser SecurityUser securityUser, @RequestBody MemoVo memoVo) {
+		System.out.println(memoVo);
+		memoVo.setuNo(securityUser.getNo());
+		List<MemoVo> list = mainService.memoListByHash(memoVo);
 		return JsonResult.success(list);
 	}
 
@@ -71,10 +70,17 @@ public class MainApiController {
 		return JsonResult.success(groupVo);
 	}
 
+	//아직 프론트에서 안씀
 	@PostMapping("/deleteGroup")
 	public JsonResult deleteGroup(@RequestBody GroupVo groupVo){
 		boolean result = mainService.deleteGroup(groupVo.getNo());
 		return JsonResult.success(result);
 	}
+	
+//	@PostMapping("/addUserToGroup")
+//	public JsonResult addUserToGroup() {
+//		boolean result = mainService.addUserToGroup();
+//		return JsonResult.success(result);
+//	}
 
 }
