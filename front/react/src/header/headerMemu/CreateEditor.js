@@ -110,7 +110,7 @@ export default class Popup extends React.Component {
 
   editorPush(e) {
     let input_index = e.target.selectionStart;
-    this.setState({ cursor: input_index, value:e.target.value ,textSize: e.target.value.split('').length}); //변경값을 표출한다.
+    this.setState({ cursor: input_index, value: e.target.value, textSize: e.target.value.split('').length }); //변경값을 표출한다.
   }
 
   getReMarkDown() {
@@ -133,6 +133,15 @@ export default class Popup extends React.Component {
     })
       .then((response) => response.json())
       .catch((err) => console.error(err));
+
+    this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0], JSON.stringify({
+      gNo: this.props.groupNoForGroupUser.no,
+      chat: this.props.groupNoForGroupUser.name + " 그룹에 새로운 메모가 생성되었습니다.",
+      date: new Date(),
+      type: true,
+      readCheck: true
+    }))
+
     this.props.bringMemoByGroup(this.props.groupNoForGroupUser.no);
   }
   markOpen() {
@@ -146,7 +155,7 @@ export default class Popup extends React.Component {
   FileUpload(e) {
     const formData = new FormData();
     formData.append("multipartFile", e.currentTarget.files[0]);
-    
+
     fetch("http://localhost:8080/codingvirus19/api/upload", {
       method: "post",
       headers: { append: "application/json" },
@@ -171,7 +180,8 @@ export default class Popup extends React.Component {
       height: "200px",
       background: "#ff2",
     };
-
+    console.log(this.props.groupNoForGroupUser)
+    console.log(this.props.users)
     return (
       <div className={popup.popup} onClick={this.props.closePopup}>
         <div
@@ -190,7 +200,7 @@ export default class Popup extends React.Component {
               <button className={styles.button} onClick={this.hevent.bind(this, 4)}>H4</button>
               <button className={styles.button} onClick={this.boldevent.bind(this)}>B</button>
               {(this.state.markOpen) ? <button className={`${styles.click} ${styles.button}`} onClick={this.markOpen.bind(this)}>E</button> : <button className={styles.button} onClick={this.markOpen.bind(this)}>M</button>}
-              
+
               <FileUpload className={styles.button} File={e => this.FileUpload(e)} image={this.state.image} save={this.ImageSave.bind(this)} />
 
               <button className={styles.button} onClick={this.memoSave.bind(this)}>저장</button>
@@ -203,18 +213,18 @@ export default class Popup extends React.Component {
                 dangerouslySetInnerHTML={this.getReMarkDown()}
               ></div>
             ) : (
-              <Fragment>
-                <textarea
-                  wrap="hard"
-                  rows="2"
-                  cols="20"
-                  className={styles.edit}
-                  onBlur={this.cursorEvent.bind(this)}
-                  onChange={this.editorPush.bind(this)}
-                  value={this.state.value}
-                ></textarea>
-              </Fragment>
-            )}
+                <Fragment>
+                  <textarea
+                    wrap="hard"
+                    rows="2"
+                    cols="20"
+                    className={styles.edit}
+                    onBlur={this.cursorEvent.bind(this)}
+                    onChange={this.editorPush.bind(this)}
+                    value={this.state.value}
+                  ></textarea>
+                </Fragment>
+              )}
           </div>
         </div>
       </div>
