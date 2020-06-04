@@ -2,6 +2,7 @@ package com.douzone.codingvirus19.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,5 +56,11 @@ public class MemoService {
 		return memoRepository.memoInsert(vo);
 		
 	}
+
+	public boolean memoPosition(Map<String, Object> dragdrop) {
+		return memoRepository.memoPosition(dragdrop);
+	}
+
+	
 }
 

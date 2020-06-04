@@ -12,9 +12,10 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.socket.messaging.SessionConnectEvent;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
@@ -49,6 +50,13 @@ public class MemoApiController {
 	public JsonResult changeColor(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
 		boolean asyncTest = memoService.changeColor(vo);
 		return JsonResult.success(asyncTest);
+	}
+	
+	@PostMapping("/api/memo/memoposition")
+	public JsonResult memoPosition(@RequestBody Map<String,Object> dragdrop) {
+		System.out.println(dragdrop);
+		return JsonResult.success(memoService.memoPosition(dragdrop));
+//		return JsonResult.success(null);
 	}
 	
 	@PostMapping("/api/memo/shareMemo")

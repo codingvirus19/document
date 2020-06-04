@@ -1,6 +1,8 @@
 package com.douzone.codingvirus19.repository;
 
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -46,5 +48,14 @@ public class MemoRepository {
 		int i = sqlSession.insert("memo.insertMemo",vo);
 		if(i==0)return false;
 		else return true;
+	}
+
+
+	public boolean memoPosition(Map<String, Object> dragdrop) {
+		System.out.println(dragdrop);
+		int i = sqlSession.update("memo.positionone",dragdrop);
+		int	j = sqlSession.update("memo.positiontwo",dragdrop);
+//		return (i==1 && j==1)?true:false;
+		return false;
 	}
 }

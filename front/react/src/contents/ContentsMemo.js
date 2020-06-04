@@ -13,12 +13,12 @@ export default class Contents extends React.Component {
     };
   }
   DragStart(e) {
-    this.dragStart = e.currentTarget;
+    this.dragStart = e.target;
     e.dataTransfer.effectAllowed = "move";
     e.target.style.opacity = 0.1;
     e.dataTransfer.setData("text/html", this.dragStart);
   }
-  DragEnd() {
+  DragEnd(e) {
     this.dragStart.style.opacity = 1;
     if (this.dragOver == undefined) {
       return;
@@ -31,8 +31,11 @@ export default class Contents extends React.Component {
   DragOver(e) {
     e.preventDefault();
     if (e.target.className != `${styles.container_memo_form}`) return;
+    if(e.target.dataset.id == this.dragStart.dataset.id) return;
+
     this.dragOver = e.target;
-    e.target.parentNode.insertBefore(this.dragStart, e.target);
+    e.target.before(this.dragStart);
+    this.dragStart.parentNode.childNodes[this.dragStart.dataset.id].after(e.target);
   }
 
   setMemo_hash(memo_hash) {
@@ -45,7 +48,7 @@ export default class Contents extends React.Component {
     return (
       /*memo_hash: 해당 메모의 해시들
         IsHashUpdate: 해시값이 변경되면 sidebar를 변경*/
-      <div className={styles.memo} onDragOver={this.DragOver.bind(this)}>
+      <div className={styles.memo} >
         {this.props.memo_bigArr &&
           this.props.memo_bigArr.map((memos, index) => (
             <div
@@ -55,6 +58,7 @@ export default class Contents extends React.Component {
               draggable="true"
               onDragStart={this.DragStart.bind(this)}
               onDragEnd={this.DragEnd.bind(this)}
+              onDragOver={this.DragOver.bind(this)}
               className={styles.container_memo_form}
             >
               <Memo
