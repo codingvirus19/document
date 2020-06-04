@@ -24,7 +24,8 @@ export default class login extends React.Component {
       email: '',
       JoinPassword: '',
       Error: false,
-      Errormessage: ""  //비밀번호불일치, id중복, email중복
+      Errormessage: "",  //비밀번호불일치, id중복, email중복
+      JoinSuccess: false
     };
   }
 
@@ -111,6 +112,12 @@ export default class login extends React.Component {
             Errormessage: response.message
           })
         }
+        else {
+          this.setState({
+            JoinSuccess: true,
+            showJoin: false
+          })
+        }
       })
       .catch((err) => console.error(err));
   }
@@ -118,7 +125,6 @@ export default class login extends React.Component {
 
 
   View() {
-
     if (this.state.showJoin) {//회원가입
       return (
         <div className={styles.formContent}>
@@ -147,7 +153,9 @@ export default class login extends React.Component {
 
         </div>)
     } else {
-      return (<div className={styles.formContent}>
+      return (
+      <div className={styles.formContent}>
+        <h4 classNAme={styles.header}>가입완료!</h4>
         <h2 className={styles.active} > Sign In </h2>
         <h2 className={`${styles.inactive} ${styles.underlineHover}`} onClick={this.ViewChange.bind(this)} >Sign Up </h2>
         <div className={`${styles.fadeIn} ${styles.first}`}>

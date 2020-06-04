@@ -8,6 +8,7 @@ public class MemoVo {
 	private String color;
 	private String date;
 	private Long listNo;
+	private String hash;	// db에는 없지만 hash 검색을 위해 넣음
 
 	public Long getNo() {
 		return no;
@@ -64,11 +65,19 @@ public class MemoVo {
 	public void setListNo(Long listNo) {
 		this.listNo = listNo;
 	}
+	
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
 
 	@Override
 	public String toString() {
 		return "MemoVo [no=" + no + ", gNo=" + gNo + ", uNo=" + uNo + ", content=" + content + ", color=" + color
-				+ ", date=" + date + ", listNo=" + listNo + "]";
+				+ ", date=" + date + ", listNo=" + listNo + ", hash=" + hash + "]";
 	}
 
 }

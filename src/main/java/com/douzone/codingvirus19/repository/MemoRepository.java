@@ -36,7 +36,6 @@ public class MemoRepository {
 		sqlSession.update("memo.memoUpdate",vo);
 	}
 
-
 	public void shareMemo(MemoVo memoVo) {
 		sqlSession.insert("memo.shareMemo",memoVo);
 	}
@@ -54,5 +53,9 @@ public class MemoRepository {
 
 	public int chageMemoListNo(MemoVo memoVo) {
 		return sqlSession.update("memo.chageMemoListNo", memoVo);
+	}
+
+	public List<MemoVo> memoListByHash(MemoVo memoVo) {
+		return sqlSession.selectList("memo.memoListByHash", memoVo);
 	}
 }

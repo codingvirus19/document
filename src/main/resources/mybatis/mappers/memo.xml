@@ -12,6 +12,19 @@
                 (#{gNo} is not null and g_no=#{gNo}));
  		]]>
 	</select>
+	
+	<select id="memoListByHash" parameterType="memovo" resultType="memovo">
+		<![CDATA[
+			select a.no as no, a.g_no as gNo, a.u_no as uNo, a.content, a.color, a.date, a.list_no as listNo
+				from memo a, hash b
+				where a.no = b.m_no
+                and a.u_no = #{uNo}
+                and ((#{gNo} is null and a.g_no is null)
+                or
+                (#{gNo} is not null and a.g_no=#{gNo}))
+                and b.name=#{hash};
+ 		]]>
+	</select>
 
 	<delete id="personDeleteMemo" parameterType="memovo">
 		<![CDATA[
