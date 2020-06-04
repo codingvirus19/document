@@ -13,6 +13,11 @@ body {
   height: 100%;
 }
 
+.body{
+  height: 90%;
+  position: relative;
+}
+
 [aria-label]:after {
   content: attr(aria-label);
   display: none;

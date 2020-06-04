@@ -6,9 +6,6 @@ import Chat from "./chatting/Chat";
 import styles from "./Contents.css";
 
 export default class Contents extends React.Component {
-  constructor() {
-    super(...arguments);
-  }
 
   render() {
     return (

@@ -1,6 +1,4 @@
 import React from "react";
-import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import HashtagList from "./HashtagList"
 import "./Sidebar.scss";
 
@@ -11,6 +9,17 @@ export default class Sidebar extends React.Component {
       g_no: null,
       g_name: null,
     };
+  }
+
+  clickGroup(g_no, g_name) {
+    this.update(g_no, g_name);
+    this.showHashtagList();
+  }
+
+  showHashtagList() {
+    this.setState({
+      showHashtagList: true
+    })
   }
 
   update(g_no, g_name) {
@@ -24,31 +33,30 @@ export default class Sidebar extends React.Component {
   render() {
     return (
       <div className="sidebar">
-
-        <div className="hashtagList">
-          <HashtagList
-            hash={this.props.hash}
-            g_no={this.state.g_no}
-            SidebarHashUpdate={this.props.SidebarHashUpdate}
-          />
-        </div>
-
         <nav className="menu">
           <ol>
-            <li className="menu-item"><a onClick={() => this.update(null, null)}>개인메모</a></li>
             <li className="menu-item">
-              <a href="#0">그룹메모</a>
+              <a onClick={this.clickGroup.bind(this, null, null)}>
+                개인메모
+                </a>
+            </li>
+            <li className="menu-item">
+              <a>그룹메모</a>
               <ol className="sub-menu">
                 {this.props.group.gname.map((name, index) => (
                   <li key={name} className="menu-item">
-                    <a onClick={() => this.update(this.props.group.no[index], name)}>
+                    <a onClick={this.clickGroup.bind(this, this.props.group.no[index], name)}>
                       {name}
                     </a>
                   </li>
                 ))}
               </ol>
             </li>
-            <li className="menu-item"><a href="#0">Contact</a></li>
+            <HashtagList
+            hash={this.props.hash}
+            g_no={this.state.g_no}
+            SidebarHashUpdate={this.props.SidebarHashUpdate}
+          />
           </ol>
         </nav>
       </div>

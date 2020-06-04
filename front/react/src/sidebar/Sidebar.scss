@@ -1,11 +1,8 @@
-// $transparent-white: rgba(255, 255, 255, 0.15);
-
 .sidebar {
   display: inline-block;
   width: 9rem;
-  height: 90%;
+  height: 100%;
   background-color: #3A60C9;
-  padding-top: 0.668rem;
 }
 
 $yellow: #0535B9;
@@ -42,7 +39,6 @@ body {
 			margin: 1rem auto 0 auto;
 			grid-template-columns: repeat(5, 1fr);
 			align-items: center;
-			// box-shadow: 0px 3px 8px $transparent-gray;
 		}
 	}
 
@@ -54,23 +50,15 @@ body {
 		transition: background 0.3s ease-in-out;
 
 		&:nth-child(1) > a::before {
-			content: "\f015";
+			content: "\f007";
 		}
 
 		&:nth-child(2) > a::before {
-			content: "\f05a";
-		}
-
-		&:nth-child(3) > a::before {
-			content: "\f0ad";
-		}
-
-		&:nth-child(4) > a::before {
-			content: "\f2e7";
-		}
-
-		&:nth-child(5) > a::before {
-			content: "\f007";
+			content: "\f0c0";
+    }
+    
+    &:nth-child(3) > a::before {
+			content: "\f292";
 		}
 
 		@for $i from 1 through 5 {
@@ -78,7 +66,7 @@ body {
 				font-family: "Font Awesome 5 Free";
 				font-size: 1.2rem;
 				display: block;
-				margin-bottom: 1rem;
+				margin-bottom: 0.5rem;
 				font-weight: 900;
 				-moz-osx-font-smoothing: grayscale;
 				-webkit-font-smoothing: antialiased;
@@ -129,10 +117,30 @@ body {
 					border: 0;
 				}
 			}
+    }
+    
+    .sub-menu2 {
+			position: absolute;
+			top: 100%;
+      width: 100%;
+			transform-origin: top;
+			transition: transform 0.3s linear;
+      background-color: #3A60C9;
+      z-index: 999;
+
+			.menu-item {
+        border: 0;
+        a {
+          padding: 0.3rem;
+        }
+				a::before {
+					content: "";
+				}
+			}
 		}
 
 		&:hover{
-			border-top: 2px solid $yellow;
+			border-top: 2px solid #3A60C9;
       background-color: $transparent-white;
 
 			a::before {
@@ -154,7 +162,7 @@ body {
 			text-transform: uppercase;
 			height: 100%;
 			width: 100%;
-			padding: 1.5em 1em;
+			padding: 1em 0.5em;
 
 			@media (min-width: 768px) {
 				font-size: 1rem;
