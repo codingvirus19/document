@@ -39,7 +39,7 @@ export default class Container extends React.Component {
   }
 
   componentDidMount() {
-      this.bringMemoByGroup(this.state.groupBySidebar.no);
+    this.bringMemoByGroup(this.state.groupBySidebar.no);
 
     // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
     let group = { no: [], gname: [] };
@@ -285,21 +285,22 @@ export default class Container extends React.Component {
 
   alarmReceive(alarm_msg) {
     console.log(alarm_msg)
+    if (alarm_msg.type == true && alarm_msg.readCheck == true) {
+      this.AlarmPopup(true);
+      this.setState({
+        alarm: {
+          type: alarm_msg.type,
+          readcheck: alarm_msg.readCheck
+        }
+      })
+    }
     this.setState({
       alarm: {
+        g_no: alarm_msg.gNo,
         type: alarm_msg.type,
         readcheck: alarm_msg.readCheck
       }
-  })
-    // this.setState({
-    //   alarm: {
-    //     readcheck: this.state.alarm.readcheck.concat(alarmdata.readCheck),
-    //     type: this.state.alarm.type.concat(alarmdata.type),
-    //     content: this.state.alarm.content.concat(alarmdata.chat),
-    //     date: this.state.alarm.date.concat(alarmdata.date),
-    //     userNo: this.state.alarm.userNo.concat(alarmdata.uNo),
-    //   }
-    // })
+    })
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -370,6 +371,7 @@ export default class Container extends React.Component {
           showChat={this.state.showChat}
           showAlarm={this.state.showAlarm}
           clientRef={this.clientRef}
+          alarm={this.state.alarm}
           group_hash={this.state.group_hash}
           IsHashUpdate={this.IsHashUpdate.bind(this)}
         //변경된 결과 값 state :true false

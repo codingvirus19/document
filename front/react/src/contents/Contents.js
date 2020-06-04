@@ -36,7 +36,7 @@ export default class Contents extends React.Component {
             />
           </div>
           {this.props.showChat ? (
-            <Chat group={this.props.group} users={this.props.users} />
+            <Chat group={this.props.group} users={this.props.users}  clientRef={this.props.clientRef} alarm={this.props.alarm} />
           ) : null}
           {this.props.showAlarm ? (
             <Alarm users={this.props.users} />

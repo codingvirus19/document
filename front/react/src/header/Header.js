@@ -77,7 +77,6 @@ export default class Header extends React.Component {
   }
 
   alarmClick(){
-    console.log(this.props.users.no[0]);
     this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0], JSON.stringify({
       type: true,
       readCheck: false
@@ -140,13 +139,8 @@ export default class Header extends React.Component {
             <Dropdown className={styles.userbell}>
               <Dropdown.Toggle onClick={this.alarmClick.bind(this)} >
                 {(this.props.alarm.type == true && this.props.alarm.readcheck == true) ? <span className={styles.alarmbell}/> : null }  
-
                 <FontAwesomeIcon className={styles.faBell} icon={faBell} />
               </Dropdown.Toggle>
-              <Dropdown.Menu className={dropdownstyles.menu}>
-                <Dropdown.Item>알림1</Dropdown.Item>
-                <Dropdown.Item>알림2</Dropdown.Item>
-              </Dropdown.Menu>
             </Dropdown>
 
             <div>
