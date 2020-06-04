@@ -67,6 +67,7 @@ export default class Container extends React.Component {
 
     // 로그인한 user를 가져오는 코드
     let users = { no: [], name: [] };
+    let data = null
     // call api
     fetch(`${API_URL}/api/getUserSession`, {
       method: "post",
@@ -265,22 +266,22 @@ export default class Container extends React.Component {
     });
   }
   memo_Change(drag, drop) {
-    console.log(drag, drop);
-
-    drag < drop
-    drop < drag
-    // //를 서버로 보내야댐 ㅇㅋㅇㅋ;
-    // let memo = { no: , list_no: }
-    // fetch(`${API_URL}/api/chageMemoListNo`, {
-    //   method: "post",
-    //   headers: API_HEADERS,
-    //   body: JSON.stringify(g_no),
-    // })
-    //   .then((response) => response.json())
-    //   .then((json) => {
-    //     console.log(json)
-    //   })
-    //   .catch((err) => console.error(err));
+    console.log(this.state.memo_bigArr[drag].no,this.state.memo_bigArr[drop].no);
+    const dragNo = this.state.memo_bigArr[drag].no;
+    const dragListNo = this.state.memo_bigArr[drag].listNo;
+    const dropNo = this.state.memo_bigArr[drop].no;
+    const dropListNo = this.state.memo_bigArr[drop].listNo;
+    let memo_change = { 
+      dragNo: `${dragNo}`,
+      dropNo:`${dropNo}`, 
+      dragListNo:`${dragListNo}`,
+      dropListNo:`${dropListNo}`
+    };
+    fetch(`${API_URL}/api/memo/memoposition`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(memo_change),
+    })
   }
 
   alarmReceive(alarm_msg) {

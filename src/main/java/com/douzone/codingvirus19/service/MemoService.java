@@ -1,14 +1,13 @@
 package com.douzone.codingvirus19.service;
 
 
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzone.codingvirus19.repository.HashRepository;
 import com.douzone.codingvirus19.repository.MemoRepository;
-import com.douzone.codingvirus19.vo.HashVo;
 import com.douzone.codingvirus19.vo.MemoVo;
 
 @Service
@@ -33,7 +32,9 @@ public class MemoService {
 	public boolean deleteHash(Long no) {
 		return 1 == hashRepository.deleteHash(no);
 	}
-
+	public boolean memoPosition(Map<String, Object> dragdrop) {
+		return memoRepository.memoPosition(dragdrop);
+	}
 	public void shareMemo(MemoVo memoVo) {
 		memoRepository.shareMemo(memoVo);
 	}
