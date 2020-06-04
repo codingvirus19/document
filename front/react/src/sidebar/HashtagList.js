@@ -1,6 +1,6 @@
 import React from "react";
 import Nav from 'react-bootstrap/Nav';
-import styles from "./Sidebar.css";
+import"./Sidebar.scss";
 
 export default class HashtagList extends React.PureComponent {
 
@@ -15,12 +15,12 @@ export default class HashtagList extends React.PureComponent {
     return (
       <div>
         <h5>해시태그</h5>
-        <Nav className={styles.nav}>
+        <Nav className="nav">
           {this.props.hash
           .map((hash) => (
             <Nav.Link 
             key={hash} 
-            className={styles.dropdown_menu}
+            className="dropdown_menu"
             onClick={this.clickHash.bind(this, hash)}
             >
               {hash}
