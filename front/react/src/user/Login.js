@@ -155,7 +155,7 @@ export default class login extends React.Component {
     } else {
       return (
       <div className={styles.formContent}>
-        <h4 classNAme={styles.header}>가입완료!</h4>
+        <h4 className={styles.header}>가입완료!</h4>
         <h2 className={styles.active} > Sign In </h2>
         <h2 className={`${styles.inactive} ${styles.underlineHover}`} onClick={this.ViewChange.bind(this)} >Sign Up </h2>
         <div className={`${styles.fadeIn} ${styles.first}`}>
