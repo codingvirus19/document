@@ -2,13 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memo">
 
+	<select id="findAllMemo" parameterType="memovo" resultType="memovo">
+		<![CDATA[
+			select no, g_no as gNo, u_no as uNo, content, color, date, list_no as listNo
+				from memo 
+				where u_no = #{uNo}
+                and (( #{gNo} is null and g_no is null)
+                or
+                (#{gNo} is not null and g_no=#{gNo}));
+ 		]]>
+	</select>
+	
+	<select id="memoListByHash" parameterType="memovo" resultType="memovo">
+		<![CDATA[
+			select a.no as no, a.g_no as gNo, a.u_no as uNo, a.content, a.color, a.date, a.list_no as listNo
+				from memo a, hash b
+				where a.no = b.m_no
+                and a.u_no = #{uNo}
+                and ((#{gNo} is null and a.g_no is null)
+                or
+                (#{gNo} is not null and a.g_no=#{gNo}))
+                and b.name=#{hash};
+ 		]]>
+	</select>
+
 	<delete id="personDeleteMemo" parameterType="memovo">
 		<![CDATA[
 			delete from memo where no=#{no} and g_no is #{gNo} and u_no=#{uNo};
  		]]>
 	</delete>
-	<delete id="memoHashDeleteMemo" parameterType="memovo">
 
+	<delete id="memoHashDeleteMemo" parameterType="memovo">
       <![CDATA[
       delete
         from hash 
@@ -19,7 +43,8 @@
                               and a.no = b.m_no
                              group by b.no) t);
        ]]>
-   </delete>
+	</delete>
+
 	<delete id="peopleDeleteMemo" parameterType="memovo">
 		<![CDATA[
 			delete from memo where no=#{no} and g_no= #{gNo} and u_no=#{uNo};
@@ -44,23 +69,28 @@
 	</insert>
 
 	<update id="memoUpdate" parameterType="memovo">
-	<![CDATA[
-		update memo set content = #{content}, color=#{color} where no = #{no};
-	]]>
+		<![CDATA[
+			update memo set content = #{content}, color=#{color} where no = #{no};
+		]]>
 	</update>
-	
+
 	<update id="changeColor" parameterType="memovo">
-	<![CDATA[
-		update memo set color=#{color} where no = #{no};
-	]]>
+		<![CDATA[
+			update memo set color=#{color} where no = #{no};
+		]]>
 	</update>
 
 	<insert id="insertMemo" parameterType="memovo">
-	<![CDATA[
-		insert into memo values (null,#{gNo},#{uNo},#{content},#{color},now(),(select max(b.no)+1 from memo as b));
-		
-	]]>
+		<![CDATA[
+			insert into memo values (null,#{gNo},#{uNo},#{content},#{color},now(),(select max(b.no)+1 from memo as b));
+		]]>
 	</insert>
+
+	<update id="chageMemoListNo" parameterType="memovo">
+		<![CDATA[
+			update memo set color=#{color} where no = #{no};
+		]]>
+	</update>
 
 </mapper>
 	

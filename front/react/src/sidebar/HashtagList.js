@@ -3,10 +3,9 @@ import Nav from 'react-bootstrap/Nav';
 import styles from "./Sidebar.css";
 
 export default class HashtagList extends React.PureComponent {
-  
-  clcickHash(memo_no) {
-  this.props.grouppingHashtag(memo_no)
-  this.props.SidebarGroupUpdate(this.props.groupBySidebar.no, this.props.groupBySidebar.name)
+
+  clickHash(hash) {
+  this.props.SidebarHashUpdate(this.props.g_no, hash)
   }
 
   render() {
@@ -17,13 +16,14 @@ export default class HashtagList extends React.PureComponent {
       <div>
         <h5>해시태그</h5>
         <Nav className={styles.nav}>
-          {this.props.hash.map(({ no, name, memo_no }) => (
+          {this.props.hash
+          .map((hash) => (
             <Nav.Link 
-            key={no} 
+            key={hash} 
             className={styles.dropdown_menu}
-            onClick={this.clcickHash.bind(this, memo_no)}
+            onClick={this.clickHash.bind(this, hash)}
             >
-              {name}
+              {hash}
               </Nav.Link>
           ))}
         </Nav>

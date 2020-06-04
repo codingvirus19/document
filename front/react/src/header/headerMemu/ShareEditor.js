@@ -211,6 +211,9 @@ export default class Popup extends React.Component {
     this.setState({
       version: message.version
     })
+    if (message.name != this.state.name && message.type == "save") {
+      this.props.bringMemoByGroup(this.props.memo_gNo == undefined ? null : this.props.memo_gNo);
+    }
     if (message.type == "allKey" && message.name == this.state.name) {
       // console.log(message);
       this.setState({
@@ -245,7 +248,7 @@ export default class Popup extends React.Component {
     }
   }
   memoSave() {
-    this.send(0, 0,this.state.color, 0, "save");
+    this.send(0, 0, this.state.color, 0, "save");
     this.props.bringMemoByGroup(this.props.memo_gNo == undefined ? null : this.props.memo_gNo);
   }
   markOpen() {
@@ -265,13 +268,13 @@ export default class Popup extends React.Component {
     return (
 
       <Fragment>
-        <div className={popup.popup} onClick={()=>this.memoSave()}>
+        <div className={popup.popup} onClick={() => this.memoSave()}>
           <SockJsClient
             url='./api/memo'
             topics={[`/api/memo/${this.props.no}`]}
             onMessage={this.receive.bind(this)}
             ref={(client) => { this.clientRef = client }} />
-          <div className={popup.inner} onClick={e=>e.stopPropagation()}>
+          <div className={popup.inner} onClick={e => e.stopPropagation()}>
             <div className={styles.editor}>
               <div className={styles.btn}>
                 <button className={styles.button} onClick={this.hevent.bind(this, 1)}>H1</button>

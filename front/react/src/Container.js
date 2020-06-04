@@ -18,7 +18,8 @@ export default class Container extends React.Component {
     this.state = {
       group: { no: [], gname: [] },
       group_hash: [{ no: "", name: "", memo_no: "" }],
-      memo_noSelectedByHash: null,
+      distinctGroup_hash: [""],
+      SelectedHash: null,
       IsHashUpdate: false,
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
@@ -101,26 +102,11 @@ export default class Container extends React.Component {
 
     this.getHashListByGroup(this.state.groupBySidebar.no);
   }
-  // 검색창에 value를 입력 시 작동하는 함수
-  ajaxSearchHash() {
-    fetch(`${API_URL}/api/searchHash`, {
-      method: "post",
-      headers: API_HEADERS,
-    })
-      .then((response) => response.json())
-      .then((json) => { })
-      .catch((err) => console.error(err));
-  }
-
-  UpdateHash(hash) {
-    this.setState({
-      hash: hash,
-    });
-  }
 
   getHashListByGroup(gNo) {
     let g_no = { no: gNo };
     let group_hash = [{ no: "", name: "", memo_no: "" }];
+    let distinctGroup_hash = [{ name: "" }];
     fetch(`${API_URL}/api/getHashListByGroup`, {
       method: "post",
       headers: API_HEADERS,
@@ -135,6 +121,12 @@ export default class Container extends React.Component {
             memo_no: element.mNo,
           };
         });
+        distinctGroup_hash = group_hash.map(function (val, index) {
+          return val['name'];
+        }).filter(function (val, index, arr) {
+          return arr.indexOf(val) === index;
+        });
+        this.UpdateDistinctGroupHash(distinctGroup_hash);
         this.UpdateGroupHash(group_hash);
       })
       .catch((err) => console.error(err));
@@ -142,9 +134,7 @@ export default class Container extends React.Component {
 
   // group의 no와 Session no로 memoList를 뿌리는 함수
   bringMemoByGroup(_groupNumbers) {
-    let data = {
-      no: _groupNumbers,
-    };
+    let data = { no: _groupNumbers, };
     let memo_bigArr;
     let filteredMemo_bigArr;
     // call api
@@ -164,11 +154,7 @@ export default class Container extends React.Component {
 
         // 검색keyword가 ""이고, sidebar의 해쉬를 클릭하지 않았을 때는
         // 전체 memoList를 뿌려준다.
-        if (
-          this.state.keyword == "" &&
-          this.state.memo_noSelectedByHash == null
-        ) {
-          console.log("일반 memoList");
+        if (this.state.keyword == "") {
           memo_bigArr = json.data;
           this.UpdateMemo(memo_bigArr);
         }
@@ -188,18 +174,25 @@ export default class Container extends React.Component {
           this.onCallbackKeywordChange("");
           this.UpdateMemo(filteredMemo_bigArr);
         }
-        // 사이드바의 해시이름을 클릭 시 해당 해시가 등록된 memoList를 뿌려준다.
-        else if (this.state.memo_noSelectedByHash != null) {
-          memo_bigArr = json.data.filter(
-            (element) => element.no === this.state.memo_noSelectedByHash
-          );
-          // 사이드바의 해시를 클릭 후 다시 null로 설정되도록 하는 코드.
-          this.grouppingHashtag(null);
-          this.UpdateMemo(memo_bigArr);
-        }
       })
       .catch((err) => console.error(err));
     // 그룹의 data로 memo의 db를 가져오는 코드
+  }
+
+  bringMemoByHash(g_no, hash) {
+    let memo_bigArr;
+    let data = { gNo: g_no, hash: hash };
+    fetch(`${API_URL}/api/memoListByHash`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        memo_bigArr = json.data;
+        this.UpdateMemo(memo_bigArr);
+      })
+      .catch((err) => console.error(err));
   }
 
   UpdateMemo(_memo_bigArr) {
@@ -231,6 +224,12 @@ export default class Container extends React.Component {
     });
   }
 
+  UpdateDistinctGroupHash(distinctGroup_hash) {
+    this.setState({
+      distinctGroup_hash: distinctGroup_hash,
+    });
+  }
+
   // sidebar에서 콜백된 파라미터 no와 name
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
   // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo , changeColor 클릭 시....
@@ -243,17 +242,10 @@ export default class Container extends React.Component {
       },
     });
   }
-  IsHashUpdate() {
-    this.setState({
-      IsHashUpdate: true,
-    });
-  }
 
-  // sidebar 해시태그에서 클릭한 해시를 가지고 있는 메모
-  grouppingHashtag(memo_no) {
-    this.setState({
-      memo_noSelectedByHash: memo_no,
-    });
+  //sidebar에서 선택된 해시
+  SidebarHashUpdate(g_no, hash) {
+    this.bringMemoByHash(g_no, hash)
   }
 
   IsHashUpdate() {
@@ -275,7 +267,20 @@ export default class Container extends React.Component {
   memo_Change(drag, drop) {
     console.log(drag, drop);
 
-    //를 서버로 보내야댐 ㅇㅋㅇㅋ;
+    drag < drop
+    drop < drag
+    // //를 서버로 보내야댐 ㅇㅋㅇㅋ;
+    // let memo = { no: , list_no: }
+    // fetch(`${API_URL}/api/chageMemoListNo`, {
+    //   method: "post",
+    //   headers: API_HEADERS,
+    //   body: JSON.stringify(g_no),
+    // })
+    //   .then((response) => response.json())
+    //   .then((json) => {
+    //     console.log(json)
+    //   })
+    //   .catch((err) => console.error(err));
   }
 
   alarmReceive(alarm_msg) {
@@ -308,6 +313,7 @@ export default class Container extends React.Component {
       IsHashUpdate: false,
     });
   }
+
 
   render() {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
@@ -347,12 +353,10 @@ export default class Container extends React.Component {
           users={this.Users}
         />
         <Sidebar
-          grouppingHashtag={this.grouppingHashtag.bind(this)}
-          hash={this.state.group_hash}
+          hash={this.state.distinctGroup_hash}
           group={this.state.group}
           group_update={this.SidebarGroupUpdate.bind(this)}
-          SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
-          groupBySidebar={this.state.groupBySidebar}
+          SidebarHashUpdate={this.SidebarHashUpdate.bind(this)}
         />
         <Contents
           memo_noSelectedByHash={this.state.memo_noSelectedByHash}

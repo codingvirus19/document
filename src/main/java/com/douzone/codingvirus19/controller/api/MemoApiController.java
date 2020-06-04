@@ -129,8 +129,8 @@ public class MemoApiController {
 			memoVo.setNo(memo);
 			memoVo.setContent(str);
 			memoVo.setColor(message.getKey());
-		
 			memoService.memoUpdate(memoVo);
+			webSocket.convertAndSend("/api/memo/" + memo, message);
 			return;
 		}
 		
@@ -189,6 +189,13 @@ public class MemoApiController {
 		versionList.put(memo,version);
 		booleanList.put(memo, first);
 		webSocket.convertAndSend("/api/memo/" + memo, message);
+	}
+	
+	// 프론트에서 안쓰는듯
+	@PostMapping("/api/chageMemoListNo")
+	public JsonResult chageMemoListNo(@RequestBody MemoVo memoVo) {
+		boolean result = memoService.chageMemoListNo(memoVo);
+		return JsonResult.success(result);
 	}
 	
 	@PostMapping("/api/deleteHash")
