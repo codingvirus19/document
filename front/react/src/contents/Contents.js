@@ -21,6 +21,7 @@ export default class Contents extends React.Component {
               group={this.props.group}
               UpdateGroup={this.props.UpdateGroup}
             />
+            {(this.props.memo_bigArr!=null)?
             <ContentsMemo
               bringMemoByGroup={this.props.bringMemoByGroup}
               memo_Change={this.props.memo_Change}
@@ -34,6 +35,7 @@ export default class Contents extends React.Component {
               group_hash={this.props.group_hash}
               IsHashUpdate={this.props.IsHashUpdate}
             />
+              :null}
           </div>
           {this.props.showChat ? (
             <Chat group={this.props.group} users={this.props.users}  clientRef={this.props.clientRef} alarm={this.props.alarm} />

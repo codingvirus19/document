@@ -265,8 +265,7 @@ export default class Container extends React.Component {
       showAlarm: !showAlarmClick,
     });
   }
-  memo_Change(drag, drop) {
-    console.log(this.state.memo_bigArr[drag].no,this.state.memo_bigArr[drop].no);
+  memo_Change(drag,drop) {
     const dragNo = this.state.memo_bigArr[drag].no;
     const dragListNo = this.state.memo_bigArr[drag].listNo;
     const dropNo = this.state.memo_bigArr[drop].no;
@@ -277,11 +276,18 @@ export default class Container extends React.Component {
       dragListNo:`${dragListNo}`,
       dropListNo:`${dropListNo}`
     };
+    console.log("update");
     fetch(`${API_URL}/api/memo/memoposition`, {
       method: "post",
       headers: API_HEADERS,
       body: JSON.stringify(memo_change),
     })
+    .then((response) => response.json())
+    .then((json) => {
+        console.log(json.data);
+      //  this.bringMemoByGroup(this.state.groupBySidebar.no);
+    })
+   
   }
 
   alarmReceive(alarm_msg) {
@@ -302,6 +308,10 @@ export default class Container extends React.Component {
         readcheck: alarm_msg.readCheck
       }
     })
+  }
+
+  getSnapshotBeforeUpdate(element){
+    return element;
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -359,24 +369,26 @@ export default class Container extends React.Component {
           group_update={this.SidebarGroupUpdate.bind(this)}
           SidebarHashUpdate={this.SidebarHashUpdate.bind(this)}
         />
+       
         <Contents
-          memo_noSelectedByHash={this.state.memo_noSelectedByHash}
-          UpdateGroup={this.UpdateGroup.bind(this)}
-          SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
-          group={this.state.group}
-          groupBySidebar={this.state.groupBySidebar}
-          bringMemoByGroup={this.bringMemoByGroup.bind(this)}
-          memo_bigArr={this.state.memo_bigArr}
-          memo_Change={this.memo_Change.bind(this)}
-          users={this.Users}
-          showChat={this.state.showChat}
-          showAlarm={this.state.showAlarm}
-          clientRef={this.clientRef}
-          alarm={this.state.alarm}
-          group_hash={this.state.group_hash}
-          IsHashUpdate={this.IsHashUpdate.bind(this)}
-        //변경된 결과 값 state :true false
-        />
+        memo_noSelectedByHash={this.state.memo_noSelectedByHash}
+        UpdateGroup={this.UpdateGroup.bind(this)}
+        SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
+        group={this.state.group}
+        groupBySidebar={this.state.groupBySidebar}
+        bringMemoByGroup={this.bringMemoByGroup.bind(this)}
+        memo_bigArr={this.state.memo_bigArr}
+        memo_Change={this.memo_Change.bind(this)}
+        users={this.Users}
+        showChat={this.state.showChat}
+        showAlarm={this.state.showAlarm}
+        clientRef={this.clientRef}
+        alarm={this.state.alarm}
+        group_hash={this.state.group_hash}
+        IsHashUpdate={this.IsHashUpdate.bind(this)}
+      //변경된 결과 값 state :true false
+      />
+        
       </div>
     );
   }
