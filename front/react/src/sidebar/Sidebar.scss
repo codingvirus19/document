@@ -1,0 +1,176 @@
+// $transparent-white: rgba(255, 255, 255, 0.15);
+
+.sidebar {
+  display: inline-block;
+  width: 9rem;
+  height: 90%;
+  background-color: #3A60C9;
+  padding-top: 0.668rem;
+}
+
+$yellow: #0535B9;
+$blue: rgba(185, 237, 247, 0.404);
+$gradient-bg: linear-gradient(90deg, $blue, $yellow);
+$transparent-gray: rgba(0, 0, 0, 0.3);
+$transparent-white: rgba(255, 255, 255, 0.15);
+
+*,
+*::before,
+*::after {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background: $gradient-bg;
+  font-family: "Montserrat", sans-serif;
+  
+	// For codepen only
+	height: 100vh;
+}
+
+.menu {
+	ol {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+
+		&:first-child {
+			width: 100%;
+			max-width: 960px;
+			margin: 1rem auto 0 auto;
+			grid-template-columns: repeat(5, 1fr);
+			align-items: center;
+			// box-shadow: 0px 3px 8px $transparent-gray;
+		}
+	}
+
+	&-item {
+		display: flex;
+		align-items: center;
+		border-top: 2px solid $blue;
+		position: relative;
+		transition: background 0.3s ease-in-out;
+
+		&:nth-child(1) > a::before {
+			content: "\f015";
+		}
+
+		&:nth-child(2) > a::before {
+			content: "\f05a";
+		}
+
+		&:nth-child(3) > a::before {
+			content: "\f0ad";
+		}
+
+		&:nth-child(4) > a::before {
+			content: "\f2e7";
+		}
+
+		&:nth-child(5) > a::before {
+			content: "\f007";
+		}
+
+		@for $i from 1 through 5 {
+			&:nth-child(#{$i}) > a::before {
+				font-family: "Font Awesome 5 Free";
+				font-size: 1.2rem;
+				display: block;
+				margin-bottom: 1rem;
+				font-weight: 900;
+				-moz-osx-font-smoothing: grayscale;
+				-webkit-font-smoothing: antialiased;
+				display: inline-block;
+				font-style: normal;
+				font-variant: normal;
+				text-rendering: auto;
+				line-height: 1;
+				color: $blue;
+
+				@media (min-width: 768px) {
+					font-size: 1.5rem;
+				}
+			}
+		}
+
+		.sub-menu > a {
+			color: red;
+		}
+
+		&:not(:last-child) {
+			border-right: 1px solid $transparent-white;
+		}
+
+		.sub-menu {
+			position: absolute;
+			top: 100%;
+      width: 100%;
+			transform-origin: top;
+			transform: rotateX(-90deg);
+			transition: transform 0.3s linear;
+      background-color: $yellow;
+      z-index: 999;
+      top: 0rem;
+      left: 9rem;
+
+			.menu-item {
+        border-color: $transparent-white;
+
+        a {
+          padding: 0.3rem;
+        }
+				a::before {
+					content: "";
+				}
+
+				&:first-child {
+					border: 0;
+				}
+			}
+		}
+
+		&:hover{
+			border-top: 2px solid $yellow;
+      background-color: $transparent-white;
+
+			a::before {
+				color: white;
+			}
+		}
+
+		&:hover .sub-menu {
+      transform: rotateX(0deg);
+		}
+
+		a {
+			font-size: 0.8rem;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			color: #fff;
+			text-decoration: none;
+			text-transform: uppercase;
+			height: 100%;
+			width: 100%;
+			padding: 1.5em 1em;
+
+			@media (min-width: 768px) {
+				font-size: 1rem;
+			}
+		}
+	}
+}
+
+.nav {
+  text-align: center;
+  color: #fff;
+  margin-top: 0.188rem;
+  padding-bottom: 0.313rem;
+}
+
+.hashtagList {
+  margin: 0.3rem;
+  background-color: #fff;
+}

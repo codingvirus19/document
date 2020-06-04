@@ -38,7 +38,8 @@ export default class Container extends React.Component {
   }
 
   componentDidMount() {
-      this.bringMemoByGroup(this.state.groupBySidebar.no);
+
+    this.bringMemoByGroup(this.state.groupBySidebar.no);
 
     // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
     let group = { no: [], gname: [] };
@@ -242,6 +243,10 @@ export default class Container extends React.Component {
     });
   }
 
+  SearchHash(g_no, hash) {
+    this.bringMemoByHash(g_no, hash)
+  }
+
   //sidebar에서 선택된 해시
   SidebarHashUpdate(g_no, hash) {
     this.bringMemoByHash(g_no, hash)
@@ -337,6 +342,7 @@ export default class Container extends React.Component {
           // group의 no와 name을 사용하는 callback함수
           SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
           //변경함수
+          SearchHash={this.SearchHash.bind(this)}
           bringMemoByGroup={this.bringMemoByGroup.bind(this)}
           chattingPopup={this.chattingPopup.bind(this)}
           alarm={this.state.alarm}

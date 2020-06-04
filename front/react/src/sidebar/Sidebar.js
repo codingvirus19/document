@@ -2,7 +2,7 @@ import React from "react";
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import HashtagList from "./HashtagList"
-import styles from "./Sidebar.css";
+import "./Sidebar.scss";
 
 export default class Sidebar extends React.Component {
   constructor() {
@@ -23,27 +23,34 @@ export default class Sidebar extends React.Component {
 
   render() {
     return (
-      <div className={styles.sidebar}>
-        <Nav className={styles.nav}>
-          <Nav.Link
-            onClick={() => this.update(null, null)}
-            className={styles.menu}> 개인메모 </Nav.Link>
-          <NavDropdown title="그룹메모" className={styles.menu} drop="right">
-            {this.props.group.gname.map((name, index) => (
-              <NavDropdown.Item
-                key={index}
-                onClick={() => this.update(this.props.group.no[index], name)}
-                className={styles.groupmenu}> {name} </NavDropdown.Item>
-            ))}
-          </NavDropdown>
-        </Nav>
-        <div className={styles.hashtagList}>
-        <HashtagList
+      <div className="sidebar">
+
+        <div className="hashtagList">
+          <HashtagList
             hash={this.props.hash}
             g_no={this.state.g_no}
             SidebarHashUpdate={this.props.SidebarHashUpdate}
           />
         </div>
+
+        <nav className="menu">
+          <ol>
+            <li className="menu-item"><a onClick={() => this.update(null, null)}>개인메모</a></li>
+            <li className="menu-item">
+              <a href="#0">그룹메모</a>
+              <ol className="sub-menu">
+                {this.props.group.gname.map((name, index) => (
+                  <li key={name} className="menu-item">
+                    <a onClick={() => this.update(this.props.group.no[index], name)}>
+                      {name}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </li>
+            <li className="menu-item"><a href="#0">Contact</a></li>
+          </ol>
+        </nav>
       </div>
     );
   }
