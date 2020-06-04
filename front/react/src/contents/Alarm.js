@@ -3,14 +3,14 @@ import styles from "./Alarm.css";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
-  "Content-Type": "application/json",
+    "Content-Type": "application/json",
 };
 export default class Alarm extends React.Component {
     constructor() {
         super(...arguments);
         this.state = {
             users: this.props.users,
-            alarmDatas : []
+            alarmDatas: []
         }
     }
     componentDidMount() {
@@ -22,7 +22,7 @@ export default class Alarm extends React.Component {
             .then((json) => {
                 console.log(json.data);
                 this.setState({
-                    alarmDatas : json.data
+                    alarmDatas: json.data
                 });
             })
             .catch((err) => console.error(err));
@@ -32,16 +32,17 @@ export default class Alarm extends React.Component {
         console.log(this.state.alarmDatas)
         return (
             <div className={styles.alarm}>
-                <h6 className={styles.alarmHeader}>알람목록</h6>
+                <h5 className={styles.alarmHeader}>알람목록</h5>
                 <ul className={styles.alarmList}>
                     {this.state.alarmDatas.map((content, index) => {
                         return (
                             <div key={index} className={styles.alarmLine}>
-                                <li>{index+1}. {content.chat}</li>
+                                <li>{index + 1}. {content.chat}</li>
                                 <h5>{content.date}</h5>
                             </div>
                         )
                     })}
+                    <p className={styles.alarmPtag}>알람은 최대 10개까지 표시됩니다.</p>
                 </ul>
             </div>
         );

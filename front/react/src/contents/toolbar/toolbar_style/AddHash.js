@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHashtag } from "@fortawesome/free-solid-svg-icons";
 import styles from "../Toolbar.css";

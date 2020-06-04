@@ -1,7 +1,5 @@
 import React from "react";
-
 import Table from "react-bootstrap/Table";
-
 import styles from "./Sheets.css";
 
 export default class ShareSheet extends React.Component {
