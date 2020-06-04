@@ -10,7 +10,7 @@ export default class Chat extends React.Component {
         <Fragment>
         {(true) ? 
         <ChatList group={this.props.group}
-        users={this.props.users}/>
+        users={this.props.users} clientRef={this.props.clientRef} alarm={this.props.alarm}/>
         : <div></div>}
         </Fragment>
       );

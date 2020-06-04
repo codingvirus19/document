@@ -43,5 +43,9 @@ public class AlarmService {
 		List<AlarmVo> alarmList = alarmRepository.getAlarmContents(vo);
 		return alarmList;
 	}
+
+	public void chatReadCheckUpdate(AlarmVo alarmVo) {
+		alarmRepository.chatReadCheckUpdate(alarmVo);
+	}
 	
 }

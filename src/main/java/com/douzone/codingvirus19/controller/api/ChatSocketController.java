@@ -56,6 +56,15 @@ public class ChatSocketController {
 			}
 			return;
 		}
+		if(alarmVo.isReadCheck() == false && alarmVo.isType() == false) {
+			System.out.println("여긴 채팅 알람 읽음 처리부분입니당");
+			alarmService.chatReadCheckUpdate(alarmVo);
+			alarmVo.setReadCheck(false);
+			alarmVo.setType(false);
+			webSocket.convertAndSend("/api/alarm/" + userno, alarmVo);
+			return;
+		}
+		
 		GroupUserVo groupUserVo = new GroupUserVo();
 		groupUserVo.setuNo(userno);
 		groupUserVo.setgNo(alarmVo.getgNo());

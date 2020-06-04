@@ -50,6 +50,15 @@
  		]]>
 	</update>
 	
+	<update id="chatReadCheckUpdate" parameterType="alarmvo" >
+		<![CDATA[
+		 update accptalarm a inner join groupuser b
+                 on a.u_no = b.u_no
+                set a.read_check = false
+			  where a.u_no = #{uNo} and b.g_no = #{gNo};
+ 		]]>
+	</update>
+	
 	<select id="getAlarmContents" parameterType="alarmvo"
 		resultType="alarmvo">
 		<![CDATA[
@@ -57,7 +66,8 @@
                 b.date as date
            from accptalarm a, (select no, g_no, massage, date, type from alarm) b
 		  where a.noti_no = b.no
-            and u_no=2
+            and u_no= #{uNo}
+            and type not in(0)
             limit 10;
  		]]>
 	</select>
