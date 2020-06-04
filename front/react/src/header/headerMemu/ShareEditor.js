@@ -8,7 +8,6 @@ import styles from "./ShareEditor.css";
 export default class Popup extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props.no);
     this.md = new Remarkable('full', {
       html: false,        // Enable HTML tags in source
       xhtmlOut: false,        // Use '/' to close single tags (<br />)
@@ -84,7 +83,6 @@ export default class Popup extends React.Component {
       }
     }
     b.splice(textLastLine[textLastLine.length - 1], 0, pushText);
-    console.log(this.state.version);
     this.send(textLastLine[textLastLine.length - 1], state3.length + hsize + 1, pushText, (this.state.version), "hevent");
     this.setState({
       value: b.join(''),
@@ -145,7 +143,6 @@ export default class Popup extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log("render OK");
   }
 
   // firstindex lastindex key
@@ -175,7 +172,7 @@ export default class Popup extends React.Component {
       // console.log("복사");
     } else {
       // console.log("기본입력",input_index);
-      console.log(textsize);
+      // console.log(textsize);
       this.send(input_index, textsize, key, (this.state.version), "basic");
       this.keyInput(input_index, key);
     }
@@ -214,7 +211,11 @@ export default class Popup extends React.Component {
     this.setState({
       version: message.version
     })
+    if (message.name != this.state.name && message.type == "save") {
+      this.props.bringMemoByGroup(this.props.memo_gNo == undefined ? null : this.props.memo_gNo);
+    }
     if (message.type == "allKey" && message.name == this.state.name) {
+      // console.log(message);
       this.setState({
         value: message.key,
         textSize: message.key.split('').length,
@@ -247,7 +248,7 @@ export default class Popup extends React.Component {
     }
   }
   memoSave() {
-    this.send(0, 0,this.state.color, 0, "save");
+    this.send(0, 0, this.state.color, 0, "save");
     this.props.bringMemoByGroup(this.props.memo_gNo == undefined ? null : this.props.memo_gNo);
   }
   markOpen() {
@@ -262,18 +263,18 @@ export default class Popup extends React.Component {
     }
   }
   render() {
-    console.log(this.props.no);
+    // console.log(this.props.no);
 
     return (
 
       <Fragment>
-        <div className={popup.popup}>
+        <div className={popup.popup} onClick={() => this.memoSave()}>
           <SockJsClient
             url='./api/memo'
             topics={[`/api/memo/${this.props.no}`]}
             onMessage={this.receive.bind(this)}
             ref={(client) => { this.clientRef = client }} />
-          <div className={popup.inner} onClick={e=>e.stopPropagation()}>
+          <div className={popup.inner} onClick={e => e.stopPropagation()}>
             <div className={styles.editor}>
               <div className={styles.btn}>
                 <button className={styles.button} onClick={this.hevent.bind(this, 1)}>H1</button>

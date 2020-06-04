@@ -61,14 +61,12 @@ export default class Toolbar extends React.PureComponent {
 
         {/* 해시추가 */}
         <AddHash
-          hash={this.props.hash}
-          // 내가 클릭한 메모의 color를 가져온다.
-          no={this.props.no}
-          memo_gNo={this.state.memo_gNo}
-          memo_hash={this.props.memo_hash}
           // memo 색변경 시 toolbar의 버튼도 색변경을 도와주는 props
           setStyle={this.props.setStyle}
-          group_hash_for_select={this.props.group_hash_for_select}
+          memo_no={this.props.no}
+          memo_gNo={this.state.memo_gNo}
+          memo_hash={this.props.memo_hash}
+          group_hash={this.props.group_hash}
           IsHashUpdate={this.props.IsHashUpdate}
           groupBySidebar={this.props.groupBySidebar}
           SidebarGroupUpdate={this.props.SidebarGroupUpdate}
@@ -84,11 +82,10 @@ export default class Toolbar extends React.PureComponent {
         />
 
         {/* 외부공유 */}
-        <ExternalSharing setStyle={this.props.setStyle} /> 
+        <ExternalSharing setStyle={this.props.setStyle} />
 
         {/* 메모삭제 */}
         <MemoDelete
-
           // SidebarGroupUpdate: delete클릭 후 수정된 메모list를 다시뿌려주기 위한 callback함수
           SidebarGroupUpdate={this.props.SidebarGroupUpdate}
           // 내가 클릭한 메모의 color를 가져온다.

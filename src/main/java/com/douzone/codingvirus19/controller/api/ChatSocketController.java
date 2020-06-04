@@ -44,35 +44,39 @@ public class ChatSocketController {
 	@MessageMapping("/alarm/{userno}")
 	public void alarmMessage(AlarmVo alarmVo, @DestinationVariable Long userno) throws Exception {
 		System.out.println("알람 소켓 들어 왔습니다.");
-		if(alarmVo.getgNo() == null)return;
+		
+		alarmVo.setuNo(userno);
+		if(alarmVo.getgNo() == null) {
+			if(alarmVo.isReadCheck() == false && alarmVo.isType() == true) {
+				System.out.println("여긴 기본 알람 읽음 처리부분입니당");
+				alarmService.readCheckUpdate(alarmVo);
+				alarmVo.setReadCheck(false);
+				alarmVo.setType(true);
+				webSocket.convertAndSend("/api/alarm/" + userno, alarmVo);
+			}
+			return;
+		}
 		GroupUserVo groupUserVo = new GroupUserVo();
-		AlarmVo vo = new AlarmVo();
-		vo.setuNo(userno);
-		
-		
 		groupUserVo.setuNo(userno);
 		groupUserVo.setgNo(alarmVo.getgNo());
 		
 		alarmService.addAlarm(alarmVo);
 		Long no = alarmVo.getNo();
-		System.out.println(no);
+		
 		List<Long> list  = alarmService.getGroupinUser(groupUserVo);
 		Long[] array =  new Long[list.size()];
 		int size = 0;
 		for(Long temp : list){
 			array[size++] = temp;
 		}
-		System.out.println(array + " : 잘들어왔습니다.");
+
 		Map<String, Object> SandUserMap = new HashMap<String, Object>();
-		System.out.println(array + " : 잘들어왔습니다.2");
 		Map<String, Object> pushSandUserMap = null;
-		System.out.println(array + " : 잘들어왔습니다3.");
 		List<Map<String, Object>> pushSandUserList = new ArrayList<Map<String, Object>>();
-		System.out.println(list.size() + " : 잘들어왔습니다4.");
+		
 		if(list.size() == 0) return;
 		
 		for(int i = 0; i < list.size(); i++) {
-			System.out.println(array + " : 잘들어왔습니다5555.");
 			pushSandUserMap = new HashMap<String, Object>();
 			pushSandUserMap.put("read_check", true);
 			pushSandUserMap.put("noti_no", alarmVo.getNo());

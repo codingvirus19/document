@@ -7,37 +7,28 @@ const API_HEADERS = {
   "Content-Type": "application/json",
 };
 
-export default class HashSheet extends React.PureComponent {
+export default class HashSheet extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
       memo_hash: null,
-      selectedHash: [{value: '', label: ''}]
+      group_hash: null,
     };
   }
 
   componentDidMount() {
-    this.setState({
-      memo_hash: this.props.memo_hash.map((element) => {
-        return {
-          value: element.no,
-          label: element.name,
-          memo_no: element.memo_no,
-        };
-      }),
-    });
+    this.UpdateGroupHashForSelect();
+    this.UpdateMemoHashForSelect();
   }
 
   addHash(event) {
-    console.log(event)
     if (event != null) {
       let lastetEvent = event[event.length - 1];
-      if(lastetEvent.__isNew__) {
+      // console.log(lastetEvent)
       let data = {
         gNo: this.props.memo_gNo,
         mNo: this.props.memo_no,
         name: lastetEvent.label,
-        // name: lastetEvent.label,
       };
       let hash = { value: "", label: "" };
       fetch(`${API_URL}/api/addHash`, {
@@ -52,15 +43,43 @@ export default class HashSheet extends React.PureComponent {
           this.props.SidebarGroupUpdate(this.props.groupBySidebar.no, this.props.groupBySidebar.name)
         })
         .catch((err) => console.error(err));
-      }
-      else {
-      console.log(event)
-      }
     }
   }
 
+  UpdateMemoHashForSelect(){
+    this.setState({
+      memo_hash: this.props.memo_hash.map((element) => {
+        return {
+          value: element.no,
+          label: element.name,
+          memo_no: element.memo_no,
+        };
+      })
+    });
+  }
+
+  UpdateGroupHashForSelect() {
+    this.setState({
+      group_hash: this.props.group_hash.map((element) => {
+        return {
+          value: element.no,
+          label: element.name,
+          memo_no: element.memo_no,
+        };
+      })
+    });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (JSON.stringify(nextState) != JSON.stringify(this.state));
+}
+
+componentDidUpdate(prevProps, prevState) {
+  this.UpdateGroupHashForSelect();
+  this.UpdateMemoHashForSelect();
+}
+
   render() {
-    console.log(this.state.memo_hash)
     if (!this.state.memo_hash) {
       return null;
     }
@@ -79,13 +98,13 @@ export default class HashSheet extends React.PureComponent {
               menuIsOpen={true}
               onChange={this.addHash.bind(this)}
               maxMenuHeight={120}
-              options={this.props.group_hash_for_select}
+              options={this.state.group_hash}
               placeholder="해시선택 및 생성할 해시 입력"
             />
           </div>
         </div>
 
-        <div className={styles.btns}>
+        {/* <div className={styles.btns}>
           <button
             // onClick={this.share.bind(this)}
             type="submit"
@@ -99,7 +118,7 @@ export default class HashSheet extends React.PureComponent {
           >
             취소
           </button>
-        </div>
+        </div> */}
       </div>
     );
   }

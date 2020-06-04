@@ -18,12 +18,12 @@ export default class Container extends React.Component {
     this.state = {
       group: { no: [], gname: [] },
       group_hash: [{ no: "", name: "", memo_no: "" }],
-      group_hash_for_select: [{ value: "", label: "", memo_no: "" }],
       memo_noSelectedByHash: null,
       IsHashUpdate: false,
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
       showChat: false,
+      showAlarm: false,
       clientRef: "",
       alarm: { type: "", readcheck: "" },
       keyword: "",
@@ -39,6 +39,7 @@ export default class Container extends React.Component {
 
   componentDidMount() {
     this.bringMemoByGroup(this.state.groupBySidebar.no);
+
     // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
     let group = { no: [], gname: [] };
     let groupDatas = null;
@@ -83,7 +84,7 @@ export default class Container extends React.Component {
     // let alarm = [];
     let alarmDatas = null;
     // call api
-    fetch(`${API_URL}/api/alarm`, {
+    fetch(`${API_URL}/api/alarmCheck`, {
       method: "post",
       headers: API_HEADERS,
     })
@@ -97,6 +98,7 @@ export default class Container extends React.Component {
     // db에서 받을때는 true = 1, false = 0
     // 읽지 않은건 false = 0, 읽은 건 true = 1
     // Sidebar의 HashtagList를 가져오는 코드
+
     this.getHashListByGroup(this.state.groupBySidebar.no);
   }
   // 검색창에 value를 입력 시 작동하는 함수
@@ -106,7 +108,7 @@ export default class Container extends React.Component {
       headers: API_HEADERS,
     })
       .then((response) => response.json())
-      .then((json) => {})
+      .then((json) => { })
       .catch((err) => console.error(err));
   }
 
@@ -119,7 +121,6 @@ export default class Container extends React.Component {
   getHashListByGroup(gNo) {
     let g_no = { no: gNo };
     let group_hash = [{ no: "", name: "", memo_no: "" }];
-    let group_hash_forselect = [{ value: "", label: "", memo_no: "" }];
     fetch(`${API_URL}/api/getHashListByGroup`, {
       method: "post",
       headers: API_HEADERS,
@@ -135,14 +136,6 @@ export default class Container extends React.Component {
           };
         });
         this.UpdateGroupHash(group_hash);
-        group_hash_forselect = json.data.map((element) => {
-          return {
-            value: element.no,
-            label: element.name,
-            memo_no: element.mNo,
-          };
-        });
-        this.UpdateGroupHashForSelect(group_hash_forselect);
       })
       .catch((err) => console.error(err));
   }
@@ -171,12 +164,25 @@ export default class Container extends React.Component {
 
         // 검색keyword가 ""이고, sidebar의 해쉬를 클릭하지 않았을 때는
         // 전체 memoList를 뿌려준다.
-        if (
-          this.state.keyword == "" &&
-          this.state.memo_noSelectedByHash == null
-        ) {
-          console.log("일반 memoList");
+        if (this.state.keyword == "" && this.state.memo_noSelectedByHash == null) {
           memo_bigArr = json.data;
+          /*준용이오빠가 짜던거
+          let temp = null;
+          let bb = [];
+
+          for(let e in (memo_bigArr)){
+            console.log(e);
+          }
+         console.log(memo_bigArr.find("null"));
+         memo_bigArr.map((no,index)=>{
+
+         })
+          // memo_bigArr.map((()=>{
+          //   bb.push(memo_bigArr.get("list_no",temp)); //마지막
+          //   temp = memo_bigArr.get("no",temp);
+          //   bb.push(memo_bigArr.get("list_no",temp));//마지막전
+          // }))
+        */
           this.UpdateMemo(memo_bigArr);
         }
         //검색창의 keyword에 value를 input했을 경우 value와 memo의 content가 같은
@@ -238,12 +244,6 @@ export default class Container extends React.Component {
     });
   }
 
-  UpdateGroupHashForSelect(group_hash_for_select) {
-    this.setState({
-      group_hash_for_select: group_hash_for_select,
-    });
-  }
-
   // sidebar에서 콜백된 파라미터 no와 name
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
   // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo , changeColor 클릭 시....
@@ -280,17 +280,38 @@ export default class Container extends React.Component {
       showChat: !showChatClick,
     });
   }
+  AlarmPopup(showAlarmClick) {
+    this.setState({
+      showAlarm: !showAlarmClick,
+    });
+  }
   memo_Change(drag, drop) {
-    //를 서버로 보내야댐 ㅇㅋㅇㅋ;
+    console.log(drag, drop);
+
+    drag < drop
+    drop < drag
+    // //를 서버로 보내야댐 ㅇㅋㅇㅋ;
+    // let memo = { no: , list_no: }
+    // fetch(`${API_URL}/api/chageMemoListNo`, {
+    //   method: "post",
+    //   headers: API_HEADERS,
+    //   body: JSON.stringify(g_no),
+    // })
+    //   .then((response) => response.json())
+    //   .then((json) => {
+    //     console.log(json)
+    //   })
+    //   .catch((err) => console.error(err));
   }
 
   alarmReceive(alarm_msg) {
+    console.log(alarm_msg)
     this.setState({
       alarm: {
         type: alarm_msg.type,
-        readcheck: alarm_msg.readCheck,
-      },
-    });
+        readcheck: alarm_msg.readCheck
+      }
+  })
     // this.setState({
     //   alarm: {
     //     readcheck: this.state.alarm.readcheck.concat(alarmdata.readCheck),
@@ -304,14 +325,15 @@ export default class Container extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return JSON.stringify(nextState) != JSON.stringify(this.state);
-  }
 
+  }
   componentDidUpdate(prevProps, prevState) {
     this.getHashListByGroup(this.state.groupBySidebar.no);
     this.setState({
       IsHashUpdate: false,
     });
   }
+
 
   render() {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
@@ -345,7 +367,10 @@ export default class Container extends React.Component {
           //변경함수
           bringMemoByGroup={this.bringMemoByGroup.bind(this)}
           chattingPopup={this.chattingPopup.bind(this)}
+          AlarmPopup={this.AlarmPopup.bind(this)}
           alarm={this.state.alarm}
+          clientRef={this.clientRef}
+          users={this.Users}
         />
         <Sidebar
           grouppingHashtag={this.grouppingHashtag.bind(this)}
@@ -366,11 +391,11 @@ export default class Container extends React.Component {
           memo_Change={this.memo_Change.bind(this)}
           users={this.Users}
           showChat={this.state.showChat}
+          showAlarm={this.state.showAlarm}
           clientRef={this.clientRef}
-          group_hash_for_select={this.state.group_hash_for_select}
           group_hash={this.state.group_hash}
           IsHashUpdate={this.IsHashUpdate.bind(this)}
-          //변경된 결과 값 state :true false
+        //변경된 결과 값 state :true false
         />
       </div>
     );

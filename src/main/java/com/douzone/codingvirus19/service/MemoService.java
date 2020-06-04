@@ -22,7 +22,7 @@ public class MemoService {
 	public boolean personDeleteMemo(MemoVo vo) {
 		int asyncTestCount = memoRepository.personDeleteMemo(vo);
 		return asyncTestCount == 1;
-		
+
 	}
 
 	public boolean peopleDeleteMemo(MemoVo vo) {
@@ -30,20 +30,16 @@ public class MemoService {
 		return asyncTestCount == 1;
 	}
 
-	public List<HashVo> getHashListByMemo(MemoVo vo) {
-		return hashRepository.getHashListByMemo(vo);
-	}
-
 	public boolean deleteHash(Long no) {
 		return 1 == hashRepository.deleteHash(no);
 	}
+
 	public void shareMemo(MemoVo memoVo) {
 		memoRepository.shareMemo(memoVo);
 	}
 
 	public void memoUpdate(MemoVo vo) {
 		memoRepository.memoUpdate(vo);
-
 	}
 
 	public boolean changeColor(MemoVo vo) {
@@ -53,7 +49,10 @@ public class MemoService {
 
 	public boolean insert(MemoVo vo) {
 		return memoRepository.memoInsert(vo);
-		
+	}
+
+	public boolean chageMemoListNo(MemoVo memoVo) {
+		return 1 == memoRepository.chageMemoListNo(memoVo);
 	}
 }
 

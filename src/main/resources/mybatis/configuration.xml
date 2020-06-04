@@ -14,7 +14,6 @@
 	
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
-		<mapper resource="mybatis/mappers/main.xml" />
 		<mapper resource="mybatis/mappers/groups.xml" />
 		<mapper resource="mybatis/mappers/chat.xml" />
 		<mapper resource="mybatis/mappers/groupuser.xml" />

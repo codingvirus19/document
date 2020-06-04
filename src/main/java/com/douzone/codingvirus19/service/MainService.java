@@ -5,41 +5,43 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.douzone.codingvirus19.repository.MainRepository;
-import com.douzone.codingvirus19.vo.MemoVo;
-import com.douzone.codingvirus19.vo.UserVo;
+import com.douzone.codingvirus19.repository.GroupRepository;
+import com.douzone.codingvirus19.repository.GroupuserRepository;
+import com.douzone.codingvirus19.repository.MemoRepository;
 import com.douzone.codingvirus19.vo.GroupUserVo;
 import com.douzone.codingvirus19.vo.GroupVo;
-import com.douzone.codingvirus19.vo.HashVo;
+import com.douzone.codingvirus19.vo.MemoVo;
+import com.douzone.codingvirus19.vo.UserVo;
 
 @Service
 public class MainService {
 
 	@Autowired
-	private MainRepository mainRepository;
+	private GroupuserRepository groupuserRepository;
+	@Autowired
+	private GroupRepository groupRepository;
+	@Autowired
+	private MemoRepository memoRepository;
 	
 	public List<GroupVo> getGroupByAuth(UserVo userVo) {
-		return mainRepository.getGroupByAuth(userVo);
+		return groupRepository.getGroupByAuth(userVo);
 	}
 
 	public List<MemoVo> findAllMemo(MemoVo memoVo) {
- 		List<MemoVo> memoList = mainRepository.findAllMemo(memoVo);
+ 		List<MemoVo> memoList = memoRepository.findAllMemo(memoVo);
  		return memoList;
 	}
 
 	public boolean insertGroup(GroupVo vo) {
-		int count = mainRepository.insertGroup(vo);		
-		return count == 1;
-	}
-
-	public List<MemoVo> memoAtNull(MemoVo memoVo) {
-		List<MemoVo> memoList = mainRepository.memoAtNull(memoVo);
-		return memoList;
+		return 1 == groupRepository.insertGroup(vo);		
 	}
 	
 	public boolean insertGroupUser(GroupUserVo groupUservo) {
-		int count = mainRepository.insertGroupUser(groupUservo); //유저 시큐리티도 같이		
-		return count == 1;
+		return 1 == groupuserRepository.insertGroupUser(groupUservo); //유저 시큐리티도 같이		
+	}
+
+	public boolean deleteGroup(Long no) {
+		return 1 == groupRepository.deleteGroup(no);
 	}	
 
 }

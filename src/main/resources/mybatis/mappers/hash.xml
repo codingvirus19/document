@@ -13,41 +13,37 @@
 				  (#{gNo} is null and a.g_no is null)
 				   or
 				  (#{gNo} is not null and a.g_no=#{gNo}))
-			group by name;
+			group by name, m_no;
  		]]>
 	</select>
 	
-	<select id="getHashListByUser" parameterType="long"
+	<!--<select id="getHashListByUser" parameterType="long"
 		resultType="hashvo">
 		<![CDATA[
-			select a.no, a.g_no, a.m_no, a.name, b.u_no
+			select a.no, a.g_no, a.m_no as mNo, a.name, b.u_no
          from hash a left outer join memo b on a.g_no=b.g_no
          where b.u_no=#{no}
          union
          select a.no, a.g_no, a.m_no, a.name, b.u_no
          from hash a, memo b where a.m_no=b.no
          and b.u_no=#{no}
-         group by name;
+         group by m_no;
  		]]>
-	</select>
+	</select>  -->
 
 	<insert id="insertHash" parameterType="hashvo">
 	 	<![CDATA[
-			insert 
-			  into hash (no, g_no, m_no, name)
-			 value (null, #{gNo}, #{mNo}, #{name});
+	 		insert 
+			  into hash
+			select null, #{gNo}, #{mNo}, #{name}
+              from dual
+             where NOT EXISTS (select a.name
+								 from hash a, memo b
+							    where a.m_no = b.no
+								  and b.no = #{mNo}
+								  and a.name = #{name});
 		]]>
 	</insert>
-
-	<select id="getHashListByMemo" parameterType="long"
-		resultType="hashvo">
-		<![CDATA[
-			select no, g_no, m_no, name
-			  from hash
-			 where m_no=#{no}
-			 group by name;
- 		]]>
-	</select>
 	
 	<delete id="deleteHash" parameterType="long">
 		<![CDATA[
