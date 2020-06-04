@@ -4,31 +4,26 @@ import styles from "./Sidebar.css";
 
 export default class HashtagList extends React.PureComponent {
 
-  clickHash(memo_no) {
-  this.props.grouppingHashtag(memo_no)
-  this.props.SidebarGroupUpdate(this.props.groupBySidebar.no, this.props.groupBySidebar.name)
+  clickHash(hash) {
+  this.props.SidebarHashUpdate(this.props.g_no, hash)
   }
 
   render() {
     if(this.props.hash == null){
       return null;
     }
-    // console.log(this.props.hash
-    //   .map(({ no, name, memo_no }) => (
-    //   {name})))
     return (
       <div>
         <h5>해시태그</h5>
         <Nav className={styles.nav}>
           {this.props.hash
-          // .filter(({name}) =>this.props.hash.indexOf({name}) )
-          .map(({ no, name, memo_no }) => (
+          .map((hash) => (
             <Nav.Link 
-            key={no} 
+            key={hash} 
             className={styles.dropdown_menu}
-            onClick={this.clickHash.bind(this, memo_no)}
+            onClick={this.clickHash.bind(this, hash)}
             >
-              {name}
+              {hash}
               </Nav.Link>
           ))}
         </Nav>

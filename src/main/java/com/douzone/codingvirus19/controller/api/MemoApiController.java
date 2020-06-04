@@ -191,6 +191,7 @@ public class MemoApiController {
 		webSocket.convertAndSend("/api/memo/" + memo, message);
 	}
 	
+	// 프론트에서 안쓰는듯
 	@PostMapping("/api/chageMemoListNo")
 	public JsonResult chageMemoListNo(@RequestBody MemoVo memoVo) {
 		boolean result = memoService.chageMemoListNo(memoVo);

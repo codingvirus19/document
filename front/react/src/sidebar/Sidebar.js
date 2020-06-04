@@ -40,9 +40,8 @@ export default class Sidebar extends React.Component {
         <div className={styles.hashtagList}>
         <HashtagList
             hash={this.props.hash}
-            grouppingHashtag={this.props.grouppingHashtag}
-            SidebarGroupUpdate={this.props.SidebarGroupUpdate}
-            groupBySidebar={this.props.groupBySidebar}
+            g_no={this.state.g_no}
+            SidebarHashUpdate={this.props.SidebarHashUpdate}
           />
         </div>
       </div>
