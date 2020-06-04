@@ -359,30 +359,30 @@ export default class Container extends React.Component {
           clientRef={this.clientRef}
           users={this.Users}
         />
-        <Sidebar
-          hash={this.state.distinctGroup_hash}
-          group={this.state.group}
-          group_update={this.SidebarGroupUpdate.bind(this)}
-          SidebarHashUpdate={this.SidebarHashUpdate.bind(this)}
-        />
-        <Contents
-          memo_noSelectedByHash={this.state.memo_noSelectedByHash}
-          UpdateGroup={this.UpdateGroup.bind(this)}
-          SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
-          group={this.state.group}
-          groupBySidebar={this.state.groupBySidebar}
-          bringMemoByGroup={this.bringMemoByGroup.bind(this)}
-          memo_bigArr={this.state.memo_bigArr}
-          memo_Change={this.memo_Change.bind(this)}
-          users={this.Users}
-          showChat={this.state.showChat}
-          showAlarm={this.state.showAlarm}
-          clientRef={this.clientRef}
-          alarm={this.state.alarm}
-          group_hash={this.state.group_hash}
-          IsHashUpdate={this.IsHashUpdate.bind(this)}
-        //변경된 결과 값 state :true false
-        />
+        <div className={styles.body}>
+          <Sidebar
+            hash={this.state.distinctGroup_hash}
+            group={this.state.group}
+            group_update={this.SidebarGroupUpdate.bind(this)}
+            SidebarHashUpdate={this.SidebarHashUpdate.bind(this)}
+          />
+          <Contents
+            memo_noSelectedByHash={this.state.memo_noSelectedByHash}
+            UpdateGroup={this.UpdateGroup.bind(this)}
+            SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
+            group={this.state.group}
+            groupBySidebar={this.state.groupBySidebar}
+            bringMemoByGroup={this.bringMemoByGroup.bind(this)}
+            memo_bigArr={this.state.memo_bigArr}
+            memo_Change={this.memo_Change.bind(this)}
+            users={this.Users}
+            showChat={this.state.showChat}
+            clientRef={this.clientRef}
+            group_hash={this.state.group_hash}
+            IsHashUpdate={this.IsHashUpdate.bind(this)}
+          //변경된 결과 값 state :true false
+          />
+        </div>
       </div>
     );
   }
