@@ -270,8 +270,7 @@ export default class Container extends React.Component {
       showAlarm: !showAlarmClick,
     });
   }
-  memo_Change(drag, drop) {
-    console.log(this.state.memo_bigArr[drag].no,this.state.memo_bigArr[drop].no);
+  memo_Change(drag,drop) {
     const dragNo = this.state.memo_bigArr[drag].no;
     const dragListNo = this.state.memo_bigArr[drag].listNo;
     const dropNo = this.state.memo_bigArr[drop].no;
@@ -282,11 +281,18 @@ export default class Container extends React.Component {
       dragListNo:`${dragListNo}`,
       dropListNo:`${dropListNo}`
     };
+    console.log("update");
     fetch(`${API_URL}/api/memo/memoposition`, {
       method: "post",
       headers: API_HEADERS,
       body: JSON.stringify(memo_change),
     })
+    .then((response) => response.json())
+    .then((json) => {
+        console.log(json.data);
+      //  this.bringMemoByGroup(this.state.groupBySidebar.no);
+    })
+   
   }
 
   alarmReceive(alarm_msg) {
@@ -307,6 +313,10 @@ export default class Container extends React.Component {
         readcheck: alarm_msg.readCheck
       }
     })
+  }
+
+  getSnapshotBeforeUpdate(element){
+    return element;
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -359,6 +369,7 @@ export default class Container extends React.Component {
           clientRef={this.clientRef}
           users={this.Users}
         />
+
         <div className={styles.body}>
           <Sidebar
             hash={this.state.distinctGroup_hash}
@@ -383,6 +394,7 @@ export default class Container extends React.Component {
           //변경된 결과 값 state :true false
           />
         </div>
+
       </div>
     );
   }
