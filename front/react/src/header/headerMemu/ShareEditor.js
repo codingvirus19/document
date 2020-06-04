@@ -264,9 +264,7 @@ export default class Popup extends React.Component {
   }
   render() {
     // console.log(this.props.no);
-
     return (
-
       <Fragment>
         <div className={popup.popup} onClick={() => this.memoSave()}>
           <SockJsClient
@@ -317,10 +315,6 @@ export default class Popup extends React.Component {
           </div>
         </div>
       </Fragment>
-
-
-
-
     );
   }
 }

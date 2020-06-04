@@ -102,9 +102,11 @@ export default class Header extends React.Component {
               </button>
               {this.state.showPopup ? (
                 <CreateEditor
+                  users = {this.props.users}
                   bringMemoByGroup={this.props.bringMemoByGroup}
                   groupNoForGroupUser={this.props.groupBySidebar}
                   closePopup={this.togglePopup.bind(this)}
+                  clientRef={this.props.clientRef}
                 />
               ) : null}
             </div>
