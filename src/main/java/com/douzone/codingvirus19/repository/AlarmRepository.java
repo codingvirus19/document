@@ -31,9 +31,22 @@ public class AlarmRepository {
 		sqlSession.insert("alarm.insertAccptAlarm", pushSandUserMap);
 	}
 
-	public AlarmVo getAlarmList(AlarmVo vo) {
-		AlarmVo alarmList = sqlSession.selectOne("alarm.getAlarmList", vo);
+	public AlarmVo getAlarmReadList(AlarmVo vo) {
+		AlarmVo alarmList = sqlSession.selectOne("alarm.getAlarmReadList", vo);
 		return alarmList;
+	}
+
+	public void readCheckUpdate(AlarmVo alarmVo) {
+		sqlSession.update("alarm.readCheckUpdate", alarmVo);
+	}
+
+	public List<AlarmVo> getAlarmContents(AlarmVo vo) {
+		List<AlarmVo> alarmList = sqlSession.selectList("alarm.getAlarmContents", vo);
+		return alarmList;
+	}
+
+	public void chatReadCheckUpdate(AlarmVo alarmVo) {
+		sqlSession.update("alarm.chatReadCheckUpdate", alarmVo);
 	}
 
 }

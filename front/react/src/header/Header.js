@@ -23,7 +23,8 @@ export default class Header extends React.Component {
       _getProfileValue: null,
       showChat: false,
       redirect: false,
-      alarm: this.props.alarm,
+      showAlarm: false,
+      alarm: this.props.alarm
     };
   }
 
@@ -67,7 +68,15 @@ export default class Header extends React.Component {
     this.props.chattingPopup(this.state.showChat)
   }
 
-  alarmUpdate(){
+  alarmClick(){
+    this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0], JSON.stringify({
+      type: true,
+      readCheck: false
+    }))
+    this.setState({
+      showAlarm: !this.state.showAlarm,
+    });
+    this.props.AlarmPopup(this.state.showAlarm)
   }
 
   render() {
@@ -93,9 +102,11 @@ export default class Header extends React.Component {
               </button>
               {this.state.showPopup ? (
                 <CreateEditor
+                  users = {this.props.users}
                   bringMemoByGroup={this.props.bringMemoByGroup}
                   groupNoForGroupUser={this.props.groupBySidebar}
                   closePopup={this.togglePopup.bind(this)}
+                  clientRef={this.props.clientRef}
                 />
               ) : null}
             </div>
@@ -123,15 +134,10 @@ export default class Header extends React.Component {
             </Dropdown>
 
             <Dropdown className={styles.userbell}>
-              <Dropdown.Toggle onClick={this.alarmUpdate.bind(this)} >
+              <Dropdown.Toggle onClick={this.alarmClick.bind(this)} >
                 {(this.props.alarm.type == true && this.props.alarm.readcheck == true) ? <span className={styles.alarmbell}/> : null }  
-
                 <FontAwesomeIcon className={styles.faBell} icon={faBell} />
               </Dropdown.Toggle>
-              <Dropdown.Menu className={dropdownstyles.menu}>
-                <Dropdown.Item>알림1</Dropdown.Item>
-                <Dropdown.Item>알림2</Dropdown.Item>
-              </Dropdown.Menu>
             </Dropdown>
 
             <div>

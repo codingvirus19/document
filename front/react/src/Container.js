@@ -24,6 +24,7 @@ export default class Container extends React.Component {
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
       showChat: false,
+      showAlarm: false,
       clientRef: "",
       alarm: { type: "", readcheck: "" },
       keyword: "",
@@ -67,6 +68,7 @@ export default class Container extends React.Component {
 
     // 로그인한 user를 가져오는 코드
     let users = { no: [], name: [] };
+    let data = null
     // call api
     fetch(`${API_URL}/api/getUserSession`, {
       method: "post",
@@ -85,7 +87,7 @@ export default class Container extends React.Component {
     // let alarm = [];
     let alarmDatas = null;
     // call api
-    fetch(`${API_URL}/api/alarm`, {
+    fetch(`${API_URL}/api/alarmCheck`, {
       method: "post",
       headers: API_HEADERS,
     })
@@ -263,41 +265,58 @@ export default class Container extends React.Component {
       showChat: !showChatClick,
     });
   }
-  memo_Change(drag, drop) {
-    console.log(drag, drop);
-
-    drag < drop
-    drop < drag
-    // //를 서버로 보내야댐 ㅇㅋㅇㅋ;
-    // let memo = { no: , list_no: }
-    // fetch(`${API_URL}/api/chageMemoListNo`, {
-    //   method: "post",
-    //   headers: API_HEADERS,
-    //   body: JSON.stringify(g_no),
-    // })
-    //   .then((response) => response.json())
-    //   .then((json) => {
-    //     console.log(json)
-    //   })
-    //   .catch((err) => console.error(err));
+  AlarmPopup(showAlarmClick) {
+    this.setState({
+      showAlarm: !showAlarmClick,
+    });
+  }
+  memo_Change(drag,drop) {
+    const dragNo = this.state.memo_bigArr[drag].no;
+    const dragListNo = this.state.memo_bigArr[drag].listNo;
+    const dropNo = this.state.memo_bigArr[drop].no;
+    const dropListNo = this.state.memo_bigArr[drop].listNo;
+    let memo_change = { 
+      dragNo: `${dragNo}`,
+      dropNo:`${dropNo}`, 
+      dragListNo:`${dragListNo}`,
+      dropListNo:`${dropListNo}`
+    };
+    console.log("update");
+    fetch(`${API_URL}/api/memo/memoposition`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(memo_change),
+    })
+    .then((response) => response.json())
+    .then((json) => {
+        console.log(json.data);
+      //  this.bringMemoByGroup(this.state.groupBySidebar.no);
+    })
+   
   }
 
   alarmReceive(alarm_msg) {
+    console.log(alarm_msg)
+    if (alarm_msg.type == true && alarm_msg.readCheck == true) {
+      this.AlarmPopup(true);
+      this.setState({
+        alarm: {
+          type: alarm_msg.type,
+          readcheck: alarm_msg.readCheck
+        }
+      })
+    }
     this.setState({
       alarm: {
+        g_no: alarm_msg.gNo,
         type: alarm_msg.type,
-        readcheck: alarm_msg.readCheck,
-      },
-    });
-    // this.setState({
-    //   alarm: {
-    //     readcheck: this.state.alarm.readcheck.concat(alarmdata.readCheck),
-    //     type: this.state.alarm.type.concat(alarmdata.type),
-    //     content: this.state.alarm.content.concat(alarmdata.chat),
-    //     date: this.state.alarm.date.concat(alarmdata.date),
-    //     userNo: this.state.alarm.userNo.concat(alarmdata.uNo),
-    //   }
-    // })
+        readcheck: alarm_msg.readCheck
+      }
+    })
+  }
+
+  getSnapshotBeforeUpdate(element){
+    return element;
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -345,8 +364,12 @@ export default class Container extends React.Component {
           SearchHash={this.SearchHash.bind(this)}
           bringMemoByGroup={this.bringMemoByGroup.bind(this)}
           chattingPopup={this.chattingPopup.bind(this)}
+          AlarmPopup={this.AlarmPopup.bind(this)}
           alarm={this.state.alarm}
+          clientRef={this.clientRef}
+          users={this.Users}
         />
+
         <div className={styles.body}>
           <Sidebar
             hash={this.state.distinctGroup_hash}
@@ -371,6 +394,7 @@ export default class Container extends React.Component {
           //변경된 결과 값 state :true false
           />
         </div>
+
       </div>
     );
   }

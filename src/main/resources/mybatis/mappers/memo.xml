@@ -2,18 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memo">
 
-	<select id="findAllMemo" parameterType="memovo" resultType="memovo">
+	<select id="findAllMemo" parameterType="memovo"
+		resultType="memovo">
 		<![CDATA[
 			select no, g_no as gNo, u_no as uNo, content, color, date, list_no as listNo
 				from memo 
 				where u_no = #{uNo}
                 and (( #{gNo} is null and g_no is null)
                 or
-                (#{gNo} is not null and g_no=#{gNo}));
+                (#{gNo} is not null and g_no=#{gNo}))
+                order by listNo;
  		]]>
 	</select>
-	
-	<select id="memoListByHash" parameterType="memovo" resultType="memovo">
+
+	<select id="memoListByHash" parameterType="memovo"
+		resultType="memovo">
 		<![CDATA[
 			select a.no as no, a.g_no as gNo, a.u_no as uNo, a.content, a.color, a.date, a.list_no as listNo
 				from memo a, hash b
@@ -22,7 +25,8 @@
                 and ((#{gNo} is null and a.g_no is null)
                 or
                 (#{gNo} is not null and a.g_no=#{gNo}))
-                and b.name=#{hash};
+                and b.name=#{hash}
+                order by listNo;
  		]]>
 	</select>
 
@@ -67,6 +71,17 @@
 			    now());
  		]]>
 	</insert>
+
+	<update id="positiontwo" parameterType="map">
+	<![CDATA[
+		update memo set list_no=#{dropListNo} where no = #{dragNo};
+	]]>
+	</update>
+	<update id="positionone" parameterType="map">
+	<![CDATA[
+		update memo set list_no=#{dragListNo} where no = #{dropNo};
+	]]>
+	</update>
 
 	<update id="memoUpdate" parameterType="memovo">
 		<![CDATA[
