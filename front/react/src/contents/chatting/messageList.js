@@ -15,7 +15,8 @@ export default class MessageList extends React.Component {
     render() {
         // console.log(this.props.group_no);
         // console.log(this.props.addMessage);
-        
+        // this.props.scrollBottom();
+        this.props.scrollBottom();
         return (
             <ul className={styles.chat__messagelist} ref="messageBox" >
                 {this.props.addMessage.map((message, index) => {
@@ -23,7 +24,7 @@ export default class MessageList extends React.Component {
                         return (
                             <li key={index} className={styles.mychat} >
                                 <div >
-                                    {message.nickname} : {message.message}
+                                   {message.message}
                                     <h6>{message.date}</h6>
                                 </div>
                             </li>
