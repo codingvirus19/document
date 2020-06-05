@@ -1,7 +1,7 @@
 import React from "react";
 import Popup2 from "../Popup2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faFolderPlus, faUserPlus, } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faFolderPlus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import styles from "./ContentsHeader.css";
 
 export default class ContentsHeader extends React.Component {
@@ -24,7 +24,7 @@ export default class ContentsHeader extends React.Component {
         <div className={styles.title}>
           {this.props.groupBySidebar.name != null ? <h3>- {this.props.groupBySidebar.name} -</h3> : <h3>- 개인 -</h3>}
         </div>
-        <div className={styles.showinglist}>
+        {/* <div className={styles.showinglist}>
           <button className="contents-header__btns" aria-label="보기방식 변환">
             <FontAwesomeIcon className={styles.faBars} icon={faBars} />
           </button>
@@ -37,7 +37,7 @@ export default class ContentsHeader extends React.Component {
               icon={faFolderPlus}
             />
           </button>
-        </div>
+        </div> */}
 
         <div className={styles.invite}>
           <button
@@ -55,6 +55,7 @@ export default class ContentsHeader extends React.Component {
               closePopup={this.toggleGroupAddOrInvite.bind(this)}
               group={this.props.group}
               UpdateGroup={this.props.UpdateGroup}
+              clientRef={this.props.clientRef}
             />
           ) : null}
         </div>

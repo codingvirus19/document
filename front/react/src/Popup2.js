@@ -36,6 +36,16 @@ export default class Popup2 extends React.Component {
     }).catch((err) => console.error(err));
   }
 
+  callBackGroupAdd(){
+
+  }
+
+  GroupAddOrInviteCallBack(groupNo, groupName, userList){
+    if(groupNo != null)this.groupNo = groupNo;
+    if(groupName != null)this.groupName = groupName;
+    if(userList != null)this.userList = userList;
+  }
+
   render() {
     let contents;
     let popup2_confirm_btn = "확인";
@@ -52,8 +62,10 @@ export default class Popup2 extends React.Component {
     if (this.props.contents === "groupAddOrInvite") {
       contents = (
         <GroupAddOrInvite
+          clientRef={this.props.clientRef}
           UpdateGroup={this.props.UpdateGroup}
           group={this.props.group}
+          GroupAddOrInviteCallBack={this.GroupAddOrInviteCallBack}
         />
       );
     }
@@ -70,16 +82,14 @@ export default class Popup2 extends React.Component {
           <div className={popupStyles.btns}>
             <button
               onClick={
-                this.callBackFromProfile.bind(this) && this.props.closePopup
-              }
-              className={popupStyles.confirm_btn}
-            >
+                (this.props.contents === "profile") ? this.callBackFromProfile.bind(this) && this.props.closePopup
+                : this.callBackGroupAdd.bind(this) && this.props.closePopup}
+              className={popupStyles.confirm_btn}>
               {popup2_confirm_btn}
             </button>
             <button
               className={popupStyles.cancel_btn}
-              onClick={this.props.closePopup}
-            >
+              onClick={this.props.closePopup}>
               취소
             </button>
           </div>

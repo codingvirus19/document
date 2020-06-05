@@ -1,9 +1,25 @@
 import React, { Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faFileUpload } from "@fortawesome/free-solid-svg-icons";
+import { faDownload,  } from "@fortawesome/free-solid-svg-icons";
 import styles from "../Toolbar.css";
 
 export default class SaveLocal extends React.Component {
+  constructor() {
+    super(...arguments);
+    if(this.props.className != null){
+      this.className = this.props.className; 
+    }else{
+      this.className = styles.tool
+    }
+    if(this.props.buttonName != null){
+      this.buttonName = this.props.buttonName; 
+    }else{
+      this.buttonName = styles.faSave;
+    }
+  }
+
+
+
   // local에 md파일로 저장하는 함수
   saveLocal() {
     let md = ".md";
@@ -32,23 +48,11 @@ export default class SaveLocal extends React.Component {
         {/* 내 컴퓨터에 저장 */}
         <button
           style={this.props.setStyle}
-          className={styles.tool}
+          className={this.className}
           aria-label="내 컴퓨터에 저장"
           onClick={this.saveLocal.bind(this)}
         >
-          <FontAwesomeIcon className={styles.faSave} icon={faSave} />
-        </button>
-
-        <button
-          style={this.props.setStyle}
-          className={styles.tool}
-          aria-label="파일 올리기"
-        >
-          {/* <input type="file"></input> */}
-          <FontAwesomeIcon
-            className={styles.faFileUpload}
-            icon={faFileUpload}
-          />
+          <FontAwesomeIcon className={this.buttonName} icon={faDownload} />
         </button>
       </Fragment>
     );

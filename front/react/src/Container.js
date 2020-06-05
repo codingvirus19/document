@@ -3,9 +3,7 @@ import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import Contents from "./contents/Contents";
 import SockJsClient from "react-stomp";
-
 import styles from "./Container.css";
-import { faBoxTissue } from "@fortawesome/free-solid-svg-icons";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
@@ -55,7 +53,7 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         groupDatas = json.data;
-
+        console.log(groupDatas)
         // group의 데이터값으로 sidebar를 불러오는 함수
         groupDatas.map((json) => {
           group.no.push(json.no);
@@ -70,7 +68,6 @@ export default class Container extends React.Component {
 
     // 로그인한 user를 가져오는 코드
     let users = { no: [], name: [] };
-    let data = null
     // call api
     fetch(`${API_URL}/api/getUserSession`, {
       method: "post",
@@ -167,7 +164,6 @@ export default class Container extends React.Component {
         else if (this.state.keyword != "") {
           console.log("검색 value에 대한 memoList");
           memo_bigArr = json.data;
-
           // filteredMemo_bigArr: keyword에 해당하는 memoList를 filter한 값을 Array로 종합
           filteredMemo_bigArr = memo_bigArr.filter(
             //indexOf() 메서드는 호출한 String 객체에서 주어진 값과
@@ -276,7 +272,7 @@ export default class Container extends React.Component {
     if (this.drag != drag) {
       this.drag = drag;
       this.drop = drop;
-    }else if (this.drop == drop) {
+    } else if (this.drop == drop) {
       return;
     }
     let memoList = [];
@@ -402,6 +398,8 @@ export default class Container extends React.Component {
             memo_Change={this.memo_Change.bind(this)}
             users={this.Users}
             showChat={this.state.showChat}
+            showAlarm={this.state.showAlarm}
+            alarm={this.state.alarm}
             clientRef={this.clientRef}
             group_hash={this.state.group_hash}
             IsHashUpdate={this.IsHashUpdate.bind(this)}
