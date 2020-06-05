@@ -1,0 +1,74 @@
+$bgcolorHover: #ffffff;
+$bgcolor: #eeeeee;
+
+.div {
+    display: inline-block;
+  }
+  
+  .form {
+    width: 100%;
+  }
+  
+  .search {
+    min-width: 150px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    &:hover {
+      .input {
+        transition: background 0.3s ease-in-out;
+        background-color: $bgcolorHover !important;
+      }
+      .delete {
+        transition: background 0.3s ease-in-out;
+        background-color: $bgcolorHover !important;
+      }
+      .fa-search:before {
+        transition: background 0.3s ease-in-out;
+        color: $bgcolorHover;
+      }
+    }
+  }
+  
+  .input {
+    height: 3rem;
+    border: 0 !important;
+    background-color: $bgcolor !important;
+    font-size: 0.85rem;
+    padding: 0 0.75rem;
+    border-radius: 10px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    max-width: 20rem;
+    width: 100%;
+    min-width: 7rem;
+  }
+
+  .delete {
+    background-color: $bgcolor !important;
+    padding: 0.6rem;
+    width: 2.5rem;
+    height: 3rem;
+  }
+
+  .fa-times:before {
+    font-size: large;
+  }
+  
+  .submit {
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    background-color: #4e73df;
+    border-color: #4e73df;
+    border-radius: 0.35rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .fa-search:before {
+    color: $bgcolor;
+    font-size: large;
+  }
