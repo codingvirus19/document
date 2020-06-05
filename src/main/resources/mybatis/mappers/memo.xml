@@ -77,7 +77,6 @@
 		update memo set list_no=#{dropListNo} where no = #{dragNo};
 	]]>
 	</update>
-
 	<update id="positionone" parameterType="map">
 	<![CDATA[
 		update memo set list_no=#{dragListNo} where no = #{dropNo};

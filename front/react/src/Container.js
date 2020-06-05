@@ -29,6 +29,8 @@ export default class Container extends React.Component {
       alarm: { type: "", readcheck: "" },
       keyword: "",
     };
+    this.drag = null;
+    this.drop = null;
   }
 
   // search 검색 콜백함수
@@ -270,22 +272,39 @@ console.log(groupDatas)
     });
   }
   memo_Change(drag, drop) {
-    console.log(this.state.memo_bigArr[drag].no,this.state.memo_bigArr[drop].no);
+    if (this.drag != drag) {
+      this.drag = drag;
+      this.drop = drop;
+    }else if (this.drop == drop) {
+      return;
+    }
+    let memoList = [];
     const dragNo = this.state.memo_bigArr[drag].no;
     const dragListNo = this.state.memo_bigArr[drag].listNo;
     const dropNo = this.state.memo_bigArr[drop].no;
     const dropListNo = this.state.memo_bigArr[drop].listNo;
-    let memo_change = { 
+    let memo_change = {
       dragNo: `${dragNo}`,
-      dropNo:`${dropNo}`, 
-      dragListNo:`${dragListNo}`,
-      dropListNo:`${dropListNo}`
+      dropNo: `${dropNo}`,
+      dragListNo: `${dragListNo}`,
+      dropListNo: `${dropListNo}`
     };
+    this.state.memo_bigArr.map((list) => {
+      memoList.push(list);
+    })
+    memoList[drag].listNo = dropListNo;
+    memoList[drop].listNo = dragListNo;
+    memoList[drag] = this.state.memo_bigArr[drop];
+    memoList[drop] = this.state.memo_bigArr[drag];
+    this.setState({
+      memo_bigArr: memoList
+    })
     fetch(`${API_URL}/api/memo/memoposition`, {
       method: "post",
       headers: API_HEADERS,
       body: JSON.stringify(memo_change),
     })
+
   }
 
   alarmReceive(alarm_msg) {
@@ -306,6 +325,10 @@ console.log(groupDatas)
         readcheck: alarm_msg.readCheck
       }
     })
+  }
+
+  getSnapshotBeforeUpdate(element) {
+    return element;
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -358,30 +381,34 @@ console.log(groupDatas)
           clientRef={this.clientRef}
           users={this.Users}
         />
-        <Sidebar
-          hash={this.state.distinctGroup_hash}
-          group={this.state.group}
-          group_update={this.SidebarGroupUpdate.bind(this)}
-          SidebarHashUpdate={this.SidebarHashUpdate.bind(this)}
-        />
-        <Contents
-          memo_noSelectedByHash={this.state.memo_noSelectedByHash}
-          UpdateGroup={this.UpdateGroup.bind(this)}
-          SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
-          group={this.state.group}
-          groupBySidebar={this.state.groupBySidebar}
-          bringMemoByGroup={this.bringMemoByGroup.bind(this)}
-          memo_bigArr={this.state.memo_bigArr}
-          memo_Change={this.memo_Change.bind(this)}
-          users={this.Users}
-          showChat={this.state.showChat}
-          showAlarm={this.state.showAlarm}
-          clientRef={this.clientRef}
-          alarm={this.state.alarm}
-          group_hash={this.state.group_hash}
-          IsHashUpdate={this.IsHashUpdate.bind(this)}
-        //변경된 결과 값 state :true false
-        />
+
+
+        <div className={styles.body}>
+          <Sidebar
+            hash={this.state.distinctGroup_hash}
+            group={this.state.group}
+            group_update={this.SidebarGroupUpdate.bind(this)}
+            SidebarHashUpdate={this.SidebarHashUpdate.bind(this)}
+          />
+          <Contents
+            memo_noSelectedByHash={this.state.memo_noSelectedByHash}
+            UpdateGroup={this.UpdateGroup.bind(this)}
+            SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
+            group={this.state.group}
+            groupBySidebar={this.state.groupBySidebar}
+            bringMemoByGroup={this.bringMemoByGroup.bind(this)}
+            memo_bigArr={this.state.memo_bigArr}
+            memo_Change={this.memo_Change.bind(this)}
+            users={this.Users}
+            showChat={this.state.showChat}
+            clientRef={this.clientRef}
+            group_hash={this.state.group_hash}
+            IsHashUpdate={this.IsHashUpdate.bind(this)}
+          //변경된 결과 값 state :true false
+          />
+        </div>
+
+
       </div>
     );
   }
