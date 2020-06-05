@@ -68,6 +68,7 @@
 		  where a.noti_no = b.no
             and u_no= #{uNo}
             and type not in(0)
+            order by date desc
             limit 10;
  		]]>
 	</select>

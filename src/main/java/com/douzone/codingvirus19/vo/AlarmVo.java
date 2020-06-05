@@ -7,7 +7,7 @@ public class AlarmVo {
 	private String chat;
 	private String date;
 	private boolean type;
-	
+	private boolean addgroup;
 	private boolean readCheck;
 	private Long notiNo;
 	private Long uNo;
@@ -42,8 +42,12 @@ public class AlarmVo {
 	public void setType(boolean type) {
 		this.type = type;
 	}
-	
-	
+	public boolean isAddgroup() {
+		return addgroup;
+	}
+	public void setAddgroup(boolean addgroup) {
+		this.addgroup = addgroup;
+	}
 	public boolean isReadCheck() {
 		return readCheck;
 	}
@@ -65,6 +69,6 @@ public class AlarmVo {
 	@Override
 	public String toString() {
 		return "AlarmVo [no=" + no + ", gNo=" + gNo + ", chat=" + chat + ", date=" + date + ", type=" + type
-				+ ", readCheck=" + readCheck + ", notiNo=" + notiNo + ", uNo=" + uNo + "]";
+				+ ", addgroup=" + addgroup + ", readCheck=" + readCheck + ", notiNo=" + notiNo + ", uNo=" + uNo + "]";
 	}
 }

@@ -41,6 +41,7 @@ export default class Container extends React.Component {
   }
 
   componentDidMount() {
+
     this.bringMemoByGroup(this.state.groupBySidebar.no);
 
     // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
@@ -246,6 +247,10 @@ export default class Container extends React.Component {
     });
   }
 
+  SearchHash(g_no, hash) {
+    this.bringMemoByHash(g_no, hash)
+  }
+
   //sidebar에서 선택된 해시
   SidebarHashUpdate(g_no, hash) {
     this.bringMemoByHash(g_no, hash)
@@ -369,6 +374,7 @@ export default class Container extends React.Component {
           // group의 no와 name을 사용하는 callback함수
           SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
           //변경함수
+          SearchHash={this.SearchHash.bind(this)}
           bringMemoByGroup={this.bringMemoByGroup.bind(this)}
           chattingPopup={this.chattingPopup.bind(this)}
           AlarmPopup={this.AlarmPopup.bind(this)}
@@ -376,31 +382,33 @@ export default class Container extends React.Component {
           clientRef={this.clientRef}
           users={this.Users}
         />
-        <Sidebar
-          hash={this.state.distinctGroup_hash}
-          group={this.state.group}
-          group_update={this.SidebarGroupUpdate.bind(this)}
-          SidebarHashUpdate={this.SidebarHashUpdate.bind(this)}
-        />
 
-        <Contents
-          memo_noSelectedByHash={this.state.memo_noSelectedByHash}
-          UpdateGroup={this.UpdateGroup.bind(this)}
-          SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
-          group={this.state.group}
-          groupBySidebar={this.state.groupBySidebar}
-          bringMemoByGroup={this.bringMemoByGroup.bind(this)}
-          memo_bigArr={this.state.memo_bigArr}
-          memo_Change={this.memo_Change.bind(this)}
-          users={this.Users}
-          showChat={this.state.showChat}
-          showAlarm={this.state.showAlarm}
-          clientRef={this.clientRef}
-          alarm={this.state.alarm}
-          group_hash={this.state.group_hash}
-          IsHashUpdate={this.IsHashUpdate.bind(this)}
-        //변경된 결과 값 state :true false
-        />
+
+        <div className={styles.body}>
+          <Sidebar
+            hash={this.state.distinctGroup_hash}
+            group={this.state.group}
+            group_update={this.SidebarGroupUpdate.bind(this)}
+            SidebarHashUpdate={this.SidebarHashUpdate.bind(this)}
+          />
+          <Contents
+            memo_noSelectedByHash={this.state.memo_noSelectedByHash}
+            UpdateGroup={this.UpdateGroup.bind(this)}
+            SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
+            group={this.state.group}
+            groupBySidebar={this.state.groupBySidebar}
+            bringMemoByGroup={this.bringMemoByGroup.bind(this)}
+            memo_bigArr={this.state.memo_bigArr}
+            memo_Change={this.memo_Change.bind(this)}
+            users={this.Users}
+            showChat={this.state.showChat}
+            clientRef={this.clientRef}
+            group_hash={this.state.group_hash}
+            IsHashUpdate={this.IsHashUpdate.bind(this)}
+          //변경된 결과 값 state :true false
+          />
+        </div>
+
 
       </div>
     );
