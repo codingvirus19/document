@@ -51,6 +51,10 @@ export default class Chat extends React.Component {
         })
      }
   }
+  scrollBottom(){
+    if(this.autoscrollRef.current == null)return;
+    this.autoscrollRef.current.scrollTop = this.autoscrollRef.current.scrollHeight;
+  }
 
   sendMessage(mg) {
     this.clientRef.sendMessage("/app/chat/" + this.props.gNo,
@@ -90,7 +94,7 @@ export default class Chat extends React.Component {
 
 
         <div id={`${this.props.gNo}scroll`} className={styles.chatOutput} ref={this.autoscrollRef} >
-          <MessageList gNo={this.props.gNo} users={this.props.users.name[0]} addMessage={this.state.contents} scrollBottomChange={this.scrollBottomChange.bind(this)} />
+          <MessageList gNo={this.props.gNo} users={this.props.users.name[0]} addMessage={this.state.contents} scrollBottom={this.scrollBottom.bind(this)} scrollBottomChange={this.scrollBottomChange.bind(this)} />
         </div>
 
         <div id="chatInput" className="chatInput">
