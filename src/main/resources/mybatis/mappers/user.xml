@@ -30,7 +30,7 @@
 		<![CDATA[
 			select count(email)
 			  from user 
-			 where id = #{email};
+			 where email = #{email};
  		]]>
 	</select>
 	
@@ -48,7 +48,7 @@
  		]]>
 	</update>
 	
-		<select id="getUserList" parameterType="long" resultType="uservo">
+	<select id="getUserList" parameterType="long" resultType="uservo">
 		<![CDATA[
 			select no, id, email, nickname, image
 			  from user

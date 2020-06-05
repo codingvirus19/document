@@ -89,7 +89,7 @@ export default class Contents extends React.Component {
                 SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                 clientRef={this.props.clientRef}
                 users={this.props.users}
-                group_hash_for_select={this.props.group_hash_for_select}
+                group_hash={this.props.group_hash}
                 IsHashUpdate={this.props.IsHashUpdate}
               />
             </div>
