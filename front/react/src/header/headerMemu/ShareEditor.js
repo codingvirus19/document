@@ -282,7 +282,6 @@ export default class Popup extends React.Component {
                 <button className={styles.button} onClick={this.hevent.bind(this, 4)}>H4</button>
                 <button className={styles.button} onClick={this.boldevent.bind(this)}>B</button>
                 {(this.state.markOpen) ? <button className={`${styles.click} ${styles.button}`} onClick={this.markOpen.bind(this)}>E</button> : <button className={styles.button} onClick={this.markOpen.bind(this)}>M</button>}
-                <button className={styles.button} onClick={this.memoSave.bind(this)}>저장</button>
               </div>
               {(this.state.markOpen) ? (
                 <div
@@ -309,6 +308,8 @@ export default class Popup extends React.Component {
                         color={this.props.color}
                         memo_hash={this.props.memo_hash}
                         group_hash={this.props.group_hash}
+                        memoSave={this.memoSave.bind(this)}
+                        memoClose={this.props.memoClose}
                         />
 
                     </div>

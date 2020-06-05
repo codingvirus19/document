@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faFileUpload } from "@fortawesome/free-solid-svg-icons";
+import { faDownload,  } from "@fortawesome/free-solid-svg-icons";
 import styles from "../Toolbar.css";
 
 export default class SaveLocal extends React.Component {
@@ -52,7 +52,7 @@ export default class SaveLocal extends React.Component {
           aria-label="내 컴퓨터에 저장"
           onClick={this.saveLocal.bind(this)}
         >
-          <FontAwesomeIcon className={this.buttonName} icon={faSave} />
+          <FontAwesomeIcon className={this.buttonName} icon={faDownload} />
         </button>
       </Fragment>
     );

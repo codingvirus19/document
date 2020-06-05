@@ -58,6 +58,7 @@ export default class Memo extends React.Component {
             content={this.props.content} 
             group_hash={this.props.group_hash}
             memo_hash={this.props.memo_hash}
+            memoClose={this.viewPopup.bind(this)}
             />
           // <Editor
           //   groupBySidebar={this.props.groupBySidebar}
