@@ -59,6 +59,7 @@ export default class Contents extends React.Component {
               className={styles.container_memo_form}
             >
               <Memo
+                SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                 bringMemoByGroup={this.props.bringMemoByGroup}
                 groupBySidebar={this.props.groupBySidebar}
                 group={this.props.group}

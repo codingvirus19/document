@@ -164,7 +164,6 @@ export default class Container extends React.Component {
         else if (this.state.keyword != "") {
           console.log("검색 value에 대한 memoList");
           memo_bigArr = json.data;
-
           // filteredMemo_bigArr: keyword에 해당하는 memoList를 filter한 값을 Array로 종합
           filteredMemo_bigArr = memo_bigArr.filter(
             //indexOf() 메서드는 호출한 String 객체에서 주어진 값과
