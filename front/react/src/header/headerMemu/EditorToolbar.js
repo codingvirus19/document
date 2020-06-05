@@ -4,6 +4,8 @@ import ColorChange from "../../contents/toolbar/toolbar_style/ColorChange"
 import AddHash from "../../contents/toolbar/toolbar_style/AddHash"
 import SaveLocal from "../../contents/toolbar/toolbar_style/SaveLocal"
 import MemoDelete from "../../contents/toolbar/toolbar_style/MemoDelete"
+import MemoSave from "../../contents/toolbar/toolbar_style/MemoSave"
+import MemoClose from "../../contents/toolbar/toolbar_style/MemoClose"
 import styles from "./EditorToolbar.css"
 
 export default class EditorToolbar extends React.Component {
@@ -95,6 +97,17 @@ export default class EditorToolbar extends React.Component {
                     gNo={this.props.groupBySidebar.no}
                     // memo 색변경 시 toolbar의 버튼도 색변경을 도와주는 props
                     setStyle={this.props.setStyle}
+                />
+                <MemoSave   
+                className={styles.button}
+                buttonName={styles.group}
+                memoSave={this.props.memoSave}
+                />
+                <MemoClose   
+                className={styles.button}
+                buttonName={styles.group}
+                memoClose={this.props.memoClose}
+                memoSave={this.props.memoSave}
                 />
             </Fragment>
 
