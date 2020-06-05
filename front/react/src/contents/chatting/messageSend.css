@@ -4,9 +4,10 @@
 
 .MessageBox {
   background-color: white;
-  margin-top: 0.3rem;
-  margin-bottom: 0.3rem;
+  margin-top: 2%;
+  margin-bottom: 2%;
   border-radius: 5px;
+  height: 90%;
 }
 
 .Message {
