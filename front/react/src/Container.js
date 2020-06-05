@@ -53,7 +53,7 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         groupDatas = json.data;
-console.log(groupDatas)
+        console.log(groupDatas)
         // group의 데이터값으로 sidebar를 불러오는 함수
         groupDatas.map((json) => {
           group.no.push(json.no);
@@ -273,7 +273,7 @@ console.log(groupDatas)
     if (this.drag != drag) {
       this.drag = drag;
       this.drop = drop;
-    }else if (this.drop == drop) {
+    } else if (this.drop == drop) {
       return;
     }
     let memoList = [];
@@ -399,6 +399,8 @@ console.log(groupDatas)
             memo_Change={this.memo_Change.bind(this)}
             users={this.Users}
             showChat={this.state.showChat}
+            showAlarm={this.state.showAlarm}
+            alarm={this.state.alarm}
             clientRef={this.clientRef}
             group_hash={this.state.group_hash}
             IsHashUpdate={this.IsHashUpdate.bind(this)}
