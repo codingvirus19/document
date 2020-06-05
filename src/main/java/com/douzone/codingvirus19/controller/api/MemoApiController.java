@@ -45,6 +45,12 @@ public class MemoApiController {
 	static Map<Long, ArrayList<Long>> versionList = new HashMap<>();
 	static boolean first = true;
 	
+	@PostMapping("/api/memo/memoposition")
+	public JsonResult memoPosition(@RequestBody Map<String,Object> dragdrop) {
+		System.out.println(dragdrop);
+		return JsonResult.success(memoService.memoPosition(dragdrop));
+	}
+	
 	@PostMapping("/api/memo/changeColor")
 	public JsonResult changeColor(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
 		boolean asyncTest = memoService.changeColor(vo);
@@ -129,8 +135,8 @@ public class MemoApiController {
 			memoVo.setNo(memo);
 			memoVo.setContent(str);
 			memoVo.setColor(message.getKey());
-		
 			memoService.memoUpdate(memoVo);
+			webSocket.convertAndSend("/api/memo/" + memo, message);
 			return;
 		}
 		

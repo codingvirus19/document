@@ -29,16 +29,46 @@
 		</foreach>
 	</insert>
 
-	<select id="getAlarmList" parameterType="alarmvo"
+	<select id="getAlarmReadList" parameterType="alarmvo"
 		resultType="alarmvo">
 		<![CDATA[
-		 select 
-		 		max(a.read_check) as readCheck,
+		 select max(a.read_check) as readCheck,
 		 		max(b.type) as type
            from accptalarm a, (select no, g_no, massage, date, type from alarm) b
 		  where a.noti_no = b.no
             and read_check = true
             and u_no=#{uNo}
+            limit 10;
+ 		]]>
+	</select>
+	
+	<update id="readCheckUpdate" parameterType="alarmvo" >
+		<![CDATA[
+		 update accptalarm 
+               set read_check = false
+			 where u_no = #{uNo}
+ 		]]>
+	</update>
+	
+	<update id="chatReadCheckUpdate" parameterType="alarmvo" >
+		<![CDATA[
+		 update accptalarm a inner join groupuser b
+                 on a.u_no = b.u_no
+                set a.read_check = false
+			  where a.u_no = #{uNo} and b.g_no = #{gNo};
+ 		]]>
+	</update>
+	
+	<select id="getAlarmContents" parameterType="alarmvo"
+		resultType="alarmvo">
+		<![CDATA[
+		 select b.massage as chat,
+                b.date as date
+           from accptalarm a, (select no, g_no, massage, date, type from alarm) b
+		  where a.noti_no = b.no
+            and u_no= #{uNo}
+            and type not in(0)
+            order by date desc
             limit 10;
  		]]>
 	</select>
