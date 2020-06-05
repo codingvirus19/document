@@ -53,7 +53,7 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         groupDatas = json.data;
-
+console.log(groupDatas)
         // group의 데이터값으로 sidebar를 불러오는 함수
         groupDatas.map((json) => {
           group.no.push(json.no);
@@ -68,7 +68,6 @@ export default class Container extends React.Component {
 
     // 로그인한 user를 가져오는 코드
     let users = { no: [], name: [] };
-    let data = null
     // call api
     fetch(`${API_URL}/api/getUserSession`, {
       method: "post",

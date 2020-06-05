@@ -20,6 +20,7 @@ export default class Contents extends React.Component {
               groupBySidebar={this.props.groupBySidebar}
               group={this.props.group}
               UpdateGroup={this.props.UpdateGroup}
+              clientRef={this.props.clientRef}
             />
             <ContentsMemo
               bringMemoByGroup={this.props.bringMemoByGroup}

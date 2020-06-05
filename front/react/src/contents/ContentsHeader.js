@@ -60,6 +60,7 @@ export default class ContentsHeader extends React.Component {
               closePopup={this.toggleGroupAddOrInvite.bind(this)}
               group={this.props.group}
               UpdateGroup={this.props.UpdateGroup}
+              clientRef={this.props.clientRef}
             />
           ) : null}
         </div>
