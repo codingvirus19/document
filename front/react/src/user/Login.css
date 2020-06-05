@@ -40,16 +40,32 @@ a {
   text-align: center;
 }
 
+.logo {
+  padding: 1rem;
+}
+
+.check_img {
+  width: 2rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header {
+  display: inline-block;
+  margin: auto;
+}
+
 .formFooter {
-  background-color: #f6f6f6;
-  border-top: 1px solid #dce8f1;
-  padding: 25px;
+  height: 3rem;
   text-align: center;
   -webkit-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
 }
 
-
+.errorMessage {
+  padding-top: 0.5rem;
+  margin: auto;
+}
 
 /* TABS */
 
