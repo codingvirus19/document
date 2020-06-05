@@ -31,19 +31,9 @@ export default class Contents extends React.Component {
     if (e.target.className != `${styles.container_memo_form}`) return;
     if(e.target.dataset.id == this.dragStart.dataset.id) return;
     this.dragOver = e.target;
-    this.memolist = this.props.memo_bigArr;
-    let memoOverTemp = this.memolist[e.target.dataset.id];
-    let memoStartTemp = this.memolist[this.dragStart.dataset.id];
-    this.memolist[e.target.dataset.id] = memoStartTemp;
-    this.memolist[this.dragStart.dataset.id] = memoOverTemp;
     let from = Number(this.dragStart.dataset.id);
     let to = Number(this.dragOver.dataset.id);
-    console.log(from,to);
     this.props.memo_Change(from, to);
-    this.setState({
-      memo_bigArr:this.memolist
-    })
-   
   }
   setMemo_hash(memo_hash) {
     this.setState({
