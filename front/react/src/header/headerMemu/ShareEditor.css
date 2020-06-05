@@ -13,10 +13,10 @@
   }
 
   .btn .button{
-    width:8%;
-    height:75%;
+    width: 12.2%;
+    height: 75%;
     margin: 1%;
-    border-radius: 3rem;
+    border-radius: 10rem;
   }
   .click{
     background-color: lightcoral;
@@ -49,7 +49,9 @@
   display: inline;
 }
 .toolbar{
-  text-align: center;
+  position: absolute;
+  width: 100%;
+  /* text-align: center; */
   /* border-top: 1px solid; */
 }
 .file_UpLoad{ 

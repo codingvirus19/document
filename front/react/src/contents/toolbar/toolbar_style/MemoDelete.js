@@ -18,6 +18,18 @@ export default class MemoDelete extends React.Component {
       gNo: this.props.gNo,
       gName: this.props.gName,
     };
+    if(this.props.className != null){
+      this.className = this.props.className; 
+    }else{
+      this.className = styles.tool
+    }
+    if(this.props.buttonName != null){
+      this.buttonName = this.props.buttonName; 
+    }else{
+      this.buttonName = styles.faTrashAlt;
+    }
+
+
   }
 
   // delete기능
@@ -61,11 +73,11 @@ export default class MemoDelete extends React.Component {
         {/* {this.props.SidebarGroupUpdate(this.state.no, this.state.gNo)} */}
         <button
           style={this.props.setStyle}
-          className={styles.tool}
+          className={this.className}
           aria-label="메모 삭제"
           onClick={this.onClickDelete.bind(this)}
         >
-          <FontAwesomeIcon className={styles.faTrashAlt} icon={faTrashAlt} />
+          <FontAwesomeIcon className={this.buttonName} icon={faTrashAlt} />
         </button>
       </Fragment>
     );

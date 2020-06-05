@@ -3,9 +3,7 @@ import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import Contents from "./contents/Contents";
 import SockJsClient from "react-stomp";
-
 import styles from "./Container.css";
-import { faBoxTissue } from "@fortawesome/free-solid-svg-icons";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {

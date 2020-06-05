@@ -16,6 +16,22 @@ export default class ColorChange extends React.Component {
       displayColorPicker: false,
       color: this.props.color,
     };
+    if(this.props.className != null){
+      this.className = this.props.className; 
+    }else{
+      this.className = styles.tool
+    }
+    if(this.props.buttonName != null){
+      this.buttonName = this.props.buttonName; 
+    }else{
+      this.buttonName = styles.faPalette;
+    }
+    if(this.props.colorName != null){
+      this.colorName = this.props.colorName; 
+    }else{
+      this.colorName = styles.popover;
+    }
+
   }
 
   handleClick() {
@@ -68,22 +84,21 @@ export default class ColorChange extends React.Component {
 
         <button
           style={this.props.setStyle}
-          className={styles.tool}
+          className={this.className}
           aria-label="색상 변경"
           onClick={this.handleClick.bind(this)}
         >
-          <FontAwesomeIcon className={styles.faPalette} icon={faPalette} />
+          <FontAwesomeIcon className={this.buttonName} icon={faPalette} />
         </button>
         {this.state.displayColorPicker ? (
-          <div className={styles.popover}>
+          <div className={this.colorName}>
             <div
               className={styles.cover}
               onClick={this.handleClose.bind(this)}
             />
             <TwitterPicker
-              className={styles.colorSelcet}
             // triangle='top-hide'
-              color={this.state.color}
+              color={this.state.colorSelcet}
               onChange={this.handleChange.bind(this)}
             />
           </div>

@@ -12,6 +12,16 @@ export default class GroupShare extends React.Component {
       addNullToGroup: null, // groupShare에 사용
       clickGroupShareButton: false,
     };
+    if(this.props.className != null){
+      this.className = this.props.className; 
+    }else{
+      this.className = styles.tool
+    }
+    if(this.props.buttonName != null){
+      this.buttonName = this.props.buttonName; 
+    }else{
+      this.buttonName = styles.faShareSquare;
+    }
     this.toggleContainer = React.createRef();
     this.toggleGroupShareSheet = this.toggleGroupShareSheet.bind(this);
   }
@@ -57,12 +67,12 @@ export default class GroupShare extends React.Component {
         {/* 그룹공유 */}
         <button
           style={this.props.setStyle}
-          className={styles.tool}
+          className={this.className}
           aria-label="그룹공유"
           onClick={this.toggleGroupShareSheet.bind(this)}
         >
           <FontAwesomeIcon
-            className={styles.faShareSquare}
+            className={this.buttonName}
             icon={faShareSquare}
           />
         </button>

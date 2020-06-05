@@ -55,8 +55,10 @@ export default class Memo extends React.Component {
             group={this.props.group}
             groupBySidebar={this.props.groupBySidebar}
             color={this.props.memo_bigArr.color}
-            content={this.props.content} />
-
+            content={this.props.content} 
+            group_hash={this.props.group_hash}
+            memo_hash={this.props.memo_hash}
+            />
           // <Editor
           //   groupBySidebar={this.props.groupBySidebar}
           //   group={this.props.group}
