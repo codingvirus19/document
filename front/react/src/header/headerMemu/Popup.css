@@ -18,11 +18,11 @@
   position: absolute;
   width: 38%;
   position: fixed;
-  height: 80%;
+  height: 60%;
   /* height: 80%; */
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -65%);
   background: white;
   border-radius: 1rem;
 }

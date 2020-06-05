@@ -95,7 +95,6 @@ export default class Toolbar extends React.PureComponent {
           gNo={this.props.groupBySidebar.no}
           // memo 색변경 시 toolbar의 버튼도 색변경을 도와주는 props
           setStyle={this.props.setStyle}
-
         />
       </div>
     );
