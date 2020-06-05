@@ -1,19 +1,11 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
-
 import Serach from "./Serach";
 import Logo from "./Logo";
 import Popup2 from "../Popup2";
 import CreateEditor from "./headerMemu/CreateEditor";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlus,
-  faUser,
-  faBell,
-  faSms,
-} from "@fortawesome/free-solid-svg-icons";
-
+import {faPlus, faUser, faBell, faSms,} from "@fortawesome/free-solid-svg-icons";
 import dropdownstyles from "./Dropdown.css";
 import styles from "./Header.css";
 
@@ -77,7 +69,6 @@ export default class Header extends React.Component {
   }
 
   alarmClick(){
-    console.log(this.props.users.no[0]);
     this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0], JSON.stringify({
       type: true,
       readCheck: false
@@ -93,14 +84,17 @@ export default class Header extends React.Component {
       <div className={styles.header}>
         <div className={styles.wrapper}>
           <Logo />
+
           <Serach
             groupBySidebar={this.props.groupBySidebar}
             SidebarGroupUpdate={this.props.SidebarGroupUpdate}
             // search 검색 콜백함수
             onCallbackKeywordChange={this.props.onCallbackKeywordChange}
             // 검색창에 입력한 keyword
+            SearchHash={this.props.SearchHash}
             keyword={this.props.keyword}
           />
+
           <div className={styles.right_header}>
             <div className={styles.addmemo}>
               <button onClick={this.togglePopup.bind(this)}>
@@ -108,9 +102,11 @@ export default class Header extends React.Component {
               </button>
               {this.state.showPopup ? (
                 <CreateEditor
+                  users = {this.props.users}
                   bringMemoByGroup={this.props.bringMemoByGroup}
                   groupNoForGroupUser={this.props.groupBySidebar}
                   closePopup={this.togglePopup.bind(this)}
+                  clientRef={this.props.clientRef}
                 />
               ) : null}
             </div>
@@ -140,13 +136,8 @@ export default class Header extends React.Component {
             <Dropdown className={styles.userbell}>
               <Dropdown.Toggle onClick={this.alarmClick.bind(this)} >
                 {(this.props.alarm.type == true && this.props.alarm.readcheck == true) ? <span className={styles.alarmbell}/> : null }  
-
                 <FontAwesomeIcon className={styles.faBell} icon={faBell} />
               </Dropdown.Toggle>
-              <Dropdown.Menu className={dropdownstyles.menu}>
-                <Dropdown.Item>알림1</Dropdown.Item>
-                <Dropdown.Item>알림2</Dropdown.Item>
-              </Dropdown.Menu>
             </Dropdown>
 
             <div>

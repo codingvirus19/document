@@ -19,7 +19,6 @@ export default class Editor extends React.Component {
             typographer: false,
             markOpen: false
         });
-        console.log(this.props.no);
         this.state = {
             content: this.props.content,
             showPopup: false

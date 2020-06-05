@@ -45,4 +45,8 @@ public class AlarmRepository {
 		return alarmList;
 	}
 
+	public void chatReadCheckUpdate(AlarmVo alarmVo) {
+		sqlSession.update("alarm.chatReadCheckUpdate", alarmVo);
+	}
+
 }

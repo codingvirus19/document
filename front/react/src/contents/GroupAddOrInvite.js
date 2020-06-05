@@ -19,15 +19,15 @@ export default class GroupAddOrInvite extends React.Component {
                     label: gname
                 }
             }),
-            users: [{ value: '', label: '' }],
+            users: [{ value: '', label: '' , no: ''}],
             selectGroup: null,
-            selectUsers: null
+            selectUsers: [{ nickname: '' , no: ''}]
         }
     }
 
     componentDidMount() {
         let userDatas = null;
-        let users = { value: '', label: '' };
+        let users = { value: '', label: '', no:'' };
         fetch(`${API_URL}/api/getUserList`, {
             method: "post",
             headers: API_HEADERS,
@@ -35,11 +35,11 @@ export default class GroupAddOrInvite extends React.Component {
             .then((response) => response.json())
             .then((json) => {
                 userDatas = json.data;
-
                 users = userDatas.map((element) => {
                     return {
                         value: element.nickname,
-                        label: element.nickname
+                        label: element.nickname,
+                        no: element.no
                     }
                 });
                 this.UpdateUser(users);
@@ -106,13 +106,17 @@ export default class GroupAddOrInvite extends React.Component {
         if (event != null) {
             this.setState({
                 selectUsers: event.map(event => {
-                    return event.value
+                    return {
+                        nickname: event.value,
+                        no: event.no
+                    }
                 })
             })
         }
     }
 
     render() {
+        console.log(this.state.selectUsers)
         return (
             <>
                 <div className={styles.inner_form_component}>

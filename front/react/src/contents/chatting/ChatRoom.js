@@ -62,6 +62,15 @@ export default class Chat extends React.Component {
         date: new Date(),
         aCount: 1
       }));
+
+    this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0],
+      JSON.stringify({
+        gNo: this.props.gNo,
+        chat: "채팅알람",
+        date: new Date(),
+        type: false,
+        readCheck: true
+      }));
   }
   render() {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/chat";
