@@ -4,6 +4,7 @@ import SockJsClient from "react-stomp";
 import popup from "./Popup.css";
 import Toolbar from "../../contents/toolbar/Toolbar";
 import styles from "./ShareEditor.css";
+import EditorToolbar from"./EditorToolbar.js";
 
 export default class Popup extends React.Component {
   constructor(props) {
@@ -300,13 +301,16 @@ export default class Popup extends React.Component {
                       onChange={this.editorPush.bind(this)}
                       value={this.state.value}></textarea>
                     <div className={styles.toolbar}>
-                      <Toolbar
-                        no={this.props.no}
+                    <EditorToolbar 
+                        memo_no={this.props.no}
                         memo_gNo={this.props.gNo}
                         group={this.props.group}
                         groupBySidebar={this.props.groupBySidebar}
                         color={this.props.color}
-                      />
+                        memo_hash={this.props.memo_hash}
+                        group_hash={this.props.group_hash}
+                        />
+
                     </div>
                   </Fragment>
                 )

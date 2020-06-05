@@ -46,7 +46,7 @@ export default class HashSheet extends React.Component {
     }
   }
 
-  UpdateMemoHashForSelect(){
+  UpdateMemoHashForSelect() {
     this.setState({
       memo_hash: this.props.memo_hash.map((element) => {
         return {
@@ -72,12 +72,12 @@ export default class HashSheet extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return (JSON.stringify(nextState) != JSON.stringify(this.state));
-}
+  }
 
-componentDidUpdate(prevProps, prevState) {
-  this.UpdateGroupHashForSelect();
-  this.UpdateMemoHashForSelect();
-}
+  componentDidUpdate(prevProps, prevState) {
+    this.UpdateGroupHashForSelect();
+    this.UpdateMemoHashForSelect();
+  }
 
   render() {
     if (!this.state.memo_hash) {
