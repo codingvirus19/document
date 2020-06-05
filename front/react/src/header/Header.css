@@ -15,12 +15,19 @@
   align-items: center;
 }
 
+.logo {
+  display: inline-block;
+  justify-self: left;
+  width: 9rem;
+  height: 100%;
+}
+
 .right_header {
   justify-self: end;
   width: auto;
   right: 2rem;
   display: flex;
-  margin-right: 1rem;
+  margin: 0rem 2rem 0rem 1rem;
 }
 
 /*rigth-header*/
