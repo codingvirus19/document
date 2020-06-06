@@ -1,12 +1,12 @@
 import React from "react";
-
-import styles from "./Search.css";
+import styles from "./Search.scss";
 
 export default class Search extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-      keyword: ""
+      keyword: "",
+      showDeleteButton: false,
     };
   }
 
@@ -41,27 +41,56 @@ export default class Search extends React.Component {
     })
   }
 
+  deleteKeyword(e) {
+    e.preventDefault();
+    this.props.onCallbackKeywordChange("");
+  }
+
+  onMouseEnter() {
+    this.setState({
+      showDeleteButton: true
+    })
+  }
+
+  onMouseLeave() {
+    this.setState({
+      showDeleteButton: false
+    })
+  }
+
   render() {
     return (
-      <div className={styles.div}>
-        <form className={styles.form} action="">
-          <div className={styles.search}>
+      <div
+        className="div"
+        onMouseEnter={this.onMouseEnter.bind(this)}
+        onClick={this.onMouseEnter.bind(this)}
+        onMouseLeave={this.onMouseLeave.bind(this)}>
+        <form className="form">
+          <div className="search">
             <input
-              className={styles.input}
+              className="input"
               type="text"
               name="input-search"
               value={this.props.keyword}
               onChange={this.onInputChange.bind(this)}
-              placeholder="검색어를 입력하세요"
+              placeholder="검색"
             />
             <button
+              className="delete"
+              onClick={this.deleteKeyword.bind(this)}
+              onKeyPress={this.onClickEnter.bind(this)}>
+              {this.state.showDeleteButton ? (
+                <i className="fas fa-times"></i>
+              ) : null}
+            </button>
+            <button
               type="submit"
-              className={styles.submit}
+              className="submit"
               value="검색"
               onClick={this.onClickCallback.bind(this)}
               onKeyPress={this.onClickEnter.bind(this)}
             >
-              <i className="fas fa-hashtag"></i>
+              <i className="fa fa-search"></i>
             </button>
           </div>
         </form>

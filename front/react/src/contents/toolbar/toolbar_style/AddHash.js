@@ -11,6 +11,16 @@ export default class AddHash extends React.PureComponent {
       showHashSheet: false,
       clickHashButton: false,
     };
+    if(this.props.className != null){
+      this.className = this.props.className; 
+    }else{
+      this.className = styles.tool
+    }
+    if(this.props.buttonName != null){
+      this.buttonName = this.props.buttonName; 
+    }else{
+      this.buttonName = styles.faHashtag;
+    }
     this.toggleContainer2 = React.createRef();
     this.onClickOutsideHandler = this.onClickOutsideHandler.bind(this);
   }
@@ -49,12 +59,12 @@ export default class AddHash extends React.PureComponent {
       <>
         {/* 해시추가 */}
         <button
-          style={this.props.setStyle}
-          className={styles.tool}
+          // style={this.props.setStyle}
+          className={this.className}
           aria-label="해시 추가"
           onClick={this.toggleHashSheet.bind(this)}
         >
-          <FontAwesomeIcon className={styles.faHashtag} icon={faHashtag} />
+          <FontAwesomeIcon className={this.buttonName} icon={faHashtag} />
         </button>
         {this.state.showHashSheet ? (
           // {true ? (

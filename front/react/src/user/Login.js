@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
+import Logo from "../header/Logo.js"
+import JoinSuccess from "./JoinSucess.js"
 import styles from './Login.css';
 
 const API_URL = "http://localhost:8080/codingvirus19";
@@ -54,7 +56,6 @@ export default class login extends React.Component {
     }
   }
 
-
   /* 05.14 수정 건들지말 것!! */
   ViewChange() {
     this.setState({
@@ -79,55 +80,74 @@ export default class login extends React.Component {
   handleChangePasswordCheck(e) {
     this.setState({
       Error: this.state.JoinPassword !== e.target.value,
-      Errormessage: "비밀번호 불일치"
+      Errormessage: "패스워드가 일치하지 않습니다"
     })
     // 비밀번호 일치시 박스색 다르게 className줘서
   }
   Errormessage() {
     if (this.state.Error) {
       return (
-        <h5> {this.state.Errormessage} </h5>
+        <h5 className={styles.active}> {this.state.Errormessage} </h5>
       );
     }
   }
+
+  chkEmail(str) {
+    var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    return regExp.test(str) ? true : false;
+  };
+
   Join(e) {
     e.preventDefault();
-    let joinData = {
-      nickname: this.state.nickname,
-      id: this.state.id,
-      email: this.state.email,
-      password: this.state.JoinPassword
-    };
-    fetch(`${API_URL}/api/join`, {
-      method: "post",
-      headers: API_HEADERS2,
-      body: JSON.stringify(joinData)
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(response);
-        if(response.result=="fail" && (response.message=="id중복" || response.message=="email중복")) {
-          this.setState({
-            Error: true,
-            Errormessage: response.message
-          })
-        }
-        else {
-          this.setState({
-            JoinSuccess: true,
-            showJoin: false
-          })
-        }
+    //이메일 확인
+    if (!this.chkEmail(this.state.email)) {
+      this.setState({
+        Error: true,
+        Errormessage: "이메일 형식이 유효하지 않습니다."
       })
-      .catch((err) => console.error(err));
+    } else {
+      let joinData = {
+        nickname: this.state.nickname,
+        id: this.state.id,
+        email: this.state.email,
+        password: this.state.JoinPassword
+      };
+      fetch(`${API_URL}/api/join`, {
+        method: "post",
+        headers: API_HEADERS2,
+        body: JSON.stringify(joinData)
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          console.log(response);
+          if (response.result == "fail" && (response.message == "id중복" || response.message == "email중복")) {
+            this.setState({
+              Error: true,
+              Errormessage: response.message
+            })
+          }
+          else {
+            this.setState({
+              JoinSuccess: true,
+              showJoin: false,
+              nickname: '',
+              id: '',
+              email: '',
+              JoinPassword: '',
+              Error: false,
+              Errormessage: "",
+            })
+          }
+        })
+        .catch((err) => console.error(err));
+    }
   }
-
-
 
   View() {
     if (this.state.showJoin) {//회원가입
       return (
-        <div className={styles.formContent}>
+        < div className = { styles.formContent } >
+          <div className={styles.logo}><Logo /></div>
           <h2 className={`${styles.inactive} ${styles.underlineHover}`} onClick={this.ViewChange.bind(this)}> Sign In </h2>
           <h2 className={styles.active}>Sign Up </h2>
           <div className={`${styles.fadeIn} ${styles.first}`}>
@@ -142,37 +162,38 @@ export default class login extends React.Component {
               onChange={this.handleChange.bind(this)} name="JoinPassword" placeholder="Password" />
             <input type="password" className={`${styles.fadeIn}`}
               onChange={this.handleChangePasswordCheck.bind(this)} name="JoinPassword2" placeholder="Password confirm" />
-            <br />
+            <div className={styles.formFooter}>
             {this.Errormessage()}
-            <br />
+            </div>
             <input type="submit" className={`${styles.fadeIn}`} value="Join" onClick={this.Join.bind(this)} />
           </form>
 
           <div className={styles.formFooter}>
           </div>
 
-        </div>)
+        </div >
+      )
     } else {
       return (
-      <div className={styles.formContent}>
-        <h4 className={styles.header}>가입완료!</h4>
-        <h2 className={styles.active} > Sign In </h2>
-        <h2 className={`${styles.inactive} ${styles.underlineHover}`} onClick={this.ViewChange.bind(this)} >Sign Up </h2>
-        <div className={`${styles.fadeIn} ${styles.first}`}>
-          {/* <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" /> */}
-        </div>
-        {/* <form> */}
-        <input type="text" id="login" className={`${styles.fadeIn}`} name="username" value={this.state.username} onChange={this.handleChange.bind(this)} placeholder="id" ></input>
-        <input type="password" id="password" className={`${styles.fadeIn}`} name="password" value={this.state.password} onChange={this.handleChange.bind(this)} placeholder="password" />
-        <input type="submit" className={`${styles.fadeIn}`} value="Log In" onClick={this.Login.bind(this)} />
-        {/* </form> */}
+        <div className={styles.formContent}>
+          <div className={styles.logo}><Logo /></div>
+          <div className={`${styles.fadeIn}`}>
+            {this.state.JoinSuccess ? <JoinSuccess /> : null}
+          </div>
+          <h2 className={styles.active} > Sign In </h2>
+          <h2 className={`${styles.inactive} ${styles.underlineHover}`} onClick={this.ViewChange.bind(this)} >Sign Up </h2>
+          {/* <form> */}
+          <input type="text" id="login" className={`${styles.fadeIn}`} name="username" value={this.state.username} onChange={this.handleChange.bind(this)} placeholder="id" ></input>
+          <input type="password" id="password" className={`${styles.fadeIn}`} name="password" value={this.state.password} onChange={this.handleChange.bind(this)} placeholder="password" />
+          <input type="submit" className={`${styles.fadeIn}`} value="Log In" onClick={this.Login.bind(this)} />
+          {/* </form> */}
 
-        <div className={styles.formFooter}>
-          {this.loginFail()}
-          {/* <a className={styles.underlineHover} href="#">Forgot Password?</a> */}
-        </div>
+          <div className={styles.formFooter}>
+            {this.loginFail()}
+            {/* <a className={styles.underlineHover} href="#">Forgot Password?</a> */}
+          </div>
 
-      </div>)
+        </div>)
     }
 
   }
@@ -186,13 +207,11 @@ export default class login extends React.Component {
       );
     } else if (this.state.result === "fail") {
       console.log("실패");
-
     }
     return (
       <div className={`${styles.wrapper} ${styles.fadeInDown}`}>
         {this.View()}
       </div>
-
     );
   }
 }

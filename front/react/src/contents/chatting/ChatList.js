@@ -31,9 +31,15 @@ export default class Contents extends React.Component {
     });
   }
 
-  groupByalarm(gNo) {
-    if (this.props.alarm == undefined) {
-      return;
+
+    groupByalarm(gNo) {
+        if (this.props.alarm.g_no == gNo) {
+            if (this.props.alarm.type == false && this.props.alarm.readcheck == true) {
+                return (<span className={alarm_styles.alarmbell} />);
+            }
+        }
+        return (null);
+        
     }
     if (this.props.alarm.g_no == gNo) {
       if (

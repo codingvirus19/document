@@ -10,7 +10,7 @@ export default class Contents extends React.Component {
     this.state = {
       memo_hash: [{ no: "", name: "", memo_no: "" }],
       color: "#ffffff",
-      memo_bigArr:this.props.memo_bigArr
+      memo_bigArr: this.props.memo_bigArr
     };
   }
   DragStart(e) {
@@ -29,21 +29,11 @@ export default class Contents extends React.Component {
   DragOver(e) {
     e.preventDefault();
     if (e.target.className != `${styles.container_memo_form}`) return;
-    if(e.target.dataset.id == this.dragStart.dataset.id) return;
+    if (e.target.dataset.id == this.dragStart.dataset.id) return;
     this.dragOver = e.target;
-    this.memolist = this.props.memo_bigArr;
-    let memoOverTemp = this.memolist[e.target.dataset.id];
-    let memoStartTemp = this.memolist[this.dragStart.dataset.id];
-    this.memolist[e.target.dataset.id] = memoStartTemp;
-    this.memolist[this.dragStart.dataset.id] = memoOverTemp;
     let from = Number(this.dragStart.dataset.id);
     let to = Number(this.dragOver.dataset.id);
-    console.log(from,to);
     this.props.memo_Change(from, to);
-    this.setState({
-      memo_bigArr:this.memolist
-    })
-   
   }
   setMemo_hash(memo_hash) {
     this.setState({
@@ -69,12 +59,18 @@ export default class Contents extends React.Component {
               className={styles.container_memo_form}
             >
               <Memo
+                SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                 bringMemoByGroup={this.props.bringMemoByGroup}
                 groupBySidebar={this.props.groupBySidebar}
                 group={this.props.group}
                 memo_bigArr={this.props.memo_bigArr}
                 index={index}
                 content={this.props.memo_bigArr[index].content}
+                memo_hash={this.props.group_hash.filter((element) =>
+                  element.memo_no === this.props.memo_bigArr[index].no)}
+                color={this.props.memo_bigArr[index].color}
+                group_hash={this.props.group_hash}
+
               />
               <HashList
                 memo_no={this.props.memo_bigArr[index].no}
@@ -94,12 +90,12 @@ export default class Contents extends React.Component {
                 group={this.props.group}
                 groupBySidebar={this.props.groupBySidebar}
                 memo_hash={this.props.group_hash.filter((element) =>
-                element.memo_no === this.props.memo_bigArr[index].no)}
+                  element.memo_no === this.props.memo_bigArr[index].no)}
                 color={this.props.memo_bigArr[index].color}
                 SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                 clientRef={this.props.clientRef}
                 users={this.props.users}
-                group_hash_for_select={this.props.group_hash_for_select}
+                group_hash={this.props.group_hash}
                 IsHashUpdate={this.props.IsHashUpdate}
               />
             </div>

@@ -6,7 +6,7 @@
 .popover {
   position: absolute;
   z-index: 10;
-  transform: translate(1.4rem, 0.6rem);
+  transform: translate(2.3rem, 0.6rem);
 }
 
 .cover {
@@ -18,7 +18,7 @@
 }
 
 .tool {
-  margin: 3px 5px 0px 5px;
+  margin: 4% 5% 2% 5%;
   background: none;
 }
 
