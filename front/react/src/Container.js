@@ -359,7 +359,7 @@ export default class Container extends React.Component {
         {/*속성 group : 로그인 시 session user의 모든 그룹들의 no, name이 담겨있다.  */}
         {/*속성 users : 유저 session이 담긴다. */}
         {/*속성 memo_bigArr : 메모의 정보가 이중배열로 담겨있다.*/}
-        {/*속성 SidebarGroupUpdate : delete 버튼 클릭시 콜백으로 gno와 gname이 전달된다.  */}
+        {/*속성 SidebarGroupUpdate :  콜백으로 gno와 gname이 전달된다.  */}
         <Header
           // search 검색 콜백함수
           onCallbackKeywordChange={this.onCallbackKeywordChange.bind(this)}
