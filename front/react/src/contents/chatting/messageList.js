@@ -1,16 +1,17 @@
 import React from "react";
 
-import styles from './messageList.css';
+import styles from "./messageList.css";
 
 export default class MessageList extends React.Component {
-    constructor() {
-        super(...arguments)
-        this.state = {
-            gNo: this.props.gNo,
-            users: this.props.users
-        }
-        this.autoscrollRef = React.createRef()
-    }
+  constructor() {
+    super(...arguments);
+    this.state = {
+      gNo: this.props.gNo,
+      users: this.props.users,
+    };
+    this.autoscrollRef = React.createRef();
+  }
+
 
     render() {
         // console.log(this.props.group_no);
@@ -49,3 +50,4 @@ export default class MessageList extends React.Component {
         this.props.scrollBottomChange();
     }
 }
+
