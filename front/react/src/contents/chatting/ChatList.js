@@ -41,16 +41,7 @@ export default class Contents extends React.Component {
         return (null);
         
     }
-    if (this.props.alarm.g_no == gNo) {
-      if (
-        this.props.alarm.type == false &&
-        this.props.alarm.readcheck == true
-      ) {
-        return <span className={alarm_styles.alarmbell} />;
-      }
-    }
-    return null;
-  }
+  
 
   render() {
     console.log("---->" + this.props.group.no[0]);
