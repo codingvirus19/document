@@ -328,7 +328,7 @@ export default class Container extends React.Component {
       this.setState({
         alarm: {
           basic: false,
-          chat:this.state.alarm.chat,
+          chat: this.state.alarm.chat,
         }
       })
     } else if (alarm_msg.type == false && alarm_msg.readCheck == false) {
@@ -349,20 +349,20 @@ export default class Container extends React.Component {
     }
 
   }
-    getSnapshotBeforeUpdate(element) {
-      return element;
-    }
+  getSnapshotBeforeUpdate(element) {
+    return element;
+  }
 
-    shouldComponentUpdate(nextProps, nextState) {
-      return JSON.stringify(nextState) != JSON.stringify(this.state);
-    }
+  shouldComponentUpdate(nextProps, nextState) {
+    return JSON.stringify(nextState) != JSON.stringify(this.state);
+  }
 
-    componentDidUpdate(prevProps, prevState) {
-      this.getHashListByGroup(this.state.groupBySidebar.no);
-      this.setState({
-        IsHashUpdate: false,
-      });
-    }
+  componentDidUpdate(prevProps, prevState) {
+    this.getHashListByGroup(this.state.groupBySidebar.no);
+    this.setState({
+      IsHashUpdate: false,
+    });
+  }
 
   render() {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
@@ -375,8 +375,8 @@ export default class Container extends React.Component {
             onMessage={this.alarmReceive.bind(this)}
             ref={(client) => {
               this.clientRef = client;
-            }}
-          ></SockJsClient>
+            }}>
+          </SockJsClient>
         ) : null}
 
         {/*속성 groupBySidebar : 사이드바의 개인/그룹 클릭 시 해당 group의 no, name을 전달 */}
@@ -457,9 +457,8 @@ export default class Container extends React.Component {
             //변경된 결과 값 state :true false
             />
           </div>
-
-
         </div>
-      );
-    }
+      </div>
+    );
   }
+}
