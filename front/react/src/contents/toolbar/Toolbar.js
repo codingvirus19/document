@@ -4,6 +4,7 @@ import GroupShare from "./toolbar_style/GroupShare";
 import ColorChange from "./toolbar_style/ColorChange";
 import AddHash from "./toolbar_style/AddHash";
 import SaveLocal from "./toolbar_style/SaveLocal";
+import MemoSave from "./toolbar_style/MemoSave";
 import ExternalSharing from "./toolbar_style/ExternalSharing";
 import MemoDelete from "./toolbar_style/MemoDelete";
 
@@ -80,9 +81,6 @@ export default class Toolbar extends React.PureComponent {
           // memo 색변경 시 toolbar의 버튼도 색변경을 도와주는 props
           setStyle={this.props.setStyle}
         />
-
-        {/* 외부공유 */}
-        <ExternalSharing setStyle={this.props.setStyle} />
 
         {/* 메모삭제 */}
         <MemoDelete

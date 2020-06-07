@@ -24,11 +24,16 @@ export default class Popup2 extends React.Component {
         nickname: _nickname,
         image: _image,
       };
-      this.ajaxModifyProfile(modifyProfile);
+      this.getModifiedValue(modifyProfile)
     }
   }
 
+  getModifiedValue(modifyProfile){
+    this.ajaxModifyProfile(modifyProfile);
+  }
+
   ajaxModifyProfile(_modifyProfile) {
+    console.log(_modifyProfile)
     fetch(`${API_URL}/api/profile/modify`, {
       method: "post",
       headers: API_HEADERS,
@@ -67,6 +72,7 @@ export default class Popup2 extends React.Component {
   }
 
   render() {
+    console.log(this.props.getProfileValue)
     let contents;
     let popup2_confirm_btn = "확인";
 
@@ -101,7 +107,7 @@ export default class Popup2 extends React.Component {
           <div className={popupStyles.btns}>
             <button
               onClick={
-                (this.props.contents === "profile") ? this.callBackFromProfile.bind(this) && this.props.closePopup
+                (this.props.contents === "profile") ? this.getModifiedValue.bind(this) && this.props.closePopup
                 : this.callBackGroupAdd.bind(this)}
               className={popupStyles.confirm_btn}>
               {popup2_confirm_btn}

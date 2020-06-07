@@ -64,7 +64,6 @@ export default class ColorChange extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         getTrue = json.data;
-
         // colorChange 쿼리 insert 전에 콜백에서 메모를 뿌려주기 때문에 실시간으로 작동 x
         // 아래에서 db에서 삭제 진행 완료 후 true신호가 오면 콜백을 보내도록 설정한 코드이다.
         if (getTrue != false) {
@@ -72,7 +71,7 @@ export default class ColorChange extends React.Component {
         }
       })
       .catch((err) => console.error(err));
-
+    if(this.props.colorFind != null)this.props.colorFind(_changedColor);
     // 해야할 것(dongeun)0530 맨처음 delete시 작동안됨 오류 수정 필요!
   }
 
@@ -83,7 +82,6 @@ export default class ColorChange extends React.Component {
         {/* 색상변경 */}
 
         <button
-          style={this.props.setStyle}
           className={this.className}
           aria-label="색상 변경"
           onClick={this.handleClick.bind(this)}
@@ -98,7 +96,7 @@ export default class ColorChange extends React.Component {
             />
             <TwitterPicker
             // triangle='top-hide'
-              color={this.state.colorSelcet}
+              color={this.state.color}
               onChange={this.handleChange.bind(this)}
             />
           </div>

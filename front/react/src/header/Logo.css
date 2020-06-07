@@ -1,21 +1,15 @@
-.header {
-padding-left: 3%;
-justify-self: left;
-}
-
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   width: 100%;
+  height: 100%;
 }
 
 .logo_img {
   animation: App_logo_spin infinite 20s linear;
-  width: 38%;
-  max-width: 5rem;
-  height: 38%;
+  max-width: 3rem;
 }
 
 .title {
@@ -26,7 +20,7 @@ justify-self: left;
   font-weight: bold;
   font-family: "Product Sans", Arial, sans-serif;
   padding-top: 0.5rem;
-  width: 100%;
+  align-items: center;
 }
 
 @keyframes App_logo_spin {

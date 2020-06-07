@@ -2,20 +2,35 @@
   width: 25%;
   height: 100%;
   min-width: 15rem;
-  background-color: yellow;
+  background-color: #3a60c9;
   border-radius: 0.7rem;
   padding: 0.3rem;
+  overflow: auto;
 }
+
 .chatList {
-  background-color: white;
-  text-align: center;
-  padding-top: 0.22rem;
-  margin-top: 0.2rem;
-  height: 2rem;
-  border-radius: 1rem;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 1.5rem;
+  width: 100%;
+  text-align: start;
+  border: 3px solid rgba(185, 237, 247, 0.404);
+  border-bottom: none;
+  color: white;
+  height: 2.5rem;
+  border-radius: 5px;
 }
+
+.chatList:last-child {
+  border-bottom: 3px solid rgba(185, 237, 247, 0.404);
+}
+
+.chatList:first-child {
+  margin-top: 20px;
+}
+
 .chatList:hover {
-  background-color: aquamarine;
+  background-color: rgba(185, 237, 247, 0.404);
 }
 .Chatting {
   overflow: hidden;
@@ -34,5 +49,11 @@
 }
 .close {
   width: 100%;
-  background-color: yellow;
+  background-color: #cccccc;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.close:hover {
+  background-color: #a8a6a6;
 }

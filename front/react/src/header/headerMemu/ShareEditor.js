@@ -26,7 +26,7 @@ export default class Popup extends React.Component {
       textSize: 0,
       version: 0,
       name: "test" + Math.round(Math.random() * 100),
-      color: "whilte"
+      color: this.props.color
     };
   }
   boldevent() {
@@ -265,16 +265,20 @@ export default class Popup extends React.Component {
   }
   render() {
     // console.log(this.props.no);
+    const a = {
+      backgroundColor: `'red'`
+    }
+    console.log(this.props.color);
     return (
       <Fragment>
-        <div className={popup.popup} onClick={() => this.memoSave()}>
+        <div className={popup.popup} onClick={(e) => {this.props.memoClose}}>
           <SockJsClient
             url='./api/memo'
             topics={[`/api/memo/${this.props.no}`]}
             onMessage={this.receive.bind(this)}
             ref={(client) => { this.clientRef = client }} />
-          <div className={popup.inner} onClick={e => e.stopPropagation()}>
-            <div className={styles.editor}>
+          <div className={popup.inner} style={{backgroundColor :`${this.props.color}`}} onClick={e => e.stopPropagation()}>
+            <div className={styles.editor} style={{backgroundColor :`${this.props.color}`}}>
               <div className={styles.btn}>
                 <button className={styles.button} onClick={this.hevent.bind(this, 1)}>H1</button>
                 <button className={styles.button} onClick={this.hevent.bind(this, 2)}>H2</button>
@@ -282,16 +286,17 @@ export default class Popup extends React.Component {
                 <button className={styles.button} onClick={this.hevent.bind(this, 4)}>H4</button>
                 <button className={styles.button} onClick={this.boldevent.bind(this)}>B</button>
                 {(this.state.markOpen) ? <button className={`${styles.click} ${styles.button}`} onClick={this.markOpen.bind(this)}>E</button> : <button className={styles.button} onClick={this.markOpen.bind(this)}>M</button>}
-                <button className={styles.button} onClick={this.memoSave.bind(this)}>저장</button>
               </div>
               {(this.state.markOpen) ? (
                 <div
+                  style={{backgroundColor :`${this.props.color}`}}
                   className={styles.markDownView}
                   dangerouslySetInnerHTML={this.getReMarkDown()}></div>
               )
                 : (
                   <Fragment>
                     <textarea
+                      style={{backgroundColor :`${this.props.color}`}}
                       wrap="hard"
                       rows="2"
                       cols="20"
@@ -309,6 +314,9 @@ export default class Popup extends React.Component {
                         color={this.props.color}
                         memo_hash={this.props.memo_hash}
                         group_hash={this.props.group_hash}
+                        memoSave={this.memoSave.bind(this)}
+                        memoClose={this.props.memoClose}
+                        SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                         />
 
                     </div>
