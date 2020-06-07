@@ -338,7 +338,6 @@ export default class Container extends React.Component {
           chat: false,
         }
       })
-
       // this.setState({
       //   alarm: {
       //     g_no: alarm_msg.gNo,
@@ -347,7 +346,6 @@ export default class Container extends React.Component {
       //   }
       // })
     }
-
   }
   getSnapshotBeforeUpdate(element) {
     return element;
@@ -375,15 +373,14 @@ export default class Container extends React.Component {
             onMessage={this.alarmReceive.bind(this)}
             ref={(client) => {
               this.clientRef = client;
-            }}>
-          </SockJsClient>
+            }}
+          ></SockJsClient>
         ) : null}
-
         {/*속성 groupBySidebar : 사이드바의 개인/그룹 클릭 시 해당 group의 no, name을 전달 */}
         {/*속성 group : 로그인 시 session user의 모든 그룹들의 no, name이 담겨있다.  */}
         {/*속성 users : 유저 session이 담긴다. */}
         {/*속성 memo_bigArr : 메모의 정보가 이중배열로 담겨있다.*/}
-        {/*속성 SidebarGroupUpdate :  콜백으로 gno와 gname이 전달된다.  */}
+        {/*속성 SidebarGroupUpdate : delete 버튼 클릭시 콜백으로 gno와 gname이 전달된다.  */}
         <Header
           // search 검색 콜백함수
           onCallbackKeywordChange={this.onCallbackKeywordChange.bind(this)}
@@ -402,8 +399,6 @@ export default class Container extends React.Component {
           clientRef={this.clientRef}
           users={this.Users}
         />
-
-
         <div className={styles.body}>
           <Sidebar
             hash={this.state.distinctGroup_hash}
@@ -416,47 +411,19 @@ export default class Container extends React.Component {
             UpdateGroup={this.UpdateGroup.bind(this)}
             SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
             group={this.state.group}
-
             groupBySidebar={this.state.groupBySidebar}
-            // group의 no와 name을 사용하는 callback함수
-            SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
-            //변경함수
-            SearchHash={this.SearchHash.bind(this)}
             bringMemoByGroup={this.bringMemoByGroup.bind(this)}
-            chattingPopup={this.chattingPopup.bind(this)}
-            AlarmPopup={this.AlarmPopup.bind(this)}
+            memo_bigArr={this.state.memo_bigArr}
+            memo_Change={this.memo_Change.bind(this)}
+            users={this.Users}
+            showChat={this.state.showChat}
+            showAlarm={this.state.showAlarm}
             alarm={this.state.alarm}
             clientRef={this.clientRef}
-            users={this.Users}
+            group_hash={this.state.group_hash}
+            IsHashUpdate={this.IsHashUpdate.bind(this)}
+          //변경된 결과 값 state :true false
           />
-
-
-          <div className={styles.body}>
-            <Sidebar
-              hash={this.state.distinctGroup_hash}
-              group={this.state.group}
-              group_update={this.SidebarGroupUpdate.bind(this)}
-              SidebarHashUpdate={this.SidebarHashUpdate.bind(this)}
-            />
-            <Contents
-              memo_noSelectedByHash={this.state.memo_noSelectedByHash}
-              UpdateGroup={this.UpdateGroup.bind(this)}
-              SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
-              group={this.state.group}
-              groupBySidebar={this.state.groupBySidebar}
-              bringMemoByGroup={this.bringMemoByGroup.bind(this)}
-              memo_bigArr={this.state.memo_bigArr}
-              memo_Change={this.memo_Change.bind(this)}
-              users={this.Users}
-              showChat={this.state.showChat}
-              showAlarm={this.state.showAlarm}
-              alarm={this.state.alarm}
-              clientRef={this.clientRef}
-              group_hash={this.state.group_hash}
-              IsHashUpdate={this.IsHashUpdate.bind(this)}
-            //변경된 결과 값 state :true false
-            />
-          </div>
         </div>
       </div>
     );
