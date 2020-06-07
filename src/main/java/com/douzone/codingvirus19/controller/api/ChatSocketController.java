@@ -44,23 +44,23 @@ public class ChatSocketController {
 	@MessageMapping("/alarm/{userno}")
 	public void alarmMessage(AlarmVo alarmVo, @DestinationVariable Long userno) throws Exception {
 		System.out.println("알람 소켓 들어 왔습니다.");
-		
+		AlarmVo alarmChak = new AlarmVo();
+		System.out.println(alarmChak);
+//		alarmChak.setReadCheck(false);기본알람
+//		alarmChak.setType(false);채팅알람
 		alarmVo.setuNo(userno);
 		if(alarmVo.getgNo() == null) {
 			if(alarmVo.isReadCheck() == false && alarmVo.isType() == true) {
 				System.out.println("여긴 기본 알람 읽음 처리부분입니당");
 				alarmService.readCheckUpdate(alarmVo);
-				alarmVo.setReadCheck(false);
-				alarmVo.setType(true);
 				webSocket.convertAndSend("/api/alarm/" + userno, alarmVo);
+				return;
 			}
 			return;
 		}
 		if(alarmVo.isReadCheck() == false && alarmVo.isType() == false) {
 			System.out.println("여긴 채팅 알람 읽음 처리부분입니당");
 			alarmService.chatReadCheckUpdate(alarmVo);
-			alarmVo.setReadCheck(false);
-			alarmVo.setType(false);
 			webSocket.convertAndSend("/api/alarm/" + userno, alarmVo);
 			return;
 		}
@@ -71,14 +71,14 @@ public class ChatSocketController {
 		
 		alarmService.addAlarm(alarmVo);
 		Long no = alarmVo.getNo();
-		
+		alarmChak.setgNo(alarmVo.getgNo());
 		List<Long> list  = alarmService.getGroupinUser(groupUserVo);
 		Long[] array =  new Long[list.size()];
 		int size = 0;
 		for(Long temp : list){
 			array[size++] = temp;
 		}
-
+//==========================DBinsert
 		Map<String, Object> SandUserMap = new HashMap<String, Object>();
 		Map<String, Object> pushSandUserMap = null;
 		List<Map<String, Object>> pushSandUserList = new ArrayList<Map<String, Object>>();
@@ -94,11 +94,23 @@ public class ChatSocketController {
 		}
 		SandUserMap.put("pushSandUserList", pushSandUserList);
 		alarmService.insertAccptAlarm(SandUserMap);
-		alarmVo.setReadCheck(true);
-		System.out.println(alarmVo);
+//============================chatting alarm
+		
+		Map<String, Integer> alarmlist = new HashMap<>();
+		alarmlist.put("gNo", alarmVo.getgNo().intValue());
+		if(alarmVo.isType()== false){//채팅 알람 여부 확인
+			alarmlist.put("chat",1);
+			
+		}else if(alarmVo.isType()== true) {
+			alarmlist.put("basic",1);
+		}
+//		alarmChak.setReadCheck(alarmVo.isReadCheck());
+//		alarmChak.setType(alarmVo.isType());
+		
+		System.out.println(alarmChak);
 		
 		for(int j = 0; j < list.size(); j++){
-			webSocket.convertAndSend("/api/alarm/" + array[j], alarmVo);
+			webSocket.convertAndSend("/api/alarm/" + array[j], alarmlist);
 		}
 	}
 }

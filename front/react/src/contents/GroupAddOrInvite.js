@@ -54,6 +54,11 @@ export default class GroupAddOrInvite extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        ///////////////유저 클릭시 가져오는 부분
+        console.log(this.state.selectUsers)
+        ////////////////////////////////////////
+        this.props.GroupAddOrInviteCallBack('', '', this.state.selectUsers)
+
         this.props.UpdateGroup(this.state.group);  
         this.setState({
             groups: this.state.group.gname.map((gname, index) => {
@@ -95,8 +100,7 @@ export default class GroupAddOrInvite extends React.Component {
         ////////////////일단 그룹 클릭시 가져오는 no 부분
         // this.getno=
         // console.log(event.no);
-        console.log(event.no,"그룹클릭");
-        this.props.GroupAddOrInviteCallBack(event.no, event.name)
+        this.props.GroupAddOrInviteCallBack(event.no, event.value, '')
         ///////////////////////////////////
         this.setState({
             selectGroupName: event.value,
@@ -106,8 +110,7 @@ export default class GroupAddOrInvite extends React.Component {
 
     groupAdd(group) {
         // ////////////////////////////////
-        console.log(this.gNoList,"그룹생성");
-        this.props.GroupAddOrInviteCallBack(group.no[0], group.name[0])
+        this.props.GroupAddOrInviteCallBack(group.no[0], group.gname[0], '')
         //////////////////////////////////
         this.setState({
             group: {
@@ -120,9 +123,6 @@ export default class GroupAddOrInvite extends React.Component {
         if (event != null) {
             this.setState({
                 selectUsers: event.map((event) => {
-                    ////////////////////유저 no 가져오는 곳
-                    console.log(event.no)
-                    //////////////////////////////////////
                     return {
                         nickname: event.value,
                         no: event.no

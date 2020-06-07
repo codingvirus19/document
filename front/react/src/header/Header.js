@@ -135,14 +135,14 @@ export default class Header extends React.Component {
 
             <Dropdown className={styles.userbell}>
               <Dropdown.Toggle onClick={this.alarmClick.bind(this)} >
-                {(this.props.alarm.type == true && this.props.alarm.readcheck == true) ? <span className={styles.alarmbell}/> : null }  
+                {(this.props.alarm.basic) ? <span className={styles.alarmbell}/> : null }  
                 <FontAwesomeIcon className={styles.faBell} icon={faBell} />
               </Dropdown.Toggle>
             </Dropdown>
 
             <div>
               <button onClick={this.chattingClick.bind(this)}>
-              {(this.props.alarm.type == false && this.props.alarm.readcheck == true) ?  <span className={styles.alarmbell}/> : null } 
+              {(this.props.alarm.chat) ? <span className={styles.alarmbell}/> : null } 
                 <FontAwesomeIcon className={styles.faSms} icon={faSms} />
               </button>
             </div>
