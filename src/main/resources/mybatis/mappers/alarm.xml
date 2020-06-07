@@ -32,13 +32,13 @@
 	<select id="getAlarmReadList" parameterType="alarmvo"
 		resultType="alarmvo">
 		<![CDATA[
-		 select max(a.read_check) as readCheck,
-		 		max(b.type) as type
+		 select a.read_check as readCheck,
+		 		b.type as type
            from accptalarm a, (select no, g_no, massage, date, type from alarm) b
 		  where a.noti_no = b.no
             and read_check = true
             and u_no=#{uNo}
-            limit 10;
+            order by b.no
  		]]>
 	</select>
 	

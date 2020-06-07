@@ -41,10 +41,34 @@ export default class Popup2 extends React.Component {
     }).catch((err) => console.error(err));
   }
 
+  callBackGroupAdd(){
+    console.log(this.groupNo, this.groupName, this.userList);
+    // if(this.userList[0].no != null && this.groupNo != null){
+    //   this.userList.map((index) => {
+    //     this.props.clientRef.sendMessage("/app/alarm" + this.userList[index].no,
+    //       JSON.stringify({
+    //         gNo : this.groupNo,
+    //         chat : this.groupName + " 그룹에 초대되었습니다.",
+    //         date: new Date(),
+    //         type: true,
+    //         readCheck: true,
+    //         addgroup: true
+    //       })
+    //     )
+    //   })
+    //   this.props.closePopup;
+    // }
+    // else if(this.userList[0].no == ''){
+    //   console.log("사용자를 선택해 주세요")
+    // }
+  }
+
   GroupAddOrInviteCallBack(groupNo, groupName, userList){
     if(groupNo != null)this.groupNo = groupNo;
     if(groupName != null)this.groupName = groupName;
     if(userList != null)this.userList = userList;
+
+    // console.log(this.groupNo, this.groupName, this.userList);
   }
 
   render() {
@@ -64,10 +88,9 @@ export default class Popup2 extends React.Component {
     if (this.props.contents === "groupAddOrInvite") {
       contents = (
         <GroupAddOrInvite
-          clientRef={this.props.clientRef}
           UpdateGroup={this.props.UpdateGroup}
           group={this.props.group}
-          GroupAddOrInviteCallBack={this.GroupAddOrInviteCallBack}
+          GroupAddOrInviteCallBack={this.GroupAddOrInviteCallBack.bind(this)}
         />
       );
     }
@@ -85,7 +108,7 @@ export default class Popup2 extends React.Component {
             <button
               onClick={
                 (this.props.contents === "profile") ? this.getModifiedValue.bind(this) && this.props.closePopup
-                : null}
+                : this.callBackGroupAdd.bind(this)}
               className={popupStyles.confirm_btn}>
               {popup2_confirm_btn}
             </button>

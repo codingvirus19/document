@@ -11,7 +11,8 @@
 			    from chat c, user u
 			   where c.g_no = #{gNo}
 			     and c.u_no = u.no
-			order by c.date;
+			order by c.date
+			   limit 100;
  		]]>
 	</select>
 	<insert id="insert" parameterType="chatvo">
