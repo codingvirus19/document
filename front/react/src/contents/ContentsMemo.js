@@ -42,9 +42,17 @@ export default class Contents extends React.Component {
   }
 
   render() {
+    if (this.props.memo_bigArr.length === 0) {
+      return (
+        <div className={styles.memo} >
+        <div className={styles.memo_null}>
+          메모가 존재하지 않습니다.
+        </div>
+        </div>
+      )
+    }
     return (
-      /*memo_hash: 해당 메모의 해시들
-        IsHashUpdate: 해시값이 변경되면 sidebar를 변경*/
+      // memo_hash: 해당 메모의 해시들
       <div className={styles.memo} >
         {this.props.memo_bigArr &&
           this.props.memo_bigArr.map((memos, index) => (
@@ -77,7 +85,8 @@ export default class Contents extends React.Component {
                 setMemo_hash={this.setMemo_hash.bind(this)}
                 memo_hash={this.props.group_hash.filter((element) =>
                   element.memo_no === this.props.memo_bigArr[index].no)}
-                IsHashUpdate={this.props.IsHashUpdate}
+                  SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+                  groupBySidebar={this.props.groupBySidebar}
               />
               <Toolbar
                 // SaveLocal에서 저장시킬 contents값
@@ -95,7 +104,7 @@ export default class Contents extends React.Component {
                 SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                 clientRef={this.props.clientRef}
                 users={this.props.users}
-                group_hash={this.props.group_hash}
+                distinctGroup_hash={this.props.distinctGroup_hash}
                 IsHashUpdate={this.props.IsHashUpdate}
               />
             </div>

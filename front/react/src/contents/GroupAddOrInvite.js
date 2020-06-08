@@ -11,6 +11,8 @@ const API_HEADERS = {
 export default class GroupAddOrInvite extends React.Component {
     constructor() {
         super(...arguments);
+        this.groupfocus = React.createRef();
+
         this.state = {
             group: this.props.group,
             groups: this.props.group.gname.map((gname, index) => {
@@ -23,7 +25,8 @@ export default class GroupAddOrInvite extends React.Component {
             users: [{ value: '', label: '', no: '' }],
             selectGroupName: null,
             selectGroupNo: null,
-            selectUsers: [{ nickname: '', no: '' }]
+            selectUsers: [{ nickname: '', no: '' }],
+            userfocus: false   
         }
     }
 
@@ -73,6 +76,9 @@ export default class GroupAddOrInvite extends React.Component {
     }
 
     addGroup(event) {
+        this.setState({
+            userfocus: true
+        })
         if (event.__isNew__) {
             let data = {
                 name: event.label
@@ -95,8 +101,7 @@ export default class GroupAddOrInvite extends React.Component {
         ////////////////일단 그룹 클릭시 가져오는 no 부분
         // this.getno=
         // console.log(event.no);
-        console.log(event.no,"그룹클릭");
-        this.props.GroupAddOrInviteCallBack(event.no, event.name)
+        this.props.GroupAddOrInviteCallBack(event.no, event.value)
         ///////////////////////////////////
         this.setState({
             selectGroupName: event.value,
@@ -105,10 +110,8 @@ export default class GroupAddOrInvite extends React.Component {
     }
 
     groupAdd(group) {
-        // ////////////////////////////////
-        console.log(this.gNoList,"그룹생성");
-        this.props.GroupAddOrInviteCallBack(group.no[0], group.name[0])
-        //////////////////////////////////
+        this.props.GroupAddOrInviteCallBack(group.no[0], group.gname[0])
+        
         this.setState({
             group: {
                 no: this.state.group.no.concat(group.no),
@@ -117,12 +120,12 @@ export default class GroupAddOrInvite extends React.Component {
         })
     }
     addUser(event) {
-        if (event != null) {
+        if(this.state.selectGroupNo == null){
+            this.groupfocus.current.focus(true);
+        }
+        else if(event != null) {
             this.setState({
                 selectUsers: event.map((event) => {
-                    ////////////////////유저 no 가져오는 곳
-                    console.log(event.no)
-                    //////////////////////////////////////
                     return {
                         nickname: event.value,
                         no: event.no
@@ -133,12 +136,14 @@ export default class GroupAddOrInvite extends React.Component {
     }
 
     render() {
+        this.props.UserAddOrInviteCallBack(this.state.selectUsers)
         return (
             <>
                 <div className={styles.inner_form_component}>
                     <span className={styles.inner_form_container_title}>그룹이름</span>
                     <CreatableSelect
                         autoFocus={true}
+                        ref={this.groupfocus}
                         className={styles.inner_select}
                         defaultMenuIsOpen={true}
                         closeMenuOnSelect={false}
@@ -157,11 +162,11 @@ export default class GroupAddOrInvite extends React.Component {
                         isMulti
                         defaultMenuIsOpen={true}
                         closeMenuOnSelect={false}
-                        menuIsOpen={true}
+                        menuIsOpen={this.state.userfocus}
                         onChange={this.addUser.bind(this)}
                         maxMenuHeight={120}
                         options={this.state.users}
-                        placeholder="사용자 선택"
+                        placeholder="그룹 선택시 사용자 선택 가능"
                     />
                 </div>
             </>

@@ -33,6 +33,7 @@ public class UserApiController {
 	@PostMapping("/profile/modify")
 	public void profileInsert(@AuthUser SecurityUser securityUser, @RequestBody UserVo vo) {
 		vo.setNo(securityUser.getNo());
+		System.out.println(vo);
 		userService.modifyProfile(vo);
 	}
 	

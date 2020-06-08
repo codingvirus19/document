@@ -67,16 +67,26 @@ export default class AddHash extends React.PureComponent {
           <FontAwesomeIcon className={this.buttonName} icon={faHashtag} />
         </button>
         {this.state.showHashSheet ? (
-          // {true ? (
           <HashSheet
             refChange={this.toggleContainer2}
-            memo_hash={this.props.memo_hash}
+            //react-select에 맞는 형식으로 변환
+            memo_hash={this.props.memo_hash.map((element) => {
+              return {
+                value: element.name,
+                label: element.name,
+              };
+            })}
             memo_no={this.props.memo_no}
             memo_gNo={this.props.memo_gNo}
-            group_hash={this.props.group_hash}
+            //react-select에 맞는 형식으로 변환
+            distinctGroup_hash={this.props.distinctGroup_hash.map((element) => {
+              return {
+                value: element,
+                label: element,
+              };
+            })}
             groupBySidebar={this.props.groupBySidebar}
             SidebarGroupUpdate={this.props.SidebarGroupUpdate}
-            IsHashUpdate={this.props.IsHashUpdate}
           />
         ) : null}
       </>

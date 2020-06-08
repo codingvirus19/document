@@ -18,13 +18,13 @@ export default class Container extends React.Component {
       group_hash: [{ no: "", name: "", memo_no: "" }],
       distinctGroup_hash: [""],
       SelectedHash: null,
-      IsHashUpdate: false,
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
       showChat: false,
       showAlarm: false,
       clientRef: "",
-      alarm: { type: "", readcheck: "" },
+      alarm: { basic: "", chatting: "" },
+      addgroup_alarm: {message:"", date:"", group_no:"", group_name:""},
       keyword: "",
     };
     this.drag = null;
@@ -41,7 +41,6 @@ export default class Container extends React.Component {
   componentDidMount() {
 
     this.bringMemoByGroup(this.state.groupBySidebar.no);
-
     // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
     let group = { no: [], gname: [] };
     let groupDatas = null;
@@ -53,7 +52,6 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         groupDatas = json.data;
-        console.log(groupDatas)
         // group의 데이터값으로 sidebar를 불러오는 함수
         groupDatas.map((json) => {
           group.no.push(json.no);
@@ -92,15 +90,15 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        alarmDatas = json.data;
-        this.UpdateAlarm(alarmDatas);
+        console.log(json.data)
+        this.UpdateAlarm(json.data);
       })
       .catch((err) => console.error(err));
     // 알람 가져올 때, type이 true이면 기본 알람, false이면 채팅 알람 구별
     // db에서 받을때는 true = 1, false = 0
     // 읽지 않은건 false = 0, 읽은 건 true = 1
-    // Sidebar의 HashtagList를 가져오는 코드
 
+    // Sidebar의 HashtagList를 가져오는 코드
     this.getHashListByGroup(this.state.groupBySidebar.no);
   }
 
@@ -170,8 +168,6 @@ export default class Container extends React.Component {
             //일치하는 첫 번째 인덱스를 반환. 일치하는 값이 없으면 -1을 반환
             (element) => element.content.indexOf(this.state.keyword) != -1
           );
-          // 검색창에 keyword입력 후 다시 ""로 설정되도록 하는 코드.
-          this.onCallbackKeywordChange("");
           this.UpdateMemo(filteredMemo_bigArr);
         }
       })
@@ -214,7 +210,7 @@ export default class Container extends React.Component {
 
   UpdateAlarm(alarmDatas) {
     this.setState({
-      alarm: { type: alarmDatas.type, readcheck: alarmDatas.readCheck },
+      alarm: { basic: alarmDatas.basic, chatting: alarmDatas.chatting },
     });
   }
 
@@ -234,7 +230,10 @@ export default class Container extends React.Component {
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
   // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo , changeColor 클릭 시....
   SidebarGroupUpdate(no, name) {
+          //     // 검색창에 keyword입력 후 다시 ""로 설정되도록 하는 코드.
+          // this.onCallbackKeywordChange("");
     this.bringMemoByGroup(no);
+    this.getHashListByGroup(no);
     this.setState({
       groupBySidebar: {
         no: no,
@@ -243,19 +242,40 @@ export default class Container extends React.Component {
     });
   }
 
-  SearchHash(g_no, hash) {
+  AlarmAddGroup(){
+    let group = { no: [], gname: [] };
+    let groupDatas = null;
+    // call api
+    fetch(`${API_URL}/api/container`, {
+      method: "post",
+      headers: API_HEADERS,
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        groupDatas = json.data;
+        // group의 데이터값으로 sidebar를 불러오는 함수
+        groupDatas.map((json) => {
+          group.no.push(json.no);
+          group.gname.push(json.name);
+        });
+        // UpdateGroup(): group에 setState하는 함수
+        this.UpdateGroup(group);
+      })
+      .catch((err) => console.error(err));
+  }
+
+  //해시 검색 (ex) #~~~)
+  SearchHash(g_no, keyword) {
+    // 앞에 #을 자름
+    let hash = keyword.slice(1);
+    //# 자른 키워드 다시 설정
+    this.onCallbackKeywordChange(hash)
     this.bringMemoByHash(g_no, hash)
   }
 
   //sidebar에서 선택된 해시
   SidebarHashUpdate(g_no, hash) {
     this.bringMemoByHash(g_no, hash)
-  }
-
-  IsHashUpdate() {
-    this.setState({
-      IsHashUpdate: true,
-    });
   }
 
   chattingPopup(showChatClick) {
@@ -305,40 +325,68 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
-    console.log(alarm_msg)
-    if (alarm_msg.type == true && alarm_msg.readCheck == true) {
-      this.AlarmPopup(true);
+    this.state.addgroup_alarm=null
+    console.log(alarm_msg);
+    if(alarm_msg.addgroup == true && alarm_msg.type == true && alarm_msg.readCheck == true){ //그룹초대  
+      console.log("그룹추가에 온거 맞지?");
       this.setState({
+        addgroup_alarm:{
+          message: alarm_msg.chat,
+          date: alarm_msg.date,
+          group_no: alarm_msg.gNo,
+          group_name: alarm_msg.groupName
+        },
         alarm: {
-          type: alarm_msg.type,
-          readcheck: alarm_msg.readCheck
+          basic: true,
+          chatting: false
         }
       })
     }
-    this.setState({
-      alarm: {
-        g_no: alarm_msg.gNo,
-        type: alarm_msg.type,
-        readcheck: alarm_msg.readCheck
-      }
-    })
+    if (alarm_msg.basic != null) { //기본
+      this.AlarmPopup(true);
+      this.setState({
+        alarm: {
+          basic: alarm_msg.basic,
+          chatting: this.state.alarm.chatting,
+          g_no: this.state.alarm.g_no
+        }
+      })
+    } else if (alarm_msg.chatting != null) {//채팅
+      this.setState({
+        alarm: {
+          chatting: alarm_msg.chatting,
+          g_no: alarm_msg.gNo,
+          basic: this.state.alarm.basic
+        }
+      })
+    }
+    if (alarm_msg.type == true && alarm_msg.readCheck == false) {
+      this.setState({
+        alarm: {
+          basic: false,
+          chatting: this.state.alarm.chatting,
+        }
+      })
+    } else if (alarm_msg.type == false && alarm_msg.readCheck == false) {
+      this.setState({
+        alarm: {
+          basic: this.state.alarm.basic,
+          chatting: false,
+        }
+      })
+      // this.setState({
+      //   alarm: {
+      //     g_no: alarm_msg.gNo,
+      //     basic: alarm_msg.readCheck,
+      //     chat: alarm_msg.type
+      //   }
+      // })
+    }
   }
-
-  getSnapshotBeforeUpdate(element) {
-    return element;
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return JSON.stringify(nextState) != JSON.stringify(this.state);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    this.getHashListByGroup(this.state.groupBySidebar.no);
-    this.setState({
-      IsHashUpdate: false,
-    });
-  }
-
+  //쓰는사람 없으면 지우기
+  // getSnapshotBeforeUpdate(element) {
+  //   return element;
+  // }
 
   render() {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
@@ -354,7 +402,6 @@ export default class Container extends React.Component {
             }}
           ></SockJsClient>
         ) : null}
-
         {/*속성 groupBySidebar : 사이드바의 개인/그룹 클릭 시 해당 group의 no, name을 전달 */}
         {/*속성 group : 로그인 시 session user의 모든 그룹들의 no, name이 담겨있다.  */}
         {/*속성 users : 유저 session이 담긴다. */}
@@ -377,15 +424,15 @@ export default class Container extends React.Component {
           alarm={this.state.alarm}
           clientRef={this.clientRef}
           users={this.Users}
+          hash={this.state.distinctGroup_hash}
         />
-
-
         <div className={styles.body}>
           <Sidebar
             hash={this.state.distinctGroup_hash}
             group={this.state.group}
-            group_update={this.SidebarGroupUpdate.bind(this)}
+            SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
             SidebarHashUpdate={this.SidebarHashUpdate.bind(this)}
+            onCallbackKeywordChange={this.onCallbackKeywordChange.bind(this)}
           />
           <Contents
             memo_noSelectedByHash={this.state.memo_noSelectedByHash}
@@ -401,13 +448,15 @@ export default class Container extends React.Component {
             showAlarm={this.state.showAlarm}
             alarm={this.state.alarm}
             clientRef={this.clientRef}
+            addgroup_alarm={this.state.addgroup_alarm}
+            //중복 제거 안한 해시(memo_no 가지고 있음)            
             group_hash={this.state.group_hash}
-            IsHashUpdate={this.IsHashUpdate.bind(this)}
+            //중복 제거한 해시
+            distinctGroup_hash={this.state.distinctGroup_hash}
           //변경된 결과 값 state :true false
+            AlarmAddGroup={this.AlarmAddGroup.bind(this)}
           />
         </div>
-
-
       </div>
     );
   }
