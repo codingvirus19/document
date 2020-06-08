@@ -24,7 +24,8 @@ export default class Container extends React.Component {
       showChat: false,
       showAlarm: false,
       clientRef: "",
-      alarm: { basic: "", chat: "" },
+      alarm: { basic: "", chatting: "" },
+      addgroup_alarm: {message:"", date:""},
       keyword: "",
     };
     this.drag = null;
@@ -214,7 +215,7 @@ export default class Container extends React.Component {
 
   UpdateAlarm(alarmDatas) {
     this.setState({
-      alarm: { basic: alarmDatas.basic, chat: alarmDatas.chat },
+      alarm: { basic: alarmDatas.basic, chatting: alarmDatas.chatting },
     });
   }
 
@@ -306,19 +307,32 @@ export default class Container extends React.Component {
 
   alarmReceive(alarm_msg) {
     console.log(alarm_msg);
+    if(alarm_msg.addgroup == true && alarm_msg.type == true && alarm_msg.readCheck == true){ //그룹초대  
+      console.log("그룹추가에 온거 맞지?");
+      this.setState({
+        addgroup_alarmroup:{
+          message: alarm_msg.chat,
+          date: alarm_msg.date
+        },
+        alarm: {
+          basic: true,
+          chatting: false
+        }
+      })
+    }
     if (alarm_msg.basic != null) { //기본
       this.AlarmPopup(true);
       this.setState({
         alarm: {
           basic: alarm_msg.basic,
-          chat: this.state.alarm.chat,
+          chatting: this.state.alarm.chatting,
           g_no: this.state.alarm.g_no
         }
       })
-    } else if (alarm_msg.chat != null) {//채팅
+    } else if (alarm_msg.chatting != null) {//채팅
       this.setState({
         alarm: {
-          chat: alarm_msg.chat,
+          chatting: alarm_msg.chatting,
           g_no: alarm_msg.gNo,
           basic: this.state.alarm.basic
         }
@@ -328,14 +342,14 @@ export default class Container extends React.Component {
       this.setState({
         alarm: {
           basic: false,
-          chat: this.state.alarm.chat,
+          chatting: this.state.alarm.chatting,
         }
       })
     } else if (alarm_msg.type == false && alarm_msg.readCheck == false) {
       this.setState({
         alarm: {
           basic: this.state.alarm.basic,
-          chat: false,
+          chatting: false,
         }
       })
       // this.setState({
@@ -420,6 +434,7 @@ export default class Container extends React.Component {
             showAlarm={this.state.showAlarm}
             alarm={this.state.alarm}
             clientRef={this.clientRef}
+            addgroup_alarmroup={this.state.addgroup_alarmroup}
             group_hash={this.state.group_hash}
             IsHashUpdate={this.IsHashUpdate.bind(this)}
           //변경된 결과 값 state :true false

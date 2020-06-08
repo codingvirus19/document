@@ -45,10 +45,16 @@ public class ChatSocketController {
 	public void alarmMessage(AlarmVo alarmVo, @DestinationVariable Long userno) throws Exception {
 		System.out.println("알람 소켓 들어 왔습니다.");
 		AlarmVo alarmChak = new AlarmVo();
-		System.out.println(alarmChak);
+		
 //		alarmChak.setReadCheck(false);기본알람
 //		alarmChak.setType(false);채팅알람
 		alarmVo.setuNo(userno);
+		if(alarmVo.isAddgroup() == true && alarmVo.isReadCheck() == true && alarmVo.isType() == true) {
+			System.out.println("그룹초대 알람 들어왔습니다.");
+			System.out.println(alarmVo);
+			webSocket.convertAndSend("/api/alarm/" + userno, alarmVo);
+			return;
+		}
 		if(alarmVo.getgNo() == null) {
 			if(alarmVo.isReadCheck() == false && alarmVo.isType() == true) {
 				System.out.println("여긴 기본 알람 읽음 처리부분입니당");
@@ -99,15 +105,11 @@ public class ChatSocketController {
 		Map<String, Integer> alarmlist = new HashMap<>();
 		alarmlist.put("gNo", alarmVo.getgNo().intValue());
 		if(alarmVo.isType()== false){//채팅 알람 여부 확인
-			alarmlist.put("chat",1);
+			alarmlist.put("chatting",1);
 			
 		}else if(alarmVo.isType()== true) {
 			alarmlist.put("basic",1);
 		}
-//		alarmChak.setReadCheck(alarmVo.isReadCheck());
-//		alarmChak.setType(alarmVo.isType());
-		
-		System.out.println(alarmChak);
 		
 		for(int j = 0; j < list.size(); j++){
 			webSocket.convertAndSend("/api/alarm/" + array[j], alarmlist);

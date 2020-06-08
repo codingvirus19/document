@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import styles from "./Alarm.css";
+import ShowAddGroup from "./ShowAddGroup";
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
@@ -29,11 +30,15 @@ export default class Alarm extends React.Component {
     }
 
     render() {
-        console.log(this.state.alarmDatas)
         return (
             <div className={styles.alarm}>
                 <h5 className={styles.alarmHeader}>알람목록</h5>
                 <ul className={styles.alarmList}>
+
+                    {(this.props.addgroup_alarmroup == undefined ||
+                        this.props.addgroup_alarmroup == null) ? null
+                        : <ShowAddGroup addgroup_alarmroup={this.props.addgroup_alarmroup} />
+                    }
                     {this.state.alarmDatas.map((content, index) => {
                         return (
                             <div key={index} className={styles.alarmLine}>

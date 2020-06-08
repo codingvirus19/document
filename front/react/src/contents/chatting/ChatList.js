@@ -34,7 +34,7 @@ export default class Contents extends React.Component {
 
     groupByalarm(gNo) {
         if (this.props.alarm.g_no == gNo) {
-            if (this.props.alarm.chat == true) {
+            if (this.props.alarm.chatting == true) {
                 return (<span className={alarm_styles.alarmbell} />);
             }
         }
