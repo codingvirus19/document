@@ -81,6 +81,7 @@ export default class Header extends React.Component {
   }
 
   render() {
+    console.log(this.props.alarm);
     console.log(this.state.getProfileValue)
     return (
       <div className={styles.header}>
@@ -88,7 +89,6 @@ export default class Header extends React.Component {
         <div className={styles.logo}>
           <Logo />
         </div>
-
           <Serach
             groupBySidebar={this.props.groupBySidebar}
             SidebarGroupUpdate={this.props.SidebarGroupUpdate}
@@ -132,6 +132,7 @@ export default class Header extends React.Component {
                     inner_header="프로필정보"
                     contents={"profile"}
                     closePopup={this.toggleShowProfile.bind(this)}
+                    clientRef={this.props.clientRef}
                   />
                 ) : null}
               </Dropdown>
@@ -145,7 +146,7 @@ export default class Header extends React.Component {
 
             <div>
               <button onClick={this.chattingClick.bind(this)}>
-              {(this.props.alarm.chat) ? <span className={styles.alarmbell}/> : null } 
+              {(this.props.alarm.chatting) ? <span className={styles.alarmbell}/> : null } 
                 <FontAwesomeIcon className={styles.faSms} icon={faSms} />
               </button>
             </div>

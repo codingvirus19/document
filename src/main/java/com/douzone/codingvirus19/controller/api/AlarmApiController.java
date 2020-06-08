@@ -29,10 +29,9 @@ public class AlarmApiController {
 		List<AlarmVo> alarmReadCheck = alarmService.getAlarmReadList(vo);
 		Map<String, Boolean> alarmlist = new HashMap<>();
 		alarmlist.put("basic",false);
-		alarmlist.put("chat",false);
+		alarmlist.put("chatting",false);
 		//기본값 셋팅
 		if(alarmReadCheck.size() == 0) {
-			System.out.println(alarmlist);
 			return JsonResult.success(alarmlist);
 		}
 		for(int i=0; i<alarmReadCheck.size(); i++) {
@@ -40,11 +39,10 @@ public class AlarmApiController {
 				alarmlist.put("basic",alarmReadCheck.get(i).isReadCheck());
 				//기본 알람
 			}else {
-				alarmlist.put("chat",alarmReadCheck.get(i).isReadCheck());
+				alarmlist.put("chatting",alarmReadCheck.get(i).isReadCheck());
 				//채팅알람	
 			}
 		}
-		System.out.println(alarmlist);
 		return JsonResult.success(alarmlist);
 	}
 	
