@@ -123,7 +123,7 @@ export default class GroupAddOrInvite extends React.Component {
         if(this.state.selectGroupNo == null){
             this.groupfocus.current.focus(true);
         }
-        else {
+        else if(event != null) {
             this.setState({
                 selectUsers: event.map((event) => {
                     return {

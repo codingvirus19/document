@@ -54,12 +54,13 @@ export default class Popup2 extends React.Component {
   callBackGroupAdd() {
     console.log(this.state.groupNo, this.state.groupName, this.state.userList.no);
 
-    if (this.state.groupNo != null && this.state.groupNo != undefined) {
+    if (this.state.userList != undefined && this.state.userList.no[0] != '') {
       this.state.userList.no.map((element, index) => {
         // console.log(this.state.userList.no[index])
 
         this.props.clientRef.sendMessage("/app/alarm/" + this.state.userList.no[index],
           JSON.stringify({
+            gNo: this.state.groupNo,
             chat: this.state.groupName + " 그룹에 초대되었습니다.",
             date: new Date(),
             type: true,
@@ -80,12 +81,10 @@ export default class Popup2 extends React.Component {
   UserAddOrInviteCallBack(userList) {
     this.state.userList.nickname = [];
     this.state.userList.no = [];
-    if (userList != undefined && userList[0].no != '') {
-      userList.map((index) => {
-        this.state.userList.nickname.push(index.nickname)
-        this.state.userList.no.push(index.no)
-      })
-    }
+    userList.map((index) => {
+      this.state.userList.nickname.push(index.nickname)
+      this.state.userList.no.push(index.no)
+    })
   }
 
   render() {

@@ -49,4 +49,8 @@ public class AlarmRepository {
 		sqlSession.update("alarm.chatReadCheckUpdate", alarmVo);
 	}
 
+	public void alarmGroupJoin(GroupUserVo groupuserVo) {
+		sqlSession.insert("groupuser.alarmGroupJoin", groupuserVo);
+	}
+
 }
