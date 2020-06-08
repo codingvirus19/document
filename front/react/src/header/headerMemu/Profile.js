@@ -41,6 +41,7 @@ export default class Profile extends React.Component {
   }
 
   render() {
+    console.log(this.props.getProfileValue)
     return (
       <>
         {this.props.callBackFromProfile(

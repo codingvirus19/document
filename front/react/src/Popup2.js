@@ -9,6 +9,16 @@ const API_HEADERS = {
 };
 
 export default class Popup2 extends React.Component {
+  constructor() {
+    super(...arguments)
+    this.state = {
+      groupNo: '',
+      groupName: '',
+      userList: { nickname: [], no: [] }
+    }
+  }
+
+
   callBackFromProfile(_id, _email, _password, _nickname, _image) {
     if (
       _id != null &&
@@ -24,11 +34,16 @@ export default class Popup2 extends React.Component {
         nickname: _nickname,
         image: _image,
       };
-      this.ajaxModifyProfile(modifyProfile);
+      this.getModifiedValue(modifyProfile)
     }
   }
 
+  getModifiedValue(modifyProfile) {
+    this.ajaxModifyProfile(modifyProfile);
+  }
+
   ajaxModifyProfile(_modifyProfile) {
+    console.log(_modifyProfile)
     fetch(`${API_URL}/api/profile/modify`, {
       method: "post",
       headers: API_HEADERS,
@@ -36,17 +51,47 @@ export default class Popup2 extends React.Component {
     }).catch((err) => console.error(err));
   }
 
-  callBackGroupAdd(){
+  callBackGroupAdd() {
+    console.log(this.state.groupNo, this.state.groupName, this.state.userList.no);
 
+    if (this.state.groupNo != null && this.state.groupNo != undefined) {
+      this.state.userList.no.map((element, index) => {
+        // console.log(this.state.userList.no[index])
+
+        this.props.clientRef.sendMessage("/app/alarm/" + this.state.userList.no[index],
+          JSON.stringify({
+            chat: this.state.groupName + " 그룹에 초대되었습니다.",
+            date: new Date(),
+            type: true,
+            readCheck: true,
+            addgroup: true
+          }))
+      })
+      this.props.closePopup()
+    }
   }
 
-  GroupAddOrInviteCallBack(groupNo, groupName, userList){
-    if(groupNo != null)this.groupNo = groupNo;
-    if(groupName != null)this.groupName = groupName;
-    if(userList != null)this.userList = userList;
+  GroupAddOrInviteCallBack(groupNo, groupName) {
+    this.setState({
+      groupNo: groupNo,
+      groupName: groupName
+    })
+  }
+  UserAddOrInviteCallBack(userList) {
+    this.state.userList.nickname = [];
+    this.state.userList.no = [];
+    if (userList != undefined && userList[0].no != '') {
+      userList.map((index) => {
+        this.state.userList.nickname.push(index.nickname)
+        this.state.userList.no.push(index.no)
+      })
+    }
   }
 
   render() {
+    // console.log(this.state.groupNo, this.state.groupName, this.state.userList);
+    // console.log(this.props.getProfileValue)
+
     let contents;
     let popup2_confirm_btn = "확인";
 
@@ -62,10 +107,10 @@ export default class Popup2 extends React.Component {
     if (this.props.contents === "groupAddOrInvite") {
       contents = (
         <GroupAddOrInvite
-          clientRef={this.props.clientRef}
           UpdateGroup={this.props.UpdateGroup}
           group={this.props.group}
-          GroupAddOrInviteCallBack={this.GroupAddOrInviteCallBack}
+          GroupAddOrInviteCallBack={this.GroupAddOrInviteCallBack.bind(this)}
+          UserAddOrInviteCallBack={this.UserAddOrInviteCallBack.bind(this)}
         />
       );
     }
@@ -82,8 +127,8 @@ export default class Popup2 extends React.Component {
           <div className={popupStyles.btns}>
             <button
               onClick={
-                (this.props.contents === "profile") ? this.callBackFromProfile.bind(this) && this.props.closePopup
-                : this.callBackGroupAdd.bind(this) && this.props.closePopup}
+                (this.props.contents === "profile") ? this.getModifiedValue.bind(this) && this.props.closePopup
+                  : this.callBackGroupAdd.bind(this)}
               className={popupStyles.confirm_btn}>
               {popup2_confirm_btn}
             </button>
