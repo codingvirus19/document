@@ -12,21 +12,46 @@ export default class GroupShare extends React.Component {
       addNullToGroup: null, // groupShare에 사용
       clickGroupShareButton: false,
     };
-    if(this.props.className != null){
-      this.className = this.props.className; 
-    }else{
+    if (this.props.className != null) {
+      this.className = this.props.className;
+    } else {
       this.className = styles.tool
     }
-    if(this.props.buttonName != null){
-      this.buttonName = this.props.buttonName; 
-    }else{
+    if (this.props.buttonName != null) {
+      this.buttonName = this.props.buttonName;
+    } else {
       this.buttonName = styles.faShareSquare;
     }
     this.toggleContainer = React.createRef();
+    this.onClickOutsideHandler = this.onClickOutsideHandler.bind(this);
     this.toggleGroupShareSheet = this.toggleGroupShareSheet.bind(this);
   }
 
+  componentDidMount() {
+    window.addEventListener("click", this.onClickOutsideHandler);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("click", this.onClickOutsideHandler);
+  }
+
+  onClickOutsideHandler(event) {
+    // console.log("onClickOutsideHandler")
+    // console.log(!this.toggleContainer.current.contains(event.target)) //이게 true 되는게 문제
+    if (this.state.clickGroupShareButton) {
+      this.setState({
+        clickGroupShareButton: !this.state.clickGroupShareButton,
+      });
+    } else if (
+      this.state.showGroupShareSheet &&
+      !this.toggleContainer.current.contains(event.target)
+    ) {
+      this.setState({ showGroupShareSheet: false });
+    }
+  }
+
   handleClose() {
+    console.log("handleClose")
     this.setState({ showGroupShareSheet: false });
   }
 
@@ -78,12 +103,10 @@ export default class GroupShare extends React.Component {
         </button>
 
         {this.state.showGroupShareSheet ? (
-          //  {true ? (
-          <div className={styles.popover}>
-            <div
-              className={styles.cover}
-              onClick={this.handleClose.bind(this)}
-            />
+          // <div className={styles.popover}>
+          //   <div className={styles.cover}
+          //   // onClick={this.handleClose.bind(this)}
+          //   />
             <GroupShareSheet
               // gName,gNo : 임의의 작동을 한 그룹의 no와 name으로 콜백이동하기위한 props
               gName={this.props.gName}
@@ -104,7 +127,7 @@ export default class GroupShare extends React.Component {
               clientRef={this.props.clientRef}
               users={this.props.users}
             />
-          </div>
+          // </div>
         ) : null}
       </Fragment>
     );

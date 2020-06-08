@@ -81,15 +81,12 @@ export default class Header extends React.Component {
   }
 
   render() {
-    console.log(this.props.alarm);
-    console.log(this.state.getProfileValue)
     return (
       <div className={styles.header}>
         <div className={styles.wrapper}>
           <div className={styles.logo}>
             <Logo />
           </div>
-
 
           <Serach
             groupBySidebar={this.props.groupBySidebar}

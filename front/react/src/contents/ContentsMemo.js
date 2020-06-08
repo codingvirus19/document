@@ -44,8 +44,10 @@ export default class Contents extends React.Component {
   render() {
     if (this.props.memo_bigArr.length === 0) {
       return (
+        <div className={styles.memo} >
         <div className={styles.memo_null}>
           메모가 존재하지 않습니다.
+        </div>
         </div>
       )
     }

@@ -168,8 +168,6 @@ export default class Container extends React.Component {
             //일치하는 첫 번째 인덱스를 반환. 일치하는 값이 없으면 -1을 반환
             (element) => element.content.indexOf(this.state.keyword) != -1
           );
-          // 검색창에 keyword입력 후 다시 ""로 설정되도록 하는 코드.
-          this.onCallbackKeywordChange("");
           this.UpdateMemo(filteredMemo_bigArr);
         }
       })
@@ -232,6 +230,8 @@ export default class Container extends React.Component {
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
   // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo , changeColor 클릭 시....
   SidebarGroupUpdate(no, name) {
+          //     // 검색창에 keyword입력 후 다시 ""로 설정되도록 하는 코드.
+          // this.onCallbackKeywordChange("");
     this.bringMemoByGroup(no);
     this.getHashListByGroup(no);
     this.setState({
@@ -430,8 +430,9 @@ export default class Container extends React.Component {
           <Sidebar
             hash={this.state.distinctGroup_hash}
             group={this.state.group}
-            group_update={this.SidebarGroupUpdate.bind(this)}
+            SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
             SidebarHashUpdate={this.SidebarHashUpdate.bind(this)}
+            onCallbackKeywordChange={this.onCallbackKeywordChange.bind(this)}
           />
           <Contents
             memo_noSelectedByHash={this.state.memo_noSelectedByHash}
