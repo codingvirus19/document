@@ -31,7 +31,7 @@ export default class Contents extends React.Component {
               clientRef={this.props.clientRef}
               users={this.props.users}
               group_hash={this.props.group_hash}
-              IsHashUpdate={this.props.IsHashUpdate}
+              distinctGroup_hash={this.props.distinctGroup_hash}
             />
               :null}
           </div>

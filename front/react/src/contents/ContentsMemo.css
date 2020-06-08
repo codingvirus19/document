@@ -1,3 +1,7 @@
+.memo_null {
+  margin: auto;
+}
+
 .memo {
   height: 89%;
   width: 100%;
@@ -17,9 +21,11 @@
   border: thin solid gray;
   box-shadow: gray 1px 1px 1px 1px;
 }
+
 .container_memo_form:hover {
   box-shadow: gray 2px 2px 2px 3px;
 }
+
 .drag {
   background-color: yellow;
   opacity: 0.1;

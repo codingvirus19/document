@@ -45,11 +45,21 @@
 		]]>
 	</insert>
 	
-	<delete id="deleteHash" parameterType="long">
+	<delete id="deleteHash" parameterType="hashvo">
 		<![CDATA[
 			delete 
 			  from hash 
-			 where no=#{no};
+			 where no = #{no};
+		]]>
+	</delete>
+		<delete id="deleteHash2" parameterType="hashvo">
+		<![CDATA[
+			delete
+			  from hash
+			 where name = #{name}
+			   and m_no = #{mNo}
+			   and ( ( #{gNo} is null and g_no is null)
+					 or ( #{gNo} is not null and g_no=#{gNo}) );
 		]]>
 	</delete>
 
