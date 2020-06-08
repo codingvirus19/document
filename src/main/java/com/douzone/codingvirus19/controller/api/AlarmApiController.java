@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,7 @@ import com.douzone.codingvirus19.security.AuthUser;
 import com.douzone.codingvirus19.security.SecurityUser;
 import com.douzone.codingvirus19.service.AlarmService;
 import com.douzone.codingvirus19.vo.AlarmVo;
+import com.douzone.codingvirus19.vo.GroupUserVo;
 
 @RestController
 @RequestMapping("/api")
@@ -53,5 +55,13 @@ public class AlarmApiController {
 		
 		List<AlarmVo> alarmList = alarmService.getAlarmContents(vo);
 		return JsonResult.success(alarmList);
+	}
+	
+	@PostMapping("/alarmGroupJoin")
+	public JsonResult AlarmGroupJoin(@RequestBody GroupUserVo groupuserVo, @AuthUser SecurityUser securityUser) {
+		System.out.println(groupuserVo);
+		groupuserVo.setuNo(securityUser.getNo());
+		alarmService.alarmGroupJoin(groupuserVo);
+		return null;
 	}
 }

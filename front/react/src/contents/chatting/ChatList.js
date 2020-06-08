@@ -31,7 +31,6 @@ export default class Contents extends React.Component {
     });
   }
 
-
     groupByalarm(gNo) {
         if (this.props.alarm.g_no == gNo) {
             if (this.props.alarm.chatting == true) {
@@ -39,9 +38,7 @@ export default class Contents extends React.Component {
             }
         }
         return (null);
-        
     }
-  
 
   render() {
     console.log("---->" + this.props.group.no[0]);
@@ -64,8 +61,7 @@ export default class Contents extends React.Component {
                     className={styles.chatList}
                     id={index}
                     key={index}
-                    onClick={this.open.bind(this)}
-                  >
+                    onClick={this.open.bind(this)} >
                     채팅그룹 : {gname}
                     {this.groupByalarm.call(this, this.props.group.no[index])}
                   </div>
