@@ -18,7 +18,6 @@ export default class Container extends React.Component {
       group_hash: [{ no: "", name: "", memo_no: "" }],
       distinctGroup_hash: [""],
       SelectedHash: null,
-      IsHashUpdate: false,
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
       showChat: false,
@@ -42,7 +41,6 @@ export default class Container extends React.Component {
   componentDidMount() {
 
     this.bringMemoByGroup(this.state.groupBySidebar.no);
-
     // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
     let group = { no: [], gname: [] };
     let groupDatas = null;
@@ -54,7 +52,6 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         groupDatas = json.data;
-        console.log(groupDatas)
         // group의 데이터값으로 sidebar를 불러오는 함수
         groupDatas.map((json) => {
           group.no.push(json.no);
@@ -100,8 +97,8 @@ export default class Container extends React.Component {
     // 알람 가져올 때, type이 true이면 기본 알람, false이면 채팅 알람 구별
     // db에서 받을때는 true = 1, false = 0
     // 읽지 않은건 false = 0, 읽은 건 true = 1
-    // Sidebar의 HashtagList를 가져오는 코드
 
+    // Sidebar의 HashtagList를 가져오는 코드
     this.getHashListByGroup(this.state.groupBySidebar.no);
   }
 
@@ -236,6 +233,7 @@ export default class Container extends React.Component {
   // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo , changeColor 클릭 시....
   SidebarGroupUpdate(no, name) {
     this.bringMemoByGroup(no);
+    this.getHashListByGroup(no);
     this.setState({
       groupBySidebar: {
         no: no,
@@ -244,19 +242,18 @@ export default class Container extends React.Component {
     });
   }
 
-  SearchHash(g_no, hash) {
+  //해시 검색 (ex) #~~~)
+  SearchHash(g_no, keyword) {
+    // 앞에 #을 자름
+    let hash = keyword.slice(1);
+    //# 자른 키워드 다시 설정
+    this.onCallbackKeywordChange(hash)
     this.bringMemoByHash(g_no, hash)
   }
 
   //sidebar에서 선택된 해시
   SidebarHashUpdate(g_no, hash) {
     this.bringMemoByHash(g_no, hash)
-  }
-
-  IsHashUpdate() {
-    this.setState({
-      IsHashUpdate: true,
-    });
   }
 
   chattingPopup(showChatClick) {
@@ -362,20 +359,12 @@ export default class Container extends React.Component {
       // })
     }
   }
+  
+  //쓰는사람 없으면 지우기
   getSnapshotBeforeUpdate(element) {
     return element;
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return JSON.stringify(nextState) != JSON.stringify(this.state);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    this.getHashListByGroup(this.state.groupBySidebar.no);
-    this.setState({
-      IsHashUpdate: false,
-    });
-  }
 
   render() {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
@@ -413,6 +402,7 @@ export default class Container extends React.Component {
           alarm={this.state.alarm}
           clientRef={this.clientRef}
           users={this.Users}
+          hash={this.state.distinctGroup_hash}
         />
         <div className={styles.body}>
           <Sidebar
@@ -436,8 +426,10 @@ export default class Container extends React.Component {
             alarm={this.state.alarm}
             clientRef={this.clientRef}
             addgroup_alarm={this.state.addgroup_alarm}
+            //중복 제거 안한 해시(memo_no 가지고 있음)            
             group_hash={this.state.group_hash}
-            IsHashUpdate={this.IsHashUpdate.bind(this)}
+            //중복 제거한 해시
+            distinctGroup_hash={this.state.distinctGroup_hash}
           //변경된 결과 값 state :true false
           />
         </div>

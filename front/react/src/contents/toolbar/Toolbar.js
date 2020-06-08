@@ -67,8 +67,7 @@ export default class Toolbar extends React.PureComponent {
           memo_no={this.props.no}
           memo_gNo={this.state.memo_gNo}
           memo_hash={this.props.memo_hash}
-          group_hash={this.props.group_hash}
-          IsHashUpdate={this.props.IsHashUpdate}
+          distinctGroup_hash={this.props.distinctGroup_hash}
           groupBySidebar={this.props.groupBySidebar}
           SidebarGroupUpdate={this.props.SidebarGroupUpdate}
         />

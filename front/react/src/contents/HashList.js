@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
-import styles from "./HashList.css"
+import "./HashList.scss"
 
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
@@ -14,15 +14,6 @@ export default class HashList extends React.Component {
     this.state = {
       hash: [{ no: "", name: "", memo_no: "" }],
     }
-  }
-
-  onmouseEnter(e) {
-    if (e.target.childNodes[1] == undefined) return;
-    e.target.childNodes[1].className = `${styles.delete_btn_hover}`;
-  }
-  onmouseLeave(e) {
-    if (e.target.childNodes[1] == undefined) return;
-    e.target.childNodes[1].className = `${styles.delete_btn}`;
   }
 
   UpdateHash(hash) {
@@ -40,7 +31,7 @@ export default class HashList extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        this.props.IsHashUpdate();
+        this.props.SidebarGroupUpdate(this.props.groupBySidebar.no, this.props.groupBySidebar.name);
       })
       .catch((err) => console.error(err));
   }
@@ -50,16 +41,14 @@ export default class HashList extends React.Component {
       return null;
     }
     return (
-      <div className={styles.hashlist}>
+      <div className="hashlist">
         {/* 메모1의 해시 */}
         {this.props.memo_hash.map(({ no, name }) => (
-          <div className={styles.hash} key={no}
-            onMouseEnter={this.onmouseEnter}
-            onMouseLeave={this.onmouseLeave}>
-            <div className={styles.hash_name}>
+          <div className="hash" key={no}>
+            <div className="hash_name">
               #{name}
             </div>
-            <div className={styles.delete_btn}>
+            <div className="delete_btn">
               <button onClick={this.deleteHash.bind(this, no)}>
                 <FontAwesomeIcon icon={faTimesCircle} />
               </button>
