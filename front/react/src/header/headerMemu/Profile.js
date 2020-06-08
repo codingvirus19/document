@@ -51,7 +51,7 @@ export default class Profile extends React.Component {
           this.state.nickname,
           this.state.image
         )}
-        <p>아이디:</p>
+        <p>아이디</p>
         <input
           className={popupStyles.input}
           type="text"
@@ -62,7 +62,7 @@ export default class Profile extends React.Component {
           name="id"
           id="id"
         ></input>
-        <p>이메일:</p>
+        <p>이메일</p>
         <input
           className={popupStyles.input}
           type="email"
@@ -73,7 +73,7 @@ export default class Profile extends React.Component {
           name="email"
           id="email"
         ></input>
-        <p>비밀번호:</p>
+        <p>비밀번호</p>
         <input
           className={popupStyles.input}
           type="password"
@@ -83,7 +83,7 @@ export default class Profile extends React.Component {
           name="password1"
           id="password1"
         ></input>
-        <p>닉네임:</p>
+        <p>닉네임</p>
         <input
           className={popupStyles.input}
           type="text"
@@ -93,7 +93,7 @@ export default class Profile extends React.Component {
           name="nickname"
           id="nickname"
         ></input>
-        <p>이미지:</p>
+        <p>이미지</p>
         <input
           className={popupStyles.input}
           type="text"

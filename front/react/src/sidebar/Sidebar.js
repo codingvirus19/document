@@ -27,7 +27,8 @@ export default class Sidebar extends React.Component {
       g_no: g_no,
       g_name: g_name
     })
-    this.props.group_update(g_no, g_name);
+    this.props.onCallbackKeywordChange("");
+    this.props.SidebarGroupUpdate(g_no, g_name);
   }
 
   render() {
