@@ -62,6 +62,7 @@ export default class Popup2 extends React.Component {
           JSON.stringify({
             gNo: this.state.groupNo,
             chat: this.state.groupName + " 그룹에 초대되었습니다.",
+            groupName : this.state.groupName,
             date: new Date(),
             type: true,
             readCheck: true,
