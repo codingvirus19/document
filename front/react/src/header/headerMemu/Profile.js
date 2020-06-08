@@ -1,6 +1,8 @@
 import React from "react";
 
 import popupStyles from "../../Popup2.css";
+import FileUpload from "../../contents/FileUpLoad.js"
+import styles from "../../contents/FileUpLoad.css"
 
 export default class Profile extends React.Component {
   constructor() {
@@ -35,9 +37,10 @@ export default class Profile extends React.Component {
     });
   }
   onChangeImage(e) {
-    this.setState({
-      image: e.target.value,
-    });
+    
+    // this.setState({
+    //   image: e.target.value,
+    // });
   }
 
   render() {
@@ -94,15 +97,19 @@ export default class Profile extends React.Component {
           id="nickname"
         ></input>
         <p>이미지:</p>
-        <input
-          className={popupStyles.input}
-          type="text"
-          placeholder="이미지"
-          value={this.state.image}
-          onChange={this.onChangeImage.bind(this)}
-          name="image"
-          id="image"
-        ></input>
+        <FileUpload className={popupStyles.input} Value={this.state.image} /*File={e => this.FileUpload(e)} image={this.state.image} save={this.ImageSave.bind(this)}*/ />  
+
+         {/* <input
+                className={popupStyles.input}
+                type="text"
+                placeholder="이미지"
+                // onClick={() => PopupChange(true)}
+                value={this.state.image}
+                // onChange={this.onChangeImage.bind(this)}
+                // onClick={this.onChangeImage.bind(this)}
+                name="image"
+                id="image"
+            ></input> */}
       </>
     );
   }

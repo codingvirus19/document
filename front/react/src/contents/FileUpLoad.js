@@ -4,6 +4,7 @@ import Popup from './FilePopup';
 import styles from './FileUpLoad.css'
 
 const FileUpload = (props) => {
+    console.log(props)
     const [className, setClassName] = useState(props.className);
     const [value, setValue] = useState(props.Value);
     const [popupChange, setPopupChange] = useState(false);
@@ -26,6 +27,7 @@ const FileUpload = (props) => {
     return (
         <Fragment>
             <button className={className} onClick={() => PopupChange(true)}>{value}</button>
+            
             <Popup open={popupChange} close={() => PopxupChange()} >
                 <div className={styles.upload}>
                     <button className={styles.upload_btn} onClick={FileUploadBtn}>이미지추가</button>

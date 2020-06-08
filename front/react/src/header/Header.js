@@ -50,6 +50,7 @@ export default class Header extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         let _getProfileValue = json.data;
+        
         console.log(_getProfileValue)
         this.setState({
           getProfileValue: _getProfileValue,
@@ -81,7 +82,6 @@ export default class Header extends React.Component {
   }
 
   render() {
-    console.log(this.state.getProfileValue)
     return (
       <div className={styles.header}>
         <div className={styles.wrapper}>
