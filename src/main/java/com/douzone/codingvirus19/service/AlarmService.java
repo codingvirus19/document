@@ -47,5 +47,9 @@ public class AlarmService {
 	public void chatReadCheckUpdate(AlarmVo alarmVo) {
 		alarmRepository.chatReadCheckUpdate(alarmVo);
 	}
+
+	public void alarmGroupJoin(GroupUserVo groupuserVo) {
+		alarmRepository.alarmGroupJoin(groupuserVo);
+	}
 	
 }

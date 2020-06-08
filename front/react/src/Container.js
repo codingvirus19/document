@@ -24,7 +24,7 @@ export default class Container extends React.Component {
       showAlarm: false,
       clientRef: "",
       alarm: { basic: "", chatting: "" },
-      addgroup_alarm: {message:"", date:""},
+      addgroup_alarm: {message:"", date:"", group_no:""},
       keyword: "",
     };
     this.drag = null;
@@ -307,9 +307,10 @@ export default class Container extends React.Component {
     if(alarm_msg.addgroup == true && alarm_msg.type == true && alarm_msg.readCheck == true){ //그룹초대  
       console.log("그룹추가에 온거 맞지?");
       this.setState({
-        addgroup_alarmroup:{
+        addgroup_alarm:{
           message: alarm_msg.chat,
-          date: alarm_msg.date
+          date: alarm_msg.date,
+          group_no: alarm_msg.gNo
         },
         alarm: {
           basic: true,
@@ -420,7 +421,7 @@ export default class Container extends React.Component {
             showAlarm={this.state.showAlarm}
             alarm={this.state.alarm}
             clientRef={this.clientRef}
-            addgroup_alarmroup={this.state.addgroup_alarmroup}
+            addgroup_alarm={this.state.addgroup_alarm}
             //중복 제거 안한 해시(memo_no 가지고 있음)            
             group_hash={this.state.group_hash}
             //중복 제거한 해시
