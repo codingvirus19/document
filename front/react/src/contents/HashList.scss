@@ -3,32 +3,31 @@
 }
 
 .hash {
-  margin: auto 4px;
-  max-width: 150px;
+  margin: 0.1rem;
+  max-width: 10rem;
+  min-width: 3rem;
   display: inline-block;
   padding: 3px 5px;
   border: 1px solid rgba(170, 155, 155, 0.452);
   background-color: rgb(226, 226, 226);
   border-radius: 8px;
-}
 
-.hash_name {
-  padding: 0rem;
-  width: 80%;
+  .hash_name {
+    padding-right: 0.2rem;
+    max-width: 90%;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  &:hover 
+  .delete_btn {
   display: inline-block;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  }
 }
 
 .delete_btn {
+  height:100%;
   padding: 0rem;
-  width: 10%;
   display: none;
-}
-
-.delete_btn_hover {
-  padding: 0rem;
-  width: 10%;
-  display: inline;
 }

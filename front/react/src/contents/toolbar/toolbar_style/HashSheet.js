@@ -8,79 +8,65 @@ const API_HEADERS = {
 };
 
 export default class HashSheet extends React.Component {
-  constructor() {
-    super(...arguments);
-    this.state = {
-      memo_hash: null,
-      group_hash: null,
-    };
-  }
 
-  componentDidMount() {
-    this.UpdateGroupHashForSelect();
-    this.UpdateMemoHashForSelect();
-  }
-
-  addHash(event) {
-    if (event != null) {
+  handleOnChange(event) {
+    //event가 null일 경우 event.length 처리를 위해 []으로 세팅
+    if (event === null) {
+      event = [];
+    }
+    // 기존 메모해시가 새 메모해시보다 길면 = 메모해시가 삭제되면 
+    if (this.props.memo_hash.length > event.length) {
+      let deleteHash = this.props.memo_hash.filter(x => !event.some(y => x.value === y.value));
+      this.deleteHash(deleteHash);
+    }
+    // 아니면 해시 추가 됨
+    else {
       let lastetEvent = event[event.length - 1];
-      // console.log(lastetEvent)
-      let data = {
-        gNo: this.props.memo_gNo,
-        mNo: this.props.memo_no,
-        name: lastetEvent.label,
-      };
-      let hash = { value: "", label: "" };
-      fetch(`${API_URL}/api/addHash`, {
-        method: "post",
-        headers: API_HEADERS,
-        body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          this.state.memo_hash.push(hash);
-          this.props.IsHashUpdate();
-          this.props.SidebarGroupUpdate(this.props.groupBySidebar.no, this.props.groupBySidebar.name)
-        })
-        .catch((err) => console.error(err));
+      this.addHash(lastetEvent);
     }
   }
 
-  UpdateMemoHashForSelect() {
-    this.setState({
-      memo_hash: this.props.memo_hash.map((element) => {
-        return {
-          value: element.no,
-          label: element.name,
-          memo_no: element.memo_no,
-        };
+  addHash(event) {
+    let data = {
+      gNo: this.props.memo_gNo,
+      mNo: this.props.memo_no,
+      name: event.label,
+    };
+    let hash = { value: "", label: "" };
+    fetch(`${API_URL}/api/addHash`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        this.props.memo_hash.push(hash);
+        this.props.SidebarGroupUpdate(this.props.groupBySidebar.no, this.props.groupBySidebar.name)
       })
-    });
+      .catch((err) => console.error(err));
   }
 
-  UpdateGroupHashForSelect() {
-    this.setState({
-      group_hash: this.props.group_hash.map((element) => {
-        return {
-          value: element.no,
-          label: element.name,
-          memo_no: element.memo_no,
-        };
+  deleteHash(hash) {
+    hash = hash[0];
+    let data = {
+      gNo: this.props.memo_gNo,
+      mNo: this.props.memo_no,
+      name: hash.value
+    }
+    fetch(`${API_URL}/api/deleteHash`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(data)
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        this.props.SidebarGroupUpdate(this.props.groupBySidebar.no, this.props.groupBySidebar.name);
       })
-    });
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return (JSON.stringify(nextState) != JSON.stringify(this.state));
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    this.UpdateGroupHashForSelect();
-    this.UpdateMemoHashForSelect();
+      .catch((err) => console.error(err));
   }
 
   render() {
-    if (!this.state.memo_hash) {
+    if (!this.props.memo_hash) {
       return null;
     }
     return (
@@ -89,36 +75,20 @@ export default class HashSheet extends React.Component {
           <div className={styles.title}>해시 추가</div>
           <div onClick={(e) => e.stopPropagation()} className={styles.contents}>
             <CreatableSelect
-              defaultValue={this.state.memo_hash}
+              defaultValue={this.props.memo_hash}
               autoFocus={true}
               isMulti
               className={styles.searchHash}
               defaultMenuIsOpen={true}
               closeMenuOnSelect={false}
               menuIsOpen={true}
-              onChange={this.addHash.bind(this)}
-              maxMenuHeight={120}
-              options={this.state.group_hash}
+              onChange={this.handleOnChange.bind(this)}
+              maxMenuHeight={200}
+              options={this.props.distinctGroup_hash}
               placeholder="해시선택 및 생성할 해시 입력"
             />
           </div>
         </div>
-
-        {/* <div className={styles.btns}>
-          <button
-            // onClick={this.share.bind(this)}
-            type="submit"
-            className={styles.confirm_btn}
-          >
-            추가
-          </button>
-          <button
-            className={styles.cancel_btn}
-            onClick={this.props.closeGroupShareSheet}
-          >
-            취소
-          </button>
-        </div> */}
       </div>
     );
   }

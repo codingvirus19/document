@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.douzone.codingvirus19.repository.HashRepository;
 import com.douzone.codingvirus19.repository.MemoRepository;
+import com.douzone.codingvirus19.vo.HashVo;
 import com.douzone.codingvirus19.vo.MemoVo;
 
 @Service
@@ -29,8 +30,8 @@ public class MemoService {
 		return asyncTestCount == 1;
 	}
 
-	public boolean deleteHash(Long no) {
-		return 1 == hashRepository.deleteHash(no);
+	public boolean deleteHash(HashVo vo) {
+		return 1 == hashRepository.deleteHash(vo);
 	}
 	public boolean memoPosition(Map<String, Object> dragdrop) {
 		return memoRepository.memoPosition(dragdrop);

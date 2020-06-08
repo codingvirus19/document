@@ -86,9 +86,11 @@ export default class Header extends React.Component {
     return (
       <div className={styles.header}>
         <div className={styles.wrapper}>
-        <div className={styles.logo}>
-          <Logo />
-        </div>
+          <div className={styles.logo}>
+            <Logo />
+          </div>
+
+
           <Serach
             groupBySidebar={this.props.groupBySidebar}
             SidebarGroupUpdate={this.props.SidebarGroupUpdate}
@@ -97,33 +99,36 @@ export default class Header extends React.Component {
             // 검색창에 입력한 keyword
             SearchHash={this.props.SearchHash}
             keyword={this.props.keyword}
+            hash={this.props.hash}
           />
-            <div className={styles.right_header}>
-              <div className={styles.addmemo}>
-                <button onClick={this.togglePopup.bind(this)}>
-                  <FontAwesomeIcon className={styles.faPlus} icon={faPlus} />
-                </button>
-                {this.state.showPopup ? (
-                  <CreateEditor
-                    users={this.props.users}
-                    bringMemoByGroup={this.props.bringMemoByGroup}
-                    groupNoForGroupUser={this.props.groupBySidebar}
-                    closePopup={this.togglePopup.bind(this)}
-                    clientRef={this.props.clientRef}
-                  />
-                ) : null}
-              </div>
+          <div className={styles.right_header}>
+            <div className={styles.addmemo}>
+              <button aria-label="메모 추가"
+                onClick={this.togglePopup.bind(this)}>
+                <FontAwesomeIcon className={styles.faPlus} icon={faPlus} />
+              </button>
+              {this.state.showPopup ? (
+                <CreateEditor
+                  users={this.props.users}
+                  bringMemoByGroup={this.props.bringMemoByGroup}
+                  groupNoForGroupUser={this.props.groupBySidebar}
+                  closePopup={this.togglePopup.bind(this)}
+                  clientRef={this.props.clientRef}
+                />
+              ) : null}
+            </div>
 
-              <Dropdown className={styles.account}>
+              <Dropdown aria-label="계정" className={styles.account}>
                 <Dropdown.Toggle >
                   <FontAwesomeIcon onClick={this.getProfileAjax.bind(this)} className={styles.faUser} icon={faUser} />
                 </Dropdown.Toggle>
                 <Dropdown.Menu className={dropdownstyles.menu}>
                   <Dropdown.Item onClick={this.toggleShowProfile.bind(this)}>
                     개인프로필 수정
+
                 </Dropdown.Item>
-                  <Dropdown.Item onClick={this.setRedirect.bind(this)}>
-                    로그아웃
+                <Dropdown.Item onClick={this.setRedirect.bind(this)}>
+                  로그아웃
                 </Dropdown.Item>
                 </Dropdown.Menu>
                 {this.state.showProfile ? (
@@ -138,14 +143,14 @@ export default class Header extends React.Component {
               </Dropdown>
 
             <Dropdown className={styles.userbell}>
-              <Dropdown.Toggle onClick={this.alarmClick.bind(this)} >
+              <Dropdown.Toggle aria-label="알람" onClick={this.alarmClick.bind(this)} >
                 {(this.props.alarm.basic) ? <span className={styles.alarmbell}/> : null }  
                 <FontAwesomeIcon className={styles.faBell} icon={faBell} />
               </Dropdown.Toggle>
             </Dropdown>
 
             <div>
-              <button onClick={this.chattingClick.bind(this)}>
+              <button aria-label="채팅" onClick={this.chattingClick.bind(this)}>
               {(this.props.alarm.chatting) ? <span className={styles.alarmbell}/> : null } 
                 <FontAwesomeIcon className={styles.faSms} icon={faSms} />
               </button>
