@@ -11,7 +11,8 @@ export default class AlarmAddGroup extends React.Component {
     constructor() {
         super(...arguments)
         this.state = {
-            groupNo: this.props.addgroup_alarm.group_no
+            groupNo: this.props.addGroupAlarm.group_no,
+            addGroupAlarm : this.props.addGroupAlarm
         }
     }
 
@@ -22,16 +23,22 @@ export default class AlarmAddGroup extends React.Component {
             headers: API_HEADERS,
             body: JSON.stringify(data),
         })
+        console.log(this.state.addGroupAlarm.group_no);
+        console.log(this.state.addGroupAlarm.group_name)
+        this.props.SidebarGroupUpdate(this.state.addGroupAlarm.group_no,
+                                      this.state.addGroupAlarm.group_name );
+        this.props.AlarmAddGroup();
+        this.props.joinCancel(null);
     }
-    // joinCancelGroup(){
-    //     null;
-    // }
+    joinCancelGroup(){
+        this.props.joinCancel(null);
+    }
 
     render() {
         return (
             <div className={styles.alarmLine}>
-                <li>{this.props.addgroup_alarm.message}</li>
-                <h5>{this.props.addgroup_alarm.date}</h5>
+                <li>{this.state.addGroupAlarm.message}</li>
+                <h5>{this.state.addGroupAlarm.date}</h5>
                 <button className={popupStyles.confirm_btn}
                     onClick={this.joinGroup.bind(this)} >
                     수락</button>

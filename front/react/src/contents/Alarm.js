@@ -11,7 +11,8 @@ export default class Alarm extends React.Component {
         super(...arguments);
         this.state = {
             users: this.props.users,
-            alarmDatas: []
+            alarmDatas: [],
+            addGroupAlarm: this.props.addgroup_alarm
         }
     }
     componentDidMount() {
@@ -29,20 +30,23 @@ export default class Alarm extends React.Component {
             .catch((err) => console.error(err));
     }
 
-    // joinCancel(cancel){
-        
-    // }
+    joinCancel(cancel) {
+        this.setState({
+            addGroupAlarm: cancel
+        })
+    }
 
     render() {
-        console.log(this.props.addgroup_alarm);
         return (
             <div className={styles.alarm}>
                 <h5 className={styles.alarmHeader}>알람목록</h5>
                 <ul className={styles.alarmList}>
 
-                    {(this.props.addgroup_alarm.message != "" ) ? 
-                    <AlarmAddGroup addgroup_alarm={this.props.addgroup_alarm} /> :
-                     null }
+                    {(this.state.addGroupAlarm != null && this.state.addGroupAlarm.message != "") ?
+                        <AlarmAddGroup addGroupAlarm={this.state.addGroupAlarm}
+                        joinCancel={this.joinCancel.bind(this)} SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+                        AlarmAddGroup={this.props.AlarmAddGroup} /> :
+                        null}
                     {this.state.alarmDatas.map((content, index) => {
                         return (
                             <div key={index} className={styles.alarmLine}>
