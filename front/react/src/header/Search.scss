@@ -16,8 +16,10 @@ $bgcolor: #eeeeee;
     justify-content: center;
 
     //클릭하면 계속 효과주기 @@@미완
-    &:hover{
-    // &:focus {
+    //&:hover {
+    // &:active, 
+    &:hover,
+    &:focus{
       .input {
         transition: background 0.3s ease-in-out;
         background-color: $bgcolorHover !important;
@@ -34,6 +36,7 @@ $bgcolor: #eeeeee;
         display: inline;
       }
     }
+
   }
   // }
   

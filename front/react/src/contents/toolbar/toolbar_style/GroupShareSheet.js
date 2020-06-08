@@ -18,12 +18,12 @@ export default class GroupShareSheet extends React.Component {
       groups: this.props.addNullToGroup,
       clientRef: this.props.clientRef,
       selectedOption: null,
-      // 다 삭제 안되는 오류
     };
   }
 
   // 희망하는 그룹을 선택 시 selectedOption에 해당 그룹의 value가 담긴다.
   handleChange(selectedOption) {
+    // console.log("handleChange")
     this.setState({
       selectedOption: selectedOption,
     });
@@ -31,7 +31,6 @@ export default class GroupShareSheet extends React.Component {
 
   onClickSendShare(e) {
     e.preventDefault();
-
     let send_memoNoAndGNo = {
       // no: 메모의 no로 db에서 content, color를 뽑아온다.
       no: this.props.no,
@@ -51,14 +50,14 @@ export default class GroupShareSheet extends React.Component {
         readCheck: true
         // 알람 넣을 때, type이 true이면 기본 알람, false이면 채팅 알람 구별
         // db에서 받을때는 true = 1, false = 0
-  }))
-});
+      }))
+    });
 
     // call api (GroupShare)
     this.ajaxGroupShare(send_memoNoAndGNo);
 
     // groupShareSheet 닫기
-
+    console.log("a")
     this.props.closeGroupShareSheet();
 
     // toast알림
@@ -106,14 +105,13 @@ export default class GroupShareSheet extends React.Component {
   }
 
   render() {
-    console.log(this.props.group.gname);
     return (
       <div className={styles.groupShareSheet} ref={this.props.refChange}>
         <div className={styles.container}>
           <div className={styles.title}>공유할 그룹</div>
           <div className={styles.contents}>
             <Select
-              ref={(e)=>(e != null)?(e.select.menuListRef.parentNode.style.position="relative"):null}
+              ref={(e) => (e != null) ? (e.select.menuListRef.parentNode.style.position = "relative") : null}
               value={this.state.selectedOption}
               onChange={this.handleChange.bind(this)}
               isMulti
@@ -122,10 +120,10 @@ export default class GroupShareSheet extends React.Component {
               defaultMenuIsOpen={true}
               closeMenuOnSelect={false}
               menuIsOpen={true}
-              maxMenuHeight={100}
+              // maxMenuHeight={200}
               options={this.state.groups}
               placeholder="공유할 그룹 선택"
-              transition={Slide}
+            // transition={Slide}
             />
           </div>
         </div>
@@ -160,4 +158,3 @@ export default class GroupShareSheet extends React.Component {
     );
   }
 }
-//

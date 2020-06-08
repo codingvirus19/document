@@ -75,6 +75,7 @@ export default class HashSheet extends React.Component {
           <div className={styles.title}>해시 추가</div>
           <div onClick={(e) => e.stopPropagation()} className={styles.contents}>
             <CreatableSelect
+            ref={(e) => (e != null) ? (e.select.select.menuListRef.parentNode.style.position = "relative") : null}
               defaultValue={this.props.memo_hash}
               autoFocus={true}
               isMulti
@@ -83,7 +84,7 @@ export default class HashSheet extends React.Component {
               closeMenuOnSelect={false}
               menuIsOpen={true}
               onChange={this.handleOnChange.bind(this)}
-              maxMenuHeight={200}
+              // maxMenuHeight={200}
               options={this.props.distinctGroup_hash}
               placeholder="해시선택 및 생성할 해시 입력"
             />

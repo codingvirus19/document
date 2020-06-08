@@ -28,9 +28,8 @@ export default class Search extends React.Component {
   }
 
   onClickEnter(e) {
-    console.log("a")
     if (e.key == "Enter") {
-      this.onClickCallback();
+      this.onClickCallback(e);
     }
   }
 
@@ -59,12 +58,18 @@ export default class Search extends React.Component {
               name="input-search"
               value={this.props.keyword}
               onChange={this.onInputChange.bind(this)}
+              onKeyPress={this.onClickEnter.bind(this)}
+              onFocus={() => {
+                console.log("!!!!!!!!!!!focus");
+              } }
+              onBlur={() => {
+                console.log("!!!!!!!!!!!blur");
+              } }
               placeholder="검색"
             />
             <button
               className="delete"
-              onClick={this.deleteKeyword.bind(this)}
-              onKeyPress={this.onClickEnter.bind(this)}>
+              onClick={this.deleteKeyword.bind(this)}>
               <i className="fas fa-times"></i>
             </button>
             <button
@@ -72,7 +77,6 @@ export default class Search extends React.Component {
               className="submit"
               value="검색"
               onClick={this.onClickCallback.bind(this)}
-              onKeyPress={this.onClickEnter.bind(this)}
             >
               <i className="fa fa-search"></i>
             </button>
