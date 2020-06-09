@@ -35,6 +35,7 @@
 .account,
 .userbell {
   margin-right: 1.8rem;
+  background: none;
 }
 
 .faPlus,
@@ -44,6 +45,20 @@
   font-size: 2rem;
   color: #3a3b45;
   background-color: none;
+}
+
+.right_header button{
+  background: none;
+  border-radius: 1rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.right_header button:hover{
+  box-shadow: gray 1px 1px 1px 1px;
+  border-radius: 1rem;
+  width: 2rem;
+  height: 2rem;
 }
 
 /* .faPlus:hover,
