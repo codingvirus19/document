@@ -18,7 +18,6 @@ export default class EditorToolbar extends React.Component {
     }
 
     render() {
-        console.log(this.props.no)
         return (
             <Fragment>
                 <div className={styles.position}>
