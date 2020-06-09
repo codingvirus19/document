@@ -1,10 +1,9 @@
 import React, { useState, Fragment } from 'react';
 import ReactDom from 'react-dom';
-import Popup from './FilePopup';
+import Popup from './FilePopup.js';
 import styles from './FileUpLoad.css'
 
 const FileUpload = (props) => {
-    console.log(props)
     const [className, setClassName] = useState(props.className);
     const [value, setValue] = useState(props.Value);
     const [popupChange, setPopupChange] = useState(false);
@@ -36,7 +35,10 @@ const FileUpload = (props) => {
                     <input type="file" id="hiddenFileInput" onChange={e => FileUpload(e)} style={{ display: 'none' }} />
                     {(props.image == null) ? null : <img className={styles.image} src={`.${props.image}`} />}
                 </div>
-                <button className={styles.save} onClick={() => { props.save(true); PopupChange(false) }}>저장</button>
+                {props.image}
+                {value =="I"? <button className={styles.save} onClick={() => {props.save(true);  PopupChange(false) }}>저장</button> 
+                : <button className={styles.save} onClick={() =>{setValue(props.image); PopupChange(false) }}>저장</button>}
+                
                 <button className={styles.close} onClick={() => PopupChange(false)}>닫기</button>
             </Popup>
 

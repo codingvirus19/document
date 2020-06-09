@@ -53,7 +53,6 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         groupDatas = json.data;
-        console.log(groupDatas)
         // group의 데이터값으로 sidebar를 불러오는 함수
         groupDatas.map((json) => {
           group.no.push(json.no);
@@ -324,9 +323,9 @@ export default class Container extends React.Component {
     })
   }
 
-  getSnapshotBeforeUpdate(element) {
-    return element;
-  }
+  // getSnapshotBeforeUpdate(element) {
+  //   return element;
+  // }
 
   shouldComponentUpdate(nextProps, nextState) {
     return JSON.stringify(nextState) != JSON.stringify(this.state);
