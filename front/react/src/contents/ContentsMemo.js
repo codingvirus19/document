@@ -67,18 +67,22 @@ export default class Contents extends React.Component {
               className={styles.container_memo_form}
             >
               <Memo
+                distinctGroup_hash={this.props.distinctGroup_hash}
                 SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                 bringMemoByGroup={this.props.bringMemoByGroup}
                 groupBySidebar={this.props.groupBySidebar}
                 group={this.props.group}
                 memo_bigArr={this.props.memo_bigArr}
                 index={index}
+                no={this.props.memo_bigArr[index].no}
+                clientRef={this.props.clientRef}
                 content={this.props.memo_bigArr[index].content}
                 memo_hash={this.props.group_hash.filter((element) =>
-                  element.memo_no === this.props.memo_bigArr[index].no)}
+                element.memo_no === this.props.memo_bigArr[index].no)}
                 color={this.props.memo_bigArr[index].color}
                 group_hash={this.props.group_hash}
-
+                users={this.props.users}
+                setStyle={{ background: this.props.memo_bigArr[index].color }}
               />
               <HashList
                 memo_no={this.props.memo_bigArr[index].no}

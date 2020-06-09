@@ -1,6 +1,8 @@
 import React from "react";
 
 import popupStyles from "../../Popup2.css";
+import FileUpload from "../../contents/FileUpload.js"
+import styles from "../../contents/FileUpLoad.css"
 
 export default class Profile extends React.Component {
   constructor() {
@@ -11,7 +13,10 @@ export default class Profile extends React.Component {
       password: this.props.getProfileValue.password,
       nickname: this.props.getProfileValue.nickname,
       image: this.props.getProfileValue.image,
+      value: "",
+      cursor: "",
     };
+    this.image = null;
   }
 
   onChangeid(e) {
@@ -34,14 +39,28 @@ export default class Profile extends React.Component {
       nickname: e.target.value,
     });
   }
-  onChangeImage(e) {
-    this.setState({
-      image: e.target.value,
-    });
-  }
 
+  // FileUpload에서 이미지를 새로 올릴 때 해당이미지의 
+  //이름을 변환시키고 setState에 설정해준다.
+  FileUpload(e) {
+    console.log("프로파일 실행")
+    const formData = new FormData();
+    formData.append("multipartFile", e.currentTarget.files[0]);
+    fetch("http://localhost:8080/codingvirus19/api/upload", {
+      method: "post",
+      headers: { append: "application/json" },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        // this.image: 이름이 바뀐 image의 값이 나온다.
+        this.image = json.data;
+        this.setState({ image: json.data });
+      })
+      .catch((err) => console.error(err));
+  }
+  
   render() {
-    console.log(this.props.getProfileValue)
     return (
       <>
         {this.props.callBackFromProfile(
@@ -50,8 +69,10 @@ export default class Profile extends React.Component {
           this.state.password,
           this.state.nickname,
           this.state.image
+
         )}
         <p>아이디</p>
+
         <input
           className={popupStyles.input}
           type="text"
@@ -93,16 +114,15 @@ export default class Profile extends React.Component {
           name="nickname"
           id="nickname"
         ></input>
-        <p>이미지</p>
-        <input
-          className={popupStyles.input}
-          type="text"
-          placeholder="이미지"
-          value={this.state.image}
-          onChange={this.onChangeImage.bind(this)}
-          name="image"
-          id="image"
-        ></input>
+
+        <p>이미지:</p>
+        <FileUpload 
+          className={popupStyles.input} 
+          Value={this.state.image} 
+          File={e => this.FileUpload(e)} 
+          image={this.state.image} 
+          />  
+
       </>
     );
   }

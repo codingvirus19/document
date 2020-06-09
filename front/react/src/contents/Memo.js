@@ -49,8 +49,9 @@ export default class Memo extends React.Component {
         {this.state.showPopup ? (
 
           <ShareEditor
-          bringMemoByGroup={this.props.bringMemoByGroup}
-            no={this.props.memo_bigArr[this.props.index].no}
+            users={this.props.users}
+            bringMemoByGroup={this.props.bringMemoByGroup}
+            no={this.props.no}
             memo_gNo={this.props.memo_bigArr.gNo}
             group={this.props.group}
             groupBySidebar={this.props.groupBySidebar}
@@ -60,6 +61,9 @@ export default class Memo extends React.Component {
             memo_hash={this.props.memo_hash}
             memoClose={this.viewPopup.bind(this)}
             SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+            distinctGroup_hash={this.props.distinctGroup_hash}
+            clientRef={this.props.clientRef}
+            setStyle={this.props.setState}
             />
           // <Editor
           //   groupBySidebar={this.props.groupBySidebar}

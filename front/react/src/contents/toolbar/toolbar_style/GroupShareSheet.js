@@ -23,7 +23,7 @@ export default class GroupShareSheet extends React.Component {
 
   // 희망하는 그룹을 선택 시 selectedOption에 해당 그룹의 value가 담긴다.
   handleChange(selectedOption) {
-    // console.log("handleChange")
+    console.log(selectedOption)
     this.setState({
       selectedOption: selectedOption,
     });
@@ -37,7 +37,7 @@ export default class GroupShareSheet extends React.Component {
       // gNo의 수만큼, user session, 위에서 가져온 content, color를 memo에 insert해준다.
       gNo: this.state.selectedOption,
     };
-
+    console.log(send_memoNoAndGNo)
     // for(let a in this.props.clientRef){
     //   console.log(a);
     // }
@@ -57,7 +57,7 @@ export default class GroupShareSheet extends React.Component {
     this.ajaxGroupShare(send_memoNoAndGNo);
 
     // groupShareSheet 닫기
-    console.log("a")
+    console.log("a");
     this.props.closeGroupShareSheet();
 
     // toast알림
@@ -86,6 +86,7 @@ export default class GroupShareSheet extends React.Component {
       };
       memoVoArr.push(memoVoObj);
     }
+    console.log(memoVoArr)
     fetch(`${API_URL}/api/memo/shareMemo`, {
       method: "post",
       headers: API_HEADERS,
@@ -103,18 +104,23 @@ export default class GroupShareSheet extends React.Component {
       })
       .catch((err) => console.error(err));
   }
+  styleChnage(e){
+    (e != null) ? (e.select.menuListRef.parentNode.style.position = "relative") : null;
+    (e != null) ? console.log(e.select.menuListRef.style.height="69px") : null;
+  }
 
   render() {
     return (
-      <div className={styles.groupShareSheet} ref={this.props.refChange}>
+      <div className={styles.groupShareSheet} ref={this.props.refChange} onClick={e=>e.stopPropagation()}>
         <div className={styles.container}>
           <div className={styles.title}>공유할 그룹</div>
           <div className={styles.contents}>
             <Select
-              ref={(e) => (e != null) ? (e.select.menuListRef.parentNode.style.position = "relative") : null}
+            // 스타일 강제 주입
+              ref={(e) => this.styleChnage(e)} 
               value={this.state.selectedOption}
               onChange={this.handleChange.bind(this)}
-              isMulti
+              isMulti={true}
               autoFocus={false}
               className={styles.select}
               defaultMenuIsOpen={true}

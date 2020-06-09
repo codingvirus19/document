@@ -18,6 +18,7 @@ export default class EditorToolbar extends React.Component {
     }
 
     render() {
+        console.log(this.props.no)
         return (
             <Fragment>
                 <div className={styles.position}>
@@ -65,13 +66,13 @@ export default class EditorToolbar extends React.Component {
                     <AddHash
                         // memo 색변경 시 toolbar의 버튼도 색변경을 도와주는 props
                         // setStyle={this.props.setStyle}
+                        distinctGroup_hash={this.props.distinctGroup_hash}
                         className={styles.button}
                         buttonName={styles.group}
                         memo_no={this.props.memo_no}
                         memo_gNo={this.state.memo_gNo}
                         memo_hash={this.props.memo_hash}
                         group_hash={this.props.group_hash}
-                        IsHashUpdate={this.props.IsHashUpdate}
                         groupBySidebar={this.props.groupBySidebar}
                         SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                     /></div>
