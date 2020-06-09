@@ -37,8 +37,20 @@ public class UserApiController {
 		userService.modifyProfile(vo);
 	}
 	
-	@PostMapping("/getUserListByGroup")
+	@PostMapping("/getUserList")
 	public JsonResult getUserList(@RequestBody GroupVo vo) {
+		List<UserVo> userList = userService.getUserList(vo.getNo());
+		return JsonResult.success(userList);
+	}
+	
+	@PostMapping("/getUserListNotInGroup")
+	public JsonResult getUserListNotInGroup(@RequestBody GroupVo vo) {
+		List<UserVo> userList = userService.getUserListNotInGroup(vo.getNo());
+		return JsonResult.success(userList);
+	}
+	
+	@PostMapping("/getUserListByGroup")
+	public JsonResult getUserListByGroup(@RequestBody GroupVo vo) {
 		List<UserVo> userList = userService.getUserListByGroup(vo.getNo());
 		return JsonResult.success(userList);
 	}
@@ -48,5 +60,6 @@ public class UserApiController {
 		int countUser = userService.countUserByGroup(vo.getNo());
 		return JsonResult.success(countUser);
 	}
+
 	
 }

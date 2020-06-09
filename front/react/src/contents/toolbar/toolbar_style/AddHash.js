@@ -11,14 +11,14 @@ export default class AddHash extends React.PureComponent {
       showHashSheet: false,
       clickHashButton: false,
     };
-    if(this.props.className != null){
-      this.className = this.props.className; 
-    }else{
+    if (this.props.className != null) {
+      this.className = this.props.className;
+    } else {
       this.className = styles.tool
     }
-    if(this.props.buttonName != null){
-      this.buttonName = this.props.buttonName; 
-    }else{
+    if (this.props.buttonName != null) {
+      this.buttonName = this.props.buttonName;
+    } else {
       this.buttonName = styles.faHashtag;
     }
     this.toggleContainer2 = React.createRef();
@@ -42,7 +42,7 @@ export default class AddHash extends React.PureComponent {
       this.state.showHashSheet &&
       !this.toggleContainer2.current.contains(event.target)
     ) {
-      this.setState({ showHashSheet: false });
+      this.closeHashSheet();
     }
   }
 
@@ -52,6 +52,10 @@ export default class AddHash extends React.PureComponent {
       showHashSheet: !this.state.showHashSheet,
       clickHashButton: !this.state.clickHashButton,
     });
+  }
+
+  closeHashSheet() {
+    this.setState({ showHashSheet: false });
   }
 
   render() {
@@ -87,6 +91,7 @@ export default class AddHash extends React.PureComponent {
             })}
             groupBySidebar={this.props.groupBySidebar}
             SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+            closeHashSheet={this.closeHashSheet.bind(this)}
           />
         ) : null}
       </>
