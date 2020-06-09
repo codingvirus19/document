@@ -46,6 +46,10 @@ export default class ContentsHeader extends React.Component {
         .then((response) => response.json())
         .then((json) => {
           console.log(json.data)
+          let getTrue = json.data;
+          if (getTrue != false) {
+            this.props.SidebarGroupUpdate(null, null);
+          }
         })
         .catch((err) => console.error(err));
     }else{
@@ -101,7 +105,7 @@ export default class ContentsHeader extends React.Component {
         </div>
       </div>
       <div className={styles.groupOut}>
-          <button onClick={this.onOutGroup.bind(this)} className={styles.groupOutButton}>그룹 나가기</button>
+        {this.props.groupBySidebar.no != null ? <button onClick={this.onOutGroup.bind(this)} className={styles.groupOutButton}>그룹 삭제</button> : null}
       </div>
       </Fragment>
     );

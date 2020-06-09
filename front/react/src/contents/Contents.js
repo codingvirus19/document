@@ -14,6 +14,7 @@ export default class Contents extends React.Component {
         <div className={styles.box}>
           <div className={styles.contentsMemo}>
             <ContentsHeader
+              SidebarGroupUpdate={this.props.SidebarGroupUpdate}
               groupBySidebar={this.props.groupBySidebar}
               group={this.props.group}
               getGroup={this.props.getGroup}

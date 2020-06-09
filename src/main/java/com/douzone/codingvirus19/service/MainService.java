@@ -46,7 +46,7 @@ public class MainService {
 
 	public boolean outGroup(GroupVo vo) {
 		int asyncTestCount = groupRepository.outGroup(vo);
-		return asyncTestCount == 1;
+		return asyncTestCount != -1;
 	}	
 
 }

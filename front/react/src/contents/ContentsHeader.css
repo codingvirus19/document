@@ -39,8 +39,10 @@
 .groupOutButton{
   width: 5rem;
     height: 2.5rem;
-    background-color: salmon;
-    border-radius: 10px;
+    background-color: #ea232c;
+    border-radius: 0.25rem;
+    color: #f5f5f5;
+
 }
 
 .groupUsers{
