@@ -46,18 +46,15 @@
   background-color: none;
 }
 
-.userbell button, .account button, .addmemo button,.chat{
+.userbell button, .account, .addmemo,.chat{
   background: none;
   border-radius: 1rem;
-  width: 2rem;
-  height: 2rem;
+  width: 2.9rem;
+  height: 2.9rem;
 }
 
-.userbell button:hover, .account button:hover, .addmemo button :hover,.chat :hover{
+.userbell button:hover, .account:hover, .addmemo:hover,.chat:hover{
   box-shadow: gray 1px 1px 1px 1px;
-  border-radius: 1rem;
-  width: 2rem;
-  height: 2rem;
 }
 
 /* .faPlus:hover,

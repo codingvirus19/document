@@ -100,8 +100,9 @@ export default class Header extends React.Component {
             // hash={this.props.hash}
           />
           <div className={styles.right_header}>
-            <div className={styles.addmemo}>
+            <div>
               <button aria-label="메모 추가"
+                className={styles.addmemo}
                 onClick={this.togglePopup.bind(this)}>
                 <FontAwesomeIcon className={styles.faPlus} icon={faPlus} />
               </button>
@@ -116,8 +117,8 @@ export default class Header extends React.Component {
               ) : null}
             </div>
 
-              <Dropdown aria-label="계정" className={styles.account}>
-                <Dropdown.Toggle >
+              <Dropdown aria-label="계정" >
+                <Dropdown.Toggle className={styles.account} >
                   <FontAwesomeIcon onClick={this.getProfileAjax.bind(this)} className={styles.faUser} icon={faUser} />
                 </Dropdown.Toggle>
                 <Dropdown.Menu className={dropdownstyles.menu}>  
