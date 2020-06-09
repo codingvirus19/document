@@ -8,38 +8,46 @@ const API_HEADERS = {
   "Content-Type": "application/json",
 };
 
+
 export default class Popup2 extends React.Component {
+
   constructor() {
-    super(...arguments)
+    super(...arguments);
     this.state = {
       groupNo: '',
       groupName: '',
       userList: { nickname: [], no: [] }
-    }
+    };
+    this.id = null;
+    this.email = null;
+    this.password = null;
+    this.nickname = null;
+    this.image = null;
+    this.modifyProfile = null;
   }
 
+  // FileUpload와 profile에서 값이 변경되었을 때 해당 콜백함수에 값이 담긴다.
 
   callBackFromProfile(_id, _email, _password, _nickname, _image) {
-    if (
-      _id != null &&
-      _email != null &&
-      _password != null &&
-      _nickname != null &&
-      _image != null
-    ) {
-      let modifyProfile = {
-        id: _id,
-        email: _email,
-        password: _password,
-        nickname: _nickname,
-        image: _image,
-      };
-      this.getModifiedValue(modifyProfile)
-    }
+    (_id != null)? this.id= _id :null;
+    (_id != null)? this.email= _email :null;
+    (_id != null)? this.password= _password :null;
+    (_id != null)? this.nickname= _nickname :null;
+    (_id != null)? this.image= _image :null;
+    
+      this.modifyProfile = {
+          id: this.id,
+          email: this.email,
+          password: this.password,
+          nickname: this.nickname,
+          image: this.image,
+      }
   }
 
-  getModifiedValue(modifyProfile) {
-    this.ajaxModifyProfile(modifyProfile);
+
+  getModifiedValue(){
+    this.ajaxModifyProfile(this.modifyProfile);
+
   }
 
   ajaxModifyProfile(_modifyProfile) {
@@ -132,15 +140,17 @@ export default class Popup2 extends React.Component {
           <div className={popupStyles.btns}>
             <button
               onClick={
-                (this.props.contents === "profile") ? this.getModifiedValue.bind(this) && this.props.closePopup
-                  : this.callBackGroupAdd.bind(this)}
+
+                (this.props.contents === "profile") ?  ()=>{this.getModifiedValue();}
+                : this.callBackGroupAdd.bind(this)}
+
               className={popupStyles.confirm_btn}>
               {popup2_confirm_btn}
             </button>
             <button
               className={popupStyles.cancel_btn}
               onClick={this.props.closePopup}>
-              취소
+              닫기
             </button>
           </div>
         </div>

@@ -13,7 +13,8 @@ import com.douzone.codingvirus19.vo.FileUpLoadVo;
 @Service
 public class FileService {
 	
-	private static final String SAVE_PATH = "/Users/jun/coding19-uploads";
+//	private static final String SAVE_PATH = "/Users/jun/coding19-uploads";
+	private static final String SAVE_PATH = "/Users/R35/git/coding19-uploads";
 	private static final String URL = "/api/images";
 	
 	public String upload(FileUpLoadVo vo) {

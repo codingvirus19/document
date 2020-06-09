@@ -43,7 +43,9 @@ export default class Container extends React.Component {
     this.bringMemoByGroup(this.state.groupBySidebar.no);
 
     // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
+
     this.getGroup();
+
 
     // 로그인한 user를 가져오는 코드
     let users = { no: [], name: [] };
@@ -366,6 +368,7 @@ export default class Container extends React.Component {
         }
       })
     }
+
     if (alarm_msg.type == true && alarm_msg.readCheck == false) {
       this.setState({
         alarm: {
@@ -388,6 +391,7 @@ export default class Container extends React.Component {
       //   }
       // })
     }
+
   }
   //쓰는사람 없으면 지우기
   // getSnapshotBeforeUpdate(element) {
