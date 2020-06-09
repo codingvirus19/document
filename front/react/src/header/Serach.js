@@ -45,9 +45,9 @@ export default class Search extends React.Component {
   }
 
   render() {
-    if (this.props.hash[0] === "") {
-      return null;
-    }
+    // if (this.props.hash[0] === "") {
+    //   return null;
+    // }
     return (
       <div className="div">
         <form className="form">

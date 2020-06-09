@@ -48,11 +48,23 @@
  		]]>
 	</update>
 	
-	<select id="getUserList" parameterType="long" resultType="uservo">
+	<select id="getUserListByGroup" parameterType="long" resultType="uservo">
 		<![CDATA[
 			select no, id, email, nickname, image
 			  from user
-			 where no NOT IN (#{no}); 
+			 where no NOT IN (select b.u_no as no
+								from groups a, groupuser b
+							   where a.no = b.g_no
+								 and a.no=#{no});
+ 		]]>
+	</select>
+	
+	<select id="countUserByGroup" parameterType="long" resultType="int">
+		<![CDATA[
+			select count(b.u_no)
+			  from groups a, groupuser b
+			 where a.no = b.g_no
+			   and a.no = #{no};
  		]]>
 	</select>
 </mapper>
