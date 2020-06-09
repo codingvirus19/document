@@ -9,7 +9,7 @@
   .btn {
     /* border-bottom: 1px solid #020202; */
     width: 100%;
-    height: 10%;
+    height: 60px;
   }
 
   .btn .button{
@@ -27,7 +27,7 @@
 
   .edit {
     width: 100%;
-    height: 83%;
+    height: 90%;
     padding:3%;
     resize: none;
     border:0;
