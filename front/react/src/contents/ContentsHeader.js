@@ -45,7 +45,7 @@ export default class ContentsHeader extends React.Component {
       })
         .then((response) => response.json())
         .then((json) => {
-        
+          console.log(json.data)
         })
         .catch((err) => console.error(err));
     }else{

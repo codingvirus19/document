@@ -25,12 +25,6 @@
  		]]>
 	</select>
 
-	<delete id="deleteAlarm" parameterType="groupvo">
-		<![CDATA[
-			delete from alarm where g_no= #{no};
-		]]>
-	</delete>
-	
 	<delete id="deleteGroupuser" parameterType="groupvo">
 		<![CDATA[
 			delete from groupuser where g_no= #{no};
@@ -43,15 +37,30 @@
 		]]>
 	</delete>
 	
+	<delete id="deleteHash" parameterType="groupvo">
+		<![CDATA[
+			delete from hash where g_no= #{no};
+		]]>
+	</delete>
+	
 	<delete id="deleteMemo" parameterType="groupvo">
 		<![CDATA[
 			delete from memo where g_no= #{no};
 		]]>
 	</delete>
 	
-	<delete id="deleteHash" parameterType="groupvo">
+	<delete id="deleteAcceptalarm" parameterType="groupvo">
 		<![CDATA[
-			delete from hash where g_no= #{no};
+			delete 
+				from accptalarm using accptalarm 
+				inner join alarm on alarm.no = accptalarm.noti_no
+				where alarm.g_no = #{no};
+		]]>
+	</delete>
+	
+	<delete id="deleteAlarm" parameterType="groupvo">
+		<![CDATA[
+			delete from alarm where g_no= #{no};
 		]]>
 	</delete>
 	

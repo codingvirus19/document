@@ -39,9 +39,6 @@ public class MainService {
 		return 1 == groupuserRepository.insertGroupUser(groupUservo); //유저 시큐리티도 같이		
 	}
 
-//	public boolean deleteGroup(Long no) {
-//		return 1 == groupRepository.deleteGroup(no);
-//	}
 
 	public List<MemoVo> memoListByHash(MemoVo memoVo) {
 		return memoRepository.memoListByHash(memoVo);

@@ -23,25 +23,48 @@ public class GroupRepository {
 		return sqlSession.insert("groups.insert", vo);
 	}
 
-//	public int deleteGroup(Long no) {
-//		return sqlSession.delete("groups.deleteGroup", no);
-//	}
-
 	public int outGroup(GroupVo vo) {
+		int deleteGroupuser = sqlSession.delete("groups.deleteGroupuser", vo);
+		int deleteChat = sqlSession.delete("groups.deleteChat", vo);
+		int deleteHash = sqlSession.delete("groups.deleteHash", vo);
 		
-		int asyncTest1 = sqlSession.delete("groups.deleteAlarm", vo);
-		int asyncTest2 = sqlSession.delete("groups.deleteGroupuser", vo);
-		int asyncTest3 = sqlSession.delete("groups.deleteChat", vo);
-		int asyncTest4 = sqlSession.delete("groups.deleteMemo", vo);
-		int asyncTest5 = sqlSession.delete("groups.deleteHash", vo);
-		System.out.println(asyncTest1 +" : "+ asyncTest2+" : "+asyncTest3+" : "+asyncTest4+" : "+asyncTest5);
-		if(asyncTest1 == 1 && asyncTest2 == 1 && asyncTest3 == 1 && asyncTest4 == 1 && asyncTest5 == 1) {
-			int asyncTest6 = sqlSession.delete("groups.outGroup", vo);
-			return asyncTest6;
+		System.out.println("deleteGroupuser : " +deleteGroupuser);
+		System.out.println("deleteChat : " +deleteChat);
+		System.out.println("deleteHash : " + deleteHash);
+		System.out.println(deleteGroupuser != -1 && deleteChat != -1 && deleteHash != -1);
+		
+		// 세 개 모두 delete작업이 완료 되었을 경우 다음작업 진행
+		if(deleteGroupuser != -1 && deleteChat != -1 && deleteHash != -1) {
+			int deleteMemo = sqlSession.delete("groups.deleteMemo", vo);
+			System.out.println("deleteMemo : " + deleteMemo);
+			System.out.println(deleteMemo != -1);
+			// deleteMemo의 delete작업이 완료 되었을 경우 다음작업 진행
+			if(deleteMemo != -1) {
+				int deleteAcceptalarm = sqlSession.delete("groups.deleteAcceptalarm", vo);
+				System.out.println("deleteAcceptalarm : "+ deleteAcceptalarm);
+				System.out.println(deleteAcceptalarm != -1);
+				// deleteAcceptalarm의 delete작업이 완료 되었을 경우 다음작업 진행
+				if(deleteAcceptalarm != -1) {
+					int deleteAlarm = sqlSession.delete("groups.deleteAlarm", vo);
+					System.out.println("deleteAlarm : " + deleteAlarm);
+					System.out.println(deleteAlarm != -1);
+					// deleteAlarm의 delete작업이 완료 되었을 경우 다음작업 진행
+					if(deleteAlarm != -1) {
+						int outGroup = sqlSession.delete("groups.outGroup", vo);
+						System.out.println("outGroup : " + outGroup);
+						System.out.println(outGroup!= -1);
+						return outGroup;
+					}else {
+						return 2;
+					}
+				}else {
+					return 2;
+				}
+			}else {
+				return 2;
+			}
 		}else {
 			return 2;
 		}
-		
 	}
-
 }
