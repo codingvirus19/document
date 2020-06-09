@@ -119,12 +119,12 @@ export default class Header extends React.Component {
                 <Dropdown.Toggle >
                   <FontAwesomeIcon onClick={this.getProfileAjax.bind(this)} className={styles.faUser} icon={faUser} />
                 </Dropdown.Toggle>
-                <Dropdown.Menu className={dropdownstyles.menu}>
-                  <Dropdown.Item onClick={this.toggleShowProfile.bind(this)}>
+                <Dropdown.Menu className={dropdownstyles.menu}>  
+                  <Dropdown.Item onClick={this.toggleShowProfile.bind(this)} className={dropdownstyles.item}>
                     개인프로필 수정
 
                 </Dropdown.Item>
-                <Dropdown.Item onClick={this.setRedirect.bind(this)}>
+                <Dropdown.Item onClick={this.setRedirect.bind(this)} className={dropdownstyles.item2}>
                   로그아웃
                 </Dropdown.Item>
                 </Dropdown.Menu>
