@@ -28,3 +28,21 @@
   width: 28px;
   height: 32px;
 }
+.groupOut{
+  width: 15%;
+    align-items: center;
+    display: inline-flex;
+    padding-left: 4rem;
+    height: 8%;
+}
+
+.groupOutButton{
+  width: 5rem;
+    height: 2.5rem;
+    background-color: salmon;
+    border-radius: 10px;
+}
+
+.groupUsers{
+  
+}
