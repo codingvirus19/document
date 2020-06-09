@@ -312,6 +312,7 @@ export default class Popup extends React.Component {
                         memoSave={this.memoSave.bind(this)}
                         memoClose={this.props.memoClose}
                         SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+                        distinctGroup_hash={this.props.distinctGroup_hash}
                         />
 
                     </div>
