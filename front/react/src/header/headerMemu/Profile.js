@@ -1,7 +1,7 @@
 import React from "react";
 
 import popupStyles from "../../Popup2.css";
-import FileUpload from "../../contents/FileUpLoad.js"
+import FileUpload from "../../contents/FileUpload.js"
 import styles from "../../contents/FileUpLoad.css"
 
 export default class Profile extends React.Component {

@@ -104,6 +104,10 @@ export default class GroupShareSheet extends React.Component {
       })
       .catch((err) => console.error(err));
   }
+  styleChnage(e){
+    (e != null) ? (e.select.menuListRef.parentNode.style.position = "relative") : null;
+    (e != null) ? console.log(e.select.menuListRef.style.height="69px") : null;
+  }
 
   render() {
     return (
@@ -112,7 +116,8 @@ export default class GroupShareSheet extends React.Component {
           <div className={styles.title}>공유할 그룹</div>
           <div className={styles.contents}>
             <Select
-              ref={(e) => (e != null) ? (e.select.menuListRef.parentNode.style.position = "relative") : null}
+            // 스타일 강제 주입
+              ref={(e) => this.styleChnage(e)} 
               value={this.state.selectedOption}
               onChange={this.handleChange.bind(this)}
               isMulti={true}

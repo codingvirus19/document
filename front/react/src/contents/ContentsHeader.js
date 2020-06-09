@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Popup2 from "../Popup2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faFolderPlus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
@@ -20,6 +20,7 @@ export default class ContentsHeader extends React.Component {
   
   render() {
     return (
+      <Fragment>
       <div className={styles.header}>
         <div className={styles.title}>
           {this.props.groupBySidebar.name != null ? <h3>- {this.props.groupBySidebar.name} -</h3> : <h3>- 개인 -</h3>}
@@ -59,7 +60,15 @@ export default class ContentsHeader extends React.Component {
             />
           ) : null}
         </div>
+        <div className={styles.groupUsers}>
+            <div>
+            </div>
+        </div>
       </div>
+      <div className={styles.groupOut}>
+          <button className={styles.groupOutButton}>그룹 나가기</button>
+        </div>
+      </Fragment>
     );
   }
 }
