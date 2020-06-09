@@ -4,6 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faFolderPlus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import styles from "./ContentsHeader.css";
 
+const API_URL = "http://localhost:8080/codingvirus19";
+const API_HEADERS = {
+  "Content-Type": "application/json",
+};
+
 export default class ContentsHeader extends React.Component {
   constructor() {
     super(...arguments);
@@ -17,6 +22,36 @@ export default class ContentsHeader extends React.Component {
       ShowGroupAddOrInvite: !this.state.ShowGroupAddOrInvite,
     });
   }  
+  
+  onOutGroup(e){
+    e.preventDefault();
+    console.log(this.props.groupBySidebar.no)
+    let groupNoForDelete = null;
+    // group의 no는 개인이기 때문에 그룹 나가기가 작동되어선 안된다.
+    // no가 null이 아닌것 에서만 그룹나가기가 작동되도록 설정.
+    
+    if(this.props.groupBySidebar.no != null){
+
+      // 들어가있는 그룹의 no와 name값(상훈아 name넣었다!!!)
+      groupNoForDelete ={
+        no: this.props.groupBySidebar.no,
+        name: this.props.groupBySidebar.name,
+      } 
+
+      fetch(`${API_URL}/api/outGroup`, {
+        method: "post",
+        headers: API_HEADERS,
+        body: JSON.stringify(groupNoForDelete),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+        
+        })
+        .catch((err) => console.error(err));
+    }else{
+      console.log("개인은 그룹나가기하면 안됩니다!")
+    }
+  }
   
   render() {
     return (
@@ -66,8 +101,8 @@ export default class ContentsHeader extends React.Component {
         </div>
       </div>
       <div className={styles.groupOut}>
-          <button className={styles.groupOutButton}>그룹 나가기</button>
-        </div>
+          <button onClick={this.onOutGroup.bind(this)} className={styles.groupOutButton}>그룹 나가기</button>
+      </div>
       </Fragment>
     );
   }
