@@ -10,7 +10,7 @@ const MemoClose = (props) => {
     return (
         <button
             className={className}
-            aria-label="메모 닫기"
+            aria-label="닫기"
             onClick={props.memoClose}
         >
             <FontAwesomeIcon className={buttonName} icon={faTimesCircle} />

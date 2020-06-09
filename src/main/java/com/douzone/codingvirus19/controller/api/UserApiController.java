@@ -12,6 +12,7 @@ import com.douzone.codingvirus19.dto.JsonResult;
 import com.douzone.codingvirus19.security.AuthUser;
 import com.douzone.codingvirus19.security.SecurityUser;
 import com.douzone.codingvirus19.service.UserService;
+import com.douzone.codingvirus19.vo.GroupVo;
 import com.douzone.codingvirus19.vo.UserVo;
 
 
@@ -33,15 +34,19 @@ public class UserApiController {
 	@PostMapping("/profile/modify")
 	public void profileInsert(@AuthUser SecurityUser securityUser, @RequestBody UserVo vo) {
 		vo.setNo(securityUser.getNo());
-		System.out.println(vo);
 		userService.modifyProfile(vo);
 	}
 	
-	@PostMapping("/getUserList")
-	public JsonResult getUserList(@AuthUser SecurityUser securityUser) {
-		List<UserVo> userList = userService.getUserList(securityUser.getNo());
+	@PostMapping("/getUserListByGroup")
+	public JsonResult getUserList(@RequestBody GroupVo vo) {
+		List<UserVo> userList = userService.getUserListByGroup(vo.getNo());
 		return JsonResult.success(userList);
 	}
 	
+	@PostMapping("/countUserByGroup")
+	public JsonResult countUserByGroup(@RequestBody GroupVo vo) {
+		int countUser = userService.countUserByGroup(vo.getNo());
+		return JsonResult.success(countUser);
+	}
 	
 }

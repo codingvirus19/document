@@ -16,7 +16,7 @@ export default class Contents extends React.Component {
             <ContentsHeader
               groupBySidebar={this.props.groupBySidebar}
               group={this.props.group}
-              UpdateGroup={this.props.UpdateGroup}
+              getGroup={this.props.getGroup}
               clientRef={this.props.clientRef}
             />
             {(this.props.memo_bigArr!=null)?
@@ -31,7 +31,7 @@ export default class Contents extends React.Component {
               clientRef={this.props.clientRef}
               users={this.props.users}
               group_hash={this.props.group_hash}
-              IsHashUpdate={this.props.IsHashUpdate}
+              distinctGroup_hash={this.props.distinctGroup_hash}
             />
               :null}
           </div>
@@ -39,7 +39,7 @@ export default class Contents extends React.Component {
             <Chat group={this.props.group} users={this.props.users}  clientRef={this.props.clientRef} alarm={this.props.alarm} />
           ) : null}
           {this.props.showAlarm ? (
-            <Alarm users={this.props.users} />
+            <Alarm users={this.props.users} addgroup_alarm={this.props.addgroup_alarm} SidebarGroupUpdate={this.props.SidebarGroupUpdate} AlarmAddGroup={this.props.AlarmAddGroup} />
           ) : null}
         </div>
         {/* <Footer /> */}

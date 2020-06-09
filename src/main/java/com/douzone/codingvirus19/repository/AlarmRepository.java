@@ -1,5 +1,6 @@
 package com.douzone.codingvirus19.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -7,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.douzone.codingvirus19.vo.AccptAlarmVo;
 import com.douzone.codingvirus19.vo.AlarmVo;
 import com.douzone.codingvirus19.vo.GroupUserVo;
 
@@ -31,8 +31,8 @@ public class AlarmRepository {
 		sqlSession.insert("alarm.insertAccptAlarm", pushSandUserMap);
 	}
 
-	public AlarmVo getAlarmReadList(AlarmVo vo) {
-		AlarmVo alarmList = sqlSession.selectOne("alarm.getAlarmReadList", vo);
+	public List<AlarmVo> getAlarmReadList(AlarmVo vo) {
+		List<AlarmVo> alarmList = sqlSession.selectList("alarm.getAlarmReadList", vo);
 		return alarmList;
 	}
 
@@ -47,6 +47,10 @@ public class AlarmRepository {
 
 	public void chatReadCheckUpdate(AlarmVo alarmVo) {
 		sqlSession.update("alarm.chatReadCheckUpdate", alarmVo);
+	}
+
+	public void alarmGroupJoin(GroupUserVo groupuserVo) {
+		sqlSession.insert("groupuser.alarmGroupJoin", groupuserVo);
 	}
 
 }

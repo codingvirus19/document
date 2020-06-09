@@ -30,8 +30,8 @@ public class AlarmService {
 		alarmRepository.insertAccptAlarm(pushSandUserMap);
 	}
 
-	public AlarmVo getAlarmReadList(AlarmVo vo) {
-		AlarmVo alarmList = alarmRepository.getAlarmReadList(vo);
+	public List<AlarmVo> getAlarmReadList(AlarmVo vo) {
+		List<AlarmVo> alarmList = alarmRepository.getAlarmReadList(vo);
 		return alarmList;
 	}
 
@@ -46,6 +46,10 @@ public class AlarmService {
 
 	public void chatReadCheckUpdate(AlarmVo alarmVo) {
 		alarmRepository.chatReadCheckUpdate(alarmVo);
+	}
+
+	public void alarmGroupJoin(GroupUserVo groupuserVo) {
+		alarmRepository.alarmGroupJoin(groupuserVo);
 	}
 	
 }
