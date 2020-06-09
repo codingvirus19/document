@@ -105,7 +105,12 @@ export default class ContentsHeader extends React.Component {
         </div>
       </div>
       <div className={styles.groupOut}>
-        {this.props.groupBySidebar.no != null ? <button onClick={this.onOutGroup.bind(this)} className={styles.groupOutButton}>그룹 삭제</button> : null}
+        {this.props.groupBySidebar.no != null ?
+          <button onClick={this.onOutGroup.bind(this)} className={styles.groupOutButton}>그룹 삭제</button>
+          : null}
+        {this.props.groupBySidebar.no != null ?
+          <button className={styles.groupOutButton}>그룹 나가기</button>
+          : null}
       </div>
       </Fragment>
     );

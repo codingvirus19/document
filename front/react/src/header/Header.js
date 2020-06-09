@@ -152,6 +152,7 @@ export default class Header extends React.Component {
               {(this.props.alarm.chatting) ? <span className={styles.alarmbell}/> : null } 
                 <FontAwesomeIcon className={styles.faSms} icon={faSms} />
               </button>
+            
             </div>
           </div>
         </div>
