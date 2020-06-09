@@ -5,13 +5,12 @@
 	<select id="findAllMemo" parameterType="memovo"
 		resultType="memovo">
 		<![CDATA[
-			select no, g_no as gNo, u_no as uNo, content, color, date, list_no as listNo
+             select no, g_no as gNo, u_no as uNo, content, color, date, list_no as listNo
 				from memo 
-				where u_no = #{uNo}
-                and (( #{gNo} is null and g_no is null)
+                where (( #{gNo} is null and g_no is null and u_no=#{uNo})
                 or
                 (#{gNo} is not null and g_no=#{gNo}))
-                order by listNo;
+                order by listNo;   
  		]]>
 	</select>
 

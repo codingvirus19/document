@@ -6,30 +6,37 @@ export default class Search extends React.Component {
     super(...arguments);
     this.state = {
       keyword: "",
+      searchClassName: "search"
     };
   }
 
   onInputChange(event) {
     this.props.onCallbackKeywordChange(event.target.value);
     this.UpdateKeyword(event.target.value);
+    this.search(event.target.value)
+  }
+  
+  //enter키 눌를시
+  onClickEnter(e) {
+    if (e.key == "Enter") {
+      this.onClickCallback(e);
+    }
   }
 
   // 검색버튼 클릭시 해당 group의 no와 name으로 memoList를 뿌려주는 콜백함수
   onClickCallback(e) {
     e.preventDefault();
+    this.search(this.state.keyword)
+  }
+
+  search(keyword) {
     // # 이면 해시 검색
-    if (this.state.keyword[0] == "#") {
-      this.props.SearchHash(this.props.groupBySidebar.no, this.state.keyword)
+    if (keyword[0] == "#") {
+      this.props.SearchHash(this.props.groupBySidebar.no, keyword)
     }
     // 아니면 내용 검색
     else {
       this.props.SidebarGroupUpdate(this.props.groupBySidebar.no, this.props.groupBySidebar.name);
-    }
-  }
-
-  onClickEnter(e) {
-    if (e.key == "Enter") {
-      this.onClickCallback(e);
     }
   }
 
@@ -51,7 +58,7 @@ export default class Search extends React.Component {
     return (
       <div className="div">
         <form className="form">
-          <div className="search">
+          <div className={this.state.searchClassName}>
             <input
               className="input"
               type="text"
@@ -59,12 +66,8 @@ export default class Search extends React.Component {
               value={this.props.keyword}
               onChange={this.onInputChange.bind(this)}
               onKeyPress={this.onClickEnter.bind(this)}
-              onFocus={() => {
-                console.log("!!!!!!!!!!!focus");
-              } }
-              onBlur={() => {
-                console.log("!!!!!!!!!!!blur");
-              } }
+              onFocus={() => this.setState({ searchClassName: "searchFocus" })}
+              onBlur={() => this.setState({ searchClassName: "search" })}
               placeholder="검색"
             />
             <button
