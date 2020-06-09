@@ -164,11 +164,13 @@ export default class Popup extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         this.image = json.data;
+        console.log(this.image)
         this.setState({ image: json.data });
       })
       .catch((err) => console.error(err));
   }
   ImageSave(e) {
+    console.log("에디터실행")
     let text = this.getSnapshotBeforeUpdate(this.state.value);
     text = text.split("");
     text.splice(this.state.cursor, 0, `\n![img](.${this.image})\n`);

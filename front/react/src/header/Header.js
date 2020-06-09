@@ -50,6 +50,7 @@ export default class Header extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         let _getProfileValue = json.data;
+        
         console.log(_getProfileValue)
         this.setState({
           getProfileValue: _getProfileValue,
@@ -96,7 +97,7 @@ export default class Header extends React.Component {
             // 검색창에 입력한 keyword
             SearchHash={this.props.SearchHash}
             keyword={this.props.keyword}
-            hash={this.props.hash}
+            // hash={this.props.hash}
           />
           <div className={styles.right_header}>
             <div className={styles.addmemo}>
@@ -119,12 +120,12 @@ export default class Header extends React.Component {
                 <Dropdown.Toggle >
                   <FontAwesomeIcon onClick={this.getProfileAjax.bind(this)} className={styles.faUser} icon={faUser} />
                 </Dropdown.Toggle>
-                <Dropdown.Menu className={dropdownstyles.menu}>
-                  <Dropdown.Item onClick={this.toggleShowProfile.bind(this)}>
+                <Dropdown.Menu className={dropdownstyles.menu}>  
+                  <Dropdown.Item onClick={this.toggleShowProfile.bind(this)} className={dropdownstyles.item}>
                     개인프로필 수정
 
                 </Dropdown.Item>
-                <Dropdown.Item onClick={this.setRedirect.bind(this)}>
+                <Dropdown.Item onClick={this.setRedirect.bind(this)} className={dropdownstyles.item2}>
                   로그아웃
                 </Dropdown.Item>
                 </Dropdown.Menu>
