@@ -304,6 +304,7 @@ export default class Popup extends React.Component {
                     <EditorToolbar 
                         memo_no={this.props.no}
                         memo_gNo={this.props.gNo}
+                        no={this.props.no}
                         group={this.props.group}
                         groupBySidebar={this.props.groupBySidebar}
                         color={this.props.color}
@@ -313,6 +314,9 @@ export default class Popup extends React.Component {
                         memoClose={this.props.memoClose}
                         SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                         distinctGroup_hash={this.props.distinctGroup_hash}
+                        clientRef={this.props.clientRef}
+                        users={this.props.users}
+                        setStyle={this.props.setStyle}
                         />
 
                     </div>
