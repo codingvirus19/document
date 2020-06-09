@@ -57,7 +57,7 @@
 
 	<insert id="shareMemo" parameterType="memovo">
 		<![CDATA[
-			insert into memo(no, g_no, u_no, content, color, date) 
+			insert into memo(no, g_no, u_no, content, color, date, list_no) 
 			values (
 				null,
 				#{gNo},
@@ -68,7 +68,8 @@
 			    (select a.color
 				from memo a
 				where no=#{no}),
-			    now());
+			    now(),
+			    (select max(a.no)+1 from memo as a));
  		]]>
 	</insert>
 
