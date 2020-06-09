@@ -20,9 +20,8 @@ public class UserRepository {
 	}
 	
 	public boolean login(UserVo vo) { 
-		return  sqlSession.selectOne("user.login",vo);
+		return sqlSession.selectOne("user.login", vo);
 	}
-
 
 	public void joinInsert(UserVo vo) {
 		sqlSession.insert("user.joinInsert", vo);
@@ -36,20 +35,25 @@ public class UserRepository {
 		int count = sqlSession.selectOne("user.hasId", id);
 		return count == 1;
 	}
+	
 	public boolean hasEmail(String email) {
 		int count = sqlSession.selectOne("user.hasEmail", email);
 		return count == 1;
 	}
+	
 	public void modifyProfile(UserVo vo) {
 		sqlSession.update("user.modifyProfile",vo);
-		
 	}
 
 	public int join(UserVo vo) {
 		return sqlSession.insert("user.join", vo);
 	}
 
-	public List<UserVo> getUserList(Long no) {
-		return sqlSession.selectList("user.getUserList", no);
+	public List<UserVo> getUserListByGroup(Long no) {
+		return sqlSession.selectList("user.getUserListByGroup", no);
+	}
+
+	public int countUserByGroup(Long no) {
+		return sqlSession.selectOne("user.countUserByGroup", no);
 	}
 }

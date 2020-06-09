@@ -15,27 +15,68 @@ export default class GroupAddOrInvite extends React.Component {
 
         this.state = {
             group: this.props.group,
-            groups: this.props.group.gname.map((gname, index) => {
-                return {
-                    value: gname,
-                    label: gname,
-                    no: this.props.group.no[index]
-                }
-            }),
             users: [{ value: '', label: '', no: '' }],
             selectGroupName: null,
             selectGroupNo: null,
             selectUsers: [{ nickname: '', no: '' }],
-            userfocus: false   
+            countUser: null,
+            userfocus: false,
         }
     }
 
-    componentDidMount() {
-        let userDatas = null;
-        let users = { value: '', label: '', no: '' };
-        fetch(`${API_URL}/api/getUserList`, {
+    UpdateUser(users) {
+        this.setState({
+            users: users
+        })
+    }
+
+    handleOnChange(event) {
+        this.setState({
+            userfocus: true
+        })
+        if (event.__isNew__) {
+            this.addGroup(event)
+        }
+        ////////////////일단 그룹 클릭시 가져오는 no 부분
+        this.props.GroupAddOrInviteCallBack(event.no, event.value)
+        ///////////////////////////////////
+        this.setState({
+            selectGroupName: event.value,
+            selectGroupNo: event.no
+        })
+        this.getUserListByGroup(event.no)
+        this.countUserByGroup(event.no)
+    }
+
+    addGroup(event) {
+        let data = {
+            name: event.label
+        };
+        let group = { no: [], gname: [] };
+        fetch(`${API_URL}/api/addGroup`, {
             method: "post",
             headers: API_HEADERS,
+            body: JSON.stringify(data)
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                group.no.push(json.data.no);
+                group.gname.push(json.data.name);
+                this.props.GroupAddOrInviteCallBack(group.no[0], group.gname[0])
+                this.props.getGroup();
+                return;
+            })
+            .catch((err) => console.error(err));
+    }
+
+    getUserListByGroup(no) {
+        let userDatas = null;
+        let users = { value: '', label: '', no: '' };
+        let data = { no: no }
+        fetch(`${API_URL}/api/getUserListByGroup`, {
+            method: "post",
+            headers: API_HEADERS,
+            body: JSON.stringify(data),
         })
             .then((response) => response.json())
             .then((json) => {
@@ -52,78 +93,38 @@ export default class GroupAddOrInvite extends React.Component {
             .catch((err) => console.error(err));
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return (JSON.stringify(nextState) != JSON.stringify(this.state));
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        this.props.UpdateGroup(this.state.group);  
-        this.setState({
-            groups: this.state.group.gname.map((gname, index) => {
-                return {
-                    value: gname,
-                    label: gname,
-                    no: this.props.group.no[index]
-                }
-            })
+    countUserByGroup(no) {
+        let data = { no: no }
+        fetch(`${API_URL}/api/countUserByGroup`, {
+            method: "post",
+            headers: API_HEADERS,
+            body: JSON.stringify(data),
         })
-    }
-
-    UpdateUser(users) {
-        this.setState({
-            users: users
-        })
-    }
-
-    addGroup(event) {
-        this.setState({
-            userfocus: true
-        })
-        if (event.__isNew__) {
-            let data = {
-                name: event.label
-            };
-            let group = { no: [], gname: [] };
-            fetch(`${API_URL}/api/addGroup`, {
-                method: "post",
-                headers: API_HEADERS,
-                body: JSON.stringify(data)
-            })
-                .then((response) => response.json())
-                .then((json) => {
-                    group.no.push(json.data.no);
-                    group.gname.push(json.data.name);
-                    this.groupAdd(group);
-                    return;
+            .then((response) => response.json())
+            .then((json) => {
+                this.setState({
+                    countUser: json.data
                 })
-                .catch((err) => console.error(err));
-        }
-        ////////////////일단 그룹 클릭시 가져오는 no 부분
-        // this.getno=
-        // console.log(event.no);
-        this.props.GroupAddOrInviteCallBack(event.no, event.value)
-        ///////////////////////////////////
-        this.setState({
-            selectGroupName: event.value,
-            selectGroupNo: event.no
-        })
+            })
+            .catch((err) => console.error(err));
     }
 
-    groupAdd(group) {
-        this.props.GroupAddOrInviteCallBack(group.no[0], group.gname[0])
-        
-        this.setState({
-            group: {
-                no: this.state.group.no.concat(group.no),
-                gname: this.state.group.gname.concat(group.gname)
-            }
-        })
-    }
     addUser(event) {
-        if(this.state.selectGroupNo == null){
+        if(event === null){
+            event = [];
+        }
+        //그룹 미선택시 사용자 추가 X
+        if (this.state.selectGroupNo == null) {
             this.groupfocus.current.focus(true);
         }
-        else if(event != null) {
+        //선택한 사용자랑 그룹내 존재하는 사용자 4명 넘으면 추가 X
+        else if (this.state.countUser + event.length >= 4) {
+            this.setState({ userfocus: false })
+        }
+        else {
+            this.setState({ userfocus: true })
+        }
+        if (event != null) {
             this.setState({
                 selectUsers: event.map((event) => {
                     return {
@@ -136,6 +137,7 @@ export default class GroupAddOrInvite extends React.Component {
     }
 
     render() {
+        // console.log(this.state.selectUsers);
         this.props.UserAddOrInviteCallBack(this.state.selectUsers)
         return (
             <>
@@ -148,16 +150,16 @@ export default class GroupAddOrInvite extends React.Component {
                         defaultMenuIsOpen={true}
                         closeMenuOnSelect={false}
                         menuIsOpen={true}
-                        onChange={this.addGroup.bind(this)}
+                        onChange={this.handleOnChange.bind(this)}
                         maxMenuHeight={120}
-                        options={this.state.groups}
+                        options={this.props.groups}
                         placeholder="그룹선택 및 생성할 그룹이름 입력"
-                    // deleteRemoves={true}
                     />
                 </div>
                 <div className={styles.inner_form_component}>
-                    <span className={styles.inner_form_container_title}>초대할 사용자</span>
+                    <span className={styles.inner_form_container_title}>초대할 사용자(그룹당 4명)</span>
                     <Select
+                        // value={this.state.selectUsers}
                         className={styles.inner_select}
                         isMulti
                         defaultMenuIsOpen={true}
@@ -167,6 +169,7 @@ export default class GroupAddOrInvite extends React.Component {
                         maxMenuHeight={120}
                         options={this.state.users}
                         placeholder="그룹 선택시 사용자 선택 가능"
+                        isClearable={true}
                     />
                 </div>
             </>

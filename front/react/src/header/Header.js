@@ -96,7 +96,7 @@ export default class Header extends React.Component {
             // 검색창에 입력한 keyword
             SearchHash={this.props.SearchHash}
             keyword={this.props.keyword}
-            hash={this.props.hash}
+            // hash={this.props.hash}
           />
           <div className={styles.right_header}>
             <div className={styles.addmemo}>
