@@ -59,6 +59,7 @@ public class MemoApiController {
 	
 	@PostMapping("/api/memo/shareMemo")
 	public JsonResult shareMemo(@AuthUser SecurityUser securityUser, @RequestBody List<MemoVo> vo) {
+		
 		int i;
 		boolean asyncTest = true;
 		for(i=0 ; i< vo.size(); i++) {
@@ -100,6 +101,7 @@ public class MemoApiController {
 	@EventListener
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
 		String username = event.getUser().getName();
+		
 		if (username != null) {
 ////	    logger.info("User Connected : " + username);
 //			
@@ -117,6 +119,8 @@ public class MemoApiController {
 	
 	@MessageMapping("/memo/{memo}")
 	public void sendmemo(EditorVo message, @DestinationVariable Long memo) throws Exception {
+		
+		
 		ArrayList<String> arrData = new ArrayList<String>();
 		ArrayList<Long> version = new ArrayList<Long>();
 		String str = null;

@@ -75,10 +75,10 @@ export default class Contents extends React.Component {
                 index={index}
                 content={this.props.memo_bigArr[index].content}
                 memo_hash={this.props.group_hash.filter((element) =>
-                  element.memo_no === this.props.memo_bigArr[index].no)}
+                element.memo_no === this.props.memo_bigArr[index].no)}
                 color={this.props.memo_bigArr[index].color}
                 group_hash={this.props.group_hash}
-
+                users={this.props.users}
               />
               <HashList
                 memo_no={this.props.memo_bigArr[index].no}

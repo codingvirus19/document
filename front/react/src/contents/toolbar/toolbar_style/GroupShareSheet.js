@@ -106,7 +106,7 @@ export default class GroupShareSheet extends React.Component {
 
   render() {
     return (
-      <div className={styles.groupShareSheet} ref={this.props.refChange}>
+      <div className={styles.groupShareSheet} ref={this.props.refChange} onClick={e=>e.stopPropagation()}>
         <div className={styles.container}>
           <div className={styles.title}>공유할 그룹</div>
           <div className={styles.contents}>
@@ -114,7 +114,7 @@ export default class GroupShareSheet extends React.Component {
               ref={(e) => (e != null) ? (e.select.menuListRef.parentNode.style.position = "relative") : null}
               value={this.state.selectedOption}
               onChange={this.handleChange.bind(this)}
-              isMulti
+              isMulti={true}
               autoFocus={false}
               className={styles.select}
               defaultMenuIsOpen={true}

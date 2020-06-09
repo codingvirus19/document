@@ -25,7 +25,7 @@ export default class Popup extends React.Component {
       cursor: '',
       textSize: 0,
       version: 0,
-      name: "test" + Math.round(Math.random() * 100),
+      name: this.props.users.no[0],
       color: this.props.color
     };
   }
@@ -257,18 +257,13 @@ export default class Popup extends React.Component {
       markOpen: !this.state.markOpen
     })
   }
-  editorStart() {
+  editorStart(e) {
     if (this.temp == null) {
       this.send(0, 0, this.props.content, 0, "allKey");
       this.temp = this.props.content.split('').length;
     }
   }
   render() {
-    // console.log(this.props.no);
-    const a = {
-      backgroundColor: `'red'`
-    }
-    console.log(this.props.color);
     return (
       <Fragment>
         <div className={popup.popup} onClick={(e) => {this.props.memoClose}}>
@@ -277,8 +272,8 @@ export default class Popup extends React.Component {
             topics={[`/api/memo/${this.props.no}`]}
             onMessage={this.receive.bind(this)}
             ref={(client) => { this.clientRef = client }} />
-          <div className={popup.inner} style={{backgroundColor :`${this.props.color}`}} onClick={e => e.stopPropagation()}>
-            <div className={styles.editor} style={{backgroundColor :`${this.props.color}`}}>
+          <div className={popup.inner} style={{backgroundColor :`${this.state.color}`}} onClick={e => e.stopPropagation()}>
+            <div className={styles.editor} style={{backgroundColor :`${this.state.color}`}}>
               <div className={styles.btn}>
                 <button className={styles.button} onClick={this.hevent.bind(this, 1)}>H1</button>
                 <button className={styles.button} onClick={this.hevent.bind(this, 2)}>H2</button>

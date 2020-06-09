@@ -59,7 +59,7 @@ export default class GroupShare extends React.Component {
   toggleGroupShareSheet(e) {
     // 클릭 시 true로 바뀌면서 groupShareSheet가 열린다.
     this.setState({ showGroupShareSheet: !this.state.showGroupShareSheet });
-    e.preventDefault();
+    // e.preventDefault();
 
     let nullValueAndLabel = { value: null, label: "개인" };
     let _addNullToGroup = [];
@@ -105,8 +105,8 @@ export default class GroupShare extends React.Component {
         {this.state.showGroupShareSheet ? (
           // <div className={styles.popover}>
           //   <div className={styles.cover}
-          //   // onClick={this.handleClose.bind(this)}
-          //   />
+            // onClick={this.handleClose.bind(this)}
+            // />
             <GroupShareSheet
               // gName,gNo : 임의의 작동을 한 그룹의 no와 name으로 콜백이동하기위한 props
               gName={this.props.gName}
