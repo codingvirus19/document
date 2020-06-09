@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.douzone.codingvirus19.repository.UserRepository;
 import com.douzone.codingvirus19.vo.UserVo;
 
-
 @Service
 public class UserService {
 	@Autowired
@@ -26,6 +25,7 @@ public class UserService {
 	public boolean hasId(String Id) {
 		return userRepository.hasId(Id);
 	}
+	
 	public boolean hasEmail(String email) {
 		return userRepository.hasEmail(email);
 	}
@@ -34,16 +34,20 @@ public class UserService {
 		int count = userRepository.join(vo);
 		return count == 1;
 	}
+	
 	public void joinInsert(UserVo vo) {
 		userRepository.joinInsert(vo);
 	}
 
 	public void modifyProfile(UserVo vo) {
 		userRepository.modifyProfile(vo);
-		
 	}
 
-	public List<UserVo> getUserList(Long no) {
-		return userRepository.getUserList(no);
+	public List<UserVo> getUserListByGroup(Long no) {
+		return userRepository.getUserListByGroup(no);
+	}
+
+	public int countUserByGroup(Long no) {
+		return userRepository.countUserByGroup(no);
 	}
 }

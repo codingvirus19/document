@@ -41,28 +41,9 @@ export default class Container extends React.Component {
   componentDidMount() {
 
     this.bringMemoByGroup(this.state.groupBySidebar.no);
+
     // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
-    let group = { no: [], gname: [] };
-    let groupDatas = null;
-    // call api
-    fetch(`${API_URL}/api/container`, {
-      method: "post",
-      headers: API_HEADERS,
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        groupDatas = json.data;
-        // group의 데이터값으로 sidebar를 불러오는 함수
-        groupDatas.map((json) => {
-          group.no.push(json.no);
-          group.gname.push(json.name);
-        });
-        // UpdateGroup(): group에 setState하는 함수
-        this.UpdateGroup(group);
-      })
-      .catch((err) => console.error(err));
-    // 그룹의 db를 가져오는 코드
-    // -------------------------------------------------------------
+    this.getGroup();
 
     // 로그인한 user를 가져오는 코드
     let users = { no: [], name: [] };
@@ -100,6 +81,31 @@ export default class Container extends React.Component {
 
     // Sidebar의 HashtagList를 가져오는 코드
     this.getHashListByGroup(this.state.groupBySidebar.no);
+  }
+
+  // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
+  getGroup() {
+    let group = { no: [], gname: [] };
+    let groupDatas = null;
+    // call api
+    fetch(`${API_URL}/api/container`, {
+      method: "post",
+      headers: API_HEADERS,
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        groupDatas = json.data;
+        // group의 데이터값으로 sidebar를 불러오는 함수
+        groupDatas.map((json) => {
+          group.no.push(json.no);
+          group.gname.push(json.name);
+        });
+        // UpdateGroup(): group에 setState하는 함수
+        this.UpdateGroup(group);
+      })
+      .catch((err) => console.error(err));
+    // 그룹의 db를 가져오는 코드
+    // -------------------------------------------------------------
   }
 
   getHashListByGroup(gNo) {
@@ -230,8 +236,8 @@ export default class Container extends React.Component {
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
   // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo , changeColor 클릭 시....
   SidebarGroupUpdate(no, name) {
-          //     // 검색창에 keyword입력 후 다시 ""로 설정되도록 하는 코드.
-          // this.onCallbackKeywordChange("");
+    //     // 검색창에 keyword입력 후 다시 ""로 설정되도록 하는 코드.
+    // this.onCallbackKeywordChange("");
     this.bringMemoByGroup(no);
     this.getHashListByGroup(no);
     this.setState({
@@ -327,10 +333,10 @@ export default class Container extends React.Component {
   alarmReceive(alarm_msg) {
     this.state.addgroup_alarm=null
     console.log(alarm_msg);
-    if(alarm_msg.addgroup == true && alarm_msg.type == true && alarm_msg.readCheck == true){ //그룹초대  
+    if (alarm_msg.addgroup == true && alarm_msg.type == true && alarm_msg.readCheck == true) { //그룹초대  
       console.log("그룹추가에 온거 맞지?");
       this.setState({
-        addgroup_alarm:{
+        addgroup_alarm: {
           message: alarm_msg.chat,
           date: alarm_msg.date,
           group_no: alarm_msg.gNo,
@@ -424,7 +430,7 @@ export default class Container extends React.Component {
           alarm={this.state.alarm}
           clientRef={this.clientRef}
           users={this.Users}
-          hash={this.state.distinctGroup_hash}
+          // hash={this.state.distinctGroup_hash}
         />
         <div className={styles.body}>
           <Sidebar
@@ -436,7 +442,7 @@ export default class Container extends React.Component {
           />
           <Contents
             memo_noSelectedByHash={this.state.memo_noSelectedByHash}
-            UpdateGroup={this.UpdateGroup.bind(this)}
+            getGroup={this.getGroup.bind(this)}
             SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
             group={this.state.group}
             groupBySidebar={this.state.groupBySidebar}

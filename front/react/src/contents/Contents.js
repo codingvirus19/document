@@ -16,7 +16,7 @@ export default class Contents extends React.Component {
             <ContentsHeader
               groupBySidebar={this.props.groupBySidebar}
               group={this.props.group}
-              UpdateGroup={this.props.UpdateGroup}
+              getGroup={this.props.getGroup}
               clientRef={this.props.clientRef}
             />
             {(this.props.memo_bigArr!=null)?

@@ -89,8 +89,6 @@ export default class Popup2 extends React.Component {
   }
 
   render() {
-    // console.log(this.state.groupNo, this.state.groupName, this.state.userList);
-    // console.log(this.props.getProfileValue)
 
     let contents;
     let popup2_confirm_btn = "확인";
@@ -107,8 +105,15 @@ export default class Popup2 extends React.Component {
     if (this.props.contents === "groupAddOrInvite") {
       contents = (
         <GroupAddOrInvite
-          UpdateGroup={this.props.UpdateGroup}
+          getGroup={this.props.getGroup}
           group={this.props.group}
+          groups={this.props.group.gname.map((gname, index) => {
+            return {
+              value: gname,
+              label: gname,
+              no: this.props.group.no[index]
+            }
+          })}
           GroupAddOrInviteCallBack={this.GroupAddOrInviteCallBack.bind(this)}
           UserAddOrInviteCallBack={this.UserAddOrInviteCallBack.bind(this)}
         />
