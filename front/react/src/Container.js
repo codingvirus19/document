@@ -24,7 +24,7 @@ export default class Container extends React.Component {
       showAlarm: false,
       clientRef: "",
       alarm: { basic: "", chatting: "" },
-      addgroup_alarm: { message: "", date: "", group_no: "" },
+      addgroup_alarm: {message:"", date:"", group_no:"", group_name:""},
       keyword: "",
     };
     this.drag = null;
@@ -248,6 +248,28 @@ export default class Container extends React.Component {
     });
   }
 
+  AlarmAddGroup(){
+    let group = { no: [], gname: [] };
+    let groupDatas = null;
+    // call api
+    fetch(`${API_URL}/api/container`, {
+      method: "post",
+      headers: API_HEADERS,
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        groupDatas = json.data;
+        // group의 데이터값으로 sidebar를 불러오는 함수
+        groupDatas.map((json) => {
+          group.no.push(json.no);
+          group.gname.push(json.name);
+        });
+        // UpdateGroup(): group에 setState하는 함수
+        this.UpdateGroup(group);
+      })
+      .catch((err) => console.error(err));
+  }
+
   //해시 검색 (ex) #~~~)
   SearchHash(g_no, keyword) {
     // 앞에 #을 자름
@@ -309,6 +331,7 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
+    this.state.addgroup_alarm=null
     console.log(alarm_msg);
     if (alarm_msg.addgroup == true && alarm_msg.type == true && alarm_msg.readCheck == true) { //그룹초대  
       console.log("그룹추가에 온거 맞지?");
@@ -316,7 +339,8 @@ export default class Container extends React.Component {
         addgroup_alarm: {
           message: alarm_msg.chat,
           date: alarm_msg.date,
-          group_no: alarm_msg.gNo
+          group_no: alarm_msg.gNo,
+          group_name: alarm_msg.groupName
         },
         alarm: {
           basic: true,
@@ -365,7 +389,10 @@ export default class Container extends React.Component {
       // })
     }
   }
-
+  //쓰는사람 없으면 지우기
+  // getSnapshotBeforeUpdate(element) {
+  //   return element;
+  // }
 
   render() {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
@@ -433,6 +460,7 @@ export default class Container extends React.Component {
             //중복 제거한 해시
             distinctGroup_hash={this.state.distinctGroup_hash}
           //변경된 결과 값 state :true false
+            AlarmAddGroup={this.AlarmAddGroup.bind(this)}
           />
         </div>
       </div>

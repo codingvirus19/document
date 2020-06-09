@@ -5,6 +5,7 @@ public class AlarmVo {
 	private Long no;
 	private Long gNo;
 	private String chat;
+	private String groupName;
 	private String date;
 	private boolean type;
 	private boolean addgroup;
@@ -29,6 +30,12 @@ public class AlarmVo {
 	}
 	public void setChat(String chat) {
 		this.chat = chat;
+	}
+	public String getGroupName() {
+		return groupName;
+	}
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 	public String getDate() {
 		return date;
@@ -68,7 +75,8 @@ public class AlarmVo {
 	}
 	@Override
 	public String toString() {
-		return "AlarmVo [no=" + no + ", gNo=" + gNo + ", chat=" + chat + ", date=" + date + ", type=" + type
-				+ ", addgroup=" + addgroup + ", readCheck=" + readCheck + ", notiNo=" + notiNo + ", uNo=" + uNo + "]";
+		return "AlarmVo [no=" + no + ", gNo=" + gNo + ", chat=" + chat + ", groupName=" + groupName + ", date=" + date
+				+ ", type=" + type + ", addgroup=" + addgroup + ", readCheck=" + readCheck + ", notiNo=" + notiNo
+				+ ", uNo=" + uNo + "]";
 	}
 }
