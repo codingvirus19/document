@@ -148,7 +148,7 @@ export default class Header extends React.Component {
             </Dropdown>
 
             <div>
-              <button aria-label="채팅" onClick={this.chattingClick.bind(this)}>
+              <button aria-label="채팅" className={styles.chat} onClick={this.chattingClick.bind(this) }>
               {(this.props.alarm.chatting) ? <span className={styles.alarmbell}/> : null } 
                 <FontAwesomeIcon className={styles.faSms} icon={faSms} />
               </button>
