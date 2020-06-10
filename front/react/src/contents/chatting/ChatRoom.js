@@ -53,12 +53,13 @@ export default class Chat extends React.Component {
         date: new Date(),
         aCount: 1
       }));
+      let date = new Date();
 
     this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0],
       JSON.stringify({
         gNo: this.props.gNo,
         chat: "채팅알람",
-        date: new Date(),
+        date: new Date().getHours(),
         type: false,
         readCheck: true
       }));
