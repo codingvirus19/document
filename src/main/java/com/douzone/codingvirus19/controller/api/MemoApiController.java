@@ -7,16 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.socket.messaging.SessionConnectEvent;
-import org.springframework.web.socket.messaging.SessionConnectedEvent;
-import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import com.douzone.codingvirus19.dto.JsonResult;
 import com.douzone.codingvirus19.security.AuthUser;
@@ -96,6 +92,7 @@ public class MemoApiController {
 	public JsonResult imgUpload(@AuthUser SecurityUser securityUser,FileUpLoadVo fileUpLoadVo) {
 		return JsonResult.success(filesService.upload(fileUpLoadVo));
 	}
+	
 	
 	@MessageMapping("/memo/{memo}")
 	public void sendmemo(EditorVo message, @DestinationVariable Long memo) throws Exception {
