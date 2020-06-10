@@ -26,7 +26,6 @@ public class UserListSocketController {
 		
 		
 	}
-
 	// --------------------------------------------------------접속한 유저 Session 가져오기
 	@EventListener
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {

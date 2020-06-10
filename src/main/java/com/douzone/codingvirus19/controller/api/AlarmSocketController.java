@@ -59,7 +59,6 @@ public class AlarmSocketController {
 		groupUserVo.setgNo(alarmVo.getgNo());
 		
 		alarmService.addAlarm(alarmVo);
-		Long no = alarmVo.getNo();
 		alarmChak.setgNo(alarmVo.getgNo());
 		List<Long> list  = alarmService.getGroupinUser(groupUserVo);
 		Long[] array =  new Long[list.size()];

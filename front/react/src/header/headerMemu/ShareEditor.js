@@ -211,8 +211,8 @@ export default class Popup extends React.Component {
     this.setState({
       version: message.version
     })
-    if (message.name != this.state.name && message.type == "save") {
-      this.props.bringMemoByGroup(this.props.memo_gNo == undefined ? null : this.props.memo_gNo);
+    if (message.type == "save") {
+      this.props.bringMemoByGroup(this.props.gNo == undefined ? null : this.props.gNo);
     }
     if (message.name == this.state.name && message.type == "reClick") {
       this.setState({
@@ -253,8 +253,8 @@ export default class Popup extends React.Component {
     }
   }
   memoSave() {
+    console.log(this.props);
     this.send(0, 0, this.state.color, 0, "save");
-    this.props.bringMemoByGroup(this.props.memo_gNo == undefined ? null : this.props.memo_gNo);
   }
   markOpen() {
     this.setState({

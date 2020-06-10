@@ -40,7 +40,6 @@ export default class MemoDelete extends React.Component {
       no: this.state.no,
       gNo: this.state.gNo,
     };
-    console.log(input_deleteMemo);
     this.ajaxDeleteMemo(input_deleteMemo);
   }
   // delete기능
