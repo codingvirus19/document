@@ -12,7 +12,6 @@ export default class Sidebar extends React.Component {
   }
 
   clickGroup(g_no, g_name) {
-    console.log(g_no);
     this.update(g_no, g_name);
   }
 

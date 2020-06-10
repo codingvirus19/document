@@ -34,12 +34,11 @@ export default class GroupAddOrInvite extends React.Component {
             users: [],
             //각 그룹의 유저
             groupUsers: null,
-            selectGroupName: null,
+            // selectGroupName: null,
             selectGroupNo: null,
             //user select에서 새로 선택된 유저(초대할 유저)
             selectUsers: null,
             //선택한 그룹의 유저 수 (4명 제한에 필요)
-            countUser: null,
             userfocus: false,
             //user select의 value값
             valueUsers: null,
@@ -63,19 +62,18 @@ export default class GroupAddOrInvite extends React.Component {
         if (event.__isNew__) {
             this.addGroup(event)
         }
-        ////////////////일단 그룹 클릭시 가져오는 no 부분
-        this.props.GroupAddOrInviteCallBack(event.no, event.value)
-        ///////////////////////////////////
-        this.setState({
-            selectGroupName: event.value,
-            selectGroupNo: event.no
-        })
-        //그룹에 없는 사용자 가져오는 함수 
-        this.getUserListNotInGroup(event.no)
-        //그룹에 있는 사용자 가져오는 함수
-        this.getUserListByGroup(event.no)
-        //그룹 인원이 4명 미만이면 사용자 추가 열고 넘으면 닫기
-        this.countUserByGroup(event.no)
+        else {
+            ////////////////일단 그룹 클릭시 가져오는 no 부분
+            this.props.GroupAddOrInviteCallBack(event.no, event.value)
+            this.setState({
+                // selectGroupName: event.value,
+                selectGroupNo: event.no
+            })
+            //그룹에 없는 사용자 가져오는 함수 
+            this.getUserListNotInGroup(event.no)
+            //그룹에 있는 사용자 가져오는 함수
+            this.getUserListByGroup(event.no)
+        }
     }
 
     addGroup(event) {
@@ -99,6 +97,14 @@ export default class GroupAddOrInvite extends React.Component {
                 group.gname.push(json.data.name);
                 this.props.GroupAddOrInviteCallBack(group.no[0], group.gname[0])
                 this.props.getGroup();
+                this.setState({
+                    // selectGroupName: event.value,
+                    selectGroupNo: group.no[0]
+                })
+                //그룹에 없는 사용자 가져오는 함수 
+                this.getUserListNotInGroup(group.no[0])
+                //그룹에 있는 사용자 가져오는 함수
+                this.getUserListByGroup(group.no[0])
                 return;
             })
             .catch((err) => console.error(err));
@@ -148,37 +154,16 @@ export default class GroupAddOrInvite extends React.Component {
                         isFixed: true
                     }
                 });
-                this.UpdateGroupUser(users);
-                this.UpdateValueUser(users);
-            })
-            .catch((err) => console.error(err));
-    }
-
-    //db쓰지말고 this.state.user.length쓰자
-    countUserByGroup(no) {
-        let data = { no: no }
-        let countUser = null;
-        fetch(`${API_URL}/api/countUserByGroup`, {
-            method: "post",
-            headers: API_HEADERS,
-            body: JSON.stringify(data),
-        })
-            .then((response) => response.json())
-            .then((json) => {
-                countUser = json.data
-                this.setState({
-                    countUser: countUser
-                })
+                let countUser = users.length;
+                //그룹내 사용자 4명 미만이면 사용자 열기
                 if (countUser < 4) {
-                    this.setState({
-                        userfocus: true
-                    })
+                    this.setState({ userfocus: true })
                 }
                 else {
-                    this.setState({
-                        userfocus: false
-                    })
+                    this.setState({ userfocus: false })
                 }
+                this.UpdateGroupUser(users);
+                this.UpdateValueUser(users);
             })
             .catch((err) => console.error(err));
     }
