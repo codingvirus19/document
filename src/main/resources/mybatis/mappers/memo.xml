@@ -53,6 +53,12 @@
 			delete from memo where no=#{no} and g_no= #{gNo} and u_no=#{uNo};
  		]]>
 	</delete>
+	
+	<delete id="deleteHash" parameterType="memovo">
+		<![CDATA[
+			delete from hash where g_no=#{gNo}
+		]]>
+	</delete>
 
 	<insert id="shareMemo" parameterType="memovo">
 		<![CDATA[

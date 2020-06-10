@@ -3,8 +3,9 @@ import Popup2 from "../Popup2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faFolderPlus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import styles from "./ContentsHeader.css";
+import GroupInUserList from "./GroupInUserList";
 
-const API_URL = "http://localhost:8080/codingvirus19";
+const API_URL = ".";
 const API_HEADERS = {
   "Content-Type": "application/json",
 };
@@ -27,11 +28,10 @@ export default class ContentsHeader extends React.Component {
     e.preventDefault();
     console.log(this.props.groupBySidebar.no)
     let groupNoForDelete = null;
+
     // group의 no는 개인이기 때문에 그룹 나가기가 작동되어선 안된다.
     // no가 null이 아닌것 에서만 그룹나가기가 작동되도록 설정.
-    
     if(this.props.groupBySidebar.no != null){
-
       // 들어가있는 그룹의 no와 name값(상훈아 name넣었다!!!)
       groupNoForDelete ={
         no: this.props.groupBySidebar.no,
@@ -49,6 +49,7 @@ export default class ContentsHeader extends React.Component {
           let getTrue = json.data;
           if (getTrue != false) {
             this.props.SidebarGroupUpdate(null, null);
+            this.props.getGroup();
           }
         })
         .catch((err) => console.error(err));
@@ -98,18 +99,22 @@ export default class ContentsHeader extends React.Component {
             />
           ) : null}
         </div>
+<<<<<<< HEAD
+        {(this.props.groupBySidebar.no != null) ? <GroupInUserList groupInUserList={this.props.groupInUserList} users={this.props.users} /> : null}
+=======
 
         <div className={styles.groupUsers}>
             <div>
             </div>
         </div>
         
+>>>>>>> f3dc794776ff9a85a095d7e2863cb204c8430c22
       </div>
       <div className={styles.groupOut}>
         {this.props.groupBySidebar.no != null ?
           <button onClick={this.onOutGroup.bind(this)} className={styles.groupOutButton}>그룹 삭제</button>
           : null}
-        {this.props.groupBySidebar.no != null ?
+        {this.props.groupBySidebar.no != null ? 
           <button className={styles.groupOutButton}>그룹 나가기</button>
           : null}
       </div>

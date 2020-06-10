@@ -46,7 +46,7 @@ export default class Profile extends React.Component {
     console.log("프로파일 실행")
     const formData = new FormData();
     formData.append("multipartFile", e.currentTarget.files[0]);
-    fetch("http://localhost:8080/codingvirus19/api/upload", {
+    fetch("./api/upload", {
       method: "post",
       headers: { append: "application/json" },
       body: formData,

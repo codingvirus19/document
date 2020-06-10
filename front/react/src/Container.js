@@ -5,7 +5,7 @@ import Contents from "./contents/Contents";
 import SockJsClient from "react-stomp";
 import styles from "./Container.css";
 
-const API_URL = "http://localhost:8080/codingvirus19";
+const API_URL = ".";
 const API_HEADERS = {
   "Content-Type": "application/json",
 };
@@ -25,7 +25,12 @@ export default class Container extends React.Component {
       showAlarm: false,
       clientRef: "",
       alarm: { basic: "", chatting: "" },
+<<<<<<< HEAD
+      addgroup_alarm: {message:"", date:"", group_no:"", group_name:""},
+      groupInUserList : [{ user_no:"", id: "", nickname:"", img:"", auth_no:"" }],
+=======
       addgroup_alarm: { message: "", date: "", group_no: "", group_name: "" },
+>>>>>>> f3dc794776ff9a85a095d7e2863cb204c8430c22
       keyword: "",
     };
     this.drag = null;
@@ -285,18 +290,16 @@ export default class Container extends React.Component {
     })
     .then((response) => response.json())
       .then((json) => {
-        getSession = json.data;
-        // group의 데이터값으로 sidebar를 불러오는 함수
-        getSession.map((json) => {
+        getSession = json.data.map((json) => {
           return{
             user_no: json.no,
             id: json.id,
             nickname: json.nickname,
             img : json.image,
             auth_no : json.auth_no
-          }
+          };
         });
-        console.log(getSession);
+        this.GroupInUserList(getSession);
       })
       .catch((err) => console.error(err));
   }
@@ -381,6 +384,12 @@ export default class Container extends React.Component {
     })
 
   }
+  // 접속한 유저 리스트
+  GroupInUserList(getSession){
+    this.setState({
+      groupInUserList: getSession
+    })
+  }
 
   alarmReceive(alarm_msg) {
     this.state.addgroup_alarm = null
@@ -445,7 +454,7 @@ export default class Container extends React.Component {
   }
 
   render() {
-    const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
+    const wsSourceUrl = "./api/alarm";
     return (
       <div className={styles.container}>
         {this.Users != undefined ? (
@@ -512,6 +521,7 @@ export default class Container extends React.Component {
             distinctGroup_hash={this.state.distinctGroup_hash}
             //변경된 결과 값 state :true false
             AlarmAddGroup={this.AlarmAddGroup.bind(this)}
+            groupInUserList={this.state.groupInUserList}
           />
         </div>
       </div>

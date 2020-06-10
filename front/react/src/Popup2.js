@@ -3,7 +3,7 @@ import Profile from "./header/headerMemu/Profile";
 import GroupAddOrInvite from "./contents/GroupAddOrInvite";
 import popupStyles from "./Popup2.css";
 
-const API_URL = "http://localhost:8080/codingvirus19";
+const API_URL = ".";
 const API_HEADERS = {
   "Content-Type": "application/json",
 };
@@ -44,10 +44,9 @@ export default class Popup2 extends React.Component {
       }
   }
 
-
+  // profile의 현재value or 변경된 value를 modifyProfile에 담고 통신으로 전달. 
   getModifiedValue(){
     this.ajaxModifyProfile(this.modifyProfile);
-
   }
 
   ajaxModifyProfile(_modifyProfile) {

@@ -28,7 +28,8 @@
 }
 
 .chatList:hover {
-  background-color: rgba(185, 237, 247, 0.404);
+  /* background-color: rgba(185, 237, 247, 0.404); */
+  background-color: #0069d9;
 }
 .Chatting {
   overflow: hidden;
