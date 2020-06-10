@@ -77,8 +77,7 @@ public class MemoApiController {
 	@PostMapping("/api/memo/save")
 	public JsonResult saveMemo(@AuthUser SecurityUser securityUser, @RequestBody MemoVo vo) {
 		vo.setuNo(securityUser.getNo());
-		memoService.insert(vo);
-		return JsonResult.success("ab");
+		return JsonResult.success(memoService.insert(vo));
 	}
 	
 	@PostMapping("/api/memo/delete")
@@ -100,13 +99,10 @@ public class MemoApiController {
 	
 	@MessageMapping("/memo/{memo}")
 	public void sendmemo(EditorVo message, @DestinationVariable Long memo) throws Exception {
-		
-		
 		ArrayList<String> arrData = new ArrayList<String>();
 		ArrayList<Long> version = new ArrayList<Long>();
 		String str = null;
 		Boolean first = true;
-//		System.out.println(event.getUser().getName());
 		if(strList.get(memo) != null && versionList.get(memo) != null && booleanList.get(memo) != null) {
 			Collections.addAll(arrData, strList.get(memo).split(""));
 			version = versionList.get(memo);
@@ -137,6 +133,11 @@ public class MemoApiController {
 			return;
 		}else if(message.getType().equals("allKey")){
 			message.setKey(str);
+			message.setVersion(version.get(version.size()-1));
+			webSocket.convertAndSend("/api/memo/" + memo, message);
+			return;
+		}
+		if(message.getType().equals("reClick")) {
 			message.setVersion(version.get(version.size()-1));
 			webSocket.convertAndSend("/api/memo/" + memo, message);
 			return;

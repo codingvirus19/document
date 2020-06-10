@@ -4,7 +4,7 @@ import Logo from "../header/Logo.js"
 import JoinSuccess from "./JoinSucess.js"
 import styles from './Login.css';
 
-const API_URL = "http://localhost:8080/codingvirus19";
+const API_URL = ".";
 const API_HEADERS = {
   accept: "application/json",
 };

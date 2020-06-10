@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import { Remarkable } from 'remarkable';
 import SockJsClient from "react-stomp";
 import popup from "./Popup.css";
-import Toolbar from "../../contents/toolbar/Toolbar";
 import styles from "./ShareEditor.css";
 import EditorToolbar from"./EditorToolbar.js";
 
@@ -215,6 +214,11 @@ export default class Popup extends React.Component {
     if (message.name != this.state.name && message.type == "save") {
       this.props.bringMemoByGroup(this.props.memo_gNo == undefined ? null : this.props.memo_gNo);
     }
+    if (message.name == this.state.name && message.type == "reClick") {
+      this.setState({
+        version:message.version
+      })
+    }
     if (message.type == "allKey" && message.name == this.state.name) {
       // console.log(message);
       this.setState({
@@ -261,6 +265,8 @@ export default class Popup extends React.Component {
     if (this.temp == null) {
       this.send(0, 0, this.props.content, 0, "allKey");
       this.temp = this.props.content.split('').length;
+    }else{
+      this.send(0,0,'',0,"reClick");
     }
   }
   render() {
