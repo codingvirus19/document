@@ -61,7 +61,4 @@ public class UserRepository {
 		return sqlSession.selectList("user.getUserListByGroup", no);
 	}
 
-	public int countUserByGroup(Long no) {
-		return sqlSession.selectOne("user.countUserByGroup", no);
-	}
 }

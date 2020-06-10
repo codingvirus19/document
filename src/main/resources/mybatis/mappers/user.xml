@@ -76,12 +76,4 @@
  		]]>
 	</select>
 	
-	<select id="countUserByGroup" parameterType="long" resultType="int">
-		<![CDATA[
-			select count(b.u_no)
-			  from groups a, groupuser b
-			 where a.no = b.g_no
-			   and a.no = #{no};
- 		]]>
-	</select>
 </mapper>
