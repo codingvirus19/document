@@ -10,7 +10,8 @@
 		]]>
 	</insert>
 
-	<select id="getGroupinUser" parameterType="groupuservo" resultType="long">
+	<select id="getGroupinUser" parameterType="groupuservo"
+		resultType="long">
 		<![CDATA[
 		 select u_no as uNo
 		   from groupuser 
@@ -26,6 +27,21 @@
 			 values (#{uNo}, #{gNo}, 3);
 		]]>
 	</insert>
+
+	<select id="getGroupinUserSession" parameterType="groupuservo"
+		resultType="uservo">
+		<![CDATA[
+		 select a.u_no as no,
+		 		b.id as id, 
+		 		b.nickname as nickname, 
+		 		b.image as image,
+                a.a_no as authNo
+		   from groupuser a, (select no, id, nickname, image from user) as b, auth as c
+		  where a.u_no = b.no
+            and a.a_no = c.no
+            and g_no=#{gNo}
+ 		]]>
+	</select>
 
 </mapper>
 

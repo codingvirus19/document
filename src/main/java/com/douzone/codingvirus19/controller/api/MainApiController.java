@@ -1,12 +1,16 @@
 package com.douzone.codingvirus19.controller.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.socket.messaging.SessionConnectedEvent;
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import com.douzone.codingvirus19.dto.JsonResult;
 import com.douzone.codingvirus19.security.AuthUser;
@@ -14,7 +18,6 @@ import com.douzone.codingvirus19.security.SecurityUser;
 import com.douzone.codingvirus19.service.MainService;
 import com.douzone.codingvirus19.vo.GroupUserVo;
 import com.douzone.codingvirus19.vo.GroupVo;
-import com.douzone.codingvirus19.vo.HashVo;
 import com.douzone.codingvirus19.vo.MemoVo;
 import com.douzone.codingvirus19.vo.UserVo;
 
@@ -25,6 +28,9 @@ public class MainApiController {
 	@Autowired
 	private MainService mainService;
 
+	static ArrayList<String> getUserSession = new ArrayList<String>();
+	static ArrayList<String> getUserSession2 = new ArrayList<String>();
+	
 	@PostMapping("/container")
 	public JsonResult getGroupList(@AuthUser SecurityUser securityUser) {
 		UserVo userVo = new UserVo();
@@ -37,8 +43,25 @@ public class MainApiController {
 	public JsonResult getUserListByGroup(@RequestBody GroupVo vo) {
 		List<UserVo> userList = mainService.getUserListByGroup(vo.getNo());
 		return JsonResult.success(userList);
+
+	@PostMapping("/outGroup")
+	public JsonResult outGroup(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo ) {
+		System.out.println(vo);
+		boolean asyncTest = mainService.outGroup(vo);
+//		UserVo userVo = new UserVo();
+		
+//		userVo.setNo(securityUser.getNo());
+//		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
+		return JsonResult.success(asyncTest);
 	}
 
+	@PostMapping("/groupsession")
+	public JsonResult groupSession(@RequestBody GroupUserVo groupuserVo) {
+		List<UserVo> list = mainService.getGroupinUserSession(groupuserVo);
+		System.out.println(list);
+		return JsonResult.success(list);
+	}
+	
 	@PostMapping("/memoList")
 	public JsonResult contents(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo) {
 		MemoVo memoVo = new MemoVo();
@@ -75,13 +98,6 @@ public class MainApiController {
 
 		return JsonResult.success(groupVo);
 	}
-
-	//아직 프론트에서 안씀
-	@PostMapping("/deleteGroup")
-	public JsonResult deleteGroup(@RequestBody GroupVo groupVo){
-		boolean result = mainService.deleteGroup(groupVo.getNo());
-		return JsonResult.success(result);
-	}
 	
 //	@PostMapping("/addUserToGroup")
 //	public JsonResult addUserToGroup() {
@@ -89,4 +105,39 @@ public class MainApiController {
 //		return JsonResult.success(result);
 //	}
 
+//--------------------------------------------------------접속한 유저 Session 가져오기	
+	@EventListener
+	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
+		String username = event.getUser().getName();
+		UserVo uservo = new UserVo();
+		
+		getUserSession.add(username);
+		
+		for(int i = 0; i < getUserSession.size(); i ++) {
+			if(!getUserSession2.contains(getUserSession.get(i))) {
+				getUserSession2.add(getUserSession.get(i));
+			}
+		}
+		if(getUserSession2.get(0) != null) {
+			System.out.println(getUserSession2.get(0));
+			for(int i = 0; i < getUserSession2.size(); i++) {
+				uservo.setId(getUserSession2.get(i));
+				
+			}
+		}
+		
+		System.out.println(getUserSession2 + "접속 하였습니다.");
+	}
+
+	@EventListener
+	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
+		String username = event.getUser().getName();
+		if(getUserSession.indexOf(username)>=0) {
+			getUserSession.remove(getUserSession.indexOf(username));
+		}
+		if (username != null) {
+			System.out.println(username + "나갔습니다.");
+			System.out.println("현재 남아 있는 인원" + getUserSession);
+		}
+	}
 }

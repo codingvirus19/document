@@ -80,8 +80,9 @@ export default class Header extends React.Component {
           />
 
           <div className={styles.right_header}>
-            <div className={styles.addmemo}>
+            <div>
               <button aria-label="메모 추가"
+                className={styles.addmemo}
                 onClick={this.togglePopup.bind(this)}>
                 <FontAwesomeIcon className={styles.faPlus} icon={faPlus} />
               </button>
@@ -98,7 +99,6 @@ export default class Header extends React.Component {
 
               <Dropdown aria-label="계정" className={styles.account}>
                 <Dropdown.Toggle >
-                  {/* <FontAwesomeIcon className={styles.faUser} icon={faUser} /> */}
                   <img className={styles.imageIcon} src={"."+this.props.getProfileValue.image} />
                 </Dropdown.Toggle>
                 <Dropdown.Menu className={dropdownstyles.menu}>  
@@ -128,10 +128,11 @@ export default class Header extends React.Component {
             </Dropdown>
 
             <div>
-              <button aria-label="채팅" onClick={this.chattingClick.bind(this)}>
+              <button aria-label="채팅" className={styles.chat} onClick={this.chattingClick.bind(this) }>
               {(this.props.alarm.chatting) ? <span className={styles.alarmbell}/> : null } 
                 <FontAwesomeIcon className={styles.faSms} icon={faSms} />
               </button>
+            
             </div>
           </div>
         </div>

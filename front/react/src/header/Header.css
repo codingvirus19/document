@@ -35,7 +35,6 @@
 .account,
 .userbell {
   margin-right: 1.8rem;
-  background: none;
 }
 
 .faPlus,
@@ -47,18 +46,15 @@
   background-color: none;
 }
 
-.right_header button{
+.userbell button, .account, .addmemo,.chat{
   background: none;
   border-radius: 1rem;
-  width: 2rem;
-  height: 2rem;
+  width: 2.9rem;
+  height: 2.9rem;
 }
 
-.right_header button:hover{
+.userbell button:hover, .account:hover, .addmemo:hover,.chat:hover{
   box-shadow: gray 1px 1px 1px 1px;
-  border-radius: 1rem;
-  width: 2rem;
-  height: 2rem;
 }
 
 .imageIcon {

@@ -36,11 +36,9 @@ public class AuthUserHandlerMethodArgumentResolver implements HandlerMethodArgum
         if(authUser==null) {
             return false;
         }
-
         if(parameter.getParameterType().equals(SecurityUser.class)==false) { 
             return false;
         }
-        
         return true;
     }
 
