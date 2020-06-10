@@ -5,7 +5,7 @@ export default class Modal extends React.Component {
     constructor(){
         super(...arguments);
         this.state={
-            // title:null
+            title: this.props.title
         }
     }
     
@@ -55,16 +55,19 @@ export default class Modal extends React.Component {
         <div className={styles.modalContainer}>
             <div className={styles.modalContainer__inner}>
                 <header className={styles.inner__header}> 
-                    <span className={styles.header__title}><h2>Modal Header</h2></span>
-                    <span onClick="document.getElementById('id01').style.display='none'" 
+                    {this.state.title != null ? 
+                    <span className={styles.header__title}><h2>{this.state.title}</h2></span>
+                    : null }
+                    
+                    <span onClick={this.props.onClickFalse} 
                     className={styles.header__close}>&times;</span>
                 </header>
                 <div className={styles.contents}>
                     <p>Some text..</p>
                 </div>
                 <footer className={styles.footer}>
-                   <button className={styles.confirm_btn}>확인</button>
-                   <button className={styles.cancel_btn}>닫기</button>
+                   <button onClick={this.onOutGroup.bind(this)} className={styles.confirm_btn}>확인</button>
+                   <button onClick={this.props.onClickFalse} className={styles.cancel_btn}>닫기</button>
                 </footer>
             </div>
       </div>

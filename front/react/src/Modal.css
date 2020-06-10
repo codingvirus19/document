@@ -34,6 +34,7 @@
     font-size: xx-large;
     float: right;
     width:31px;
+    cursor: pointer;
     
 }
 .header__title{
@@ -73,5 +74,4 @@
     background-color: #ea232c;
     border-radius: 0.25rem;
     color: #f5f5f5;
-    /* margin-right: 3rem; */
   }

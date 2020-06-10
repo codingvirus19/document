@@ -22,10 +22,14 @@ export default class GroupOutEveryone extends React.Component {
         })
     }
    
+    onClickFalse(){
+        this.setState({openModal:false,})
+    }
+    
     render() {
         return (<div>
             <button onClick={this.onClickTrue.bind(this)} className={styles.groupOutButton}>그룹 삭제</button>
-            {this.state.openModal == true ? <Modal /*title={"타이틀입니다."}*/ getGroup={this.props.getGroup} groupBySidebar={this.props.groupBySidebar} SidebarGroupUpdate={this.props.SidebarGroupUpdate}/> 
+            {this.state.openModal == true ? <Modal onClickFalse={this.onClickFalse.bind(this)} title={"타이틀입니다."} getGroup={this.props.getGroup} groupBySidebar={this.props.groupBySidebar} SidebarGroupUpdate={this.props.SidebarGroupUpdate}/> 
              :null}
         </div>)
         
