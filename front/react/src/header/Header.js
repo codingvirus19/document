@@ -15,7 +15,6 @@ export default class Header extends React.Component {
     this.state = {
       showPopup: false,
       showProfile: false,
-      // getProfileValue: null,
       showChat: false,
       redirect: false,
       showAlarm: false,
@@ -58,7 +57,7 @@ export default class Header extends React.Component {
   }
 
   render() {
-    if(this.props.getProfileValue === null){
+    if(!this.props.getProfileValue){
       return null;
     }
     return (
@@ -98,8 +97,8 @@ export default class Header extends React.Component {
             </div>
               <Dropdown aria-label="계정" className={styles.account}>
                 <Dropdown.Toggle className={styles.user}>
-                <FontAwesomeIcon className={styles.faUser} icon={faUser} />
-                  {/* <img className={styles.imageIcon} src={"."+this.props.getProfileValue.image} /> */}
+                {/* <FontAwesomeIcon className={styles.faUser} icon={faUser} /> */}
+                  <img className={styles.imageIcon} src={"."+this.props.getProfileValue.image} />
                 </Dropdown.Toggle>
                 <Dropdown.Menu className={dropdownstyles.menu}>  
                   <Dropdown.Item onClick={this.toggleShowProfile.bind(this)} className={dropdownstyles.item}>
@@ -111,6 +110,7 @@ export default class Header extends React.Component {
                 </Dropdown.Menu>
                 {this.state.showProfile ? (
                   <Popup2
+                  notify={this.props.notify}
                     getProfileValue={this.props.getProfileValue}
                     inner_header="프로필정보"
                     contents={"profile"}

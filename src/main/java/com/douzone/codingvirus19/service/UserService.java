@@ -50,8 +50,4 @@ public class UserService {
 	public List<UserVo> getUserListNotInGroup(Long no) {
 		return userRepository.getUserListNotInGroup(no);
 	}
-
-	public int countUserByGroup(Long no) {
-		return userRepository.countUserByGroup(no);
-	}
 }

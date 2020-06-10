@@ -13,6 +13,7 @@ export default class Contents extends React.Component {
         <div className={styles.box}>
           <div className={styles.contentsMemo}>
             <ContentsHeader
+             notify={this.props.notify}
               SidebarGroupUpdate={this.props.SidebarGroupUpdate}
               groupBySidebar={this.props.groupBySidebar}
               group={this.props.group}
@@ -23,6 +24,7 @@ export default class Contents extends React.Component {
             />
             {(this.props.memo_bigArr!=null)?
             <ContentsMemo
+            notify={this.props.notify}
               bringMemoByGroup={this.props.bringMemoByGroup}
               memo_Change={this.props.memo_Change}
               callbackFromToolbar={this.props.callbackFromToolbar}

@@ -1,0 +1,77 @@
+.modalContainer{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    flex-direction: column;
+}
+
+.modalContainer__inner{
+    background: #f5f5f5;
+    margin: auto;
+    margin-top: 172px;
+    width: 30rem;
+    /* max-width: 26%;
+    min-width: 26%; */
+    height: 19rem;
+}
+
+.inner__header{
+    background-color:#3a60c9;
+    height:3rem;
+}
+
+.header__close{
+    height: 100%;
+    font-size: xx-large;
+    float: right;
+    width:31px;
+    
+}
+.header__title{
+    height: 100%;
+    color: white;
+    float: left;
+    padding-top: 7px;
+    margin-left: 31%;
+}
+
+.contents{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 11rem;
+}
+
+.footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+}
+
+.confirm_btn {
+    width: 5rem;
+    height: 2.5rem;
+    background-color: #007bff;
+    border-radius: 0.25rem;
+    color: #f5f5f5;
+    margin-right: 3rem;
+  }
+  
+  .cancel_btn {
+    width: 5rem;
+    height: 2.5rem;
+    background-color: #ea232c;
+    border-radius: 0.25rem;
+    color: #f5f5f5;
+    /* margin-right: 3rem; */
+  }

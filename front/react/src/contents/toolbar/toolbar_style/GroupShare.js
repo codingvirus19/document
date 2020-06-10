@@ -108,6 +108,7 @@ export default class GroupShare extends React.Component {
             // onClick={this.handleClose.bind(this)}
             // />
             <GroupShareSheet
+            notify={this.props.notify}
               // gName,gNo : 임의의 작동을 한 그룹의 no와 name으로 콜백이동하기위한 props
               gName={this.props.gName}
               gNo={this.props.gNo}

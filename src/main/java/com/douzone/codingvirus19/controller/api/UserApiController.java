@@ -49,11 +49,4 @@ public class UserApiController {
 		return JsonResult.success(userList);
 	}
 	
-	@PostMapping("/countUserByGroup")
-	public JsonResult countUserByGroup(@RequestBody GroupVo vo) {
-		int countUser = userService.countUserByGroup(vo.getNo());
-		return JsonResult.success(countUser);
-	}
-
-	
 }
