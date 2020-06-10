@@ -61,4 +61,8 @@ public class UserRepository {
 		return sqlSession.selectList("user.getUserListByGroup", no);
 	}
 
+	public String getUser(Long no) {
+		return sqlSession.selectOne("user.getUser",no);
+	}
+
 }
