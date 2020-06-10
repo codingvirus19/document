@@ -17,6 +17,7 @@ export default class GroupOutEveryone extends React.Component {
         })
     }
    
+    // 클로즈 콜백함수로 <Modal>을 사용 시 반드시 사용할 것!!!!
     onClickFalse(){
         this.setState({openModal:false,})
     }
@@ -24,6 +25,7 @@ export default class GroupOutEveryone extends React.Component {
     render() {
         return (<div>
             <button onClick={this.onClickTrue.bind(this)} className={styles.groupOutButton}>그룹 삭제</button>
+            {/* contents props에 기능과 관련된 단어를 넣으면 Modal창에 적용된다. 참고!!  */}
             {this.state.openModal == true ? <Modal contents={"그룹 삭제"} onClickFalse={this.onClickFalse.bind(this)} getGroup={this.props.getGroup} groupBySidebar={this.props.groupBySidebar} SidebarGroupUpdate={this.props.SidebarGroupUpdate}/> 
              :null}
         </div>)

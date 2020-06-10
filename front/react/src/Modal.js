@@ -73,7 +73,13 @@ export default class Modal extends React.Component {
                 </div> : null}
                
                 <footer className={styles.footer}>
-                   <button onClick={this.onOutGroup.bind(this)} className={styles.confirm_btn}>확인</button>
+                    {/* GroupOutEveryone의 버튼 클릭시 아래 함수 실행 */}
+                    {this.state.contents == "그룹 삭제" ? <button onClick={this.onOutGroup.bind(this)} className={styles.confirm_btn}>확인</button> : null}
+
+                    {/* GroupOutAlone의 버튼 클릭시 아래 함수 실행 */}
+                    {this.state.contents == "그룹 나가기" ? <button onClick={this.onOutGroup.bind(this)} className={styles.confirm_btn}>확인</button> : null}
+                   
+                   {/* onClickFalse은 무조건 콜백함수로 사용해야 종료가 된다. 이전페이지에 꼭 넣기! */}
                    <button onClick={this.props.onClickFalse} className={styles.cancel_btn}>닫기</button>
                 </footer>
             </div>
