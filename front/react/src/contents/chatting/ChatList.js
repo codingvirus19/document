@@ -62,7 +62,7 @@ export default class Contents extends React.Component {
                     id={index}
                     key={index}
                     onClick={this.open.bind(this)} >
-                    채팅그룹 : {gname}
+                    {gname}
                     {this.groupByalarm.call(this, this.props.group.no[index])}
                   </div>
                 </Fragment>
