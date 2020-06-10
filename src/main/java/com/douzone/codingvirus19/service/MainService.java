@@ -45,6 +45,11 @@ public class MainService {
 
 	public List<MemoVo> memoListByHash(MemoVo memoVo) {
 		return memoRepository.memoListByHash(memoVo);
+	}
+
+	public List<UserVo> getGroupinUserSession(GroupUserVo groupuserVo) {
+		List<UserVo> list = groupuserRepository.getGroupinUserSession(groupuserVo);
+		return list;
 	}	
 
 }
