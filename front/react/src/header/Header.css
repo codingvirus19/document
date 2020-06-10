@@ -46,7 +46,7 @@
   background-color: none;
 }
 
-.userbell button, .account, .addmemo,.chat{
+.userbell button, .account, .addmemo,.chat,.user{
   background: none;
   border-radius: 1rem;
   width: 2.9rem;

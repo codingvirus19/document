@@ -36,7 +36,7 @@ export default class Header extends React.Component {
   }
 
   setRedirect() {
-    window.location = "http://localhost:8080/codingvirus19/logout";
+    window.location = "./logout";
   }
 
   chattingClick() {
@@ -96,10 +96,10 @@ export default class Header extends React.Component {
                 />
               ) : null}
             </div>
-
               <Dropdown aria-label="계정" className={styles.account}>
-                <Dropdown.Toggle >
-                  <img className={styles.imageIcon} src={"."+this.props.getProfileValue.image} />
+                <Dropdown.Toggle className={styles.user}>
+                <FontAwesomeIcon className={styles.faUser} icon={faUser} />
+                  {/* <img className={styles.imageIcon} src={"."+this.props.getProfileValue.image} /> */}
                 </Dropdown.Toggle>
                 <Dropdown.Menu className={dropdownstyles.menu}>  
                   <Dropdown.Item onClick={this.toggleShowProfile.bind(this)} className={dropdownstyles.item}>

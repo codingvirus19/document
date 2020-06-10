@@ -3,7 +3,7 @@ import Profile from "./header/headerMemu/Profile";
 import GroupAddOrInvite from "./contents/GroupAddOrInvite";
 import popupStyles from "./Popup2.css";
 
-const API_URL = "http://localhost:8080/codingvirus19";
+const API_URL = ".";
 const API_HEADERS = {
   "Content-Type": "application/json",
 };

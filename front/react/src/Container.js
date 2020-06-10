@@ -5,7 +5,7 @@ import Contents from "./contents/Contents";
 import SockJsClient from "react-stomp";
 import styles from "./Container.css";
 
-const API_URL = "http://localhost:8080/codingvirus19";
+const API_URL = ".";
 const API_HEADERS = {
   "Content-Type": "application/json",
 };
@@ -445,7 +445,7 @@ export default class Container extends React.Component {
   }
 
   render() {
-    const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
+    const wsSourceUrl = "./api/alarm";
     return (
       <div className={styles.container}>
         {this.Users != undefined ? (

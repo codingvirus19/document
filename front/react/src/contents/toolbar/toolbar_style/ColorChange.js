@@ -4,7 +4,7 @@ import { faPalette } from "@fortawesome/free-solid-svg-icons";
 import styles from "../Toolbar.css";
 import { TwitterPicker } from "react-color";
 
-const API_URL = "http://localhost:8080/codingvirus19";
+const API_URL = ".";
 const API_HEADERS = {
   "Content-Type": "application/json",
 };

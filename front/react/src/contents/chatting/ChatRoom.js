@@ -4,7 +4,7 @@ import MessageSend from "./messageSend";
 import styles from "./Chat.css";
 import SockJsClient from "react-stomp";
 
-const API_URL = "http://localhost:8080/codingvirus19";
+const API_URL = ".";
 const API_HEADERS = {
   "Content-Type": "application/json",
 };
@@ -64,7 +64,7 @@ export default class Chat extends React.Component {
       }));
   }
   render() {
-    const wsSourceUrl = "http://localhost:8080/codingvirus19/api/chat";
+    const wsSourceUrl = "./api/chat";
     return (
       <Fragment>
         <SockJsClient
