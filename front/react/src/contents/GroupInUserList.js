@@ -11,23 +11,17 @@ export default class GroupInUserList extends React.Component {
         }
     }
     userSessionReceive(userSession) {
-        console.log(userSession);
+        console.log(userSession,"접소오옥");
         this.setState({
             userlistSession: userSession
         });
     }
-
     render() {
-
-        console.log(this.props.users.no[0]);
         const wsSourceUrl = "./api/userlist";
-        console.log(this.props.groupInUserList);
-
         return (
             <div className={styles.groupUserList}>
                 {this.props.groupInUserList.map((element) => {
                     if (this.props.groupInUserList != null) {
-                        console.log(element.id,this.state.userlistSession.indexOf(element.id) == -1);
                         if (this.state.userlistSession.indexOf(element.id) == -1) {
                             return (
                                 <ul key={element.user_no} className={styles.users}>
@@ -51,10 +45,10 @@ export default class GroupInUserList extends React.Component {
                 {this.props.users.no[0] != null ? (
                     <SockJsClient
                         url={wsSourceUrl}
-                        topics={[`/api/userlist/${this.props.users.no[0]}`]}
+                        topics={[`/api/userlist/${this.props.groupBySidebar}`]}
                         onMessage={this.userSessionReceive.bind(this)}
                         ref={(client) => { this.clientRef = client; }}
-                        onConnect={() => { this.clientRef.sendMessage(`/app/userlist/${this.props.users.no[0]}`) }}>
+                        onConnect={() => { this.clientRef.sendMessage(`/app/userlist/${this.props.groupBySidebar}`,this.props.users.no[0]) }}>
                     </SockJsClient>
                 ) : null}
             </div>
