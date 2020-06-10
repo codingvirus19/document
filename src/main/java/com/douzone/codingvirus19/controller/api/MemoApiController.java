@@ -98,25 +98,6 @@ public class MemoApiController {
 		return JsonResult.success(filesService.upload(fileUpLoadVo));
 	}
 	
-	@EventListener
-	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
-		String username = event.getUser().getName();
-		
-		if (username != null) {
-////	    logger.info("User Connected : " + username);
-//			
-		}
-	}
-
-//	@EventListener
-	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
-		String username = event.getUser().getName();
-		if (username != null) {
-////	    logger.info("User Disconnected : " + username);
-		}
-	}
-	
-	
 	@MessageMapping("/memo/{memo}")
 	public void sendmemo(EditorVo message, @DestinationVariable Long memo) throws Exception {
 		
