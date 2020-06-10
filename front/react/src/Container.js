@@ -25,6 +25,7 @@ export default class Container extends React.Component {
       clientRef: "",
       alarm: { basic: "", chatting: "" },
       addgroup_alarm: {message:"", date:"", group_no:"", group_name:""},
+      groupInUserList : [{ user_no:"", id: "", nickname:"", img:"", auth_no:"" }],
       keyword: "",
     };
     this.drag = null;
@@ -267,18 +268,16 @@ export default class Container extends React.Component {
     })
     .then((response) => response.json())
       .then((json) => {
-        getSession = json.data;
-        // group의 데이터값으로 sidebar를 불러오는 함수
-        getSession.map((json) => {
+        getSession = json.data.map((json) => {
           return{
             user_no: json.no,
             id: json.id,
             nickname: json.nickname,
             img : json.image,
             auth_no : json.auth_no
-          }
+          };
         });
-        console.log(getSession);
+        this.GroupInUserList(getSession);
       })
       .catch((err) => console.error(err));
   }
@@ -362,6 +361,12 @@ export default class Container extends React.Component {
       body: JSON.stringify(memo_change),
     })
 
+  }
+  // 접속한 유저 리스트
+  GroupInUserList(getSession){
+    this.setState({
+      groupInUserList: getSession
+    })
   }
 
   alarmReceive(alarm_msg) {
@@ -493,6 +498,7 @@ export default class Container extends React.Component {
             distinctGroup_hash={this.state.distinctGroup_hash}
           //변경된 결과 값 state :true false
             AlarmAddGroup={this.AlarmAddGroup.bind(this)}
+            groupInUserList={this.state.groupInUserList}
           />
         </div>
       </div>
