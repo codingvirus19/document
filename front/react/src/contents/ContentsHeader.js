@@ -99,16 +99,7 @@ export default class ContentsHeader extends React.Component {
             />
           ) : null}
         </div>
-<<<<<<< HEAD
         {(this.props.groupBySidebar.no != null) ? <GroupInUserList groupInUserList={this.props.groupInUserList} users={this.props.users} /> : null}
-=======
-
-        <div className={styles.groupUsers}>
-            <div>
-            </div>
-        </div>
-        
->>>>>>> f3dc794776ff9a85a095d7e2863cb204c8430c22
       </div>
       <div className={styles.groupOut}>
         {this.props.groupBySidebar.no != null ?
