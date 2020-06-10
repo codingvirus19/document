@@ -43,6 +43,7 @@ public class MainApiController {
 	public JsonResult getUserListByGroup(@RequestBody GroupVo vo) {
 		List<UserVo> userList = mainService.getUserListByGroup(vo.getNo());
 		return JsonResult.success(userList);
+	}
 
 	@PostMapping("/outGroup")
 	public JsonResult outGroup(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo ) {
