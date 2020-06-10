@@ -44,10 +44,9 @@ export default class Popup2 extends React.Component {
       }
   }
 
-
+  // profile의 현재value or 변경된 value를 modifyProfile에 담고 통신으로 전달. 
   getModifiedValue(){
     this.ajaxModifyProfile(this.modifyProfile);
-
   }
 
   ajaxModifyProfile(_modifyProfile) {
