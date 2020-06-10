@@ -46,6 +46,17 @@
   background-color: none;
 }
 
+.userbell button, .account, .addmemo,.chat{
+  background: none;
+  border-radius: 1rem;
+  width: 2.9rem;
+  height: 2.9rem;
+}
+
+.userbell button:hover, .account:hover, .addmemo:hover,.chat:hover{
+  box-shadow: gray 1px 1px 1px 1px;
+}
+
 /* .faPlus:hover,
 .faUser:hover,
 .faBell:hover,

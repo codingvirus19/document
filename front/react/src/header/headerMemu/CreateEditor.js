@@ -12,7 +12,6 @@ export default class Popup extends React.Component {
       html: false, // Enable HTML tags in source
       xhtmlOut: false, // Use '/' to close single tags (<br />)
       breaks: false, // Convert '\n' in paragraphs into <br>
-      langPrefix: "language-", // CSS language prefix for fenced blocks
       linkify: true, // autoconvert URL-like texts to links
       linkTarget: "", // set target to open link in
       typographer: false,
@@ -24,9 +23,8 @@ export default class Popup extends React.Component {
       textSize: 0,
       memoNo: 0,
       version: 0,
-      name: "test" + Math.round(Math.random() * 100),
       image: null,
-      color: "white",
+      color: "#fff",
     };
     this.image = null;
   }
@@ -133,7 +131,6 @@ export default class Popup extends React.Component {
     })
       .then((response) => response.json())
       .catch((err) => console.error(err));
-
     this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0], JSON.stringify({
       gNo: this.props.groupNoForGroupUser.no,
       chat: this.props.groupNoForGroupUser.name + " 그룹에 새로운 메모가 생성되었습니다.",
@@ -141,8 +138,8 @@ export default class Popup extends React.Component {
       type: true,
       readCheck: true
     }))
-
     this.props.bringMemoByGroup(this.props.groupNoForGroupUser.no);
+    this.props.closePopup();
   }
   markOpen() {
     this.setState({
@@ -194,19 +191,19 @@ export default class Popup extends React.Component {
         >
           <div className={styles.header}></div>
           <div className={styles.editor}>
-            <div className={styles.btn}>
+            <div className={styles.ctbtn}>
 
-              <button className={styles.button} onClick={this.hevent.bind(this, 1)}>H1</button>
-              <button className={styles.button} onClick={this.hevent.bind(this, 2)}>H2</button>
-              <button className={styles.button} onClick={this.hevent.bind(this, 3)}>H3</button>
-              <button className={styles.button} onClick={this.hevent.bind(this, 4)}>H4</button>
-              <button className={styles.button} onClick={this.boldevent.bind(this)}>B</button>
-              {(this.state.markOpen) ? <button className={`${styles.click} ${styles.button}`} onClick={this.markOpen.bind(this)}>E</button> : <button className={styles.button} onClick={this.markOpen.bind(this)}>M</button>}
+              <button className={styles.ctbutton} onClick={this.hevent.bind(this, 1)}>H1</button>
+              <button className={styles.ctbutton} onClick={this.hevent.bind(this, 2)}>H2</button>
+              <button className={styles.ctbutton} onClick={this.hevent.bind(this, 3)}>H3</button>
+              <button className={styles.ctbutton} onClick={this.hevent.bind(this, 4)}>H4</button>
+              <button className={styles.ctbutton} onClick={this.boldevent.bind(this)}>B</button>
+              {(this.state.markOpen) ? <button className={`${styles.click} ${styles.ctbutton}`} onClick={this.markOpen.bind(this)}>E</button> : <button className={styles.ctbutton} onClick={this.markOpen.bind(this)}>M</button>}
 
-              <FileUpload className={styles.button} File={e => this.FileUpload(e)} image={this.state.image} save={this.ImageSave.bind(this)} />
+              <FileUpload className={styles.ctbutton} File={e => this.FileUpload(e)} image={this.state.image} save={this.ImageSave.bind(this)} />
 
-              <button className={styles.button} onClick={this.memoSave.bind(this)}>저장</button>
-              <button className={styles.button} onClick={this.props.closePopup}>종료</button>
+              <button className={styles.ctbutton} onClick={this.memoSave.bind(this)}>저장</button>
+              <button className={styles.ctbutton} onClick={this.props.closePopup}>종료</button>
 
             </div>
             {this.state.markOpen ? (

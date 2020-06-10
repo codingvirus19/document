@@ -272,8 +272,8 @@ export default class Popup extends React.Component {
             topics={[`/api/memo/${this.props.no}`]}
             onMessage={this.receive.bind(this)}
             ref={(client) => { this.clientRef = client }} />
-          <div className={popup.inner} style={{backgroundColor :`${this.state.color}`}} onClick={e => e.stopPropagation()}>
-            <div className={styles.editor} style={{backgroundColor :`${this.state.color}`}}>
+          <div className={popup.inner} style={{backgroundColor :`${this.props.color}`}} onClick={e => e.stopPropagation()}>
+            <div className={styles.editor} style={{backgroundColor :`${this.props.color}`}}>
               <div className={styles.btn}>
                 <button className={styles.button} onClick={this.hevent.bind(this, 1)}>H1</button>
                 <button className={styles.button} onClick={this.hevent.bind(this, 2)}>H2</button>
@@ -304,6 +304,7 @@ export default class Popup extends React.Component {
                     <EditorToolbar 
                         memo_no={this.props.no}
                         memo_gNo={this.props.gNo}
+                        no={this.props.no}
                         group={this.props.group}
                         groupBySidebar={this.props.groupBySidebar}
                         color={this.props.color}
@@ -313,6 +314,9 @@ export default class Popup extends React.Component {
                         memoClose={this.props.memoClose}
                         SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                         distinctGroup_hash={this.props.distinctGroup_hash}
+                        clientRef={this.props.clientRef}
+                        users={this.props.users}
+                        setStyle={this.props.setStyle}
                         />
 
                     </div>

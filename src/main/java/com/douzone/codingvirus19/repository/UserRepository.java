@@ -48,7 +48,15 @@ public class UserRepository {
 	public int join(UserVo vo) {
 		return sqlSession.insert("user.join", vo);
 	}
+	
+	public List<UserVo> getUserList(Long no) {
+		return sqlSession.selectList("user.getUserList", no);
+	}
 
+	public List<UserVo> getUserListNotInGroup(Long no) {
+		return sqlSession.selectList("user.getUserListNotInGroup", no);
+	}
+	
 	public List<UserVo> getUserListByGroup(Long no) {
 		return sqlSession.selectList("user.getUserListByGroup", no);
 	}

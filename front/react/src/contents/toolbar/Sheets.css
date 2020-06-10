@@ -14,15 +14,19 @@
 }
 
 .hashSheet {
-  padding: 1rem;
+  padding: 0.2rem 1rem 1rem 1rem;
   width: 15rem;
 }
 .searchHash {
   font-size: 0.8rem;
 }
-
 .shareSheet {
   margin-left: 5rem;
+}
+
+.closebutton {
+  text-align: right;
+  display: block;
 }
 
 /*container*/

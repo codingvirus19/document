@@ -42,7 +42,15 @@ public class UserService {
 	public void modifyProfile(UserVo vo) {
 		userRepository.modifyProfile(vo);
 	}
+	
+	public List<UserVo> getUserList(Long no) {
+		return userRepository.getUserList(no);
+	}
 
+	public List<UserVo> getUserListNotInGroup(Long no) {
+		return userRepository.getUserListNotInGroup(no);
+	}
+	
 	public List<UserVo> getUserListByGroup(Long no) {
 		return userRepository.getUserListByGroup(no);
 	}
