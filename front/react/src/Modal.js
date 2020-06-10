@@ -57,8 +57,8 @@ export default class Modal extends React.Component {
     
       render() {
         return (
-        <div className={styles.modalContainer}>
-            <div className={styles.modalContainer__inner}>
+        <div className={styles.modalContainer} onClick={this.props.onClickFalse}>
+            <div className={styles.modalContainer__inner} onClick={(e) => e.stopPropagation()}>
                 <header className={styles.inner__header}> 
                     {this.state.contents != null ? 
                     <span className={styles.header__title}><h2 className={styles.title__h2}>{this.state.contents}</h2></span>

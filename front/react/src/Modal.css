@@ -47,7 +47,13 @@
 }
 
 .close__icon:hover{
-    background-color:#5982EA;
+    background-color:rgb(89, 130, 234);
+    box-shadow: gray 1px 1px 1px 1px;
+}
+
+.close__icon:active{
+    background-color:#ea232c;
+    box-shadow: none;
 }
 
 .header__title{
@@ -91,6 +97,12 @@
 
 .confirm_btn:hover{
     background-color: rgb(89, 130, 234);
+    box-shadow: gray 1px 1px 1px 1px;
+}
+
+.confirm_btn:active{
+    background-color: rgb(211, 122, 167);
+    box-shadow:none;
 }
 
 .cancel_btn {
@@ -103,4 +115,9 @@
 
  .cancel_btn:hover{
     background-color: rgb(211, 122, 167);
+    box-shadow: gray 1px 1px 1px 1px;
+}
+ .cancel_btn:active{
+    background-color: rgb(89, 130, 234);
+    box-shadow:none;
 }
