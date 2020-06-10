@@ -37,6 +37,7 @@ public class MainApiController {
 		System.out.println(vo);
 		boolean asyncTest = mainService.outGroup(vo);
 //		UserVo userVo = new UserVo();
+		
 //		userVo.setNo(securityUser.getNo());
 //		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
 		return JsonResult.success(asyncTest);
