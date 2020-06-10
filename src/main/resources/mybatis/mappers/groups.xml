@@ -68,6 +68,11 @@
 			delete from groups where no= #{no};
 		]]>
 	</delete>
+	<delete id="outGroupAlone" parameterType="groupuservo">
+		<![CDATA[
+			delete from groupuser where g_no= #{gNo} and u_no = #{uNo};
+		]]>
+	</delete>
 	
 	
 </mapper>

@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.douzone.codingvirus19.vo.GroupUserVo;
 import com.douzone.codingvirus19.vo.GroupVo;
 import com.douzone.codingvirus19.vo.UserVo;
 
@@ -66,5 +67,10 @@ public class GroupRepository {
 		}else {
 			return 2;
 		}
+	}
+
+	public int outGroupAlone(GroupUserVo vo) {
+		int asyncTest = sqlSession.delete("groups.outGroupAlone", vo);
+		return asyncTest;
 	}
 }
