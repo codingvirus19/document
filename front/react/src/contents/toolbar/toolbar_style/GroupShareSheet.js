@@ -1,7 +1,5 @@
 import React from "react";
 import Select from "react-select";
-import { ToastContainer, toast, Slide } from "react-toastify";
-import "../../../ReactToastify.scss";
 import styles from "../Sheets.css";
 
 const API_URL = ".";
@@ -36,10 +34,6 @@ export default class GroupShareSheet extends React.Component {
       // gNo의 수만큼, user session, 위에서 가져온 content, color를 memo에 insert해준다.
       gNo: this.state.selectedOption,
     };
-    console.log(send_memoNoAndGNo)
-    // for(let a in this.props.clientRef){
-    //   console.log(a);
-    // }
     this.state.selectedOption.map((no, index) => {
       this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0], JSON.stringify({
         gNo: no.value,
@@ -58,16 +52,7 @@ export default class GroupShareSheet extends React.Component {
     // groupShareSheet 닫기
     this.props.closeGroupShareSheet();
 
-    // toast알림
-    toast("그룹에 메모가 공유되었습니다.", {
-      position: "bottom-right",
-      autoClose: 3000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      progress: undefined,
-    });
+    this.props.notify(`${this.state.selectedOption.map(element => element.label)} 그룹에 메모가 공유되었습니다.`)
   }
 
   ajaxGroupShare(_send_memoNoAndGNo) {
@@ -84,7 +69,6 @@ export default class GroupShareSheet extends React.Component {
       };
       memoVoArr.push(memoVoObj);
     }
-    console.log(memoVoArr)
     fetch(`${API_URL}/api/memo/shareMemo`, {
       method: "post",
       headers: API_HEADERS,
@@ -124,10 +108,8 @@ export default class GroupShareSheet extends React.Component {
               defaultMenuIsOpen={true}
               closeMenuOnSelect={false}
               menuIsOpen={true}
-              // maxMenuHeight={200}
               options={this.state.groups}
               placeholder="공유할 그룹 선택"
-            // transition={Slide}
             />
           </div>
         </div>
@@ -145,18 +127,6 @@ export default class GroupShareSheet extends React.Component {
           >
             취소
           </button>
-          <ToastContainer
-            position="bottom-right"
-            autoClose={3000}
-            hideProgressBar
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable={false}
-            pauseOnHover
-            transition={Slide}
-          />
         </div>
       </div>
     );

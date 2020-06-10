@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -21,12 +22,12 @@ public class UserListSocketController {
 	static ArrayList<String> getUserSession = new ArrayList<String>();
 	static ArrayList<String> getUserSession2 = new ArrayList<String>();
 
-	@MessageMapping("/userList")
-	public void userSessionList() throws Exception {
-		
-		
+	@MessageMapping("/userlist/{userno}")
+	public void userSessionList(@DestinationVariable Long userno) throws Exception {
+//		System.out.println(getUserSession2);
+		System.out.println(userno+"fawfawfawf");
+		webSocket.convertAndSend("/api/userlist/" + userno, getUserSession2);
 	}
-
 	// --------------------------------------------------------접속한 유저 Session 가져오기
 	@EventListener
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
@@ -47,19 +48,13 @@ public class UserListSocketController {
 
 			}
 		}
-
-		System.out.println(getUserSession2 + "접속 하였습니다.");
 	}
 
 	@EventListener
 	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
 		String username = event.getUser().getName();
 		if (getUserSession.indexOf(username) >= 0) {
-			getUserSession.remove(getUserSession.indexOf(username));
-		}
-		if (username != null) {
-			System.out.println(username + "나갔습니다.");
-			System.out.println("현재 남아 있는 인원" + getUserSession);
+			getUserSession2.remove(getUserSession2.indexOf(username));
 		}
 	}
 }

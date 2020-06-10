@@ -3,6 +3,7 @@ import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import Contents from "./contents/Contents";
 import SockJsClient from "react-stomp";
+import { ToastContainer, toast, Slide } from "react-toastify";
 import styles from "./Container.css";
 
 const API_URL = ".";
@@ -24,8 +25,8 @@ export default class Container extends React.Component {
       showAlarm: false,
       clientRef: "",
       alarm: { basic: "", chatting: "" },
-      addgroup_alarm: {message:"", date:"", group_no:"", group_name:""},
-      groupInUserList : [{ user_no:"", id: "", nickname:"", img:"", auth_no:"" }],
+      addgroup_alarm: { message: "", date: "", group_no: "", group_name: "" },
+      groupInUserList: [{ user_no: "", id: "", nickname: "", img: "", auth_no: "" }],
       keyword: "",
     };
     this.drag = null;
@@ -44,6 +45,7 @@ export default class Container extends React.Component {
     this.bringMemoByGroup(this.state.groupBySidebar.no);
 
     // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
+    this.getProfileAjax();
 
     this.getGroup();
 
@@ -74,7 +76,7 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json.data)
+        // console.log(json.data)
         this.UpdateAlarm(json.data);
       })
       .catch((err) => console.error(err));
@@ -85,6 +87,22 @@ export default class Container extends React.Component {
     // Sidebar의 HashtagList를 가져오는 코드
     this.getHashListByGroup(this.state.groupBySidebar.no);
   }
+
+  getProfileAjax() {
+    fetch(`${API_URL}/api/profile`, {
+      method: "post",
+      headers: API_HEADERS,
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        let _getProfileValue = json.data;
+        this.setState({
+          getProfileValue: _getProfileValue,
+        });
+      })
+      .catch((err) => console.error(err));
+  }
+
 
   // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
   getGroup() {
@@ -244,7 +262,7 @@ export default class Container extends React.Component {
     this.bringMemoByGroup(no);
     this.getHashListByGroup(no);
 
-    if(no != null){
+    if (no != null) {
       console.log(no)
       this.getGroupInUser(no);
     }
@@ -256,25 +274,25 @@ export default class Container extends React.Component {
     });
   }
 
-  getGroupInUser(no){
-    console.log(no)
+  getGroupInUser(no) {
+    // console.log(no)
     let data = { gNo: no };
-    let getSession = [{ user_no:"", id: "", nickname:"", img:"", auth_no:"" }]
+    let getSession = [{ user_no: "", id: "", nickname: "", img: "", auth_no: "" }]
     // call api
     fetch(`${API_URL}/api/groupsession`, {
       method: "post",
       headers: API_HEADERS,
-      body : JSON.stringify(data)
+      body: JSON.stringify(data)
     })
-    .then((response) => response.json())
+      .then((response) => response.json())
       .then((json) => {
         getSession = json.data.map((json) => {
-          return{
+          return {
             user_no: json.no,
             id: json.id,
             nickname: json.nickname,
-            img : json.image,
-            auth_no : json.auth_no
+            img: json.image,
+            auth_no: json.auth_no
           };
         });
         this.GroupInUserList(getSession);
@@ -282,7 +300,7 @@ export default class Container extends React.Component {
       .catch((err) => console.error(err));
   }
 
-  AlarmAddGroup(){
+  AlarmAddGroup() {
     let group = { no: [], gname: [] };
     let groupDatas = null;
     // call api
@@ -363,14 +381,14 @@ export default class Container extends React.Component {
 
   }
   // 접속한 유저 리스트
-  GroupInUserList(getSession){
+  GroupInUserList(getSession) {
     this.setState({
       groupInUserList: getSession
     })
   }
 
   alarmReceive(alarm_msg) {
-    this.state.addgroup_alarm=null
+    this.state.addgroup_alarm = null
     console.log(alarm_msg);
     if (alarm_msg.addgroup == true && alarm_msg.type == true && alarm_msg.readCheck == true) { //그룹초대  
       console.log("그룹추가에 온거 맞지?");
@@ -430,6 +448,20 @@ export default class Container extends React.Component {
     }
   }
 
+  //toast message
+  notify(message) {
+    console.log(message)
+    toast(message, {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: false,
+      progress: undefined,
+    })
+  }
+
   render() {
     const wsSourceUrl = "./api/alarm";
     return (
@@ -450,6 +482,9 @@ export default class Container extends React.Component {
         {/*속성 memo_bigArr : 메모의 정보가 이중배열로 담겨있다.*/}
         {/*속성 SidebarGroupUpdate : delete 버튼 클릭시 콜백으로 gno와 gname이 전달된다.  */}
         <Header
+        notify={this.notify.bind(this)}
+          //profile정보
+          getProfileValue={this.state.getProfileValue}
           // search 검색 콜백함수
           onCallbackKeywordChange={this.onCallbackKeywordChange.bind(this)}
           // 검색창에 입력한 keyword
@@ -466,7 +501,7 @@ export default class Container extends React.Component {
           alarm={this.state.alarm}
           clientRef={this.clientRef}
           users={this.Users}
-          // hash={this.state.distinctGroup_hash}
+        // hash={this.state.distinctGroup_hash}
         />
         <div className={styles.body}>
           <Sidebar
@@ -477,6 +512,7 @@ export default class Container extends React.Component {
             onCallbackKeywordChange={this.onCallbackKeywordChange.bind(this)}
           />
           <Contents
+          notify={this.notify.bind(this)}
             memo_noSelectedByHash={this.state.memo_noSelectedByHash}
             getGroup={this.getGroup.bind(this)}
             SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
@@ -495,11 +531,23 @@ export default class Container extends React.Component {
             group_hash={this.state.group_hash}
             //중복 제거한 해시
             distinctGroup_hash={this.state.distinctGroup_hash}
-          //변경된 결과 값 state :true false
+            //변경된 결과 값 state :true false
             AlarmAddGroup={this.AlarmAddGroup.bind(this)}
             groupInUserList={this.state.groupInUserList}
           />
         </div>
+        <ToastContainer
+                    position="bottom-right"
+                    autoClose={3000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable={false}
+                    pauseOnHover
+                    transition={Slide}
+                />
       </div>
     );
   }

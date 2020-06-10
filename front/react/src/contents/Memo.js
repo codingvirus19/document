@@ -52,7 +52,7 @@ export default class Memo extends React.Component {
             users={this.props.users}
             bringMemoByGroup={this.props.bringMemoByGroup}
             no={this.props.no}
-            memo_gNo={this.props.memo_bigArr.gNo}
+            gNo={this.props.memo_gNo}
             group={this.props.group}
             groupBySidebar={this.props.groupBySidebar}
             color={this.props.color}
