@@ -91,14 +91,6 @@ public class MainApiController {
 
 		return JsonResult.success(groupVo);
 	}
-
-<<<<<<< HEAD
-	//아직 프론트에서 안씀
-	@PostMapping("/deleteGroup")
-	public JsonResult deleteGroup(@RequestBody GroupVo groupVo){
-		boolean result = mainService.deleteGroup(groupVo.getNo());
-		return JsonResult.success(result);
-	}
 	
 //	@PostMapping("/addUserToGroup")
 //	public JsonResult addUserToGroup() {
@@ -141,6 +133,4 @@ public class MainApiController {
 			System.out.println("현재 남아 있는 인원" + getUserSession);
 		}
 	}
-=======
->>>>>>> f5515c6139d684f7f1a62014d2f63c4f62ae7c24
 }
