@@ -34,9 +34,11 @@
 		 select a.u_no as no,
 		 		b.id as id, 
 		 		b.nickname as nickname, 
-		 		b.image as image
-		   from groupuser a, (select no, id, nickname, image from user) as b 
+		 		b.image as image,
+                a.a_no as authNo
+		   from groupuser a, (select no, id, nickname, image from user) as b, auth as c
 		  where a.u_no = b.no
+            and a.a_no = c.no
             and g_no=#{gNo}
  		]]>
 	</select>

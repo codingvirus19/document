@@ -50,9 +50,10 @@ public class MainApiController {
 	}
 
 	@PostMapping("/groupsession")
-	public void groupSession(@RequestBody GroupUserVo groupuserVo) {
+	public JsonResult groupSession(@RequestBody GroupUserVo groupuserVo) {
 		List<UserVo> list = mainService.getGroupinUserSession(groupuserVo);
 		System.out.println(list);
+		return JsonResult.success(list);
 	}
 	
 	@PostMapping("/memoList")

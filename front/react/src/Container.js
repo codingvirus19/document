@@ -257,13 +257,30 @@ export default class Container extends React.Component {
 
   getGroupInUser(no){
     console.log(no)
-    let getSession = { gNo: no };
+    let data = { gNo: no };
+    let getSession = [{ user_no:"", id: "", nickname:"", img:"", auth_no:"" }]
     // call api
     fetch(`${API_URL}/api/groupsession`, {
       method: "post",
       headers: API_HEADERS,
-      body : JSON.stringify(getSession)
+      body : JSON.stringify(data)
     })
+    .then((response) => response.json())
+      .then((json) => {
+        getSession = json.data;
+        // group의 데이터값으로 sidebar를 불러오는 함수
+        getSession.map((json) => {
+          return{
+            user_no: json.no,
+            id: json.id,
+            nickname: json.nickname,
+            img : json.image,
+            auth_no : json.auth_no
+          }
+        });
+        console.log(getSession);
+      })
+      .catch((err) => console.error(err));
   }
 
   AlarmAddGroup(){
