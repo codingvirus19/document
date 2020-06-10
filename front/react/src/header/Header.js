@@ -96,7 +96,7 @@ export default class Header extends React.Component {
               ) : null}
             </div>
               <Dropdown aria-label="계정" className={styles.account}>
-                <Dropdown.Toggle className={styles.user}>ççccc
+                <Dropdown.Toggle className={styles.user}>
                 {/* <FontAwesomeIcon className={styles.faUser} icon={faUser} /> */}
                   <img className={styles.imageIcon} src={"."+this.props.getProfileValue.image} />
                 </Dropdown.Toggle>
