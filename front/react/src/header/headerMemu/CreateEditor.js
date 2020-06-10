@@ -130,15 +130,16 @@ export default class Popup extends React.Component {
       }),
     })
       .then((response) => response.json())
+      .then(()=>{this.props.bringMemoByGroup(this.props.groupNoForGroupUser.no)})
       .catch((err) => console.error(err));
-    this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0], JSON.stringify({
+      this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0], JSON.stringify({
       gNo: this.props.groupNoForGroupUser.no,
       chat: this.props.groupNoForGroupUser.name + " 그룹에 새로운 메모가 생성되었습니다.",
       date: new Date(),
       type: true,
       readCheck: true
     }))
-    this.props.bringMemoByGroup(this.props.groupNoForGroupUser.no);
+   
     this.props.closePopup();
   }
   markOpen() {
