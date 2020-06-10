@@ -32,6 +32,15 @@ public class MainApiController {
 		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
 		return JsonResult.success(returnValue);
 	}
+	@PostMapping("/outGroup")
+	public JsonResult outGroup(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo ) {
+		System.out.println(vo);
+		boolean asyncTest = mainService.outGroup(vo);
+//		UserVo userVo = new UserVo();
+//		userVo.setNo(securityUser.getNo());
+//		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
+		return JsonResult.success(asyncTest);
+	}
 
 	@PostMapping("/memoList")
 	public JsonResult contents(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo) {
@@ -69,18 +78,5 @@ public class MainApiController {
 
 		return JsonResult.success(groupVo);
 	}
-
-	//아직 프론트에서 안씀
-	@PostMapping("/deleteGroup")
-	public JsonResult deleteGroup(@RequestBody GroupVo groupVo){
-		boolean result = mainService.deleteGroup(groupVo.getNo());
-		return JsonResult.success(result);
-	}
-	
-//	@PostMapping("/addUserToGroup")
-//	public JsonResult addUserToGroup() {
-//		boolean result = mainService.addUserToGroup();
-//		return JsonResult.success(result);
-//	}
 
 }
