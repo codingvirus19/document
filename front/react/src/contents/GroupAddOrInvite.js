@@ -5,7 +5,7 @@ import { ToastContainer, toast, Slide } from "react-toastify";
 import "../ReactToastify.scss";
 import styles from '../Popup2.css';
 
-const API_URL = "http://localhost:8080/codingvirus19";
+const API_URL = ".";
 const API_HEADERS = {
     "Content-Type": "application/json",
 };
