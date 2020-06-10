@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faFolderPlus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import styles from "./ContentsHeader.css";
 
-const API_URL = "http://localhost:8080/codingvirus19";
+const API_URL = ".";
 const API_HEADERS = {
   "Content-Type": "application/json",
 };
@@ -70,7 +70,6 @@ export default class ContentsHeader extends React.Component {
             <FontAwesomeIcon className={styles.faBars} icon={faBars} />
           </button>
         </div>
-
         <div className={styles.addgroup} aria-label="그룹 추가(잘모르겠어요)">
           <button className="contents-header__btns">
             <FontAwesomeIcon
@@ -100,10 +99,12 @@ export default class ContentsHeader extends React.Component {
             />
           ) : null}
         </div>
+
         <div className={styles.groupUsers}>
             <div>
             </div>
         </div>
+        
       </div>
       <div className={styles.groupOut}>
         {this.props.groupBySidebar.no != null ?

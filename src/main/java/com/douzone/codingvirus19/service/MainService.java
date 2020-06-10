@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.douzone.codingvirus19.repository.GroupRepository;
 import com.douzone.codingvirus19.repository.GroupuserRepository;
 import com.douzone.codingvirus19.repository.MemoRepository;
+import com.douzone.codingvirus19.repository.UserRepository;
 import com.douzone.codingvirus19.vo.GroupUserVo;
 import com.douzone.codingvirus19.vo.GroupVo;
 import com.douzone.codingvirus19.vo.MemoVo;
@@ -22,6 +23,8 @@ public class MainService {
 	private GroupRepository groupRepository;
 	@Autowired
 	private MemoRepository memoRepository;
+	@Autowired
+	private UserRepository userRepository;
 	
 	public List<GroupVo> getGroupByAuth(UserVo userVo) {
 		return groupRepository.getGroupByAuth(userVo);
@@ -43,6 +46,10 @@ public class MainService {
 	public List<MemoVo> memoListByHash(MemoVo memoVo) {
 		return memoRepository.memoListByHash(memoVo);
 	}
+
+	public List<UserVo> getUserListByGroup(Long no) {
+		return userRepository.getUserListByGroup(no);
+}
 
 	public List<UserVo> getGroupinUserSession(GroupUserVo groupuserVo) {
 		List<UserVo> list = groupuserRepository.getGroupinUserSession(groupuserVo);

@@ -46,7 +46,7 @@
   background-color: none;
 }
 
-.userbell button, .account, .addmemo,.chat{
+.userbell button, .account, .addmemo,.chat,.user{
   background: none;
   border-radius: 1rem;
   width: 2.9rem;
@@ -55,6 +55,12 @@
 
 .userbell button:hover, .account:hover, .addmemo:hover,.chat:hover{
   box-shadow: gray 1px 1px 1px 1px;
+}
+
+.imageIcon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
 }
 
 /* .faPlus:hover,

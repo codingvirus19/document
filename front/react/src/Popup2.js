@@ -3,7 +3,7 @@ import Profile from "./header/headerMemu/Profile";
 import GroupAddOrInvite from "./contents/GroupAddOrInvite";
 import popupStyles from "./Popup2.css";
 
-const API_URL = "http://localhost:8080/codingvirus19";
+const API_URL = ".";
 const API_HEADERS = {
   "Content-Type": "application/json",
 };
@@ -90,6 +90,8 @@ export default class Popup2 extends React.Component {
     this.state.userList.nickname = [];
     this.state.userList.no = [];
     userList.map((index) => {
+      console.log(index.value)
+      console.log(index.no)
       this.state.userList.nickname.push(index.value)
       this.state.userList.no.push(index.no)
     })

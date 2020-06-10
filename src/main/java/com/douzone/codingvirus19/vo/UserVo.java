@@ -10,6 +10,7 @@ public class UserVo {
 	private String image;
 	private String role;
 	private String name;
+	private Long authNo;
 	
 	public String getName() {
 		return name;
@@ -61,9 +62,15 @@ public class UserVo {
 		this.role = role;
 	}
 	
+	public Long getAuthNo() {
+		return authNo;
+	}
+	public void setAuthNo(Long authNo) {
+		this.authNo = authNo;
+	}
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", id=" + id + ", email=" + email + ", password=" + password + ", nickname="
-				+ nickname + ", image=" + image + ", role=" + role + ", name=" + name + "]";
+				+ nickname + ", image=" + image + ", role=" + role + ", name=" + name + ", authNo=" + authNo + "]";
 	}
 }

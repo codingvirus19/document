@@ -38,6 +38,13 @@ public class MainApiController {
 		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
 		return JsonResult.success(returnValue);
 	}
+	
+	@PostMapping("/getUserListByGroup")
+	public JsonResult getUserListByGroup(@RequestBody GroupVo vo) {
+		List<UserVo> userList = mainService.getUserListByGroup(vo.getNo());
+		return JsonResult.success(userList);
+	}
+
 	@PostMapping("/outGroup")
 	public JsonResult outGroup(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo ) {
 		System.out.println(vo);
@@ -50,9 +57,10 @@ public class MainApiController {
 	}
 
 	@PostMapping("/groupsession")
-	public void groupSession(@RequestBody GroupUserVo groupuserVo) {
+	public JsonResult groupSession(@RequestBody GroupUserVo groupuserVo) {
 		List<UserVo> list = mainService.getGroupinUserSession(groupuserVo);
 		System.out.println(list);
+		return JsonResult.success(list);
 	}
 	
 	@PostMapping("/memoList")

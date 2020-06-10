@@ -3,16 +3,13 @@
 <mapper namespace="chat">
 	<select id="chattingList" parameterType="chatvo" resultType="chatvo">
 		<![CDATA[
-			  select * from ( select c.g_no as gNo, 
-			  		 c.message as message, 
-			  		 c.date as date, 
-			  		 c.count as aCount, 
-			  		 u.nickname as nickname
-			    from chat c, user u
-			   where c.g_no = #{gNo}
-			     and c.u_no = u.no
-			order by c.date desc
-				limit 100) as b
+			  select * 
+			    from ( select c.g_no as gNo, c.message as message, c.date as date, c.count as aCount, u.nickname as nickname, u.image as image
+            			 from chat c, user u
+          			    where c.g_no = #{gNo}
+              			  and c.u_no = u.no
+        			    order by c.date desc
+            			limit 100) as b
             order by b.date asc;
  		]]>
 	</select>
