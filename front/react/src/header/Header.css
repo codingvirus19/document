@@ -57,6 +57,12 @@
   box-shadow: gray 1px 1px 1px 1px;
 }
 
+.imageIcon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
 /* .faPlus:hover,
 .faUser:hover,
 .faBell:hover,

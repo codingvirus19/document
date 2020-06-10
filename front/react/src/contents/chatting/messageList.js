@@ -29,7 +29,10 @@ export default class MessageList extends React.Component {
                     else {
                         return (
                             <li key={index} className={styles.otherchat} ref={e=>{(e != undefined)?e.parentNode.parentNode.scrollTop = e.parentNode.parentNode.scrollHeight:null}}>
-                            <div>
+                                          <div className={styles.otherchat_profile_image}>
+                  <img className={styles.profile_image} src={"."+message.image} />
+                  </div> 
+                          <div>
                               <div className={styles.otherchat_nickname}>
                                 {message.nickname}{" "}
                               </div>

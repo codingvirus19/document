@@ -14,8 +14,7 @@
 		</selectKey>
 	</insert>
 
-	<select id="getGroupByAuth" resultType="groupvo"
-		parameterType="uservo">
+	<select id="getGroupByAuth" resultType="groupvo" parameterType="uservo">
 		<![CDATA[
 			select c.no as no, c.name as name
            from user a, groupuser b, groups c

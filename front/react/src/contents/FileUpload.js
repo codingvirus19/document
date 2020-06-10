@@ -19,9 +19,6 @@ const FileUpload = (props) => {
         setPopupChange(e);
     }
 
-
-
-
     return (
         <Fragment>
             <button className={className} onClick={() => PopupChange(true)}>{value}</button>
