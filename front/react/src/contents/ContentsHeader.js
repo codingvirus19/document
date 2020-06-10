@@ -88,8 +88,8 @@ export default class ContentsHeader extends React.Component {
             <FontAwesomeIcon className={styles.faUserPlus} icon={faUserPlus} />
           </button>
           {this.state.ShowGroupAddOrInvite ? (
-            // { true ? (
             <Popup2
+            notify={this.props.notify}
               inner_header="그룹생성 및 초대"
               contents={"groupAddOrInvite"}
               closePopup={this.toggleGroupAddOrInvite.bind(this)}

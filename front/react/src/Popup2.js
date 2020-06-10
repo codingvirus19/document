@@ -5,9 +5,8 @@ import popupStyles from "./Popup2.css";
 
 const API_URL = ".";
 const API_HEADERS = {
-  "Content-Type": "application/json",
+"Content-Type": "application/json",
 };
-
 
 export default class Popup2 extends React.Component {
 
@@ -27,7 +26,6 @@ export default class Popup2 extends React.Component {
   }
 
   // FileUpload와 profile에서 값이 변경되었을 때 해당 콜백함수에 값이 담긴다.
-
   callBackFromProfile(_id, _email, _password, _nickname, _image) {
     (_id != null)? this.id= _id :null;
     (_id != null)? this.email= _email :null;
@@ -46,11 +44,12 @@ export default class Popup2 extends React.Component {
 
   // profile의 현재value or 변경된 value를 modifyProfile에 담고 통신으로 전달. 
   getModifiedValue(){
+    this.props.notify("프로필을 수정하였습니다.");
     this.ajaxModifyProfile(this.modifyProfile);
   }
 
   ajaxModifyProfile(_modifyProfile) {
-    console.log(_modifyProfile)
+    // console.log(_modifyProfile)
     fetch(`${API_URL}/api/profile/modify`, {
       method: "post",
       headers: API_HEADERS,
@@ -59,12 +58,9 @@ export default class Popup2 extends React.Component {
   }
 
   callBackGroupAdd() {
-    console.log(this.state.groupNo, this.state.groupName, this.state.userList.no);
-
     if (this.state.userList != undefined && this.state.userList.no[0] != '') {
+      this.props.notify(`${this.state.groupName} 그룹에 초대하였습니다.`);
       this.state.userList.no.map((element, index) => {
-        // console.log(this.state.userList.no[index])
-
         this.props.clientRef.sendMessage("/app/alarm/" + this.state.userList.no[index],
           JSON.stringify({
             gNo: this.state.groupNo,
@@ -90,15 +86,12 @@ export default class Popup2 extends React.Component {
     this.state.userList.nickname = [];
     this.state.userList.no = [];
     userList.map((index) => {
-      console.log(index.value)
-      console.log(index.no)
       this.state.userList.nickname.push(index.value)
       this.state.userList.no.push(index.no)
     })
   }
 
   render() {
-
     let contents;
     let popup2_confirm_btn = "확인";
 
@@ -114,6 +107,7 @@ export default class Popup2 extends React.Component {
     if (this.props.contents === "groupAddOrInvite") {
       contents = (
         <GroupAddOrInvite
+        notify={this.props.notify}
           getGroup={this.props.getGroup}
           group={this.props.group}
           groups={this.props.group.gname.map((gname, index) => {
@@ -136,15 +130,15 @@ export default class Popup2 extends React.Component {
             <h1 className={popupStyles.h1}>{this.props.inner_header}</h1>
           </div>
 
-          <div className={popupStyles.inner_form_container}>{contents}</div>
+          <div className={popupStyles.inner_form_container}>
+            {contents}
+            </div>
 
           <div className={popupStyles.btns}>
             <button
               onClick={
-
-                (this.props.contents === "profile") ?  ()=>{this.getModifiedValue();}
+                (this.props.contents === "profile") ? ()=>{this.getModifiedValue();}
                 : this.callBackGroupAdd.bind(this)}
-
               className={popupStyles.confirm_btn}>
               {popup2_confirm_btn}
             </button>

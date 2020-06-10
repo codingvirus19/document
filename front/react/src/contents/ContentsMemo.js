@@ -93,6 +93,7 @@ export default class Contents extends React.Component {
                   groupBySidebar={this.props.groupBySidebar}
               />
               <Toolbar
+              notify={this.props.notify}
                 // SaveLocal에서 저장시킬 contents값
                 content={this.props.memo_bigArr[index].content}
                 // 색을 변화시킬 때 툴바의 색도 함께 변화시킬 props이다.

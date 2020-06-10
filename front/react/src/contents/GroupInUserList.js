@@ -15,9 +15,7 @@ export default class GroupInUserList extends React.Component {
     }
 
     render() {
-        console.log(this.props.users.no[0]);
         const wsSourceUrl = "http://localhost:8080/codingvirus19/api/userList";
-        console.log(this.props.groupInUserList);
         return (
             <div className={styles.groupUserList}>
                 {this.props.groupInUserList.map((element) => {
