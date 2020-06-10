@@ -3,10 +3,12 @@ import MessageList from "./messageList";
 import MessageSend from "./messageSend";
 import styles from "./Chat.css";
 import SockJsClient from "react-stomp";
+
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
   "Content-Type": "application/json",
 };
+
 export default class Chat extends React.Component {
   constructor() {
     super(...arguments);
@@ -31,7 +33,6 @@ export default class Chat extends React.Component {
         });
       })
       .catch((err) => console.error(err));
-     
   }
 
   onMessageReceive(msg) {

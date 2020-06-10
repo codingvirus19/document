@@ -91,6 +91,8 @@ export default class Popup2 extends React.Component {
     this.state.userList.nickname = [];
     this.state.userList.no = [];
     userList.map((index) => {
+      console.log(index.value)
+      console.log(index.no)
       this.state.userList.nickname.push(index.value)
       this.state.userList.no.push(index.no)
     })

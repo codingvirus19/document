@@ -22,7 +22,6 @@ public class ChatApiController {
 	@PostMapping("/chatlist")
 	public JsonResult getChatList(@RequestBody ChatVo chatVo) {
 		List<ChatVo> list = chatService.chattingList(chatVo);
-		System.out.println(list);
 		return JsonResult.success(list);
 	}
 }

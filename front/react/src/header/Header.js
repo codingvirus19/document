@@ -9,18 +9,13 @@ import { faPlus, faUser, faBell, faSms, } from "@fortawesome/free-solid-svg-icon
 import dropdownstyles from "./Dropdown.css";
 import styles from "./Header.css";
 
-const API_URL = "http://localhost:8080/codingvirus19";
-const API_HEADERS = {
-  "Content-Type": "application/json",
-};
-
 export default class Header extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
       showPopup: false,
       showProfile: false,
-      getProfileValue: null,
+      // getProfileValue: null,
       showChat: false,
       redirect: false,
       showAlarm: false,
@@ -38,25 +33,6 @@ export default class Header extends React.Component {
     this.setState({
       showProfile: !this.state.showProfile,
     });
-    // this.getProfileAjax();
-  }
-
-  // getProfileAjax
-  getProfileAjax() {
-    fetch(`${API_URL}/api/profile`, {
-      method: "post",
-      headers: API_HEADERS,
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        let _getProfileValue = json.data;
-        
-        console.log(_getProfileValue)
-        this.setState({
-          getProfileValue: _getProfileValue,
-        });
-      })
-      .catch((err) => console.error(err));
   }
 
   setRedirect() {
@@ -82,9 +58,13 @@ export default class Header extends React.Component {
   }
 
   render() {
+    if(this.props.getProfileValue === null){
+      return null;
+    }
     return (
       <div className={styles.header}>
         <div className={styles.wrapper}>
+
           <div className={styles.logo}>
             <Logo />
           </div>
@@ -97,8 +77,8 @@ export default class Header extends React.Component {
             // 검색창에 입력한 keyword
             SearchHash={this.props.SearchHash}
             keyword={this.props.keyword}
-            // hash={this.props.hash}
           />
+
           <div className={styles.right_header}>
             <div>
               <button aria-label="메모 추가"
@@ -117,14 +97,13 @@ export default class Header extends React.Component {
               ) : null}
             </div>
 
-              <Dropdown aria-label="계정" >
-                <Dropdown.Toggle className={styles.account} >
-                  <FontAwesomeIcon onClick={this.getProfileAjax.bind(this)} className={styles.faUser} icon={faUser} />
+              <Dropdown aria-label="계정" className={styles.account}>
+                <Dropdown.Toggle >
+                  <img className={styles.imageIcon} src={"."+this.props.getProfileValue.image} />
                 </Dropdown.Toggle>
                 <Dropdown.Menu className={dropdownstyles.menu}>  
                   <Dropdown.Item onClick={this.toggleShowProfile.bind(this)} className={dropdownstyles.item}>
                     개인프로필 수정
-
                 </Dropdown.Item>
                 <Dropdown.Item onClick={this.setRedirect.bind(this)} className={dropdownstyles.item2}>
                   로그아웃
@@ -132,7 +111,7 @@ export default class Header extends React.Component {
                 </Dropdown.Menu>
                 {this.state.showProfile ? (
                   <Popup2
-                    getProfileValue={this.state.getProfileValue}
+                    getProfileValue={this.props.getProfileValue}
                     inner_header="프로필정보"
                     contents={"profile"}
                     closePopup={this.toggleShowProfile.bind(this)}
