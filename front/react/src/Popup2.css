@@ -21,7 +21,7 @@
   max-width: 40%;
   min-width: 400px;
   height: 35rem;
-
+  border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -107,11 +107,30 @@
 }
 
 .confirm_btn {
-  background-color: #3498db;
+  background-color: #007bff;
   margin-right: 10%;
+}
+
+.confirm_btn:hover {
+  background-color: rgb(89, 130, 234);
+  box-shadow: gray 1px 1px 1px 1px;
+}
+
+.confirm_btn:active {
+  background-color: rgb(211, 122, 167);
+  box-shadow:none;
 }
 
 .cancel_btn {
   background-color: #ea232c;
 }
 /*btn*/
+
+.cancel_btn:hover {
+  background-color: rgb(211, 122, 167);
+  box-shadow: gray 1px 1px 1px 1px;
+}
+.cancel_btn:active {
+  background-color: rgb(89, 130, 234);
+  box-shadow:none;
+}

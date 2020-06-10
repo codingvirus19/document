@@ -5,6 +5,7 @@ import { faBars, faFolderPlus, faUserPlus } from "@fortawesome/free-solid-svg-ic
 import styles from "./ContentsHeader.css";
 import GroupInUserList from "./GroupInUserList";
 import GroupOutEveryone from "./GroupOutEveryone";
+import GroupOutAlone from "./GroupOutAlone";
 
 export default class ContentsHeader extends React.Component {
   constructor() {
@@ -63,14 +64,19 @@ export default class ContentsHeader extends React.Component {
             />
           ) : null}
         </div>
-        {(this.props.groupBySidebar.no != null) ? <GroupInUserList groupInUserList={this.props.groupInUserList} users={this.props.users} /> : null}
+        {(this.props.groupBySidebar.no != null) ? <GroupInUserList groupInUserList={this.props.groupInUserList} groupBySidebar={this.props.groupBySidebar.no} users={this.props.users} /> : null}
       </div>
+
       <div className={styles.groupOut}>
+        
+        {/* 그룹 삭제 : 그룹이 개인일때는 아래 버튼이 작동되어선 안된다!   */}
         {this.props.groupBySidebar.no != null ?
         <GroupOutEveryone getGroup={this.props.getGroup} groupBySidebar={this.props.groupBySidebar} SidebarGroupUpdate={this.props.SidebarGroupUpdate} />
-          : null}
+        : null}
+
+        {/* 그룹 나가기 : 그룹이 개인일때는 아래 버튼이 작동되어선 안된다!  */}
         {this.props.groupBySidebar.no != null ? 
-          <button className={styles.groupOutButton}>그룹 나가기</button>
+          <GroupOutAlone getGroup={this.props.getGroup} groupBySidebar={this.props.groupBySidebar} SidebarGroupUpdate={this.props.SidebarGroupUpdate} />
           : null}
       </div>
       </Fragment>

@@ -76,4 +76,11 @@
  		]]>
 	</select>
 	
+	
+	<select id="getUser" parameterType="long" resultType="string">
+		<![CDATA[
+			select id from user where no = #{no};
+		]]>
+	</select>
+	
 </mapper>
