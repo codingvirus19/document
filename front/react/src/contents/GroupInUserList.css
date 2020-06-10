@@ -1,0 +1,33 @@
+.groupUserList{
+    width: 50%;
+    background-color: blue;
+    height: 80%;
+    display: inline-flex;
+    align-items: center;
+}
+.users{
+    list-style: none;
+    margin: 0 1rem;
+    align-items: center;
+    text-align: center;
+}
+.users li{
+    border: 0;
+    float: left;
+    color: #fff;
+}
+
+.userNotLogin{
+    position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: #666;
+}
+
+.userImage{
+    border-radius: 15px;
+    overflow: hidden;
+    width: 45px;
+    height: 40px;
+}

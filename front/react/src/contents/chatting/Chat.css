@@ -9,15 +9,13 @@
 }
 
 .chatList {
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 1.5rem;
+  padding: 0.5rem 0rem 0.5rem 1rem;
   width: 100%;
   text-align: start;
   border: 3px solid rgba(185, 237, 247, 0.404);
   border-bottom: none;
   color: white;
-  height: 2.5rem;
+  height: 4rem;
   border-radius: 5px;
 }
 
@@ -30,7 +28,8 @@
 }
 
 .chatList:hover {
-  background-color: rgba(185, 237, 247, 0.404);
+  /* background-color: rgba(185, 237, 247, 0.404); */
+  background-color: #0069d9;
 }
 .Chatting {
   overflow: hidden;

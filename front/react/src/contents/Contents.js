@@ -7,7 +7,6 @@ import Alarm from "./Alarm";
 import styles from "./Contents.css";
 
 export default class Contents extends React.Component {
-
   render() {
     return (
       <div className={styles.contents}>
@@ -19,6 +18,8 @@ export default class Contents extends React.Component {
               group={this.props.group}
               getGroup={this.props.getGroup}
               clientRef={this.props.clientRef}
+              groupInUserList={this.props.groupInUserList}
+              users={this.props.users}
             />
             {(this.props.memo_bigArr!=null)?
             <ContentsMemo
@@ -37,7 +38,7 @@ export default class Contents extends React.Component {
               :null}
           </div>
           {this.props.showChat ? (
-            <Chat group={this.props.group} users={this.props.users}   clientRef={this.props.clientRef} alarm={this.props.alarm} />
+            <Chat group={this.props.group} users={this.props.users} clientRef={this.props.clientRef} alarm={this.props.alarm} />
           ) : null}
           {this.props.showAlarm ? (
             <Alarm users={this.props.users} addgroup_alarm={this.props.addgroup_alarm} SidebarGroupUpdate={this.props.SidebarGroupUpdate} AlarmAddGroup={this.props.AlarmAddGroup} />
