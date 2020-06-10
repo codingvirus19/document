@@ -46,17 +46,23 @@
   background-color: none;
 }
 
-.userbell button, .account, .addmemo,.chat,.user{
+.userbell, .account, .addmemo,.chat,.user{
   background: none;
   border-radius: 1rem;
   width: 2.9rem;
   height: 2.9rem;
 }
 
-.userbell button:hover, .account:hover, .addmemo:hover,.chat:hover{
+.userbell:hover, .account:hover, .addmemo:hover,.chat:hover{
   box-shadow: gray 1px 1px 1px 1px;
 }
 
+.chatClick{
+  background-color: #e74a3b;
+}
+.userbellClick{
+  background-color: #e74a3b;
+}
 
 .imageIcon {
   width: 2.9rem;
