@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import styles from "./Alarm.css";
 import AlarmAddGroup from "./AlarmAddGroup";
 
-const API_URL = "http://localhost:8080/codingvirus19";
+const API_URL = ".";
 const API_HEADERS = {
     "Content-Type": "application/json",
 };

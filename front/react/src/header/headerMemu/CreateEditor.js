@@ -120,7 +120,7 @@ export default class Popup extends React.Component {
   }
 
   memoSave() {
-    fetch("http://localhost:8080/codingvirus19/api/memo/save", {
+    fetch("./api/memo/save", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -130,15 +130,16 @@ export default class Popup extends React.Component {
       }),
     })
       .then((response) => response.json())
+      .then(()=>{this.props.bringMemoByGroup(this.props.groupNoForGroupUser.no)})
       .catch((err) => console.error(err));
-    this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0], JSON.stringify({
+      this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0], JSON.stringify({
       gNo: this.props.groupNoForGroupUser.no,
       chat: this.props.groupNoForGroupUser.name + " 그룹에 새로운 메모가 생성되었습니다.",
       date: new Date(),
       type: true,
       readCheck: true
     }))
-    this.props.bringMemoByGroup(this.props.groupNoForGroupUser.no);
+   
     this.props.closePopup();
   }
   markOpen() {
@@ -153,7 +154,7 @@ export default class Popup extends React.Component {
     const formData = new FormData();
     formData.append("multipartFile", e.currentTarget.files[0]);
 
-    fetch("http://localhost:8080/codingvirus19/api/upload", {
+    fetch("./api/upload", {
       method: "post",
       headers: { append: "application/json" },
       body: formData,

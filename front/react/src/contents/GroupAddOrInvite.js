@@ -1,15 +1,17 @@
 import React from "react";
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
+import { ToastContainer, toast, Slide } from "react-toastify";
+import "../ReactToastify.scss";
 import styles from '../Popup2.css';
 
-const API_URL = "http://localhost:8080/codingvirus19";
+const API_URL = ".";
 const API_HEADERS = {
     "Content-Type": "application/json",
 };
 const selectStyles = {
     multiValue: (base, state) => {
-        return state.data.isFixed ? { ...base, backgroundColor: 'gray' } : base;
+        return state.data.isFixed ? { ...base, backgroundColor: 'blue' } : base;
     },
     multiValueLabel: (base, state) => {
         return state.data.isFixed
@@ -28,19 +30,35 @@ export default class GroupAddOrInvite extends React.Component {
 
         this.state = {
             group: this.props.group,
+            //선택한 그룹에 있는 유저 뺀 나머지 유저(초대 가능한 유저)
             users: [],
-            // groupUsers: null,
+            //각 그룹의 유저
+            groupUsers: null,
             selectGroupName: null,
             selectGroupNo: null,
+            //user select에서 새로 선택된 유저(초대할 유저)
             selectUsers: null,
+            //선택한 그룹의 유저 수 (4명 제한에 필요)
             countUser: null,
             userfocus: false,
+            //user select의 value값
+            valueUsers: null,
         }
     }
 
+    notify(message) {
+        toast(message, {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+        })
+    }
+
     handleOnChange(event) {
-        //그룹 선택시 선택했던 사용자 초기화
-        // this.setState({ selectUsers: null })
         // 그룹 추가
         if (event.__isNew__) {
             this.addGroup(event)
@@ -64,6 +82,11 @@ export default class GroupAddOrInvite extends React.Component {
         let data = {
             name: event.label
         };
+        //그룹 글자수 제한 20자
+        if (data.name.length > 20) {
+            this.notify("그룹 이름이 너무 깁니다.(20자 제한)")
+            return;
+        }
         let group = { no: [], gname: [] };
         fetch(`${API_URL}/api/addGroup`, {
             method: "post",
@@ -125,11 +148,13 @@ export default class GroupAddOrInvite extends React.Component {
                         isFixed: true
                     }
                 });
-                this.UpdateSelectUser(users);
+                this.UpdateGroupUser(users);
+                this.UpdateValueUser(users);
             })
             .catch((err) => console.error(err));
     }
 
+    //db쓰지말고 this.state.user.length쓰자
     countUserByGroup(no) {
         let data = { no: no }
         let countUser = null;
@@ -177,10 +202,13 @@ export default class GroupAddOrInvite extends React.Component {
             this.setState({ userfocus: true })
         }
         //선택한 사용자 추가
-        if(event != []) {
+        if (event != []) {
             this.setState({
-                selectUsers: event
+                valueUsers: event
             })
+            //그룹내 있던 유저 빼고 selectUsers로 세팅
+            event = event.filter(event => !event.isFixed)
+            this.UpdateSelectUser(event)
         }
     }
 
@@ -189,7 +217,16 @@ export default class GroupAddOrInvite extends React.Component {
             users: users
         })
     }
-
+    UpdateValueUser(users) {
+        this.setState({
+            valueUsers: users
+        })
+    }
+    UpdateGroupUser(users) {
+        this.setState({
+            groupUsers: users
+        })
+    }
     UpdateSelectUser(users) {
         this.setState({
             selectUsers: users
@@ -197,8 +234,6 @@ export default class GroupAddOrInvite extends React.Component {
     }
 
     render() {
-        console.log("aaaaa")
-        console.log(this.state.selectUsers)
         if (this.state.selectUsers != null) {
             this.props.UserAddOrInviteCallBack(this.state.selectUsers)
         }
@@ -222,7 +257,7 @@ export default class GroupAddOrInvite extends React.Component {
                 <div className={styles.inner_form_component}>
                     <span className={styles.inner_form_container_title}>초대할 사용자 (최대 4명)</span>
                     <Select
-                        value={this.state.selectUsers}
+                        value={this.state.valueUsers}
                         className={styles.inner_select}
                         isMulti
                         defaultMenuIsOpen={true}
@@ -235,6 +270,18 @@ export default class GroupAddOrInvite extends React.Component {
                         styles={selectStyles}
                     />
                 </div>
+                <ToastContainer
+                    position="bottom-right"
+                    autoClose={3000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable={false}
+                    pauseOnHover
+                    transition={Slide}
+                />
             </>
         );
     }

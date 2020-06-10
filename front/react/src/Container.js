@@ -5,7 +5,7 @@ import Contents from "./contents/Contents";
 import SockJsClient from "react-stomp";
 import styles from "./Container.css";
 
-const API_URL = "http://localhost:8080/codingvirus19";
+const API_URL = ".";
 const API_HEADERS = {
   "Content-Type": "application/json",
 };
@@ -14,6 +14,7 @@ export default class Container extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
+      getProfileValue: null,
       group: { no: [], gname: [] },
       group_hash: [{ no: "", name: "", memo_no: "" }],
       distinctGroup_hash: [""],
@@ -24,8 +25,12 @@ export default class Container extends React.Component {
       showAlarm: false,
       clientRef: "",
       alarm: { basic: "", chatting: "" },
+<<<<<<< HEAD
       addgroup_alarm: {message:"", date:"", group_no:"", group_name:""},
       groupInUserList : [{ user_no:"", id: "", nickname:"", img:"", auth_no:"" }],
+=======
+      addgroup_alarm: { message: "", date: "", group_no: "", group_name: "" },
+>>>>>>> f3dc794776ff9a85a095d7e2863cb204c8430c22
       keyword: "",
     };
     this.drag = null;
@@ -43,10 +48,10 @@ export default class Container extends React.Component {
 
     this.bringMemoByGroup(this.state.groupBySidebar.no);
 
+    this.getProfileAjax();
+
     // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
-
     this.getGroup();
-
 
     // 로그인한 user를 가져오는 코드
     let users = { no: [], name: [] };
@@ -74,7 +79,6 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json.data)
         this.UpdateAlarm(json.data);
       })
       .catch((err) => console.error(err));
@@ -84,6 +88,21 @@ export default class Container extends React.Component {
 
     // Sidebar의 HashtagList를 가져오는 코드
     this.getHashListByGroup(this.state.groupBySidebar.no);
+  }
+
+  getProfileAjax() {
+    fetch(`${API_URL}/api/profile`, {
+      method: "post",
+      headers: API_HEADERS,
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        let _getProfileValue = json.data;
+        this.setState({
+          getProfileValue: _getProfileValue,
+        });
+      })
+      .catch((err) => console.error(err));
   }
 
   // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
@@ -241,7 +260,9 @@ export default class Container extends React.Component {
   SidebarGroupUpdate(no, name) {
     //     // 검색창에 keyword입력 후 다시 ""로 설정되도록 하는 코드.
     // this.onCallbackKeywordChange("");
+    //그룹에 메모 정보
     this.bringMemoByGroup(no);
+    //그룹에 해시 정보
     this.getHashListByGroup(no);
 
     if(no != null){
@@ -255,6 +276,7 @@ export default class Container extends React.Component {
       },
     });
   }
+
 
   getGroupInUser(no){
     console.log(no)
@@ -370,7 +392,7 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
-    this.state.addgroup_alarm=null
+    this.state.addgroup_alarm = null
     console.log(alarm_msg);
     if (alarm_msg.addgroup == true && alarm_msg.type == true && alarm_msg.readCheck == true) { //그룹초대  
       console.log("그룹추가에 온거 맞지?");
@@ -432,7 +454,7 @@ export default class Container extends React.Component {
   }
 
   render() {
-    const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";
+    const wsSourceUrl = "./api/alarm";
     return (
       <div className={styles.container}>
         {this.Users != undefined ? (
@@ -451,6 +473,8 @@ export default class Container extends React.Component {
         {/*속성 memo_bigArr : 메모의 정보가 이중배열로 담겨있다.*/}
         {/*속성 SidebarGroupUpdate : delete 버튼 클릭시 콜백으로 gno와 gname이 전달된다.  */}
         <Header
+          //profile정보
+          getProfileValue={this.state.getProfileValue}
           // search 검색 콜백함수
           onCallbackKeywordChange={this.onCallbackKeywordChange.bind(this)}
           // 검색창에 입력한 keyword
@@ -467,7 +491,6 @@ export default class Container extends React.Component {
           alarm={this.state.alarm}
           clientRef={this.clientRef}
           users={this.Users}
-          // hash={this.state.distinctGroup_hash}
         />
         <div className={styles.body}>
           <Sidebar
@@ -496,7 +519,7 @@ export default class Container extends React.Component {
             group_hash={this.state.group_hash}
             //중복 제거한 해시
             distinctGroup_hash={this.state.distinctGroup_hash}
-          //변경된 결과 값 state :true false
+            //변경된 결과 값 state :true false
             AlarmAddGroup={this.AlarmAddGroup.bind(this)}
             groupInUserList={this.state.groupInUserList}
           />
