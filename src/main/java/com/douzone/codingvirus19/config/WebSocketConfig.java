@@ -33,7 +33,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/api/memo","/api/chat", "/api/alarm", "/api/userlist").setAllowedOrigins("*").withSockJS();
+		registry.addEndpoint("/api/memo","/api/chat", "api/alarm", "api/userlist").setAllowedOrigins("*").withSockJS();
 		System.out.println("웹 소켓 config 들어 왔습니다.");
         // URL//chatting  <-웹소켓 연결 주소
 	}

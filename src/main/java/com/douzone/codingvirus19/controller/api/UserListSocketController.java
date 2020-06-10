@@ -28,7 +28,6 @@ public class UserListSocketController {
 		System.out.println(userno+"fawfawfawf");
 		webSocket.convertAndSend("/api/userlist/" + userno, getUserSession2);
 	}
-
 	// --------------------------------------------------------접속한 유저 Session 가져오기
 	@EventListener
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
