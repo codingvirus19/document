@@ -14,13 +14,8 @@ export default class Modal extends React.Component {
         }
     }
     
-    // onChangeTitle(){
-    //     this.setState({
-    //         title:this.props.title
-    //     })
-    // }
-    
-    onOutGroup(e){
+    // 그룹삭제 실행 함수
+    onAjaxOutGroup(e){
         e.preventDefault();
         console.log(this.props.groupBySidebar.no)
         let groupNoForDelete = null;
@@ -44,6 +39,40 @@ export default class Modal extends React.Component {
               console.log(json.data)
               let getTrue = json.data;
               if (getTrue != false) {
+                console.log("그룹 삭제 정상작동")
+                this.props.SidebarGroupUpdate(null, null);
+                this.props.getGroup();
+              }
+            })
+            .catch((err) => console.error(err));
+        }else{
+          console.log("개인은 그룹나가기하면 안됩니다!")
+        }
+      }
+
+      // 그룹 나가기 실행 함수
+      onAjaxOutGroupAlone(e){
+        e.preventDefault();
+        let groupNoForDelete = null;
+
+        // group의 no는 개인이기 때문에 그룹 나가기가 작동되어선 안된다.
+        // no가 null이 아닌것 에서만 그룹나가기가 작동되도록 설정.
+        if(this.props.groupBySidebar.no != null){
+          groupNoForDelete ={
+            gNo: this.props.groupBySidebar.no,
+          } 
+    
+          fetch(`${API_URL}/api/outGroupAlone`, {
+            method: "post",
+            headers: API_HEADERS,
+            body: JSON.stringify(groupNoForDelete),
+          })
+            .then((response) => response.json())
+            .then((json) => {
+              console.log(json.data)
+              let getTrue = json.data;
+              if (getTrue != false) {
+                console.log("그룹나가기 정상작동")
                 this.props.SidebarGroupUpdate(null, null);
                 this.props.getGroup();
               }
@@ -74,10 +103,10 @@ export default class Modal extends React.Component {
                
                 <footer className={styles.footer}>
                     {/* GroupOutEveryone의 버튼 클릭시 아래 함수 실행 */}
-                    {this.state.contents == "그룹 삭제" ? <button onClick={this.onOutGroup.bind(this)} className={styles.confirm_btn}>확인</button> : null}
+                    {this.state.contents == "그룹 삭제" ? <button onClick={this.onAjaxOutGroup.bind(this)} className={styles.confirm_btn}>확인</button> : null}
 
                     {/* GroupOutAlone의 버튼 클릭시 아래 함수 실행 */}
-                    {this.state.contents == "그룹 나가기" ? <button onClick={this.onOutGroup.bind(this)} className={styles.confirm_btn}>확인</button> : null}
+                    {this.state.contents == "그룹 나가기" ? <button onClick={this.onAjaxOutGroupAlone.bind(this)} className={styles.confirm_btn}>확인</button> : null}
                    
                    {/* onClickFalse은 무조건 콜백함수로 사용해야 종료가 된다. 이전페이지에 꼭 넣기! */}
                    <button onClick={this.props.onClickFalse} className={styles.cancel_btn}>닫기</button>
