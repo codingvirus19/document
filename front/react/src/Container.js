@@ -290,10 +290,9 @@ export default class Container extends React.Component {
 
   //해시 검색 (ex) #~~~)
   SearchHash(g_no, keyword) {
-    // 앞에 #을 자름
+    // 해시일 경우 앞에 #을 자른 후 해시 저장
     let hash = keyword.slice(1);
-    //# 자른 키워드 다시 설정
-    this.onCallbackKeywordChange(hash)
+    this.onCallbackKeywordChange(keyword)
     this.bringMemoByHash(g_no, hash)
   }
 
@@ -409,10 +408,6 @@ export default class Container extends React.Component {
     }
 
   }
-  //쓰는사람 없으면 지우기
-  // getSnapshotBeforeUpdate(element) {
-  //   return element;
-  // }
 
   render() {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/alarm";

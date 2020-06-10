@@ -14,7 +14,6 @@ export default class Chat extends React.Component {
       contents: [],
       scrollBottom: true
     }
-    this.autoscrollRef = React.createRef()
   }
 
   componentDidMount() {
@@ -32,7 +31,6 @@ export default class Chat extends React.Component {
         });
       })
       .catch((err) => console.error(err));
-      this.autoscrollRef.current.scrollTop = this.autoscrollRef.current.scrollHeight;
      
   }
 
@@ -41,19 +39,7 @@ export default class Chat extends React.Component {
       contents: this.state.contents.concat(msg),
     })
 
-    this.autoscrollRef.current.scrollTop = this.autoscrollRef.current.scrollHeight;
     // this.scrollToBottom();
-  }
-  scrollBottomChange() {
-     if(this.state.scrollBottom){
-        this.setState({
-          scrollBottom: false
-        })
-     }
-  }
-  scrollBottom(){
-    if(this.autoscrollRef.current == null)return;
-    this.autoscrollRef.current.scrollTop = this.autoscrollRef.current.scrollHeight;
   }
 
   sendMessage(mg) {
@@ -78,9 +64,6 @@ export default class Chat extends React.Component {
   }
   render() {
     const wsSourceUrl = "http://localhost:8080/codingvirus19/api/chat";
-    {if(!this.state.scrollBottom){
-      this.autoscrollRef.current.scrollTop = this.autoscrollRef.current.scrollHeight;
-    }}
     return (
       <Fragment>
         <SockJsClient
@@ -93,13 +76,14 @@ export default class Chat extends React.Component {
         <button className={styles.close} onClick={this.props.close}>⏏︎</button>
 
 
-        <div id={`${this.props.gNo}scroll`} className={styles.chatOutput} ref={this.autoscrollRef} >
-          <MessageList gNo={this.props.gNo} users={this.props.users.name[0]} addMessage={this.state.contents} scrollBottom={this.scrollBottom.bind(this)} scrollBottomChange={this.scrollBottomChange.bind(this)} />
+        <div id={`${this.props.gNo}scroll`} className={styles.chatOutput} >
+          <MessageList gNo={this.props.gNo} users={this.props.users.name[0]} addMessage={this.state.contents} />
         </div>
 
         <div id="chatInput" className="chatInput">
           <MessageSend gNo={this.props.gNo} sendMessage={this.sendMessage.bind(this)} />
         </div>
+        
       </Fragment>
 
     );

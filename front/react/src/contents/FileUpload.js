@@ -1,6 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import ReactDom from 'react-dom';
-import Popup from './FilePopup.js';
+import Popup from './Popup';
 import styles from './FileUpLoad.css'
 
 const FileUpload = (props) => {
@@ -13,7 +12,7 @@ const FileUpload = (props) => {
     const FileUploadBtn = () => {
         document.getElementById('hiddenFileInput').click();
     }
-    const FileUpload = e => {
+    const FileUploads = e => {
         props.File(e);
     }
     const PopupChange = (e) => {
@@ -26,13 +25,12 @@ const FileUpload = (props) => {
     return (
         <Fragment>
             <button className={className} onClick={() => PopupChange(true)}>{value}</button>
-            
             <Popup open={popupChange} close={() => PopxupChange()} >
                 <div className={styles.upload}>
                     <button className={styles.upload_btn} onClick={FileUploadBtn}>이미지추가</button>
                 </div>
                 <div className={styles.upload_img}>
-                    <input type="file" id="hiddenFileInput" onChange={e => FileUpload(e)} style={{ display: 'none' }} />
+                    <input type="file" id="hiddenFileInput" onChange={e => FileUploads(e)} style={{ display: 'none' }} />
                     {(props.image == null) ? null : <img className={styles.image} src={`.${props.image}`} />}
                 </div>
                 {props.image}

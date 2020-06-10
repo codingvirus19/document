@@ -48,7 +48,14 @@
  		]]>
 	</update>
 	
-	<select id="getUserListByGroup" parameterType="long" resultType="uservo">
+	<select id="getUserList" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select no, id, email, nickname, image
+			  from user;
+ 		]]>
+ 	</select>
+	
+	<select id="getUserListNotInGroup" parameterType="long" resultType="uservo">
 		<![CDATA[
 			select no, id, email, nickname, image
 			  from user
@@ -56,6 +63,16 @@
 								from groups a, groupuser b
 							   where a.no = b.g_no
 								 and a.no=#{no});
+ 		]]>
+	</select>
+	
+	<select id="getUserListByGroup" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select c.no as no, c.id as id, c.email as email, c.nickname as nickname, c.image as image
+			  from groups a, groupuser b, user c
+			 where a.no = b.g_no
+			   and b.u_no = c.no
+			   and a.no=#{no};
  		]]>
 	</select>
 	

@@ -39,17 +39,20 @@ public class MainService {
 		return 1 == groupuserRepository.insertGroupUser(groupUservo); //유저 시큐리티도 같이		
 	}
 
-	public boolean deleteGroup(Long no) {
-		return 1 == groupRepository.deleteGroup(no);
-	}
 
 	public List<MemoVo> memoListByHash(MemoVo memoVo) {
 		return memoRepository.memoListByHash(memoVo);
 	}
 
+<<<<<<< HEAD
 	public List<UserVo> getGroupinUserSession(GroupUserVo groupuserVo) {
 		List<UserVo> list = groupuserRepository.getGroupinUserSession(groupuserVo);
 		return list;
+=======
+	public boolean outGroup(GroupVo vo) {
+		int asyncTestCount = groupRepository.outGroup(vo);
+		return asyncTestCount != -1;
+>>>>>>> f5515c6139d684f7f1a62014d2f63c4f62ae7c24
 	}	
 
 }

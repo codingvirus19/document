@@ -38,6 +38,16 @@ public class MainApiController {
 		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
 		return JsonResult.success(returnValue);
 	}
+	@PostMapping("/outGroup")
+	public JsonResult outGroup(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo ) {
+		System.out.println(vo);
+		boolean asyncTest = mainService.outGroup(vo);
+//		UserVo userVo = new UserVo();
+		
+//		userVo.setNo(securityUser.getNo());
+//		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
+		return JsonResult.success(asyncTest);
+	}
 
 	@PostMapping("/groupsession")
 	public void groupSession(@RequestBody GroupUserVo groupuserVo) {
@@ -82,6 +92,7 @@ public class MainApiController {
 		return JsonResult.success(groupVo);
 	}
 
+<<<<<<< HEAD
 	//아직 프론트에서 안씀
 	@PostMapping("/deleteGroup")
 	public JsonResult deleteGroup(@RequestBody GroupVo groupVo){
@@ -130,4 +141,6 @@ public class MainApiController {
 			System.out.println("현재 남아 있는 인원" + getUserSession);
 		}
 	}
+=======
+>>>>>>> f5515c6139d684f7f1a62014d2f63c4f62ae7c24
 }
