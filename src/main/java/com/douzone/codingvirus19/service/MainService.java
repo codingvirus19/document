@@ -44,6 +44,11 @@ public class MainService {
 		return memoRepository.memoListByHash(memoVo);
 	}
 
+	public List<UserVo> getGroupinUserSession(GroupUserVo groupuserVo) {
+		List<UserVo> list = groupuserRepository.getGroupinUserSession(groupuserVo);
+		return list;
+	}
+	
 	public boolean outGroup(GroupVo vo) {
 		int asyncTestCount = groupRepository.outGroup(vo);
 		return asyncTestCount != -1;

@@ -242,12 +242,28 @@ export default class Container extends React.Component {
     // this.onCallbackKeywordChange("");
     this.bringMemoByGroup(no);
     this.getHashListByGroup(no);
+
+    if(no != null){
+      console.log(no)
+      this.getGroupInUser(no);
+    }
     this.setState({
       groupBySidebar: {
         no: no,
         name: name,
       },
     });
+  }
+
+  getGroupInUser(no){
+    console.log(no)
+    let getSession = { gNo: no };
+    // call api
+    fetch(`${API_URL}/api/groupsession`, {
+      method: "post",
+      headers: API_HEADERS,
+      body : JSON.stringify(getSession)
+    })
   }
 
   AlarmAddGroup(){
