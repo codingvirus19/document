@@ -1,11 +1,16 @@
 import React from "react";
 import styles from "./Modal.css";
 
+const API_URL = ".";
+const API_HEADERS = {
+  "Content-Type": "application/json",
+};
+
 export default class Modal extends React.Component {
     constructor(){
         super(...arguments);
         this.state={
-            title: this.props.title
+            contents: this.props.contents,
         }
     }
     
@@ -55,16 +60,18 @@ export default class Modal extends React.Component {
         <div className={styles.modalContainer}>
             <div className={styles.modalContainer__inner}>
                 <header className={styles.inner__header}> 
-                    {this.state.title != null ? 
-                    <span className={styles.header__title}><h2>{this.state.title}</h2></span>
+                    {this.state.contents != null ? 
+                    <span className={styles.header__title}><h2 className={styles.title__h2}>{this.state.contents}</h2></span>
                     : null }
                     
                     <span onClick={this.props.onClickFalse} 
-                    className={styles.header__close}>&times;</span>
+                    className={styles.header__close}><button className={styles.close__icon} >&times;</button></span>
                 </header>
+                {this.state.contents != null ? 
                 <div className={styles.contents}>
-                    <p>Some text..</p>
-                </div>
+                    <p className={styles.contents__p}>{this.state.contents}</p><p>를 계속 진행하시겠습니까?</p>
+                </div> : null}
+               
                 <footer className={styles.footer}>
                    <button onClick={this.onOutGroup.bind(this)} className={styles.confirm_btn}>확인</button>
                    <button onClick={this.props.onClickFalse} className={styles.cancel_btn}>닫기</button>
