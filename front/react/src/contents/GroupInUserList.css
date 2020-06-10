@@ -1,6 +1,5 @@
 .groupUserList{
     width: 50%;
-    background-color: blue;
     height: 80%;
     display: inline-flex;
     align-items: center;
@@ -14,9 +13,8 @@
 .users li{
     border: 0;
     float: left;
-    color: #fff;
+    color: #000;
 }
-
 .userNotLogin{
     position: absolute;
   width: 10px;
@@ -30,4 +28,12 @@
     overflow: hidden;
     width: 45px;
     height: 40px;
+    border: thin solid gray;
+}
+.userInLogin{
+    position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: springgreen;
 }
