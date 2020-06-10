@@ -30,7 +30,6 @@ export default class ContentsHeader extends React.Component {
             <FontAwesomeIcon className={styles.faBars} icon={faBars} />
           </button>
         </div>
-
         <div className={styles.addgroup} aria-label="그룹 추가(잘모르겠어요)">
           <button className="contents-header__btns">
             <FontAwesomeIcon
@@ -60,10 +59,12 @@ export default class ContentsHeader extends React.Component {
             />
           ) : null}
         </div>
+
         <div className={styles.groupUsers}>
             <div>
             </div>
         </div>
+        
       </div>
       <div className={styles.groupOut}>
           <button className={styles.groupOutButton}>그룹 나가기</button>

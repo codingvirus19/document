@@ -32,6 +32,12 @@ public class MainApiController {
 		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
 		return JsonResult.success(returnValue);
 	}
+	
+	@PostMapping("/getUserListByGroup")
+	public JsonResult getUserListByGroup(@RequestBody GroupVo vo) {
+		List<UserVo> userList = mainService.getUserListByGroup(vo.getNo());
+		return JsonResult.success(userList);
+	}
 
 	@PostMapping("/memoList")
 	public JsonResult contents(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo) {

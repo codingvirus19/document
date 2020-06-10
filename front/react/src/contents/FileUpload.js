@@ -18,10 +18,7 @@ const FileUpload = (props) => {
     const PopupChange = (e) => {
         setPopupChange(e);
     }
-
-
-
-
+//PopxupChange() 없어요
     return (
         <Fragment>
             <button className={className} onClick={() => PopupChange(true)}>{value}</button>
@@ -39,7 +36,6 @@ const FileUpload = (props) => {
                 
                 <button className={styles.close} onClick={() => PopupChange(false)}>닫기</button>
             </Popup>
-
         </Fragment>
 
     );

@@ -7,6 +7,15 @@ public class ChatVo {
 	private String message;
 	private String date;
 	private int aCount;
+	private String image;
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 
 	public Long getgNo() {
 		return gNo;
@@ -59,6 +68,6 @@ public class ChatVo {
 	@Override
 	public String toString() {
 		return "ChatVo [gNo=" + gNo + ", uNo=" + uNo + ", nickname=" + nickname + ", message=" + message + ", date="
-				+ date + ", aCount=" + aCount + "]";
+				+ date + ", aCount=" + aCount + ", image=" + image + "]";
 	}
 }

@@ -3,10 +3,12 @@ import MessageList from "./messageList";
 import MessageSend from "./messageSend";
 import styles from "./Chat.css";
 import SockJsClient from "react-stomp";
+
 const API_URL = "http://localhost:8080/codingvirus19";
 const API_HEADERS = {
   "Content-Type": "application/json",
 };
+
 export default class Chat extends React.Component {
   constructor() {
     super(...arguments);
@@ -33,7 +35,6 @@ export default class Chat extends React.Component {
       })
       .catch((err) => console.error(err));
       this.autoscrollRef.current.scrollTop = this.autoscrollRef.current.scrollHeight;
-     
   }
 
   onMessageReceive(msg) {
@@ -91,7 +92,6 @@ export default class Chat extends React.Component {
         </SockJsClient>
 
         <button className={styles.close} onClick={this.props.close}>⏏︎</button>
-
 
         <div id={`${this.props.gNo}scroll`} className={styles.chatOutput} ref={this.autoscrollRef} >
           <MessageList gNo={this.props.gNo} users={this.props.users.name[0]} addMessage={this.state.contents} scrollBottom={this.scrollBottom.bind(this)} scrollBottomChange={this.scrollBottomChange.bind(this)} />

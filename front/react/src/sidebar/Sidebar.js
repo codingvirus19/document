@@ -13,13 +13,6 @@ export default class Sidebar extends React.Component {
 
   clickGroup(g_no, g_name) {
     this.update(g_no, g_name);
-    this.showHashtagList();
-  }
-
-  showHashtagList() {
-    this.setState({
-      showHashtagList: true
-    })
   }
 
   update(g_no, g_name) {
@@ -45,7 +38,7 @@ export default class Sidebar extends React.Component {
               <a>그룹메모</a>
               <ol className="sub-menu">
                 {this.props.group.gname.map((name, index) => (
-                  <li key={name} className="menu-item">
+                  <li key={this.props.group.no[index]} className="menu-item">
                     <a onClick={this.clickGroup.bind(this, this.props.group.no[index], name)}>
                       {name}
                     </a>
