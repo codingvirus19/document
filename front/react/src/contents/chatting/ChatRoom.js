@@ -44,13 +44,21 @@ export default class Chat extends React.Component {
   }
 
   sendMessage(mg) {
+    
+    let dates = new Date();
+    let DateSend = (dates.getFullYear() + "-" +
+                    (dates.getMonth()+1) + "-" +
+                    dates.getDate() + " " +
+                    dates.getHours() + "시 " +
+                    dates.getUTCMinutes() + "분 ");
+
     this.clientRef.sendMessage("/app/chat/" + this.props.gNo,
       JSON.stringify({
         gNo: this.props.gNo,
         uNo: this.props.users.no[0],
         nickname: this.props.users.name[0],
         message: mg,
-        date: new Date(),
+        date: DateSend,
         aCount: 1
       }));
       let date = new Date();
@@ -59,7 +67,7 @@ export default class Chat extends React.Component {
       JSON.stringify({
         gNo: this.props.gNo,
         chat: "채팅알람",
-        date: new Date().getHours(),
+        date: DateSend,
         type: false,
         readCheck: true
       }));
