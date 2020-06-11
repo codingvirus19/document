@@ -62,6 +62,6 @@ public class AlarmApiController {
 		System.out.println(groupuserVo);
 		groupuserVo.setuNo(securityUser.getNo());
 		alarmService.alarmGroupJoin(groupuserVo);
-		return null;
+		return JsonResult.success(null);
 	}
 }
