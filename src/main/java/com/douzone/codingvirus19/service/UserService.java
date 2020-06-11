@@ -1,6 +1,7 @@
 package com.douzone.codingvirus19.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,5 +54,9 @@ public class UserService {
 
 	public String getUser(Long no) {
 		return userRepository.getUser(no);
+	}
+
+	public List<UserVo> getUserSessionNotInGroup(Map<String, Object> sessionUserMap) {
+		return userRepository.getUserSessionNotInGroup(sessionUserMap);
 	}
 }

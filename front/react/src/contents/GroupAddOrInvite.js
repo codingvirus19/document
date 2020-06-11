@@ -122,6 +122,13 @@ export default class GroupAddOrInvite extends React.Component {
             .then((response) => response.json())
             .then((json) => {
                 userDatas = json.data;
+                if(json.data == null){
+                    return {
+                        value: null,
+                        label: null,
+                        no: null,
+                    }
+                }
                 users = userDatas.map((element) => {
                     return {
                         value: element.nickname,

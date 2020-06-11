@@ -12,6 +12,10 @@ public class UserVo {
 	private String name;
 	private Long authNo;
 	
+	public UserVo() {
+		
+	}
+	
 	public String getName() {
 		return name;
 	}

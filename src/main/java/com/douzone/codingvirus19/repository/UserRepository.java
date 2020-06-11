@@ -1,6 +1,7 @@
 package com.douzone.codingvirus19.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,10 @@ public class UserRepository {
 
 	public String getUser(Long no) {
 		return sqlSession.selectOne("user.getUser",no);
+	}
+
+	public List<UserVo> getUserSessionNotInGroup(Map<String, Object> sessionUserMap) {
+		return sqlSession.selectList("user.getUserSessionNotInGroup", sessionUserMap);
 	}
 
 }
