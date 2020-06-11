@@ -120,15 +120,15 @@ export default class Header extends React.Component {
                 ) : null}
               </Dropdown>
 
-            <Dropdown className={styles.userbell}>
-              <Dropdown.Toggle aria-label="알람" onClick={this.alarmClick.bind(this)} >
+            <Dropdown>
+              <Dropdown.Toggle aria-label="알람" onClick={this.alarmClick.bind(this)} className={(this.state.showAlarm)?`${styles.userbellClick} ${styles.userbell}`:styles.userbell}  >
                 {(this.props.alarm.basic) ? <span className={styles.alarmbell}/> : null }  
                 <FontAwesomeIcon className={styles.faBell} icon={faBell} />
               </Dropdown.Toggle>
             </Dropdown>
 
             <div>
-              <button aria-label="채팅" className={styles.chat} onClick={this.chattingClick.bind(this) }>
+              <button aria-label="채팅" className={(this.state.showChat)?`${styles.chat} ${styles.chatClick}`:styles.chat}  onClick={this.chattingClick.bind(this) }>
               {(this.props.alarm.chatting) ? <span className={styles.alarmbell}/> : null } 
                 <FontAwesomeIcon className={styles.faSms} icon={faSms} />
               </button>

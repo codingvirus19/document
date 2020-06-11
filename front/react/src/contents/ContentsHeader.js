@@ -4,11 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faFolderPlus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import styles from "./ContentsHeader.css";
 import GroupInUserList from "./GroupInUserList";
-
-const API_URL = ".";
-const API_HEADERS = {
-  "Content-Type": "application/json",
-};
+import GroupOutEveryone from "./GroupOutEveryone";
+import GroupOutAlone from "./GroupOutAlone";
 
 export default class ContentsHeader extends React.Component {
   constructor() {
@@ -24,39 +21,7 @@ export default class ContentsHeader extends React.Component {
     });
   }  
   
-  onOutGroup(e){
-    e.preventDefault();
-    console.log(this.props.groupBySidebar.no)
-    let groupNoForDelete = null;
-
-    // group의 no는 개인이기 때문에 그룹 나가기가 작동되어선 안된다.
-    // no가 null이 아닌것 에서만 그룹나가기가 작동되도록 설정.
-    if(this.props.groupBySidebar.no != null){
-      // 들어가있는 그룹의 no와 name값(상훈아 name넣었다!!!)
-      groupNoForDelete ={
-        no: this.props.groupBySidebar.no,
-        name: this.props.groupBySidebar.name,
-      } 
-
-      fetch(`${API_URL}/api/outGroup`, {
-        method: "post",
-        headers: API_HEADERS,
-        body: JSON.stringify(groupNoForDelete),
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          console.log(json.data)
-          let getTrue = json.data;
-          if (getTrue != false) {
-            this.props.SidebarGroupUpdate(null, null);
-            this.props.getGroup();
-          }
-        })
-        .catch((err) => console.error(err));
-    }else{
-      console.log("개인은 그룹나가기하면 안됩니다!")
-    }
-  }
+ 
   
   render() {
     return (
@@ -99,19 +64,21 @@ export default class ContentsHeader extends React.Component {
             />
           ) : null}
         </div>
-
         {(this.props.groupBySidebar.no != null) ? 
-        <GroupInUserList groupInUserList={this.props.groupInUserList} users={this.props.users} /> 
-        : null}
-      
+          <GroupInUserList groupInUserList={this.props.groupInUserList} groupBySidebar={this.props.groupBySidebar.no} users={this.props.users} /> : null}
+
       </div>
 
       <div className={styles.groupOut}>
+        
+        {/* 그룹 삭제 : 그룹이 개인일때는 아래 버튼이 작동되어선 안된다!   */}
         {this.props.groupBySidebar.no != null ?
-          <button onClick={this.onOutGroup.bind(this)} className={styles.groupOutButton}>그룹 삭제</button>
-          : null}
+        <GroupOutEveryone getGroup={this.props.getGroup} groupBySidebar={this.props.groupBySidebar} SidebarGroupUpdate={this.props.SidebarGroupUpdate} />
+        : null}
+
+        {/* 그룹 나가기 : 그룹이 개인일때는 아래 버튼이 작동되어선 안된다!  */}
         {this.props.groupBySidebar.no != null ? 
-          <button className={styles.groupOutButton}>그룹 나가기</button>
+          <GroupOutAlone getGroup={this.props.getGroup} groupBySidebar={this.props.groupBySidebar} SidebarGroupUpdate={this.props.SidebarGroupUpdate} />
           : null}
       </div>
       </Fragment>
