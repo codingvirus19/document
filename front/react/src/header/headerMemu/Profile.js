@@ -8,11 +8,11 @@ export default class Profile extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {
-      id: this.props.getProfileValue.id,
-      email: this.props.getProfileValue.email,
-      password: this.props.getProfileValue.password,
-      nickname: this.props.getProfileValue.nickname,
-      image: this.props.getProfileValue.image,
+      id: this.props.ClickGetProfileValue.id,
+      email: this.props.ClickGetProfileValue.email,
+      password: this.props.ClickGetProfileValue.password,
+      nickname: this.props.ClickGetProfileValue.nickname,
+      image: this.props.ClickGetProfileValue.image,
       value: "",
       cursor: "",
     };

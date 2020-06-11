@@ -41,6 +41,9 @@ export default class Contents extends React.Component {
     });
   }
 
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps)
+  }
   render() {
     if (this.props.memo_bigArr.length === 0) {
       return (
@@ -118,4 +121,4 @@ export default class Contents extends React.Component {
       </div>
     );
   }
-}
+}//

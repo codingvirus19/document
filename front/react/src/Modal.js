@@ -89,24 +89,32 @@ export default class Modal extends React.Component {
         <div className={styles.modalContainer} onClick={this.props.onClickFalse}>
             <div className={styles.modalContainer__inner} onClick={(e) => e.stopPropagation()}>
                 <header className={styles.inner__header}> 
-                    {this.state.contents != null ? 
-                    <span className={styles.header__title}><h2 className={styles.title__h2}>{this.state.contents}</h2></span>
+                    {this.props.contents != null ? 
+                    <span className={styles.header__title}><h2 className={styles.title__h2}>{this.props.contents}</h2></span>
                     : null }
                     
                     <span onClick={this.props.onClickFalse} 
                     className={styles.header__close}><button className={styles.close__icon} >&times;</button></span>
                 </header>
-                {this.state.contents != null ? 
+                {this.props.contents != null && this.props.contents != "메모삭제안됨" ? 
                 <div className={styles.contents}>
-                    <p className={styles.contents__p}>{this.state.contents}</p><p>를 계속 진행하시겠습니까?</p>
+                    <p className={styles.contents__p}>{this.props.contents}</p><p>를 계속 진행하시겠습니까?</p>
+                </div> : null}
+
+                {this.props.contents == "메모삭제안됨" ? 
+                <div className={styles.contents}>
+                    <p>본인의 메모만 삭제가 가능합니다.</p>
                 </div> : null}
                
                 <footer className={styles.footer}>
                     {/* GroupOutEveryone의 버튼 클릭시 아래 함수 실행 */}
-                    {this.state.contents == "그룹 삭제" ? <button onClick={this.onAjaxOutGroup.bind(this)} className={styles.confirm_btn}>확인</button> : null}
+                    {this.props.contents == "그룹 삭제" ? <button onClick={this.onAjaxOutGroup.bind(this)} className={styles.confirm_btn}>확인</button> : null}
 
                     {/* GroupOutAlone의 버튼 클릭시 아래 함수 실행 */}
-                    {this.state.contents == "그룹 나가기" ? <button onClick={this.onAjaxOutGroupAlone.bind(this)} className={styles.confirm_btn}>확인</button> : null}
+                    {this.props.contents == "그룹 나가기" ? <button onClick={this.onAjaxOutGroupAlone.bind(this)} className={styles.confirm_btn}>확인</button> : null}
+                   
+                    {/* onClickDelete를 실행 시 기존의 modal이 꺼지고 새로운  */}
+                    {this.props.contents == "메모삭제" ? <button onClick={this.props.onClickDelete} className={styles.confirm_btn}>확인</button> : null}
                    
                    {/* onClickFalse은 무조건 콜백함수로 사용해야 종료가 된다. 이전페이지에 꼭 넣기! */}
                    <button onClick={this.props.onClickFalse} className={styles.cancel_btn}>닫기</button>
