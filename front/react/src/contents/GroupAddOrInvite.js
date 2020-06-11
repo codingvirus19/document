@@ -81,8 +81,8 @@ export default class GroupAddOrInvite extends React.Component {
             name: event.label
         };
         //그룹 글자수 제한 20자
-        if (data.name.length > 20) {
-            this.notify("그룹 이름이 너무 깁니다.(20자 제한)")
+        if (data.name.length > 10) {
+            this.notify("그룹 이름이 너무 깁니다.(10자 제한)")
             return;
         }
         let group = { no: [], gname: [] };
