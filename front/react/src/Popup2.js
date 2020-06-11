@@ -59,7 +59,7 @@ export default class Popup2 extends React.Component {
 
   callBackGroupAdd() {
     if (this.state.userList != undefined && this.state.userList.no[0] != '') {
-      this.props.notify(`${this.state.groupName} 그룹에 초대하였습니다.`);
+      this.props.notify(`${this.state.userList.nickname.map(element=>element)} 를 ${this.state.groupName} 그룹에 초대하였습니다.`);
       this.state.userList.no.map((element, index) => {
         this.props.clientRef.sendMessage("/app/alarm/" + this.state.userList.no[index],
           JSON.stringify({
