@@ -42,6 +42,14 @@ public class MainApiController {
 	public JsonResult outGroup(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo ) {
 		System.out.println(vo);
 		boolean asyncTest = mainService.outGroup(vo);
+		return JsonResult.success(asyncTest);
+	}
+	
+	@PostMapping("/outGroupAlone")
+	public JsonResult outGroupAlone(@AuthUser SecurityUser securityUser, @RequestBody GroupUserVo vo ) {
+		vo.setuNo(securityUser.getNo());
+		System.out.println(vo);
+		boolean asyncTest = mainService.outGroupAlone(vo);
 //		UserVo userVo = new UserVo();
 		
 //		userVo.setNo(securityUser.getNo());

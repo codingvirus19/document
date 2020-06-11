@@ -5,7 +5,7 @@ import Logo from "./Logo";
 import Popup2 from "../Popup2";
 import CreateEditor from "./headerMemu/CreateEditor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faUser, faBell, faSms, } from "@fortawesome/free-solid-svg-icons";
+import { faPlus,  faBell, faSms, } from "@fortawesome/free-solid-svg-icons";
 import dropdownstyles from "./Dropdown.css";
 import styles from "./Header.css";
 
@@ -96,7 +96,7 @@ export default class Header extends React.Component {
               ) : null}
             </div>
               <Dropdown aria-label="계정" className={styles.account}>
-                <Dropdown.Toggle className={styles.user}>ççccc
+                <Dropdown.Toggle className={styles.user}>
                 {/* <FontAwesomeIcon className={styles.faUser} icon={faUser} /> */}
                   <img className={styles.imageIcon} src={"."+this.props.getProfileValue.image} />
                 </Dropdown.Toggle>

@@ -25,7 +25,9 @@ export default class GroupInUserList extends React.Component {
                         if (this.state.userlistSession.indexOf(element.id) == -1) {
                             return (
                                 <ul key={element.user_no} className={styles.users}>
-                                    <button className={styles.userImage}>{element.img}</button>
+                                    <button className={styles.userImage}>
+                                        <img className={styles.userImage} src={"."+element.img} />
+                                        </button>
                                     <span className={styles.userNotLogin}></span><br />
                                     <li>{element.nickname}</li>
                                 </ul>
@@ -33,15 +35,17 @@ export default class GroupInUserList extends React.Component {
                         } else {
                             return (
                                 <ul key={element.user_no} className={styles.users}>
-                                    <button className={styles.userImage}>{element.img}</button>
+                                    <button className={styles.userImage}>
+                                    <img className={styles.userImage} src={"."+element.img} />
+                                    </button>
                                     <span className={styles.userInLogin}></span><br />
                                     <li>{element.nickname}</li>
                                 </ul>
                             );
                         }
-
                     }
                 })}
+                {/* 로그인한 유저 no */}
                 {this.props.users.no[0] != null ? (
                     <SockJsClient
                         url={wsSourceUrl}
