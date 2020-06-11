@@ -8,8 +8,8 @@
   min-width: 3rem;
   display: inline-block;
   padding: 3px 5px;
-  border: 1px solid rgba(170, 155, 155, 0.452);
-  background-color: rgb(226, 226, 226);
+  border: 1px solid rgba(0,0,0,0.1);
+  background-color: rgba(0,0,0,0.13);
   border-radius: 8px;
 
   .hash_name {
@@ -30,4 +30,12 @@
   height:100%;
   padding: 0rem;
   display: none;
+}
+
+.faTimesCircle {
+  background: none;
+}
+
+.hash_delete_btn {
+  background-color: rgba(0,0,0,0.0);
 }

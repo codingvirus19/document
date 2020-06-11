@@ -34,6 +34,16 @@
   background: none;
 }
 
+.faExternalLinkAlt:hover,
+.faShareSquare:hover,
+.faPalette:hover,
+.faHashtag:hover,
+.faSave:hover,
+.faFileUpload:hover,
+.faTrashAlt:hover {
+  background-color: rgba(0,0,0,0.12);
+}
+
 .colorSelcet {
   width: 100px;
 }

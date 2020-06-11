@@ -24,8 +24,6 @@ export default class Memo extends React.Component {
       markOpen: false
 
     });
-
-
   }
 
   viewPopup(popdown) {
@@ -37,7 +35,6 @@ export default class Memo extends React.Component {
   getReMarkDown() {
     return { __html: this.md.render(this.props.content) };
   }
-
 
   render() {
     return (
