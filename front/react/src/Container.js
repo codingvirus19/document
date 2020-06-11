@@ -450,7 +450,6 @@ export default class Container extends React.Component {
 
   //toast message
   notify(message) {
-    console.log(message)
     toast(message, {
       position: "bottom-right",
       autoClose: 3000,

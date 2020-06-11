@@ -5,7 +5,7 @@ import Logo from "./Logo";
 import Popup2 from "../Popup2";
 import CreateEditor from "./headerMemu/CreateEditor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faUser, faBell, faSms, } from "@fortawesome/free-solid-svg-icons";
+import { faPlus,  faBell, faSms, } from "@fortawesome/free-solid-svg-icons";
 import dropdownstyles from "./Dropdown.css";
 import styles from "./Header.css";
 

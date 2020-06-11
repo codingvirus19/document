@@ -11,6 +11,7 @@ export default class GroupInUserList extends React.Component {
         }
     }
     userSessionReceive(userSession) {
+        // 접속한 유저
         console.log(userSession);
         this.setState({
             userlistSession: userSession
@@ -19,7 +20,7 @@ export default class GroupInUserList extends React.Component {
 
     render() {
 
-        console.log(this.props.users.no[0]);
+        // console.log(this.props.users.no[0]);
         const wsSourceUrl = "./api/userlist";
         console.log(this.props.groupInUserList);
 
@@ -27,11 +28,13 @@ export default class GroupInUserList extends React.Component {
             <div className={styles.groupUserList}>
                 {this.props.groupInUserList.map((element) => {
                     if (this.props.groupInUserList != null) {
-                        console.log(element.id,this.state.userlistSession.indexOf(element.id) == -1);
+                        // console.log(element.id,this.state.userlistSession.indexOf(element.id) == -1);
                         if (this.state.userlistSession.indexOf(element.id) == -1) {
                             return (
                                 <ul key={element.user_no} className={styles.users}>
-                                    <button className={styles.userImage}>{element.img}</button>
+                                    <button className={styles.userImage}>
+                                        <img className={styles.userImage} src={"."+element.img} />
+                                        </button>
                                     <span className={styles.userNotLogin}></span><br />
                                     <li>{element.nickname}</li>
                                 </ul>
@@ -39,15 +42,17 @@ export default class GroupInUserList extends React.Component {
                         } else {
                             return (
                                 <ul key={element.user_no} className={styles.users}>
-                                    <button className={styles.userImage}>{element.img}</button>
+                                    <button className={styles.userImage}>
+                                    <img className={styles.userImage} src={"."+element.img} />
+                                    </button>
                                     <span className={styles.userInLogin}></span><br />
                                     <li>{element.nickname}</li>
                                 </ul>
                             );
                         }
-
                     }
                 })}
+                {/* 로그인한 유저 no */}
                 {this.props.users.no[0] != null ? (
                     <SockJsClient
                         url={wsSourceUrl}
