@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ContentsHeader.css";
+import "./ContentsHeader.scss";
 import Modal from "../Modal.js";
 
 export default class GroupOutAlone extends React.Component {
@@ -25,7 +25,7 @@ export default class GroupOutAlone extends React.Component {
     render() {
         return(
             <div>
-                <button onClick={this.onClickTrue.bind(this)} className={styles.groupOutButton}>그룹 나가기</button>
+                <button onClick={this.onClickTrue.bind(this)} className="groupOutButton">그룹 나가기</button>
                 {/* contents props에 기능과 관련된 단어를 넣으면 Modal창에 적용된다. 참고!!  */}
                 {this.state.openModal == true ? <Modal contents={"그룹 나가기"} onClickFalse={this.onClickFalse.bind(this)} getGroup={this.props.getGroup} groupBySidebar={this.props.groupBySidebar} SidebarGroupUpdate={this.props.SidebarGroupUpdate}/> 
                  :null}

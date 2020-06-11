@@ -52,9 +52,6 @@ export default class Search extends React.Component {
   }
 
   render() {
-    // if (this.props.hash[0] === "") {
-    //   return null;
-    // }
     return (
       <div className="div">
         <form className="form">
@@ -85,14 +82,6 @@ export default class Search extends React.Component {
             </button>
           </div>
         </form>
-        {/* {this.props.hash
-          && this.props.hash
-            .filter(element => element.indexOf(this.state.keyword) != -1)
-            .map(element =>
-              <div key={element} className="search_list">
-                {element}
-              </div>
-            )} */}
       </div>
     );
   }
