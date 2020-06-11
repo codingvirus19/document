@@ -68,9 +68,23 @@
 			delete from groups where no= #{no};
 		]]>
 	</delete>
-	<delete id="outGroupAlone" parameterType="groupuservo">
+	<delete id="outGroupAloneDeleteHash" parameterType="groupuservo">
+		<![CDATA[
+			delete
+				from hash using hash
+				inner join memo on memo.no = hash.m_no
+				where memo.u_no=#{uNo}
+				and memo.g_no=#{gNo};
+		]]>
+	</delete>
+	<delete id="outGroupAloneDeleteGroupUser" parameterType="groupuservo">
 		<![CDATA[
 			delete from groupuser where g_no= #{gNo} and u_no = #{uNo};
+		]]>
+	</delete>
+	<delete id="outGroupAloneDeleteMemo" parameterType="groupuservo">
+		<![CDATA[
+			delete from memo where g_no= #{gNo} and u_no=#{uNo};
 		]]>
 	</delete>
 	

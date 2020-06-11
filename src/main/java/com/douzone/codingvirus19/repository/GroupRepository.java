@@ -70,7 +70,13 @@ public class GroupRepository {
 	}
 
 	public int outGroupAlone(GroupUserVo vo) {
-		int asyncTest = sqlSession.delete("groups.outGroupAlone", vo);
-		return asyncTest;
+		int deleteHash = sqlSession.delete("groups.outGroupAloneDeleteHash", vo);
+		int deleteGroupuser = sqlSession.delete("groups.outGroupAloneDeleteGroupUser", vo);
+		if(deleteHash != -1 && deleteGroupuser != -1 ) {
+			int deleteMemo = sqlSession.delete("groups.outGroupAloneDeleteMemo", vo);
+			return deleteMemo;
+		}else {
+			return 2;
+		}
 	}
 }

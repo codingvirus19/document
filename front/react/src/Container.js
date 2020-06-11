@@ -4,7 +4,7 @@ import Sidebar from "./sidebar/Sidebar";
 import Contents from "./contents/Contents";
 import SockJsClient from "react-stomp";
 import { ToastContainer, toast, Slide } from "react-toastify";
-import styles from "./Container.css";
+import "./Container.scss";
 
 const API_URL = ".";
 const API_HEADERS = {
@@ -28,6 +28,7 @@ export default class Container extends React.Component {
       addgroup_alarm: { message: "", date: "", group_no: "", group_name: "" },
       groupInUserList: [{ user_no: "", id: "", nickname: "", img: "", auth_no: "" }],
       keyword: "",
+      getProfileValue: null,
     };
     this.drag = null;
     this.drop = null;
@@ -438,13 +439,6 @@ export default class Container extends React.Component {
           chatting: false,
         }
       })
-      // this.setState({
-      //   alarm: {
-      //     g_no: alarm_msg.gNo,
-      //     basic: alarm_msg.readCheck,
-      //     chat: alarm_msg.type
-      //   }
-      // })
     }
   }
 
@@ -464,7 +458,7 @@ export default class Container extends React.Component {
   render() {
     const wsSourceUrl = "./api/alarm";
     return (
-      <div className={styles.container}>
+      <div className="container">
         {this.Users != undefined ? (
           <SockJsClient
             url={wsSourceUrl}
@@ -481,7 +475,9 @@ export default class Container extends React.Component {
         {/*속성 memo_bigArr : 메모의 정보가 이중배열로 담겨있다.*/}
         {/*속성 SidebarGroupUpdate : delete 버튼 클릭시 콜백으로 gno와 gname이 전달된다.  */}
         <Header
-        notify={this.notify.bind(this)}
+          // header의 사진이 실시간으로 바뀌도록 설정
+          getProfileAjax={this.getProfileAjax.bind(this)}
+          notify={this.notify.bind(this)}
           //profile정보
           getProfileValue={this.state.getProfileValue}
           // search 검색 콜백함수
@@ -502,7 +498,7 @@ export default class Container extends React.Component {
           users={this.Users}
         // hash={this.state.distinctGroup_hash}
         />
-        <div className={styles.body}>
+        <div className="body">
           <Sidebar
             hash={this.state.distinctGroup_hash}
             group={this.state.group}

@@ -49,12 +49,20 @@ export default class Popup2 extends React.Component {
   }
 
   ajaxModifyProfile(_modifyProfile) {
-    // console.log(_modifyProfile)
+    console.log(_modifyProfile.image)
     fetch(`${API_URL}/api/profile/modify`, {
       method: "post",
       headers: API_HEADERS,
       body: JSON.stringify(_modifyProfile),
-    }).catch((err) => console.error(err));
+    }).then((response) => response.json())
+    .then((json) => {
+      let asyncTrue=json.data;
+      if(asyncTrue == true){
+        this.props.getProfileAjax();
+        this.props.closePopup()
+      }
+    })
+    .catch((err) => console.error(err));
   }
 
   callBackGroupAdd() {
@@ -97,9 +105,9 @@ export default class Popup2 extends React.Component {
 
     if (this.props.contents === "profile") {
       contents = (
-        <Profile
+        <Profile 
           callBackFromProfile={this.callBackFromProfile.bind(this)}
-          getProfileValue={this.props.getProfileValue}
+          ClickGetProfileValue={this.props.ClickGetProfileValue}
         />
       );
       popup2_confirm_btn = "수정";
@@ -137,7 +145,7 @@ export default class Popup2 extends React.Component {
           <div className={popupStyles.btns}>
             <button
               onClick={
-                (this.props.contents === "profile") ? ()=>{this.getModifiedValue();}
+                (this.props.contents === "profile") ? ()=>{this.getModifiedValue()}
                 : this.callBackGroupAdd.bind(this)}
               className={popupStyles.confirm_btn}>
               {popup2_confirm_btn}
