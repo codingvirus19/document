@@ -389,7 +389,7 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
-    this.state.addgroup_alarm = null
+    this.state.addgroup_alarm = null;
     console.log(alarm_msg);
     if (alarm_msg.addgroup == true && alarm_msg.type == true && alarm_msg.readCheck == true) { //그룹초대  
       console.log("그룹추가에 온거 맞지?");

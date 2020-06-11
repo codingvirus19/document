@@ -22,7 +22,6 @@ export default class ContentsHeader extends React.Component {
   }
 
   render() {
-    console.log();
     return (
       <Fragment>
         <div className="header">
