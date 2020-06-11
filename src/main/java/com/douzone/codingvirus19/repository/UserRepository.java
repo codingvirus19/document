@@ -41,8 +41,9 @@ public class UserRepository {
 		return count == 1;
 	}
 	
-	public void modifyProfile(UserVo vo) {
-		sqlSession.update("user.modifyProfile",vo);
+	public int modifyProfile(UserVo vo) {
+		int count = sqlSession.update("user.modifyProfile",vo);
+		return count;
 	}
 
 	public int join(UserVo vo) {

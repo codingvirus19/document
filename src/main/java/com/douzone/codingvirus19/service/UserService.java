@@ -32,15 +32,16 @@ public class UserService {
 
 	public boolean join(UserVo vo) {
 		int count = userRepository.join(vo);
-		return count == 1;
+		return count != -1;
 	}
 	
 	public void joinInsert(UserVo vo) {
 		userRepository.joinInsert(vo);
 	}
 
-	public void modifyProfile(UserVo vo) {
-		userRepository.modifyProfile(vo);
+	public boolean modifyProfile(UserVo vo) {
+		int count = userRepository.modifyProfile(vo);
+		return count != -1;
 	}
 	
 	public List<UserVo> getUserList(Long no) {

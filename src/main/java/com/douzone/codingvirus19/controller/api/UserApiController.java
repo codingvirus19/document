@@ -32,10 +32,12 @@ public class UserApiController {
 	}
 	
 	@PostMapping("/profile/modify")
-	public void profileInsert(@AuthUser SecurityUser securityUser, @RequestBody UserVo vo) {
+	public JsonResult profileInsert(@AuthUser SecurityUser securityUser, @RequestBody UserVo vo) {
 		vo.setNo(securityUser.getNo());
-		userService.modifyProfile(vo);
+		boolean asyncTest = userService.modifyProfile(vo);
+		return JsonResult.success(asyncTest);
 	}
+	
 	
 	@PostMapping("/getUserList")
 	public JsonResult getUserList(@RequestBody GroupVo vo) {
