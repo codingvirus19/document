@@ -9,6 +9,11 @@ import { faPlus,  faBell, faSms, } from "@fortawesome/free-solid-svg-icons";
 import dropdownstyles from "./Dropdown.css";
 import styles from "./Header.css";
 
+const API_URL = ".";
+const API_HEADERS = {
+  "Content-Type": "application/json",
+};
+
 export default class Header extends React.Component {
   constructor() {
     super(...arguments);
@@ -18,7 +23,8 @@ export default class Header extends React.Component {
       showChat: false,
       redirect: false,
       showAlarm: false,
-      alarm: this.props.alarm
+      alarm: this.props.alarm,
+      ClickGetProfileValue : null,
     };
   }
 
@@ -29,9 +35,24 @@ export default class Header extends React.Component {
   }
 
   toggleShowProfile() {
-    this.setState({
-      showProfile: !this.state.showProfile,
-    });
+    this.onClickProfileAjax();
+  }
+
+  onClickProfileAjax() {
+    fetch(`${API_URL}/api/profile`, {
+      method: "post",
+      headers: API_HEADERS,
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        let _ClickGetProfileValue = json.data;
+        this.setState({
+          ClickGetProfileValue: _ClickGetProfileValue,
+          // 버튼 클릭시 false가 true가 되면서 profile popup이 뜬다.
+          showProfile: !this.state.showProfile,
+        });
+      })
+      .catch((err) => console.error(err));
   }
 
   setRedirect() {
@@ -57,7 +78,7 @@ export default class Header extends React.Component {
   }
 
   render() {
-    if(!this.props.getProfileValue){
+    if(this.props.getProfileValue ==null){
       return null;
     }
     return (
@@ -108,10 +129,12 @@ export default class Header extends React.Component {
                   로그아웃
                 </Dropdown.Item>
                 </Dropdown.Menu>
-                {this.state.showProfile ? (
+                {this.state.showProfile == true && this.state.ClickGetProfileValue != null ? (
                   <Popup2
-                  notify={this.props.notify}
-                    getProfileValue={this.props.getProfileValue}
+                    getProfileAjax={this.props.getProfileAjax}
+                    getGroup={this.props.getGroup}
+                    notify={this.props.notify}
+                    ClickGetProfileValue={this.state.ClickGetProfileValue}
                     inner_header="프로필정보"
                     contents={"profile"}
                     closePopup={this.toggleShowProfile.bind(this)}
