@@ -35,7 +35,12 @@ export default class Alarm extends React.Component {
             addGroupAlarm: cancel
         })
     }
-
+    
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            addGroupAlarm: nextProps.addgroup_alarm
+        })
+    }
     render() {
         return (
             <div className={styles.alarm}>
