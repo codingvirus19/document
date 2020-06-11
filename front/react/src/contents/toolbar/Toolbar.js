@@ -14,11 +14,7 @@ export default class Toolbar extends React.PureComponent {
   constructor() {
     super(...arguments);
     this.state = {
-      // showShareSheet: false,
-      // no: this.props.no,
       memo_gNo: this.props.memo_gNo,
-      // gNo: this.props.groupBySidebar.no,
-      // gName: this.props.groupBySidebar.name,
       color: this.props.color,
     };
   }

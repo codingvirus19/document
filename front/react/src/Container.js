@@ -4,7 +4,7 @@ import Sidebar from "./sidebar/Sidebar";
 import Contents from "./contents/Contents";
 import SockJsClient from "react-stomp";
 import { ToastContainer, toast, Slide } from "react-toastify";
-import styles from "./Container.css";
+import "./Container.scss";
 
 const API_URL = ".";
 const API_HEADERS = {
@@ -437,13 +437,6 @@ export default class Container extends React.Component {
           chatting: false,
         }
       })
-      // this.setState({
-      //   alarm: {
-      //     g_no: alarm_msg.gNo,
-      //     basic: alarm_msg.readCheck,
-      //     chat: alarm_msg.type
-      //   }
-      // })
     }
   }
 
@@ -463,7 +456,7 @@ export default class Container extends React.Component {
   render() {
     const wsSourceUrl = "./api/alarm";
     return (
-      <div className={styles.container}>
+      <div className="container">
         {this.Users != undefined ? (
           <SockJsClient
             url={wsSourceUrl}
@@ -501,7 +494,7 @@ export default class Container extends React.Component {
           users={this.Users}
         // hash={this.state.distinctGroup_hash}
         />
-        <div className={styles.body}>
+        <div className="body">
           <Sidebar
             hash={this.state.distinctGroup_hash}
             group={this.state.group}
