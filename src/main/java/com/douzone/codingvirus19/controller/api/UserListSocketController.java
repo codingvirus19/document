@@ -20,33 +20,35 @@ public class UserListSocketController {
 
 	@Autowired
 	private SimpMessagingTemplate webSocket;
-	
+
 	@Autowired
 	private UserService userService;
 
-	static Map<String,Long> userGroup = new HashMap<>();
+	static Map<String, Long> userGroup = new HashMap<>();
 	static ArrayList<String> userlist = new ArrayList<>();
-	
+
 	@MessageMapping("/userlist/{groupno}")
-	public void userSessionList(@DestinationVariable Long groupno,Long no) throws Exception {
+	public void userSessionList(@DestinationVariable Long groupno, Long no) throws Exception {
 		String id = userService.getUser(no);
 		userGroup.put(id, groupno);
-		webSocket.convertAndSend("/api/userlist/"+groupno, userlist);
+		webSocket.convertAndSend("/api/userlist/" + groupno, userlist);
 	}
+
 	// --------------------------------------------------------접속한 유저 Session 가져오기
 	@EventListener
-	   public void handleWebSocketConnectListener(SessionConnectedEvent event) {
-	      String username = event.getUser().getName();
-	      if(!userlist.contains(username)) {
-	      userlist.add(username);
-	      }
-	   }
-	   @EventListener
-	   public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
-	      String username = event.getUser().getName();
-	    	  if(userGroup.containsKey(username)&& userlist.lastIndexOf(username) >= 0) {
-	    		  userlist.remove(userlist.lastIndexOf(username));
-	    		  webSocket.convertAndSend("/api/userlist/"+userGroup.get(username),userlist);
-	    	  }
-	   }
+	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
+		String username = event.getUser().getName();
+		if (!userlist.contains(username)) {
+			userlist.add(username);
+		}
+	}
+
+	@EventListener
+	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
+		String username = event.getUser().getName();
+		if (userGroup.containsKey(username) && userlist.lastIndexOf(username) >= 0) {
+			userlist.remove(userlist.lastIndexOf(username));
+			webSocket.convertAndSend("/api/userlist/" + userGroup.get(username), userlist);
+		}
+	}
 }
