@@ -263,6 +263,10 @@ export default class Container extends React.Component {
     this.bringMemoByGroup(no);
     this.getHashListByGroup(no);
 
+    this.setState({
+      addgroup_alarm: null
+    })
+    
     if (no != null) {
       console.log(no)
       this.getGroupInUser(no);
