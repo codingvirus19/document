@@ -12,11 +12,10 @@
 }
 .users li{
     border: 0;
-    float: left;
     color: #000;
 }
 .userNotLogin{
-    position: absolute;
+  position: absolute;
   width: 10px;
   height: 10px;
   border-radius: 10px;
@@ -24,16 +23,15 @@
 }
 
 .userImage{
-    border-radius: 15px;
     overflow: hidden;
     width: 45px;
     height: 40px;
-    border: thin solid gray;
+    border-radius: 50%;
 }
 .userInLogin{
-    position: absolute;
+  position: absolute;
   width: 10px;
   height: 10px;
   border-radius: 10px;
-  background-color: springgreen;
+  background-color: lime;
 }

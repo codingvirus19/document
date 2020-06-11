@@ -1,0 +1,66 @@
+$iconcolor: #3a3b45;
+$hover_bgcolor:#3a3b4521;
+$hover_iconcolor: #000000;
+
+.header {
+  height: 10%;
+  width: 70%;
+  min-height: 57px;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 4%;
+  z-index: 0;
+  min-width: 370px;
+}
+
+.title {
+  margin-right: 1.5rem;
+}
+
+.invite {
+  margin-right: 1rem;
+}
+
+.btns{
+  background: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  transition: transform 0.3s linear;
+  &:hover, &:active {
+    background-color:$hover_bgcolor;
+  }
+}
+
+.faUserPlus {
+  font-size: xx-large;
+  color: $iconcolor;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+.groupOut{
+  width: 20%;
+  align-items: center;
+  display: inline-flex;
+  padding-left: 4rem;
+  height: 8%;
+}
+
+.groupOutButton{
+  min-width: 5rem;
+  height: 2.5rem;
+  background-color: #ea232c;
+  border-radius: 0.25rem;
+  color: #f5f5f5;
+  margin-right: 1rem;
+  &:hover{
+    background-color: rgb(211, 122, 167);
+    box-shadow: gray 1px 1px 1px 1px;
+  }
+  &:active{
+    background-color: rgb(89, 130, 234);
+    box-shadow:none;
+  }
+}

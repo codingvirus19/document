@@ -1,5 +1,4 @@
 .header {
-  background-color: #f5f5f5;
   border-bottom: 0.3px solid rgba(0, 0, 0, 0.2);
   flex-flow: row nowrap;
   height: 10%;
@@ -46,22 +45,23 @@
   background-color: none;
 }
 
-.userbell, .account, .addmemo,.chat,.user{
+.userbell, .account, .addmemo, .chat, .user{
+  border-radius: 50%;
   background: none;
-  border-radius: 1rem;
   width: 2.9rem;
   height: 2.9rem;
 }
 
-.userbell:hover, .account:hover, .addmemo:hover,.chat:hover{
-  box-shadow: gray 1px 1px 1px 1px;
+.userbell:hover, .account:hover, .addmemo:hover, .chat:hover, .user:hover{
+  border-radius: 50%;
+  background-color: #3a3b4521;
 }
 
 .chatClick{
-  background-color: #e74a3b;
+  background-color: #3a3b4521;
 }
 .userbellClick{
-  background-color: #e74a3b;
+  background-color: #3a3b4521;
 }
 
 .imageIcon {
@@ -70,14 +70,6 @@
   border-radius: 50%;
 }
 
-/* .faPlus:hover,
-.faUser:hover,
-.faBell:hover,
-.faSms:hover {
-  box-shadow: gray 1px 1px 1px 1px;
-  border-radius: 2rem;
-} */
-
 .alarmbell {
   position: absolute;
   width: 10px;
@@ -85,16 +77,3 @@
   border-radius: 10px;
   background-color: #e74a3b;
 }
-/* .dropdown-item {
-  display: block;
-  width: 100%;
-  padding: 0.25rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-  text-align: inherit;
-}
-
-.dropdown {
-  position: relative;
-  top: 0;
-} */
-/*rigth-header*/

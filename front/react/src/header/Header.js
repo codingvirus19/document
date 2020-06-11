@@ -88,7 +88,6 @@ export default class Header extends React.Component {
           <div className={styles.logo}>
             <Logo />
           </div>
-
           <Serach
             groupBySidebar={this.props.groupBySidebar}
             SidebarGroupUpdate={this.props.SidebarGroupUpdate}
