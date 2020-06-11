@@ -15,7 +15,7 @@ export default class Contents extends React.Component {
   // }
 
   render() {
-    console.log(this.props.showAlarm);
+    // console.log(this.props.showAlarm);
     // console.log(this.state.addgroup_alarm);
     return (
       <div className={styles.contents}>

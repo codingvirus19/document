@@ -49,8 +49,10 @@ export default class HashList extends React.Component {
               #{name}
             </div>
             <div className="delete_btn">
-              <button onClick={this.deleteHash.bind(this, no)}>
-                <FontAwesomeIcon icon={faTimesCircle} />
+              <button
+                className="hash_delete_btn"
+                onClick={this.deleteHash.bind(this, no)}>
+                <FontAwesomeIcon className="faTimesCircle" icon={faTimesCircle} />
               </button>
             </div>
           </div>

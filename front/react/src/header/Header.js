@@ -5,7 +5,7 @@ import Logo from "./Logo";
 import Popup2 from "../Popup2";
 import CreateEditor from "./headerMemu/CreateEditor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus,  faBell, faSms, } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faBell, faSms, } from "@fortawesome/free-solid-svg-icons";
 import dropdownstyles from "./Dropdown.css";
 import styles from "./Header.css";
 
@@ -57,7 +57,7 @@ export default class Header extends React.Component {
   }
 
   render() {
-    if(!this.props.getProfileValue){
+    if (!this.props.getProfileValue) {
       return null;
     }
     return (
@@ -94,44 +94,44 @@ export default class Header extends React.Component {
                 />
               ) : null}
             </div>
-              <Dropdown aria-label="계정" className={styles.account}>
-                <Dropdown.Toggle className={styles.user}>
+            <Dropdown aria-label="계정" className={styles.account}>
+              <Dropdown.Toggle className={styles.user}>
                 {/* <FontAwesomeIcon className={styles.faUser} icon={faUser} /> */}
-                  <img className={styles.imageIcon} src={"."+this.props.getProfileValue.image} />
-                </Dropdown.Toggle>
-                <Dropdown.Menu className={dropdownstyles.menu}>  
-                  <Dropdown.Item onClick={this.toggleShowProfile.bind(this)} className={dropdownstyles.item}>
-                    개인프로필 수정
+                <img className={styles.imageIcon} src={"." + this.props.getProfileValue.image} />
+              </Dropdown.Toggle>
+              <Dropdown.Menu className={dropdownstyles.menu}>
+                <Dropdown.Item onClick={this.toggleShowProfile.bind(this)} className={dropdownstyles.item}>
+                  개인프로필 수정
                 </Dropdown.Item>
                 <Dropdown.Item onClick={this.setRedirect.bind(this)} className={dropdownstyles.item2}>
                   로그아웃
                 </Dropdown.Item>
-                </Dropdown.Menu>
-                {this.state.showProfile ? (
-                  <Popup2
+              </Dropdown.Menu>
+              {this.state.showProfile ? (
+                <Popup2
                   notify={this.props.notify}
-                    getProfileValue={this.props.getProfileValue}
-                    inner_header="프로필정보"
-                    contents={"profile"}
-                    closePopup={this.toggleShowProfile.bind(this)}
-                    clientRef={this.props.clientRef}
-                  />
-                ) : null}
-              </Dropdown>
+                  getProfileValue={this.props.getProfileValue}
+                  inner_header="프로필정보"
+                  contents={"profile"}
+                  closePopup={this.toggleShowProfile.bind(this)}
+                  clientRef={this.props.clientRef}
+                />
+              ) : null}
+            </Dropdown>
 
             <Dropdown>
-              <Dropdown.Toggle aria-label="알람" onClick={this.alarmClick.bind(this)} className={(this.state.showAlarm)?`${styles.userbellClick} ${styles.userbell}`:styles.userbell}  >
-                {(this.props.alarm.basic) ? <span className={styles.alarmbell}/> : null }  
+              <Dropdown.Toggle aria-label="알람" onClick={this.alarmClick.bind(this)} className={(this.state.showAlarm) ? `${styles.userbellClick} ${styles.userbell}` : styles.userbell}  >
+                {(this.props.alarm.basic) ? <span className={styles.alarmbell} /> : null}
                 <FontAwesomeIcon className={styles.faBell} icon={faBell} />
               </Dropdown.Toggle>
             </Dropdown>
 
             <div>
-              <button aria-label="채팅" className={(this.state.showChat)?`${styles.chat} ${styles.chatClick}`:styles.chat}  onClick={this.chattingClick.bind(this) }>
-              {(this.props.alarm.chatting) ? <span className={styles.alarmbell}/> : null } 
+              <button aria-label="채팅" className={(this.state.showChat) ? `${styles.chat} ${styles.chatClick}` : styles.chat} onClick={this.chattingClick.bind(this)}>
+                {(this.props.alarm.chatting) ? <span className={styles.alarmbell} /> : null}
                 <FontAwesomeIcon className={styles.faSms} icon={faSms} />
               </button>
-            
+
             </div>
           </div>
         </div>
