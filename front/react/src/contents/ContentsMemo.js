@@ -48,8 +48,8 @@ export default class Contents extends React.Component {
     if (this.props.memo_bigArr.length === 0) {
       return (
         <div className={styles.memo} >
-        <div className={styles.memo_null}>
-          메모가 존재하지 않습니다.
+          <div className={styles.memo_null}>
+            메모가 존재하지 않습니다.
         </div>
         </div>
       )
@@ -82,7 +82,7 @@ export default class Contents extends React.Component {
                 clientRef={this.props.clientRef}
                 content={this.props.memo_bigArr[index].content}
                 memo_hash={this.props.group_hash.filter((element) =>
-                element.memo_no === this.props.memo_bigArr[index].no)}
+                  element.memo_no === this.props.memo_bigArr[index].no)}
                 color={this.props.memo_bigArr[index].color}
                 group_hash={this.props.group_hash}
                 users={this.props.users}
@@ -93,11 +93,11 @@ export default class Contents extends React.Component {
                 setMemo_hash={this.setMemo_hash.bind(this)}
                 memo_hash={this.props.group_hash.filter((element) =>
                   element.memo_no === this.props.memo_bigArr[index].no)}
-                  SidebarGroupUpdate={this.props.SidebarGroupUpdate}
-                  groupBySidebar={this.props.groupBySidebar}
+                SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+                groupBySidebar={this.props.groupBySidebar}
               />
               <Toolbar
-              notify={this.props.notify}
+                notify={this.props.notify}
                 // SaveLocal에서 저장시킬 contents값
                 content={this.props.memo_bigArr[index].content}
                 // 색을 변화시킬 때 툴바의 색도 함께 변화시킬 props이다.

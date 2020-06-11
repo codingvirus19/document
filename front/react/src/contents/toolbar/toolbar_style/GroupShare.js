@@ -36,9 +36,7 @@ export default class GroupShare extends React.Component {
   }
 
   onClickOutsideHandler(event) {
-    // console.log("onClickOutsideHandler")
-    // console.log(!this.toggleContainer.current.contains(event.target)) //이게 true 되는게 문제
-    if (this.state.clickGroupShareButton) {
+      if (this.state.clickGroupShareButton) {
       this.setState({
         clickGroupShareButton: !this.state.clickGroupShareButton,
       });
@@ -103,10 +101,6 @@ export default class GroupShare extends React.Component {
         </button>
 
         {this.state.showGroupShareSheet ? (
-          // <div className={styles.popover}>
-          //   <div className={styles.cover}
-            // onClick={this.handleClose.bind(this)}
-            // />
             <GroupShareSheet
             notify={this.props.notify}
               // gName,gNo : 임의의 작동을 한 그룹의 no와 name으로 콜백이동하기위한 props
@@ -128,7 +122,6 @@ export default class GroupShare extends React.Component {
               clientRef={this.props.clientRef}
               users={this.props.users}
             />
-          // </div>
         ) : null}
       </Fragment>
     );
