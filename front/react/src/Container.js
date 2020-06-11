@@ -407,6 +407,7 @@ export default class Container extends React.Component {
       })
     }
     if (alarm_msg.basic != null) { //기본
+      this.bringMemoByGroup(this.state.groupBySidebar.no);
       this.setState({
         alarm: {
           basic: alarm_msg.basic,

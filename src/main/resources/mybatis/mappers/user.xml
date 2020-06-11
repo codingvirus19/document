@@ -83,4 +83,15 @@
 		]]>
 	</select>
 	
+	<select id="getUserSessionNotInGroup" resultType="uservo">
+		<![CDATA[
+			select no, id, email, nickname, image
+			  from user
+			  where id = 
+		]]>
+		<foreach collection="userSession" item="item">
+			#{ item.user_id }
+		</foreach>
+	</select>
+	
 </mapper>
