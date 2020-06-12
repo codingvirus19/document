@@ -54,7 +54,8 @@ export default class ContentsHeader extends React.Component {
 
           {(this.props.groupBySidebar.no != null) ?
             <GroupInUserList
-            getGroupInUser={this.props.getGroupInUser}
+              userlistSession={this.props.userlistSession}
+              getGroupInUser={this.props.getGroupInUser}
               groupInUserList={this.props.groupInUserList}
               groupBySidebar={this.props.groupBySidebar.no}
               users={this.props.users} />

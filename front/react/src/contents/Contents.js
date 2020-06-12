@@ -16,6 +16,7 @@ export default class Contents extends React.Component {
         <div className={styles.box}>
           <div className={styles.contentsMemo}>
             <ContentsHeader
+              userlistSession={this.props.userlistSession}
               getGroupInUser={this.props.getGroupInUser}
               notify={this.props.notify}
               SidebarGroupUpdate={this.props.SidebarGroupUpdate}
@@ -28,7 +29,8 @@ export default class Contents extends React.Component {
             />
             {(this.props.memo_bigArr!=null)?
             <ContentsMemo
-            notify={this.props.notify}
+              groupInUserList={this.props.groupInUserList}
+              notify={this.props.notify}
               bringMemoByGroup={this.props.bringMemoByGroup}
               memo_Change={this.props.memo_Change}
               callbackFromToolbar={this.props.callbackFromToolbar}
