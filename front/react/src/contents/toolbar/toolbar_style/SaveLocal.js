@@ -18,8 +18,6 @@ export default class SaveLocal extends React.Component {
     }
   }
 
-
-
   // local에 md파일로 저장하는 함수
   saveLocal() {
     let md = ".md";
