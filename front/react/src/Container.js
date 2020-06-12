@@ -591,7 +591,6 @@ export default class Container extends React.Component {
           alarm={this.state.alarm}
           clientRef={this.clientRef}
           users={this.Users}
-        // hash={this.state.distinctGroup_hash}
         />
         <div className="body">
           <Sidebar

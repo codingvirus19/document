@@ -11,12 +11,12 @@ export default class Contents extends React.Component {
       gNo: "",
     };
   }
-  open(e) {
-    if (this.props.chatListGroup.readcheck[e.target.id] == true) {
+  open(index) {
+    if (this.props.chatListGroup.readcheck[index] == true) {
       this.props.clientRef.sendMessage(
         "/app/alarm/" + this.props.users.no[0],
         JSON.stringify({
-          gNo: this.props.chatListGroup.no[e.target.id],
+          gNo: this.props.chatListGroup.no[index],
           type: false,
           readCheck: false,
         })
@@ -24,8 +24,8 @@ export default class Contents extends React.Component {
     }
     this.setState({
       chatOpen: !this.state.chatOpen,
-      gNo: this.props.chatListGroup.no[e.target.id],
-      gName: this.props.chatListGroup.gname[e.target.id],
+      gNo: this.props.chatListGroup.no[index],
+      gName: this.props.chatListGroup.gname[index],
     });
   }
   close() {
@@ -36,10 +36,9 @@ export default class Contents extends React.Component {
 
   render() {
     //나중에 지우기
-    if(!this.props.userListInGroupByUser) {
+    if (!this.props.userListInGroupByUser || !this.props.chatListGroup) {
       return null;
     }
-    //
     return (
       <Fragment>
         <div className={styles.ChatBox}>
@@ -63,22 +62,33 @@ export default class Contents extends React.Component {
                       <div
                         className={styles.chatList}
                         id={index}
-                        onClick={this.open.bind(this)} >
-                          {/* 그룹 1명일때만. 2명, 3명일때도 해야함*/}
+                        onClick={this.open.bind(this, index)} >
                         <div className={styles.image_div}>
-                          <img
-                            className={styles.img}
-                            src={"." + gmember.map(element => element.image)} />
-                        </div>
+                          {/* 그룹 인원 1명일때 */}
+                          {gmember.length === 1
+                            ? (<img
+                              className={styles.img1}
+                              src={"." + gmember[0].image} />)
+                              // 그룹인원 2명 이상일때
+                            : (<>
+                              <img
+                                className={styles.img2}
+                                src={"." + gmember[0].image} />
+                              <img key={index}
+                                className={styles.img3}
+                                src={"." + gmember[1].image} />
+                            </>
+                            )}
+                          </div>
                         <div className={styles.gname}>
                           {gname}
                         </div>
                         <div className={styles.gmember}>
                           {gmember.map(element => element.nickname + ", ")}
                         </div>
-                      {this.props.chatListGroup.readcheck[index] == true ?
-                        <span className={alarm_styles.alarmbell} /> : null}
-                    </div>
+                        {this.props.chatListGroup.readcheck[index] == true ?
+                          <span className={alarm_styles.alarmbell} /> : null}
+                      </div>
                     </Fragment>
                   );
                 })}
