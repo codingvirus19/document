@@ -11,8 +11,17 @@ export default class Chat extends React.Component {
     // this.props.getUserListInGroupByUser(this.props.users.no[0])
       return (
         <Fragment>
+// <<<<<<< master
+//         {(true) ? 
+//         <ChatList 
+//     chatListGroup={this.props.chatListGroup}
+//         users={this.props.users} 
+//       clientRef={this.props.clientRef} />
+//         : <div></div>}
+// =======
           {(true) ?
             <ChatList
+               chatListGroup={this.props.chatListGroup}
               group={this.props.group}
               users={this.props.users}
               clientRef={this.props.clientRef}

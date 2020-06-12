@@ -9,7 +9,7 @@ import { faPlus, faBell, faSms, } from "@fortawesome/free-solid-svg-icons";
 import dropdownstyles from "./Dropdown.css";
 import styles from "./Header.css";
 
-const API_URL = ".";
+const API_URL = "."; 
 const API_HEADERS = {
   "Content-Type": "application/json",
 };
@@ -71,6 +71,7 @@ export default class Header extends React.Component {
       type: true,
       readCheck: false
     }))
+
     this.setState({
       showAlarm: !this.state.showAlarm,
     });
@@ -99,6 +100,7 @@ export default class Header extends React.Component {
           />
 
           <div className={styles.right_header}>
+            {/* ////////////////////////////////////////////////////////////// */}
             <div>
               <button aria-label="메모 추가"
                 className={styles.addmemo}
@@ -107,14 +109,15 @@ export default class Header extends React.Component {
               </button>
               {this.state.showPopup ? (
                 <CreateEditor
-                  users={this.props.users}
-                  bringMemoByGroup={this.props.bringMemoByGroup}
-                  groupNoForGroupUser={this.props.groupBySidebar}
-                  closePopup={this.togglePopup.bind(this)}
-                  clientRef={this.props.clientRef}
+                users={this.props.users}
+                bringMemoByGroup={this.props.bringMemoByGroup}
+                groupNoForGroupUser={this.props.groupBySidebar}
+                closePopup={this.togglePopup.bind(this)}
+                clientRef={this.props.clientRef}
                 />
-              ) : null}
+                ) : null}
             </div>
+                {/* ////////////////////////////////////////////////////////////// */}
             <Dropdown aria-label="계정" className={styles.account}>
               <Dropdown.Toggle className={styles.user}>
                 {/* <FontAwesomeIcon className={styles.faUser} icon={faUser} /> */}

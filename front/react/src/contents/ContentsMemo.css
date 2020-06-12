@@ -1,16 +1,67 @@
-.memo_null {
-  margin: auto;
+.memo__container{
+  height: 89%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  overflow-y: scroll;
+  overflow-wrap: anywhere;
+  display: flex;
+  padding-top: 0px;
 }
+.memo_null {
+  width:700px;
+  min-width: 318px;
+  height:350px;
+  border: 2px solid gray;
+  border-radius: 0.5rem;
+  margin: auto;
+  margin-bottom: 218px;
+}
+
+.memo_null__container{
+  margin: 120px auto;
+  width: 20rem;
+  height: 5rem;
+  padding: 17px;
+}
+
+.container__contents1{
+  color: gray;
+}
+
+.container__contents{
+  color: gray;
+}
+
+.container__contents_span{
+  display: flex;
+  padding: 8px;
+}
+
+.container__contents_here{
+  color:#007bff;
+  cursor: pointer;
+  font-weight: 600;
+}
+.container__contents_here:hover{
+  color: #ea232c;
+}
+.container__contents_here:active{
+  color: rgb(89, 130, 234);
+}
+
+/* 위의 css는 메모가 없을 경우의 코드이다. */
 
 .memo {
   height: 89%;
   width: 100%;
   position: relative;
-  padding: 5% 5% 7% 5%;
+  padding: 5% 5% 5% 5%;
   overflow: hidden;
   overflow-y: scroll;
   overflow-wrap: anywhere;
 }
+
 
 .container_memo_form {
   padding: 1rem 1rem 0.4rem;

@@ -12,33 +12,26 @@ export default class Contents extends React.Component {
     };
   }
   open(e) {
-    this.props.clientRef.sendMessage(
-      "/app/alarm/" + this.props.users.no[0],
-      JSON.stringify({
-        gNo: this.props.group.no[e.target.id],
-        type: false,
-        readCheck: false,
-      })
-    );
+    if (this.props.chatListGroup.readcheck[e.target.id] == true) {
+      this.props.clientRef.sendMessage(
+        "/app/alarm/" + this.props.users.no[0],
+        JSON.stringify({
+          gNo: this.props.chatListGroup.no[e.target.id],
+          type: false,
+          readCheck: false,
+        })
+      );
+    }
     this.setState({
       chatOpen: !this.state.chatOpen,
-      gNo: this.props.group.no[e.target.id],
-      gName: this.props.group.gname[e.target.id],
+      gNo: this.props.chatListGroup.no[e.target.id],
+      gName: this.props.chatListGroup.gname[e.target.id],
     });
   }
   close() {
     this.setState({
       chatOpen: false,
     });
-  }
-
-  groupByalarm(gNo) {
-    if (this.props.alarm.g_no == gNo) {
-      if (this.props.alarm.chatting == true) {
-        return (<span className={alarm_styles.alarmbell} />);
-      }
-    }
-    return (null);
   }
 
   render() {
@@ -83,8 +76,9 @@ export default class Contents extends React.Component {
                         <div className={styles.gmember}>
                           {gmember.map(element => element.nickname + ", ")}
                         </div>
-                        {this.groupByalarm.call(this, this.props.group.no[index])}
-                      </div>
+                      {this.props.chatListGroup.readcheck[index] == true ?
+                        <span className={alarm_styles.alarmbell} /> : null}
+                    </div>
                     </Fragment>
                   );
                 })}

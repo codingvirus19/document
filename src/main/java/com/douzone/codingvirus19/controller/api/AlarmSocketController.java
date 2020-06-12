@@ -47,8 +47,9 @@ public class AlarmSocketController {
 			}
 			return;
 		}
-		if(alarmVo.isReadCheck() == false && alarmVo.isType() == false) {
+		if(alarmVo.getgNo() != null && alarmVo.isReadCheck() == false && alarmVo.isType() == false) {
 			System.out.println("여긴 채팅 알람 읽음 처리부분입니당");
+			System.out.println(alarmVo.getgNo());
 			alarmService.chatReadCheckUpdate(alarmVo);
 			webSocket.convertAndSend("/api/alarm/" + userno, alarmVo);
 			return;
@@ -86,6 +87,7 @@ public class AlarmSocketController {
 		
 		Map<String, Integer> alarmlist = new HashMap<>();
 		alarmlist.put("gNo", alarmVo.getgNo().intValue());
+		
 		if(alarmVo.isType()== false){//채팅 알람 여부 확인
 			alarmlist.put("chatting",1);
 			

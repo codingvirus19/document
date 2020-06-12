@@ -24,33 +24,69 @@ public class UserListSocketController {
 	@Autowired
 	private UserService userService;
 
-	static Map<String, Long> userGroup = new HashMap<>();
-	static ArrayList<String> userlist = new ArrayList<>();
+	static Map<Long, ArrayList<String>> userGroupList = new HashMap<>();
+	static Map<Long, ArrayList<Long>> userGroupListNo = new HashMap<>();
+	static ArrayList<String> AllUserList = new ArrayList<>();
 
-	@MessageMapping("/userlist/{groupno}")
-	public void userSessionList(@DestinationVariable Long groupno, Long no) throws Exception {
+
+	@MessageMapping("/userlist/connect/{groupno}")
+	public void userConnect(@DestinationVariable Long groupno, Long no) throws Exception {
+		ArrayList<String> userlist = new ArrayList<>();
+		ArrayList<Long> userNolist = new ArrayList<>();
+		if (userGroupList.get(groupno) != null) {
+			userlist = userGroupList.get(groupno);
+			userNolist = userGroupListNo.get(groupno);
+		}
 		String id = userService.getUser(no);
-		userGroup.put(id, groupno);
+		if (userlist.contains(id))
+			return;
+		userlist.add(id);
+		userNolist.add(no);
 
-		webSocket.convertAndSend("/api/userlist/" + groupno, userlist);
+		for (int i = 0; i < userNolist.size(); i++) {
+			if (!AllUserList.contains(userlist.get(i))) {
+				userlist.remove(id);
+				userNolist.remove(userNolist.get(i));
+			}
+		}
+		userGroupList.put(groupno, userlist);
+		userGroupListNo.put(groupno, userNolist);
 
+		for (Long userNo : userNolist) {
+			webSocket.convertAndSend("/api/alarm/" + userNo, userlist);
+		}
 	}
 
-	// --------------------------------------------------------접속한 유저 Session 가져오기
+	@MessageMapping("/userlist/disconnect/{groupno}")
+	public void userDisConnect(@DestinationVariable Long groupno, Long no) throws Exception {
+		ArrayList<String> userlist = new ArrayList<>();
+		ArrayList<Long> userNolist = new ArrayList<>();
+		if (userGroupList.get(groupno) != null) {
+			userlist = userGroupList.get(groupno);
+			userNolist = userGroupListNo.get(groupno);
+		}
+		String id = userService.getUser(no);
+		userlist.remove(id);
+		userNolist.remove(no);
+		for (Long userNo : userNolist) {
+			if (userNo != no) {
+				webSocket.convertAndSend("/api/alarm/" + userNo, userlist);
+			}
+		}
+		userGroupList.put(groupno, userlist);
+		userGroupListNo.put(groupno, userNolist);
+	}
+
 	@EventListener
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
 		String username = event.getUser().getName();
-		if (!userlist.contains(username)) {
-			userlist.add(username);
-		}
+		AllUserList.add(username);
 	}
 
 	@EventListener
 	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
 		String username = event.getUser().getName();
-		if (userGroup.containsKey(username) && userlist.lastIndexOf(username) >= 0) {
-			userlist.remove(userlist.lastIndexOf(username));
-			webSocket.convertAndSend("/api/userlist/" + userGroup.get(username), userlist);
-		}
+		AllUserList.remove(AllUserList.lastIndexOf(username));
 	}
+
 }

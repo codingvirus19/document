@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzone.codingvirus19.repository.ChatRepository;
+import com.douzone.codingvirus19.vo.AlarmVo;
 import com.douzone.codingvirus19.vo.ChatVo;
 import com.douzone.codingvirus19.vo.UserVo;
 
@@ -23,5 +24,10 @@ public class ChatService {
 	public boolean addChatting(ChatVo chatVo) {
 		int count = chatRepository.addChatting(chatVo);
 		return count == 1;
+	}
+
+	public List<AlarmVo> chatListGroup(AlarmVo vo) {
+		List<AlarmVo> list = chatRepository.chatListGroup(vo);
+		return list;
 	}
 }
