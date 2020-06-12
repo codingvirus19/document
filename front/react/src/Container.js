@@ -31,8 +31,8 @@ export default class Container extends React.Component {
       getProfileValue: null,
       chatListGroup : { no: [], gname: [], readcheck: [] }
     };
-    this.drag = null;
-    this.drop = null;
+    this.tempGno = null;
+    this.userlistSession =[];
   }
 
   // search 검색 콜백함수
@@ -161,6 +161,9 @@ export default class Container extends React.Component {
     let memo_bigArr;
     let filteredMemo_bigArr;
     // call api
+
+    this.groupUserList(_groupNumbers);
+
     fetch(`${API_URL}/api/memoList`, {
       method: "post",
       headers: API_HEADERS,
@@ -295,7 +298,6 @@ export default class Container extends React.Component {
     })
 
     if (no != null) {
-      console.log(no)
       this.getGroupInUser(no);
     }
     this.setState({
@@ -410,18 +412,51 @@ export default class Container extends React.Component {
     })
 
   }
+
+  // GroupConnect(gNo, msg) {
+  //   this.clientRef.sendMessage(`/userlist/connect/${gNo}`, msg);
+  // }
+
   // 접속한 유저 리스트
-  GroupInUserList(getSession) { 
+  GroupInUserList(getSession) {
     this.setState({
       groupInUserList: getSession
     })
   }
 
+  groupUserList(gNo) {
+    if (this.Users != null) {
+      if (gNo == null) {
+        if (this.tempGno != null) {//disconnect 전송
+          this.clientRef.sendMessage(`/app/userlist/disconnect/${this.tempGno}`, this.Users.no[0]);
+          this.tempGno = null;
+          return;
+        }
+        return;
+      } else {
+        if (gNo == this.tempGno) {
+          return;
+        } else if (gNo != this.tempGno && this.tempGno != null) {
+          this.clientRef.sendMessage(`/app/userlist/disconnect/${this.tempGno}`, this.Users.no[0]);
+          this.clientRef.sendMessage(`/app/userlist/connect/${gNo}`, this.Users.no[0]);
+          this.tempGno = gNo;
+        }else{
+          this.clientRef.sendMessage(`/app/userlist/connect/${gNo}`, this.Users.no[0]);
+          this.tempGno = gNo;
+        }
+      }
+    }
+
+
+  }
+
   alarmReceive(alarm_msg) {
+    if(alarm_msg.addgroup == null){
+      this.getGroupInUser(this.state.groupBySidebar.no);
+      this.userlistSession = alarm_msg;
+    }
     this.state.addgroup_alarm = null;
-    console.log(alarm_msg);
     if (alarm_msg.addgroup == true && alarm_msg.type == true && alarm_msg.readCheck == true) { //그룹초대  
-      console.log("그룹추가에 온거 맞지?");
       this.setState({
         addgroup_alarm: {
           message: alarm_msg.chat,
@@ -528,6 +563,7 @@ export default class Container extends React.Component {
         />
         <div className="body">
           <Sidebar
+            users={this.Users}
             hash={this.state.distinctGroup_hash}
             group={this.state.group}
             SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}
@@ -535,7 +571,8 @@ export default class Container extends React.Component {
             onCallbackKeywordChange={this.onCallbackKeywordChange.bind(this)}
           />
           <Contents
-            getGroupInUser ={this.getGroupInUser.bind(this)}
+            userlistSession={this.userlistSession}
+            getGroupInUser={this.getGroupInUser.bind(this)}
             notify={this.notify.bind(this)}
             memo_noSelectedByHash={this.state.memo_noSelectedByHash}
             getGroup={this.getGroup.bind(this)}

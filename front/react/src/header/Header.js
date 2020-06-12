@@ -71,6 +71,7 @@ export default class Header extends React.Component {
       type: true,
       readCheck: false
     }))
+
     this.setState({
       showAlarm: !this.state.showAlarm,
     });
