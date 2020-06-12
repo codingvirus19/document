@@ -3,6 +3,7 @@ import Memo from "./Memo";
 import HashList from "./HashList";
 import Toolbar from "./toolbar/Toolbar";
 import styles from "./ContentsMemo.css";
+import CreateEditor from "../header/headerMemu/CreateEditor"
 
 export default class Contents extends React.Component {
   constructor(props) {
@@ -10,7 +11,9 @@ export default class Contents extends React.Component {
     this.state = {
       memo_hash: [{ no: "", name: "", memo_no: "" }],
       color: "#ffffff",
-      memo_bigArr: this.props.memo_bigArr
+      memo_bigArr: this.props.memo_bigArr,
+      hoverMemo: false,
+      showPopup: false,
     };
   }
   DragStart(e) {
@@ -41,20 +44,50 @@ export default class Contents extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
   }
+
+onClickHere(e){
+  // e.preventDefault();
+  console.log("test");
+}
+
+togglePopup() {
+  this.setState({
+    showPopup: !this.state.showPopup,
+  });
+}
+
   render() {
     if (this.props.memo_bigArr.length === 0) {
       return (
-        <div className={styles.memo} >
+        <div className={styles.memo__container} >
           <div className={styles.memo_null}>
-            메모가 존재하지 않습니다.
+            <div className={styles.memo_null__container}>
+              <h2 className={styles.container__contents1}>메모가 존재하지 않습니다.</h2>
+              <span className={styles.container__contents_span}>
+                <p>( </p>
+                <p onClick={this.togglePopup.bind(this)} className={styles.container__contents_here}>여기</p>
+                <p className={styles.container__contents}>를 클릭하여 메모를 생성하세요</p>
+                <p> )</p>
+              </span>
+              {this.state.showPopup ? (
+                <CreateEditor
+                users={this.props.users}
+                bringMemoByGroup={this.props.bringMemoByGroup}
+                groupNoForGroupUser={this.props.groupBySidebar}
+                closePopup={this.togglePopup.bind(this)}
+                clientRef={this.props.clientRef}
+                />
+                ) : null}
+            </div>
+            
+            
         </div>
         </div>
       )
     }
     return (
-      // memo_hash: 해당 메모의 해시들
       <div className={styles.memo} >
         {this.props.memo_bigArr &&
           this.props.memo_bigArr.map((memos, index) => (
@@ -66,6 +99,8 @@ export default class Contents extends React.Component {
               onDragStart={this.DragStart.bind(this)}
               onDragEnd={this.DragEnd.bind(this)}
               onDragOver={this.DragOver.bind(this)}
+              onMouseLeave={() => this.setState({ hoverMemo: false, index: index })}
+              onMouseEnter={() => this.setState({ hoverMemo: true, index: index })}
               className={styles.container_memo_form}
             >
               <Memo
@@ -97,6 +132,8 @@ export default class Contents extends React.Component {
                 groupBySidebar={this.props.groupBySidebar}
               />
               <Toolbar
+                // 메모 호버시 툴바 보여줌
+                hoverMemo={this.state.hoverMemo}
                 notify={this.props.notify}
                 // SaveLocal에서 저장시킬 contents값
                 content={this.props.memo_bigArr[index].content}
@@ -121,4 +158,4 @@ export default class Contents extends React.Component {
       </div>
     );
   }
-}//
+}

@@ -26,7 +26,14 @@ export default class GroupOutEveryone extends React.Component {
         return (<div>
             <button onClick={this.onClickTrue.bind(this)} className="groupOutButton">그룹 삭제</button>
             {/* contents props에 기능과 관련된 단어를 넣으면 Modal창에 적용된다. 참고!!  */}
-            {this.state.openModal == true ? <Modal contents={"그룹 삭제"} onClickFalse={this.onClickFalse.bind(this)} getGroup={this.props.getGroup} groupBySidebar={this.props.groupBySidebar} SidebarGroupUpdate={this.props.SidebarGroupUpdate}/> 
+            {this.state.openModal == true ? 
+            <Modal 
+            notify={this.props.notify}
+            contents={"그룹 삭제"} 
+            onClickFalse={this.onClickFalse.bind(this)} 
+            getGroup={this.props.getGroup} 
+            groupBySidebar={this.props.groupBySidebar} 
+            SidebarGroupUpdate={this.props.SidebarGroupUpdate}/> 
              :null}
         </div>)
         
