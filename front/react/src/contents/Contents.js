@@ -9,8 +9,6 @@ import styles from "./Contents.css";
 export default class Contents extends React.Component {
 
   render() {
-    // console.log(this.props.showAlarm);
-    // console.log(this.state.addgroup_alarm);
     return (
       <div className={styles.contents}>
         <div className={styles.box}>
@@ -26,30 +24,41 @@ export default class Contents extends React.Component {
               groupInUserList={this.props.groupInUserList}
               users={this.props.users}
             />
-            {(this.props.memo_bigArr!=null)?
-            <ContentsMemo
-            notify={this.props.notify}
-              bringMemoByGroup={this.props.bringMemoByGroup}
-              memo_Change={this.props.memo_Change}
-              callbackFromToolbar={this.props.callbackFromToolbar}
-              SidebarGroupUpdate={this.props.SidebarGroupUpdate}
-              groupBySidebar={this.props.groupBySidebar}
-              group={this.props.group}
-              memo_bigArr={this.props.memo_bigArr}
-              clientRef={this.props.clientRef}
-              users={this.props.users}
-              group_hash={this.props.group_hash}
-              distinctGroup_hash={this.props.distinctGroup_hash}
-            />
-              :null}
+            {(this.props.memo_bigArr != null) ?
+              <ContentsMemo
+                notify={this.props.notify}
+                bringMemoByGroup={this.props.bringMemoByGroup}
+                memo_Change={this.props.memo_Change}
+                callbackFromToolbar={this.props.callbackFromToolbar}
+                SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+                groupBySidebar={this.props.groupBySidebar}
+                group={this.props.group}
+                memo_bigArr={this.props.memo_bigArr}
+                clientRef={this.props.clientRef}
+                users={this.props.users}
+                group_hash={this.props.group_hash}
+                distinctGroup_hash={this.props.distinctGroup_hash}
+              />
+              : null}
           </div>
+
           {this.props.showChat ? (
-          // {true? (
-            <Chat group={this.props.group} users={this.props.users} clientRef={this.props.clientRef} alarm={this.props.alarm} />
+          // {true ? (
+            <Chat
+              group={this.props.group}
+              users={this.props.users}
+              clientRef={this.props.clientRef}
+              alarm={this.props.alarm} 
+              userListInGroupByUser={this.props.userListInGroupByUser}/>
           ) : null}
-          {this.props.showAlarm ?(
-           <Alarm users={this.props.users} addgroup_alarm={this.props.addgroup_alarm} SidebarGroupUpdate={this.props.SidebarGroupUpdate} AlarmAddGroup={this.props.AlarmAddGroup} />
-           ) : null}
+
+          {this.props.showAlarm ? (
+            <Alarm
+              users={this.props.users}
+              addgroup_alarm={this.props.addgroup_alarm}
+              SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+              AlarmAddGroup={this.props.AlarmAddGroup} />
+          ) : null}
         </div>
         {/* <Footer /> */}
       </div>

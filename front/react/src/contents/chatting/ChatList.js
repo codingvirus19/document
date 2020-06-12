@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import styles from "./Chat.css";
+import styles from "./ChatList.css";
 import alarm_styles from "../../header/Header.css";
 import ChatRoom from "./ChatRoom";
 
@@ -42,9 +42,11 @@ export default class Contents extends React.Component {
   }
 
   render() {
-    if(this.props.users === undefined) {
+    //나중에 지우기
+    if(!this.props.userListInGroupByUser) {
       return null;
     }
+    //
     return (
       <Fragment>
         <div className={styles.ChatBox}>
@@ -60,14 +62,27 @@ export default class Contents extends React.Component {
               <>
                 <div className={styles.chat_title}>채팅</div>
                 {this.props.group.gname.map((gname, index) => {
+                  //그룹별 멤버 
+                  let gmember = this.props.userListInGroupByUser
+                    .filter(element => element.gNo === this.props.group.no[index]);
                   return (
                     <Fragment key={index}>
                       <div
                         className={styles.chatList}
                         id={index}
                         onClick={this.open.bind(this)} >
-                        {gname}
-                        {this.props.users.name}
+                          {/* 그룹 1명일때만. 2명, 3명일때도 해야함*/}
+                        <div className={styles.image_div}>
+                          <img
+                            className={styles.img}
+                            src={"." + gmember.map(element => element.image)} />
+                        </div>
+                        <div className={styles.gname}>
+                          {gname}
+                        </div>
+                        <div className={styles.gmember}>
+                          {gmember.map(element => element.nickname + ", ")}
+                        </div>
                         {this.groupByalarm.call(this, this.props.group.no[index])}
                       </div>
                     </Fragment>

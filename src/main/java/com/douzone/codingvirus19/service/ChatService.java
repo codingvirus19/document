@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.douzone.codingvirus19.repository.ChatRepository;
 import com.douzone.codingvirus19.vo.ChatVo;
+import com.douzone.codingvirus19.vo.UserVo;
 
 @Service
 public class ChatService {

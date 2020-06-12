@@ -84,12 +84,6 @@ public class UserApiController {
 			return JsonResult.success(sessionlist);
 		}
 		return JsonResult.success(null);
-//		System.out.println(userList.size());
-//		System.out.println(userList);
-//		
-//		userList.get.retainAll(usersessionlist);
-		
-		
 	}
 	
 	@EventListener
@@ -105,8 +99,13 @@ public class UserApiController {
 		String username = event.getUser().getName();
 		if (usersessionlist.lastIndexOf(username) >= 0) {
 			usersessionlist.remove(usersessionlist.lastIndexOf(username));
-//			webSocket.convertAndSend("/api/userlist/" + userGroup.get(username), userlist);
-//			System.out.println(usersessionlist);
+
 		}
+	}
+	
+	@PostMapping("/getUserListInGroupByUser")
+	public JsonResult getUserListInGroupByUser(@RequestBody UserVo userVo) {
+		List<UserVo> list = userService.getUserListInGroupByUser(userVo.getNo());
+		return JsonResult.success(list);
 	}
 }
