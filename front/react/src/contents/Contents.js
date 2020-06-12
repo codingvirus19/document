@@ -7,12 +7,6 @@ import Alarm from "./Alarm";
 import styles from "./Contents.css";
 
 export default class Contents extends React.Component {
-  // constructor(){ 
-  //   super(...arguments)
-  //   this.state ={
-  //     addgroup_alarm : this.props.addgroup_alarm
-  //   }
-  // }
 
   render() {
     // console.log(this.props.showAlarm);
@@ -22,7 +16,8 @@ export default class Contents extends React.Component {
         <div className={styles.box}>
           <div className={styles.contentsMemo}>
             <ContentsHeader
-             notify={this.props.notify}
+              getGroupInUser={this.props.getGroupInUser}
+              notify={this.props.notify}
               SidebarGroupUpdate={this.props.SidebarGroupUpdate}
               groupBySidebar={this.props.groupBySidebar}
               group={this.props.group}
@@ -55,9 +50,6 @@ export default class Contents extends React.Component {
           {this.props.showAlarm ?(
            <Alarm users={this.props.users} addgroup_alarm={this.props.addgroup_alarm} SidebarGroupUpdate={this.props.SidebarGroupUpdate} AlarmAddGroup={this.props.AlarmAddGroup} />
            ) : null}
-           {/* {(this.props.addgroup_alarm != null && this.props.addgroup_alarm != "") ? (
-           <Alarm users={this.props.users} addgroup_alarm={this.props.addgroup_alarm} SidebarGroupUpdate={this.props.SidebarGroupUpdate} AlarmAddGroup={this.props.AlarmAddGroup} />
-           ) : null} */}
         </div>
         {/* <Footer /> */}
       </div>

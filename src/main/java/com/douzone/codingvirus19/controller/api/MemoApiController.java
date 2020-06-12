@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,6 +40,7 @@ public class MemoApiController {
 	static Map<Long, String> strList = new HashMap<>();
 	static Map<Long, Boolean> booleanList = new HashMap<>();
 	static Map<Long, ArrayList<Long>> versionList = new HashMap<>();
+	static Map<Long, ArrayList<EditorVo>> messageHistory = new HashMap<>();
 	static boolean first = true;
 	
 	@PostMapping("/api/memo/memoposition")
@@ -95,8 +97,10 @@ public class MemoApiController {
 	
 	
 	@MessageMapping("/memo/{memo}")
-	public void sendmemo(EditorVo message, @DestinationVariable Long memo) throws Exception {
+	@SendTo("/api/memo/{memo}")
+	public EditorVo sendmemo(EditorVo message, @DestinationVariable Long memo) throws Exception {
 		ArrayList<String> arrData = new ArrayList<String>();
+		ArrayList<EditorVo> messageList = new ArrayList<EditorVo>();
 		ArrayList<Long> version = new ArrayList<Long>();
 		String str = null;
 		Boolean first = true;
@@ -105,53 +109,97 @@ public class MemoApiController {
 			version = versionList.get(memo);
 			 str = strList.get(memo);
 			 first = booleanList.get(memo);
+			 messageList = messageHistory.get(memo);
 		}
+		messageList.add(message);
+		
 		if(message.getType().equals("save")) {
-			if(str == null)return;
-			
+			if(str == null)return null;
 			MemoVo memoVo = new MemoVo();
 			memoVo.setNo(memo);
 			memoVo.setContent(str);
 			memoVo.setColor(message.getKey());
 			memoService.memoUpdate(memoVo);
-			webSocket.convertAndSend("/api/memo/" + memo, message);
-			return;
+			return message;
 		}
-		
 		if (message.getType().equals("allKey")&& first ) {
 			Collections.addAll(arrData,message.getKey().split(""));
 			str = message.getKey();
 			first = false;
 			version.add(message.getVersion());
+			message.setVersion(message.getVersion()+1);
 			strList.put(memo,str);
 			versionList.put(memo,version);
+			messageHistory.put(memo, messageList);
 			booleanList.put(memo, first);
-			webSocket.convertAndSend("/api/memo/" + memo, message);
-			return;
+			return message;
 		}else if(message.getType().equals("allKey")){
 			message.setKey(str);
-			message.setVersion(version.get(version.size()-1));
-			webSocket.convertAndSend("/api/memo/" + memo, message);
-			return;
+			message.setVersion(version.get(version.size()-1)+1);
+			return message;
 		}
 		if(message.getType().equals("reClick")) {
 			message.setVersion(version.get(version.size()-1));
-			webSocket.convertAndSend("/api/memo/" + memo, message);
-			return;
+			return message;
 		}
-		if (version.size() > 0) {
-			if (message.getVersion() < version.get(version.size() - 1)) {
+		
+		if (version.size() > 0 && arrData.size()+1 != message.getSize()) {
+//			System.out.println(messageList);
+			System.out.println(message.getVersion()+"::"+version.get(version.size()-1));
+			if (message.getVersion() <= version.get(version.size() - 1)) {
+//				복잡해질 알고리즈으으
+				System.out.println(messageList.get(messageList.size()-1).getInputIndex()+"::::"+ messageList.get(messageList.size()-2).getInputIndex());
+					if(messageList.get(messageList.size()-1).getInputIndex() <= messageList.get(messageList.size()-2).getInputIndex()) {
+						//중복입력 해결!!
+						arrData = memoChange(messageList.get(messageList.size()-1),arrData);
+						str = String.join("", arrData);
+						strList.put(memo,str);
+						System.out.println(str+"중복입력");
+						message.setVersion(version.get(version.size()-1)+1);
+						message.setType("error");
+						message.setKey(str);
+						return message; 
+					}else if(messageList.get(messageList.size()-1).getInputIndex() > messageList.get(messageList.size()-2).getInputIndex()) {
+						ArrayList<String> TempData = new ArrayList<String>();
+						Collections.addAll(TempData, messageList.get(messageList.size()-1).getKey().split(""));
+						//마지막 입력된 위치가더크다 
+						message.setSize((long)TempData.size());
+						message.setInputIndex(message.getInputIndex()+TempData.size());
+						return message;
+					}else {
+						System.out.println("error");
+					}
 				message.setType("error");
 				str = String.join("", arrData);
 				message.setKey(str);
 				message.setVersion(version.get(version.size()-1)+1);
-				webSocket.convertAndSend("/api/memo/" + memo, message);
-				return;
+				return message;
 			}
 		}
-		
+		if(arrData.size() > 1 &&!message.getType().equals("korean") &&!message.getType().equals("delete") && arrData.size()+1 != message.getSize()) {
+			System.out.println("통합에러");
+			message.setType("error");
+			str = String.join("", arrData);
+			System.out.println(message.getName());
+			message.setKey(str);
+			message.setVersion(version.get(version.size()-1)+1);
+			return message;
+		}
 		version.add(message.getVersion());
 		message.setVersion(message.getVersion() + 1L);
+		
+		arrData = memoChange(message,arrData);
+		str = String.join("", arrData);
+		strList.put(memo,str);
+		messageHistory.put(memo,messageList);
+		versionList.put(memo,version);
+		booleanList.put(memo, first);
+		System.out.println("전송");
+		return message;
+	}
+	
+	public ArrayList<String> memoChange(EditorVo message,ArrayList<String> arrData) {
+		System.out.println(message);
 		if (message.getType().equals("basic")) {
 			// 기본 입력
 			arrData.add(message.getInputIndex() - 1, message.getKey());
@@ -173,11 +221,7 @@ public class MemoApiController {
 			arrData.add(message.getInputIndex(), message.getKey());
 			arrData.add(message.getSize().intValue()+1, message.getKey());
 		}
-		str = String.join("", arrData);
-		strList.put(memo,str);
-		versionList.put(memo,version);
-		booleanList.put(memo, first);
-		webSocket.convertAndSend("/api/memo/" + memo, message);
+		return arrData;
 	}
 	
 	// 프론트에서 안쓰는듯
