@@ -43,12 +43,28 @@ export default class Contents extends React.Component {
 
   componentWillReceiveProps(nextProps){
   }
+
+  onClickHere(e){
+    // e.preventDefault();
+    console.log("test");
+  }
+  
   render() {
     if (this.props.memo_bigArr.length === 0) {
       return (
-        <div className={styles.memo} >
+        <div className={styles.memo__container} >
           <div className={styles.memo_null}>
-            메모가 존재하지 않습니다.
+            <div className={styles.memo_null__container}>
+              <h2 className={styles.container__contents1}>메모가 존재하지 않습니다.</h2>
+              <span className={styles.container__contents_span}>
+                <p>( </p>
+                <p onClick={this.onClickHere.bind(this)} className={styles.container__contents_here}>여기</p>
+                <p className={styles.container__contents}>를 클릭하여 메모를 생성하세요</p>
+                <p> )</p>
+              </span>
+            </div>
+            
+            
         </div>
         </div>
       )
