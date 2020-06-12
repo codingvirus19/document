@@ -60,6 +60,7 @@ export default class ContentsHeader extends React.Component {
             : null}
         </div>
 
+
         <div className="groupOut">
 
             {/* 그룹 삭제 : 그룹이 개인일때는 아래 버튼이 작동되어선 안된다! // userList에 한명밖에 없을 경우 그룹삭제만 보이도록!   */}
