@@ -9,7 +9,7 @@ import { faPlus, faBell, faSms, } from "@fortawesome/free-solid-svg-icons";
 import dropdownstyles from "./Dropdown.css";
 import styles from "./Header.css";
 
-const API_URL = ".";
+const API_URL = "."; 
 const API_HEADERS = {
   "Content-Type": "application/json",
 };
@@ -99,6 +99,7 @@ export default class Header extends React.Component {
           />
 
           <div className={styles.right_header}>
+            {/* ////////////////////////////////////////////////////////////// */}
             <div>
               <button aria-label="메모 추가"
                 className={styles.addmemo}
@@ -107,14 +108,15 @@ export default class Header extends React.Component {
               </button>
               {this.state.showPopup ? (
                 <CreateEditor
-                  users={this.props.users}
-                  bringMemoByGroup={this.props.bringMemoByGroup}
-                  groupNoForGroupUser={this.props.groupBySidebar}
-                  closePopup={this.togglePopup.bind(this)}
-                  clientRef={this.props.clientRef}
+                users={this.props.users}
+                bringMemoByGroup={this.props.bringMemoByGroup}
+                groupNoForGroupUser={this.props.groupBySidebar}
+                closePopup={this.togglePopup.bind(this)}
+                clientRef={this.props.clientRef}
                 />
-              ) : null}
+                ) : null}
             </div>
+                {/* ////////////////////////////////////////////////////////////// */}
             <Dropdown aria-label="계정" className={styles.account}>
               <Dropdown.Toggle className={styles.user}>
                 {/* <FontAwesomeIcon className={styles.faUser} icon={faUser} /> */}
@@ -142,6 +144,13 @@ export default class Header extends React.Component {
                 ) : null}
               </Dropdown>
 
+              <div>
+              <button aria-label="채팅" className={(this.state.showChat) ? `${styles.chat} ${styles.chatClick}` : styles.chat} onClick={this.chattingClick.bind(this)}>
+                {(this.props.alarm.chatting) ? <span className={styles.alarmbell} /> : null}
+                <FontAwesomeIcon className={styles.faSms} icon={faSms} />
+              </button>
+            </div>
+            
             <Dropdown>
               <Dropdown.Toggle aria-label="알람" onClick={this.alarmClick.bind(this)} className={(this.state.showAlarm) ? `${styles.userbellClick} ${styles.userbell}` : styles.userbell}  >
                 {(this.props.alarm.basic) ? <span className={styles.alarmbell} /> : null}
@@ -149,13 +158,6 @@ export default class Header extends React.Component {
               </Dropdown.Toggle>
             </Dropdown>
 
-            <div>
-              <button aria-label="채팅" className={(this.state.showChat) ? `${styles.chat} ${styles.chatClick}` : styles.chat} onClick={this.chattingClick.bind(this)}>
-                {(this.props.alarm.chatting) ? <span className={styles.alarmbell} /> : null}
-                <FontAwesomeIcon className={styles.faSms} icon={faSms} />
-              </button>
-
-            </div>
           </div>
         </div>
       </div>

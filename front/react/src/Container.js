@@ -411,7 +411,7 @@ export default class Container extends React.Component {
 
   }
   // 접속한 유저 리스트
-  GroupInUserList(getSession) {
+  GroupInUserList(getSession) { 
     this.setState({
       groupInUserList: getSession
     })
@@ -535,6 +535,7 @@ export default class Container extends React.Component {
             onCallbackKeywordChange={this.onCallbackKeywordChange.bind(this)}
           />
           <Contents
+            getGroupInUser ={this.getGroupInUser.bind(this)}
             notify={this.notify.bind(this)}
             memo_noSelectedByHash={this.state.memo_noSelectedByHash}
             getGroup={this.getGroup.bind(this)}

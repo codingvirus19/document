@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import styles from "./Chat.css";
 import alarm_styles from "../../header/Header.css";
 import ChatRoom from "./ChatRoom";
+
 export default class Contents extends React.Component {
   constructor() {
     super(...arguments);
