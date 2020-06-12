@@ -69,6 +69,7 @@ export default class login extends React.Component {
       loginFail: ""
     });
   }
+
   loginFail() {
     if (this.state.loginFail == "fail") {
       return (
@@ -78,12 +79,17 @@ export default class login extends React.Component {
   }
 
   handleChangePasswordCheck(e) {
-    this.setState({
-      Error: this.state.JoinPassword !== e.target.value,
-      Errormessage: "패스워드가 일치하지 않습니다"
-    })
+    this.UpdateError(this.state.JoinPassword !== e.target.value, "패스워드가 일치하지 않습니다")
     // 비밀번호 일치시 박스색 다르게 className줘서
   }
+
+  UpdateError(Error, Errormessage) {
+    this.setState({
+      Error: Error,
+      Errormessage: Errormessage,
+    })
+  }
+
   Errormessage() {
     if (this.state.Error) {
       return (
@@ -101,11 +107,19 @@ export default class login extends React.Component {
     e.preventDefault();
     //이메일 확인
     if (!this.chkEmail(this.state.email)) {
+      this.UpdateError(true, "이메일 형식이 유효하지 않습니다.");
       this.setState({
-        Error: true,
-        Errormessage: "이메일 형식이 유효하지 않습니다."
+        email: ""
       })
-    } else {
+    } 
+    //닉네임 8자 미만 제한
+    else if(this.state.nickname > 8){
+      this.UpdateError(true, "닉네임은 8자 미만으로 해주십시오");
+      this.setState({
+        nickname: ""
+      })
+    } 
+    else {
       let joinData = {
         nickname: this.state.nickname,
         id: this.state.id,
@@ -121,10 +135,7 @@ export default class login extends React.Component {
         .then((response) => {
           console.log(response);
           if (response.result == "fail" && (response.message == "id중복" || response.message == "email중복")) {
-            this.setState({
-              Error: true,
-              Errormessage: response.message
-            })
+            this.UpdateError(true, response.message);
           }
           else {
             this.setState({
@@ -146,7 +157,7 @@ export default class login extends React.Component {
   View() {
     if (this.state.showJoin) {//회원가입
       return (
-        < div className = { styles.formContent } >
+        < div className={styles.formContent} >
           <div className={styles.logo}><Logo /></div>
           <h2 className={`${styles.inactive} ${styles.underlineHover}`} onClick={this.ViewChange.bind(this)}> Sign In </h2>
           <h2 className={styles.active}>Sign Up </h2>
@@ -155,15 +166,18 @@ export default class login extends React.Component {
           </div>
 
           <form>
-            <input type="text" className={`${styles.fadeIn} `} value={this.state.nickname} onChange={this.handleChange.bind(this)} name="nickname" placeholder="nickname" />
-            <input type="text" className={`${styles.fadeIn}`} value={this.state.id} onChange={this.handleChange.bind(this)} name="id" placeholder="ID" />
-            <input type="text" className={`${styles.fadeIn}`} value={this.state.email} onChange={this.handleChange.bind(this)} name="email" placeholder="Email" />
+            <input type="text" className={`${styles.fadeIn}`} value={this.state.id}
+              onChange={this.handleChange.bind(this)} name="id" placeholder="ID" />
+              <input type="text" className={`${styles.fadeIn} `} value={this.state.nickname}
+              onChange={this.handleChange.bind(this)} name="nickname" placeholder="nickname" />
+            <input type="text" className={`${styles.fadeIn}`} value={this.state.email}
+              onChange={this.handleChange.bind(this)} name="email" placeholder="Email" />
             <input type="password" className={`${styles.fadeIn}`} value={this.state.JoinPassword}
               onChange={this.handleChange.bind(this)} name="JoinPassword" placeholder="Password" />
             <input type="password" className={`${styles.fadeIn}`}
               onChange={this.handleChangePasswordCheck.bind(this)} name="JoinPassword2" placeholder="Password confirm" />
             <div className={styles.formFooter}>
-            {this.Errormessage()}
+              {this.Errormessage()}
             </div>
             <input type="submit" className={`${styles.fadeIn}`} value="Join" onClick={this.Join.bind(this)} />
           </form>

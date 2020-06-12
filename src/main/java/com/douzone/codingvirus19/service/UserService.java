@@ -60,4 +60,8 @@ public class UserService {
 	public List<UserVo> getUserSessionNotInGroup(Map<String, Object> sessionUserMap) {
 		return userRepository.getUserSessionNotInGroup(sessionUserMap);
 	}
+	
+	public List<UserVo> getUserListInGroupByUser(Long no) {
+		return userRepository.getUserListInGroupByUser(no);
+	}
 }
