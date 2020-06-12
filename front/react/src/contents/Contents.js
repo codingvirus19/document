@@ -7,7 +7,10 @@ import Alarm from "./Alarm";
 import styles from "./Contents.css";
 
 export default class Contents extends React.Component {
+
   render() {
+    // console.log(this.props.showAlarm);
+    // console.log(this.state.addgroup_alarm);
     return (
       <div className={styles.contents}>
         <div className={styles.box}>
@@ -43,9 +46,9 @@ export default class Contents extends React.Component {
           {this.props.showChat ? (
             <Chat group={this.props.group} users={this.props.users} clientRef={this.props.clientRef} alarm={this.props.alarm} />
           ) : null}
-          {this.props.showAlarm ? (
-            <Alarm users={this.props.users} addgroup_alarm={this.props.addgroup_alarm} SidebarGroupUpdate={this.props.SidebarGroupUpdate} AlarmAddGroup={this.props.AlarmAddGroup} />
-          ) : null}
+          {this.props.showAlarm ?(
+           <Alarm users={this.props.users} addgroup_alarm={this.props.addgroup_alarm} SidebarGroupUpdate={this.props.SidebarGroupUpdate} AlarmAddGroup={this.props.AlarmAddGroup} />
+           ) : null}
         </div>
         {/* <Footer /> */}
       </div>

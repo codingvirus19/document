@@ -56,11 +56,10 @@ export default class Contents extends React.Component {
           ) : (
             this.props.group.gname.map((gname, index) => {
               return (
-                <Fragment>
+                <Fragment key={index}>
                   <div
                     className={styles.chatList}
                     id={index}
-                    key={index}
                     onClick={this.open.bind(this)} >
                     {gname}
                     {this.groupByalarm.call(this, this.props.group.no[index])}

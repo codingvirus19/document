@@ -36,6 +36,14 @@ export default class Alarm extends React.Component {
         })
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.addgroup_alarm)
+        if (nextProps.addgroup_alarm != null) {
+            this.setState({
+                addGroupAlarm: nextProps.addgroup_alarm
+            })
+        }
+    }
     render() {
         return (
             <div className={styles.alarm}>
@@ -44,8 +52,8 @@ export default class Alarm extends React.Component {
 
                     {(this.state.addGroupAlarm != null && this.state.addGroupAlarm.message != "") ?
                         <AlarmAddGroup addGroupAlarm={this.state.addGroupAlarm}
-                        joinCancel={this.joinCancel.bind(this)} SidebarGroupUpdate={this.props.SidebarGroupUpdate}
-                        AlarmAddGroup={this.props.AlarmAddGroup} /> :
+                            joinCancel={this.joinCancel.bind(this)} SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+                            AlarmAddGroup={this.props.AlarmAddGroup} /> :
                         null}
                     {this.state.alarmDatas.map((content, index) => {
                         return (

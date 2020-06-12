@@ -7,18 +7,13 @@ import SaveLocal from "./toolbar_style/SaveLocal";
 import MemoSave from "./toolbar_style/MemoSave";
 import ExternalSharing from "./toolbar_style/ExternalSharing";
 import MemoDelete from "./toolbar_style/MemoDelete";
-
 import styles from "./Toolbar.css";
 
 export default class Toolbar extends React.PureComponent {
   constructor() {
     super(...arguments);
     this.state = {
-      // showShareSheet: false,
-      // no: this.props.no,
       memo_gNo: this.props.memo_gNo,
-      // gNo: this.props.groupBySidebar.no,
-      // gName: this.props.groupBySidebar.name,
       color: this.props.color,
     };
   }
@@ -26,10 +21,10 @@ export default class Toolbar extends React.PureComponent {
   render() {
     return (
       <div className={styles.toolbar}>
-        
+
         {/* 그룹공유 */}
         <GroupShare
-        notify={this.props.notify}
+          notify={this.props.notify}
           // gName,gNo : 임의의 작동을 한 그룹의 no와 name으로 콜백이동하기위한 props
           gName={this.props.groupBySidebar.name}
           gNo={this.props.groupBySidebar.no}
