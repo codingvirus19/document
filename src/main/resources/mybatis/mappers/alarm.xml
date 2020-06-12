@@ -52,8 +52,8 @@
 	
 	<update id="chatReadCheckUpdate" parameterType="alarmvo" >
 		<![CDATA[
-		 update accptalarm a inner join groupuser b
-                 on a.u_no = b.u_no
+		update accptalarm a inner join alarm b
+                 on a.noti_no = b.no
                 set a.read_check = false
 			  where a.u_no = #{uNo} and b.g_no = #{gNo};
  		]]>

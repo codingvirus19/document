@@ -29,6 +29,7 @@ export default class Container extends React.Component {
       groupInUserList: [{ user_no: "", id: "", nickname: "", img: "", auth_no: "" }],
       keyword: "",
       getProfileValue: null,
+      chatListGroup : { no: [], gname: [], readcheck: [] }
     };
     this.tempGno = null;
     this.userlistSession =[];
@@ -49,8 +50,6 @@ export default class Container extends React.Component {
     this.getProfileAjax();
 
     this.getGroup();
-
-
     // 로그인한 user를 가져오는 코드
     let users = { no: [], name: [] };
     // call api
@@ -67,9 +66,7 @@ export default class Container extends React.Component {
       .catch((err) => console.error(err));
 
     // 처음 알람 가져오는 통신
-
     // let alarm = [];
-    let alarmDatas = null;
     // call api
     fetch(`${API_URL}/api/alarmCheck`, {
       method: "post",
@@ -77,7 +74,7 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        // console.log(json.data)
+        console.log(json.data)
         this.UpdateAlarm(json.data);
       })
       .catch((err) => console.error(err));
@@ -103,7 +100,6 @@ export default class Container extends React.Component {
       })
       .catch((err) => console.error(err));
   }
-
 
   // 현재 sessionUser를 input하여 그룹의 db를 가져오는 코드
   getGroup() {
@@ -234,12 +230,43 @@ export default class Container extends React.Component {
       group: group,
     });
   }
+  UpdateChatList(group){
+    this.setState({
+      chatListGroup: group
+    })
+  }
 
   UpdateUser(users) {
     this.Users = users;
+
+    this.getChatListGroup();  
   }
 
+  getChatListGroup(){
+    let group = { no: [], gname: [], readcheck: [] };
+    let chatgroupDatas = null;
+    // call api
+    fetch(`${API_URL}/api/chatlistgroup`, {
+      method: "post",
+      headers: API_HEADERS,
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        chatgroupDatas = json.data;
+        // group의 데이터값으로 sidebar를 불러오는 함수
+        chatgroupDatas.map((json) => {
+          group.no.push(json.gNo);
+          group.gname.push(json.groupName);
+          group.readcheck.push(json.readCheck);
+        });
+        this.UpdateChatList(group);
+      })
+      .catch((err) => console.error(err));
+      //----------------------------------------채팅 관련 그룹 가져오기
+    }
+
   UpdateAlarm(alarmDatas) {
+    console.log(alarmDatas.gNo)
     this.setState({
       alarm: { basic: alarmDatas.basic, chatting: alarmDatas.chatting },
     });
@@ -318,12 +345,10 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         groupDatas = json.data;
-        // group의 데이터값으로 sidebar를 불러오는 함수
         groupDatas.map((json) => {
           group.no.push(json.no);
           group.gname.push(json.name);
         });
-        // UpdateGroup(): group에 setState하는 함수
         this.UpdateGroup(group);
       })
       .catch((err) => console.error(err));
@@ -450,20 +475,18 @@ export default class Container extends React.Component {
       this.setState({
         alarm: {
           basic: alarm_msg.basic,
-          chatting: this.state.alarm.chatting,
-          g_no: this.state.alarm.g_no
+          chatting: this.state.alarm.chatting
         }
       })
     } else if (alarm_msg.chatting != null) {//채팅
+      this.getChatListGroup();
       this.setState({
         alarm: {
           chatting: alarm_msg.chatting,
-          g_no: alarm_msg.gNo,
           basic: this.state.alarm.basic
         }
       })
     }
-
     if (alarm_msg.type == true && alarm_msg.readCheck == false) {
       this.setState({
         alarm: {
@@ -472,6 +495,7 @@ export default class Container extends React.Component {
         }
       })
     } else if (alarm_msg.type == false && alarm_msg.readCheck == false) {
+      this.getChatListGroup();  
       this.setState({
         alarm: {
           basic: this.state.alarm.basic,
@@ -571,6 +595,7 @@ export default class Container extends React.Component {
             //변경된 결과 값 state :true false
             AlarmAddGroup={this.AlarmAddGroup.bind(this)}
             groupInUserList={this.state.groupInUserList}
+            chatListGroup={this.state.chatListGroup}
           />
         </div>
         <ToastContainer
