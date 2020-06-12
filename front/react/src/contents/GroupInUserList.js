@@ -11,7 +11,7 @@ export default class GroupInUserList extends React.Component {
         }
     }
     userSessionReceive(userSession) {
-        console.log(userSession,"접소오옥");
+        this.props.getGroupInUser(this.props.groupBySidebar);
         this.setState({
             userlistSession: userSession
         });

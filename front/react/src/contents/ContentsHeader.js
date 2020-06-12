@@ -65,7 +65,7 @@ export default class ContentsHeader extends React.Component {
           ) : null}
         </div>
         {(this.props.groupBySidebar.no != null) ? 
-          <GroupInUserList groupInUserList={this.props.groupInUserList} groupBySidebar={this.props.groupBySidebar.no} users={this.props.users} /> : null}
+          <GroupInUserList getGroupInUser={this.props.getGroupInUser} groupInUserList={this.props.groupInUserList} groupBySidebar={this.props.groupBySidebar.no} users={this.props.users} /> : null}
 
       </div>
 
