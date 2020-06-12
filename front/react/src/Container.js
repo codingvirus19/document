@@ -29,7 +29,7 @@ export default class Container extends React.Component {
       groupInUserList: [{ user_no: "", id: "", nickname: "", img: "", auth_no: "" }],
       keyword: "",
       getProfileValue: null,
-      chatListGroup : { no: [], gname: [], readcheck: [] }
+      userListInGroupByUser: null,
     };
     this.tempGno = null;
     this.userlistSession =[];
@@ -50,6 +50,7 @@ export default class Container extends React.Component {
     this.getProfileAjax();
 
     this.getGroup();
+
     // 로그인한 user를 가져오는 코드
     let users = { no: [], name: [] ,id: []};
     // call api
@@ -63,6 +64,8 @@ export default class Container extends React.Component {
         users.name.push(json.data.name);
         users.id.push(json.data.username);
         this.UpdateUser(users);
+        //사용자가 있는 그룹들에 있는 사용자들 가져오는 함수
+    this.getUserListInGroupByUser(json.data.no)
       })
       .catch((err) => console.error(err));
 
@@ -85,7 +88,30 @@ export default class Container extends React.Component {
 
     // Sidebar의 HashtagList를 가져오는 코드
     this.getHashListByGroup(this.state.groupBySidebar.no);
+
   }
+
+    //사용자가 있는 그룹들에 있는 사용자들 가져오는 함수
+    getUserListInGroupByUser(no) {
+      let data = { no: no };
+      fetch(`${API_URL}/api/getUserListInGroupByUser`, {
+        method: "post",
+        headers: API_HEADERS,
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          let userListInGroupByUser = json.data.map(element => {
+            return {
+              gNo: element.gNo,
+              nickname: element.nickname,
+              image: element.image
+            };
+          });
+          this.UpdateUserListInGroupByUser(userListInGroupByUser);
+        })
+        .catch((err) => console.error(err));
+    }
 
   getProfileAjax() {
     fetch(`${API_URL}/api/profile`, {
@@ -285,6 +311,12 @@ export default class Container extends React.Component {
     });
   }
 
+  UpdateUserListInGroupByUser(userListInGroupByUser) {
+    this.setState({
+      userListInGroupByUser: userListInGroupByUser,
+    })
+  }
+
   // sidebar에서 콜백된 파라미터 no와 name
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
   // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo , changeColor 클릭 시....
@@ -310,7 +342,6 @@ export default class Container extends React.Component {
   }
 
   getGroupInUser(no) {
-    // console.log(no)
     let data = { gNo: no };
     let getSession = [{ user_no: "", id: "", nickname: "", img: "", auth_no: "" }]
     // call api
@@ -597,6 +628,7 @@ export default class Container extends React.Component {
             AlarmAddGroup={this.AlarmAddGroup.bind(this)}
             groupInUserList={this.state.groupInUserList}
             chatListGroup={this.state.chatListGroup}
+            userListInGroupByUser={this.state.userListInGroupByUser}
           />
         </div>
         <ToastContainer
