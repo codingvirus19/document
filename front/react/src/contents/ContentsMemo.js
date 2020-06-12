@@ -3,6 +3,7 @@ import Memo from "./Memo";
 import HashList from "./HashList";
 import Toolbar from "./toolbar/Toolbar";
 import styles from "./ContentsMemo.css";
+import CreateEditor from "../header/headerMemu/CreateEditor"
 
 export default class Contents extends React.Component {
   constructor(props) {
@@ -10,7 +11,8 @@ export default class Contents extends React.Component {
     this.state = {
       memo_hash: [{ no: "", name: "", memo_no: "" }],
       color: "#ffffff",
-      memo_bigArr: this.props.memo_bigArr
+      memo_bigArr: this.props.memo_bigArr,
+      showPopup: false,
     };
   }
   DragStart(e) {
@@ -43,12 +45,19 @@ export default class Contents extends React.Component {
 
   componentWillReceiveProps(nextProps){
   }
+//////////////////////////////////////////////////////////////////
+onClickHere(e){
+  // e.preventDefault();
+  console.log("test");
+}
 
-  onClickHere(e){
-    // e.preventDefault();
-    console.log("test");
-  }
-  
+togglePopup() {
+  this.setState({
+    showPopup: !this.state.showPopup,
+  });
+}
+
+//////////////////////////////////////////////////////////////////
   render() {
     if (this.props.memo_bigArr.length === 0) {
       return (
@@ -58,10 +67,19 @@ export default class Contents extends React.Component {
               <h2 className={styles.container__contents1}>메모가 존재하지 않습니다.</h2>
               <span className={styles.container__contents_span}>
                 <p>( </p>
-                <p onClick={this.onClickHere.bind(this)} className={styles.container__contents_here}>여기</p>
+                <p onClick={this.togglePopup.bind(this)} className={styles.container__contents_here}>여기</p>
                 <p className={styles.container__contents}>를 클릭하여 메모를 생성하세요</p>
                 <p> )</p>
               </span>
+              {this.state.showPopup ? (
+                <CreateEditor
+                users={this.props.users}
+                bringMemoByGroup={this.props.bringMemoByGroup}
+                groupNoForGroupUser={this.props.groupBySidebar}
+                closePopup={this.togglePopup.bind(this)}
+                clientRef={this.props.clientRef}
+                />
+                ) : null}
             </div>
             
             
