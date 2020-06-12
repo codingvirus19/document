@@ -3,7 +3,7 @@ import { Remarkable } from 'remarkable';
 import SockJsClient from "react-stomp";
 import popup from "./Popup.css";
 import styles from "./ShareEditor.css";
-import EditorToolbar from"./EditorToolbar.js";
+import EditorToolbar from "./EditorToolbar.js";
 
 export default class Popup extends React.Component {
   constructor(props) {
@@ -19,6 +19,8 @@ export default class Popup extends React.Component {
       markOpen: false
     });
     this.temp = null;
+    this.editor;
+    this.inputposition;
     this.state = {
       value: this.props.content,
       cursor: '',
@@ -148,6 +150,7 @@ export default class Popup extends React.Component {
   // firstindex lastindex key
 
   editorPush(e) {
+    this.editor = e.target;
     let textsize = e.target.value.length;
     let input_index = e.target.selectionStart;
     let key = e.target.value.substring(input_index - 1, input_index);
@@ -208,6 +211,12 @@ export default class Popup extends React.Component {
   }
 
   receive(message) {
+    if (message.type != "error" && message.type != "allKey" && message.name != this.state.name) {
+      this.wait();
+    } 
+
+
+
     this.setState({
       version: message.version
     })
@@ -216,9 +225,11 @@ export default class Popup extends React.Component {
     }
     if (message.name == this.state.name && message.type == "reClick") {
       this.setState({
-        version:message.version
+        version: message.version
       })
     }
+
+
     if (message.type == "allKey" && message.name == this.state.name) {
       // console.log(message);
       this.setState({
@@ -226,17 +237,32 @@ export default class Popup extends React.Component {
         textSize: message.key.split('').length,
         version: message.version
       })
+
+      return;
     }
-    else if (message.type == "error" && message.name == this.state.name) {
+    else if (message.type == "error") {
       this.setState({
         value: message.key,
         textSize: message.key.split('').length,
         version: message.version
       })
+      // if(this.state.name == message.name){
+      //   this.inputposition = this.inputposition - message.size;
+      // }else{
+      //   this.inputposition = this.inputposition + message.size;
+      // }
+      // console.log(this.inputposition);
+      this.wait();
+      
       return;
     } else if (message.name == this.state.name) {
+      this.inputposition = message.inputIndex;
       return;
-    } else if (message.type == "basic") {
+    }
+    else if (message.type == "basic") {
+      if (message.inputIndex != 0 && message.inputIndex < this.inputposition) {
+        this.inputposition = this.inputposition + 1;
+      }
       this.keyInput(message.inputIndex, message.key);
     } else if (message.type == "korean") {
       this.koreanInput(message.inputIndex, message.key);
@@ -252,6 +278,15 @@ export default class Popup extends React.Component {
       this.receiveBevent2(message.inputIndex, message.size);
     }
   }
+  wait() {
+    this.editor.disabled = true;
+    setTimeout(() => {
+      this.editor.disabled = false;
+      this.editor.setSelectionRange(this.inputposition, this.inputposition);
+      this.editor.focus();
+    }, 500);
+
+  }
   memoSave() {
     console.log(this.props);
     this.send(0, 0, this.state.color, 0, "save");
@@ -263,23 +298,23 @@ export default class Popup extends React.Component {
   }
   editorStart(e) {
     if (this.temp == null) {
-      this.send(0, 0, this.props.content, 0, "allKey");
+      this.send(e.target.selectionStart, 0, this.props.content, 0, "allKey");
       this.temp = this.props.content.split('').length;
-    }else{
-      this.send(0,0,'',0,"reClick");
+    } else {
+      this.send(e.target.selectionStart, 0, '', 0, "reClick");
     }
   }
   render() {
     return (
       <Fragment>
-        <div className={popup.popup} onClick={(e) => {this.props.memoClose}}>
+        <div className={popup.popup} onClick={(e) => { this.props.memoClose }}>
           <SockJsClient
             url='./api/memo'
             topics={[`/api/memo/${this.props.no}`]}
             onMessage={this.receive.bind(this)}
             ref={(client) => { this.clientRef = client }} />
-          <div className={popup.inner} style={{backgroundColor :`${this.props.color}`}} onClick={e => e.stopPropagation()}>
-            <div className={styles.editor} style={{backgroundColor :`${this.props.color}`}}>
+          <div className={popup.inner} style={{ backgroundColor: `${this.props.color}` }} onClick={e => e.stopPropagation()}>
+            <div className={styles.editor} style={{ backgroundColor: `${this.props.color}` }}>
               <div className={styles.btn}>
                 <button className={styles.button} onClick={this.hevent.bind(this, 1)}>H1</button>
                 <button className={styles.button} onClick={this.hevent.bind(this, 2)}>H2</button>
@@ -290,24 +325,25 @@ export default class Popup extends React.Component {
               </div>
               {(this.state.markOpen) ? (
                 <div
-                  style={{backgroundColor :`${this.props.color}`}}
+                  style={{ backgroundColor: `${this.props.color}` }}
                   className={styles.markDownView}
                   dangerouslySetInnerHTML={this.getReMarkDown()}></div>
               )
                 : (
                   <Fragment>
                     <textarea
-                      style={{backgroundColor :`${this.props.color}`}}
+                      style={{ backgroundColor: `${this.props.color}` }}
                       wrap="hard"
                       rows="2"
                       cols="20"
                       className={styles.edit}
+                      ref={e => this.editor = e}
                       onClick={this.editorStart.bind(this)}
                       onBlur={this.cursorEvent.bind(this)}
                       onChange={this.editorPush.bind(this)}
                       value={this.state.value}></textarea>
                     <div className={styles.toolbar}>
-                    <EditorToolbar 
+                      <EditorToolbar
                         memo_no={this.props.no}
                         memo_gNo={this.props.gNo}
                         no={this.props.no}
@@ -323,7 +359,7 @@ export default class Popup extends React.Component {
                         clientRef={this.props.clientRef}
                         users={this.props.users}
                         setStyle={this.props.setStyle}
-                        />
+                      />
 
                     </div>
                   </Fragment>

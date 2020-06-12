@@ -16,7 +16,8 @@ export default class Contents extends React.Component {
         <div className={styles.box}>
           <div className={styles.contentsMemo}>
             <ContentsHeader
-             notify={this.props.notify}
+              getGroupInUser={this.props.getGroupInUser}
+              notify={this.props.notify}
               SidebarGroupUpdate={this.props.SidebarGroupUpdate}
               groupBySidebar={this.props.groupBySidebar}
               group={this.props.group}
@@ -43,6 +44,7 @@ export default class Contents extends React.Component {
               :null}
           </div>
           {this.props.showChat ? (
+          // {true? (
             <Chat group={this.props.group} users={this.props.users} clientRef={this.props.clientRef} alarm={this.props.alarm} />
           ) : null}
           {this.props.showAlarm ?(

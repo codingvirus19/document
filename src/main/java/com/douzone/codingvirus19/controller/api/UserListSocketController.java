@@ -31,7 +31,9 @@ public class UserListSocketController {
 	public void userSessionList(@DestinationVariable Long groupno, Long no) throws Exception {
 		String id = userService.getUser(no);
 		userGroup.put(id, groupno);
+
 		webSocket.convertAndSend("/api/userlist/" + groupno, userlist);
+
 	}
 
 	// --------------------------------------------------------접속한 유저 Session 가져오기
