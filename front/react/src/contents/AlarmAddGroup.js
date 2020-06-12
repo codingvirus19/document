@@ -23,12 +23,10 @@ export default class AlarmAddGroup extends React.Component {
             headers: API_HEADERS,
             body: JSON.stringify(data),
         })
-        console.log(this.state.addGroupAlarm.group_no);
-        console.log(this.state.addGroupAlarm.group_name)
-        this.props.SidebarGroupUpdate(this.state.addGroupAlarm.group_no,
-                                      this.state.addGroupAlarm.group_name );
-        this.props.AlarmAddGroup();
-        this.props.joinCancel(null);
+        .then(()=> this.props.AlarmAddGroup())
+        .then(()=> this.props.SidebarGroupUpdate(this.state.addGroupAlarm.group_no,
+                   this.state.addGroupAlarm.group_name ))
+        this.joinCancelGroup();
     }
     joinCancelGroup(){
         this.props.joinCancel(null);

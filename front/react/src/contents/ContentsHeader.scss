@@ -1,5 +1,5 @@
 $iconcolor: #3a3b45;
-$hover_bgcolor:#3a3b4521;
+$hover_bgcolor:rgba(0,0,0,0.08);
 $hover_iconcolor: #000000;
 
 .header {
@@ -38,6 +38,10 @@ $hover_iconcolor: #000000;
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
+  transition: transform 0.3s linear;
+  &:hover, &:active {
+    color: $hover_iconcolor;
+  }
 }
 
 .groupOut{

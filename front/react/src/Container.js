@@ -263,6 +263,10 @@ export default class Container extends React.Component {
     this.bringMemoByGroup(no);
     this.getHashListByGroup(no);
 
+    this.setState({
+      addgroup_alarm: null
+    })
+    
     if (no != null) {
       console.log(no)
       this.getGroupInUser(no);
@@ -382,14 +386,14 @@ export default class Container extends React.Component {
 
   }
   // 접속한 유저 리스트
-  GroupInUserList(getSession) {
+  GroupInUserList(getSession) { 
     this.setState({
       groupInUserList: getSession
     })
   }
 
   alarmReceive(alarm_msg) {
-    this.state.addgroup_alarm = null
+    this.state.addgroup_alarm = null;
     console.log(alarm_msg);
     if (alarm_msg.addgroup == true && alarm_msg.type == true && alarm_msg.readCheck == true) { //그룹초대  
       console.log("그룹추가에 온거 맞지?");
@@ -407,6 +411,7 @@ export default class Container extends React.Component {
       })
     }
     if (alarm_msg.basic != null) { //기본
+      this.bringMemoByGroup(this.state.groupBySidebar.no);
       this.setState({
         alarm: {
           basic: alarm_msg.basic,
@@ -506,7 +511,8 @@ export default class Container extends React.Component {
             onCallbackKeywordChange={this.onCallbackKeywordChange.bind(this)}
           />
           <Contents
-          notify={this.notify.bind(this)}
+            getGroupInUser ={this.getGroupInUser.bind(this)}
+            notify={this.notify.bind(this)}
             memo_noSelectedByHash={this.state.memo_noSelectedByHash}
             getGroup={this.getGroup.bind(this)}
             SidebarGroupUpdate={this.SidebarGroupUpdate.bind(this)}

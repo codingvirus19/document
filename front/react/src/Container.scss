@@ -3,6 +3,7 @@ $bgcolor: #ffffff;
 * {
   margin: 0;
   padding: 0;
+  font-family: 'Google Sans',Roboto,Arial,sans-serif;
 }
 
 html,
@@ -25,7 +26,8 @@ body {
   content: attr(aria-label);
   display: none;
   position: absolute;
-  z-index: 10000;
+  z-index: 99;
+  border-radius: 0.3rem;
   background-color: hsla(64, 73%, 39%, 0.725);
   box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.2);
 }
