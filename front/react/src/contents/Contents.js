@@ -44,8 +44,8 @@ export default class Contents extends React.Component {
               :null}
            </div>
 
-          {/* {this.props.showChat ? ( */}
-            {true ? (
+          {this.props.showChat ? (
+            // {true ? (
             <Chat 
             chatListGroup={this.props.chatListGroup} 
             users={this.props.users} 
