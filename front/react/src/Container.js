@@ -51,7 +51,7 @@ export default class Container extends React.Component {
 
     this.getGroup();
     // 로그인한 user를 가져오는 코드
-    let users = { no: [], name: [] };
+    let users = { no: [], name: [] ,id: []};
     // call api
     fetch(`${API_URL}/api/getUserSession`, {
       method: "post",
@@ -61,6 +61,7 @@ export default class Container extends React.Component {
       .then((json) => {
         users.no.push(json.data.no);
         users.name.push(json.data.name);
+        users.id.push(json.data.username);
         this.UpdateUser(users);
       })
       .catch((err) => console.error(err));

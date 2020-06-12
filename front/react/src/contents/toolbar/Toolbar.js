@@ -18,10 +18,13 @@ export default class Toolbar extends React.PureComponent {
     };
   }
 
+  hoverMemo (chack){
+
+  }
+
   render() {
     return (
-      <div className={styles.toolbar}>
-        {this.props.hoverMemo ? (
+      <div className={styles.toolbar} >
           <>
           {/* 그룹공유 */}
             <GroupShare
@@ -92,7 +95,7 @@ export default class Toolbar extends React.PureComponent {
               setStyle={this.props.setStyle}
             />
           </>
-         ) : null}
+        
       </div>
     );
   }
