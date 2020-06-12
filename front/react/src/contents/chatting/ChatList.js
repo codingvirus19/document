@@ -54,10 +54,10 @@ export default class Contents extends React.Component {
           ) : (
               <>
                 <div className={styles.chat_title}>채팅</div>
-                {this.props.group.gname.map((gname, index) => {
+                {this.props.chatListGroup.gname.map((gname, index) => {
                   //그룹별 멤버 
                   let gmember = this.props.userListInGroupByUser
-                    .filter(element => element.gNo === this.props.group.no[index]);
+                    .filter(element => element.gNo === this.props.chatListGroup.no[index]);
                   return (
                     <Fragment key={index}>
                       <div
