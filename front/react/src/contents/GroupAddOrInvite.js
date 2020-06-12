@@ -60,7 +60,13 @@ export default class GroupAddOrInvite extends React.Component {
     handleOnChange(event) {
         // 그룹 추가
         if (event.__isNew__) {
+            //그룹 10개 이하  생성 가능
+            if(this.props.groups.length < 10) {
             this.addGroup(event)
+            }
+            else {
+                this.notify("그룹생성 실패! 그룹은 최대 10개까지 생성 가능 합니다.")
+            }
         }
         else {
             ////////////////일단 그룹 클릭시 가져오는 no 부분
@@ -105,6 +111,7 @@ export default class GroupAddOrInvite extends React.Component {
                 this.getUserListNotInGroup(group.no[0])
                 //그룹에 있는 사용자 가져오는 함수
                 this.getUserListByGroup(group.no[0])
+                this.notify(`${group.gname[0]} 그룹이 생성되었습니다.`)
                 return;
             })
             .catch((err) => console.error(err));
@@ -186,7 +193,7 @@ export default class GroupAddOrInvite extends React.Component {
         if (this.state.selectGroupNo == null) {
             this.groupfocus.current.focus(true);
         }
-        //그룹내 존재하는 사용자 4명 넘으면 추가 X
+        //그룹내 존재하는 사용자 4명 넘으면 사용자 추가 X
         else if (event.length >= 4) {
             this.setState({ userfocus: false })
         }

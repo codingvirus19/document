@@ -39,14 +39,16 @@ export default class Modal extends React.Component {
               console.log(json.data)
               let getTrue = json.data;
               if (getTrue != false) {
-                console.log("그룹 삭제 정상작동")
+                // console.log("그룹 삭제 정상작동")
+                this.props.notify(`${this.props.groupBySidebar.name} 그룹이 삭제되었습니다.`)
                 this.props.SidebarGroupUpdate(null, null);
                 this.props.getGroup();
               }
             })
             .catch((err) => console.error(err));
         }else{
-          console.log("개인은 그룹나가기하면 안됩니다!")
+          // console.log("개인은 그룹나가기하면 안됩니다!")
+          this.props.notify("개인은 그룹나가기를 할 수 없습니다.")
         }
       }
 
@@ -72,14 +74,16 @@ export default class Modal extends React.Component {
               console.log(json.data)
               let getTrue = json.data;
               if (getTrue != false) {
-                console.log("그룹나가기 정상작동")
+                // console.log("그룹나가기 정상작동")
+                this.props.notify(`${this.props.groupBySidebar.name} 그룹에 나가셨습니다.`)
                 this.props.SidebarGroupUpdate(null, null);
                 this.props.getGroup();
               }
             })
             .catch((err) => console.error(err));
         }else{
-          console.log("개인은 그룹나가기하면 안됩니다!")
+          // console.log("개인은 그룹나가기하면 안됩니다!")
+          this.props.notify("개인은 그룹나가기를 할 수 없습니다.")
         }
       }
     
