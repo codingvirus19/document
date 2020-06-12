@@ -12,18 +12,20 @@ export default class Contents extends React.Component {
     };
   }
   open(e) {
-    this.props.clientRef.sendMessage(
-      "/app/alarm/" + this.props.users.no[0],
-      JSON.stringify({
-        gNo: this.props.group.no[e.target.id],
-        type: false,
-        readCheck: false,
-      })
-    );
+    if (this.props.chatListGroup.readcheck[e.target.id] == true) {
+      this.props.clientRef.sendMessage(
+        "/app/alarm/" + this.props.users.no[0],
+        JSON.stringify({
+          gNo: this.props.chatListGroup.no[e.target.id],
+          type: false,
+          readCheck: false,
+        })
+      );
+    }
     this.setState({
       chatOpen: !this.state.chatOpen,
-      gNo: this.props.group.no[e.target.id],
-      gName: this.props.group.gname[e.target.id],
+      gNo: this.props.chatListGroup.no[e.target.id],
+      gName: this.props.chatListGroup.gname[e.target.id],
     });
   }
   close() {
@@ -32,19 +34,9 @@ export default class Contents extends React.Component {
     });
   }
 
-  groupByalarm(gNo) {
-    if (this.props.alarm.g_no == gNo) {
-      if (this.props.alarm.chatting == true) {
-        return (<span className={alarm_styles.alarmbell} />);
-      }
-    }
-    return (null);
-  }
-
   render() {
-    if(this.props.users === undefined) {
-      return null;
-    }
+    console.log("---->" + this.props.chatListGroup.no[0]);
+    console.log(this.props.chatListGroup);
     return (
       <Fragment>
         <div className={styles.ChatBox}>
@@ -57,23 +49,20 @@ export default class Contents extends React.Component {
               clientRef={this.props.clientRef}
             />
           ) : (
-              <>
-                <div className={styles.chat_title}>채팅</div>
-                {this.props.group.gname.map((gname, index) => {
-                  return (
-                    <Fragment key={index}>
-                      <div
-                        className={styles.chatList}
-                        id={index}
-                        onClick={this.open.bind(this)} >
-                        {gname}
-                        {this.props.users.name}
-                        {this.groupByalarm.call(this, this.props.group.no[index])}
-                      </div>
-                    </Fragment>
-                  );
-                })}
-              </>
+              this.props.chatListGroup.gname.map((gname, index) => {
+                return (
+                  <Fragment key={index}>
+                    <div
+                      className={styles.chatList}
+                      id={index}
+                      onClick={this.open.bind(this)} >
+                      {gname}
+                      {this.props.chatListGroup.readcheck[index] == true ?
+                        <span className={alarm_styles.alarmbell} /> : null}
+                    </div>
+                  </Fragment>
+                );
+              })
             )}
         </div>
       </Fragment>

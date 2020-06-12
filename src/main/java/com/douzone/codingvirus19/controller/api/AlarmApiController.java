@@ -29,25 +29,27 @@ public class AlarmApiController {
 		AlarmVo vo = new AlarmVo();
 		vo.setuNo(securityUser.getNo());
 		List<AlarmVo> alarmReadCheck = alarmService.getAlarmReadList(vo);
-		Map<String, Boolean> alarmlist = new HashMap<>();
-		alarmlist.put("basic",false);
-		alarmlist.put("chatting",false);
+
+		Map<String, Long> alarmlist = new HashMap<>();
+		alarmlist.put("basic",(long) 0);
+		alarmlist.put("chatting",(long) 0);
 		//기본값 셋팅
 		if(alarmReadCheck.size() == 0) {
 			return JsonResult.success(alarmlist);
 		}
 		for(int i=0; i<alarmReadCheck.size(); i++) {
 			if(alarmReadCheck.get(i).isType()) {
-				alarmlist.put("basic",alarmReadCheck.get(i).isReadCheck());
+				alarmlist.put("basic",(long) 1);
 				//기본 알람
 			}else {
-				alarmlist.put("chatting",alarmReadCheck.get(i).isReadCheck());
+				alarmlist.put("chatting",(long) 1);
 				//채팅알람	
 			}
 		}
+		System.out.println(alarmlist);
 		return JsonResult.success(alarmlist);
 	}
-	
+
 	@PostMapping("/alarmList")
 	public JsonResult getAlarmList(@AuthUser SecurityUser securityUser) {
 		AlarmVo vo = new AlarmVo();
