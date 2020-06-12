@@ -69,6 +69,7 @@ export default class Contents extends React.Component {
               className={styles.container_memo_form}
             >
               <Memo
+                groupInUserList={this.props.groupInUserList}
                 memo_gNo={this.props.memo_bigArr[index].gNo}
                 distinctGroup_hash={this.props.distinctGroup_hash}
                 SidebarGroupUpdate={this.props.SidebarGroupUpdate}

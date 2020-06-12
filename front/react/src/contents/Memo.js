@@ -46,6 +46,7 @@ export default class Memo extends React.Component {
         {this.state.showPopup ? (
 
           <ShareEditor
+            groupInUserList={this.props.groupInUserList}
             users={this.props.users}
             bringMemoByGroup={this.props.bringMemoByGroup}
             no={this.props.no}
