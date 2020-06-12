@@ -94,4 +94,17 @@
 		</foreach>
 	</select>
 	
+	<select id="getUserListInGroupByUser" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select a.no as gNo, c.no as no, c.nickname as nickname, c.image as image
+			  from (select g.no as no, g.name
+					  from groups g, groupuser gu, user u
+					 where g.no = gu.g_no
+					   and gu.u_no = u.no
+					   and u.no = #{no}) a, groupuser b, user c
+			 where a.no = b.g_no
+			   and b.u_no = c.no;
+ 		]]>
+	</select>
+	
 </mapper>
