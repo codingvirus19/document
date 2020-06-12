@@ -12,6 +12,7 @@ export default class Contents extends React.Component {
       memo_hash: [{ no: "", name: "", memo_no: "" }],
       color: "#ffffff",
       memo_bigArr: this.props.memo_bigArr,
+      hoverMemo: false,
       showPopup: false,
     };
   }
@@ -43,9 +44,9 @@ export default class Contents extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
   }
-//////////////////////////////////////////////////////////////////
+
 onClickHere(e){
   // e.preventDefault();
   console.log("test");
@@ -57,7 +58,6 @@ togglePopup() {
   });
 }
 
-//////////////////////////////////////////////////////////////////
   render() {
     if (this.props.memo_bigArr.length === 0) {
       return (
@@ -88,7 +88,6 @@ togglePopup() {
       )
     }
     return (
-      // memo_hash: 해당 메모의 해시들
       <div className={styles.memo} >
         {this.props.memo_bigArr &&
           this.props.memo_bigArr.map((memos, index) => (
@@ -100,6 +99,8 @@ togglePopup() {
               onDragStart={this.DragStart.bind(this)}
               onDragEnd={this.DragEnd.bind(this)}
               onDragOver={this.DragOver.bind(this)}
+              onMouseLeave={() => this.setState({ hoverMemo: false, index: index })}
+              onMouseEnter={() => this.setState({ hoverMemo: true, index: index })}
               className={styles.container_memo_form}
             >
               <Memo
@@ -130,6 +131,8 @@ togglePopup() {
                 groupBySidebar={this.props.groupBySidebar}
               />
               <Toolbar
+                // 메모 호버시 툴바 보여줌
+                hoverMemo={this.state.hoverMemo}
                 notify={this.props.notify}
                 // SaveLocal에서 저장시킬 contents값
                 content={this.props.memo_bigArr[index].content}
@@ -154,4 +157,4 @@ togglePopup() {
       </div>
     );
   }
-}//
+}
