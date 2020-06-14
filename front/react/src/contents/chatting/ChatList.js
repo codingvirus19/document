@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import styles from "./ChatList.css";
-import alarm_styles from "../../header/Header.css";
 import ChatRoom from "./ChatRoom";
 
 export default class Contents extends React.Component {
@@ -87,7 +86,7 @@ export default class Contents extends React.Component {
                           {gmember.map(element => element.nickname + ", ")}
                         </div>
                         {this.props.chatListGroup.readcheck[index] == true ?
-                          <span className={alarm_styles.alarmbell} /> : null}
+                          <span className={styles.chatalarmbell}>{this.props.chatListGroup.readcount[index]}</span>  : null}
                       </div>
                     </Fragment>
                   );

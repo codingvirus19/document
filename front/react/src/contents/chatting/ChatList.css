@@ -84,3 +84,14 @@
     white-space: nowrap;
     background-color: rgb(0, 255, 34);
 }
+
+.chatalarmbell{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 10px;
+    background-color: red;
+    text-align: center;
+    font-size: 13px;
+    color: #fff;
+}
