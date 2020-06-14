@@ -9,9 +9,10 @@ public class UserVo {
 	private String nickname;
 	private String image;
 	private String role;
-	private String name;
+	private String name;	//이건 뭐지..?
 	private Long authNo;
-	
+	private Long gNo;
+
 	public UserVo() {
 		
 	}
@@ -72,9 +73,18 @@ public class UserVo {
 	public void setAuthNo(Long authNo) {
 		this.authNo = authNo;
 	}
+	
+	public Long getgNo() {
+		return gNo;
+	}
+
+	public void setgNo(Long gNo) {
+		this.gNo = gNo;
+	}
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", id=" + id + ", email=" + email + ", password=" + password + ", nickname="
-				+ nickname + ", image=" + image + ", role=" + role + ", name=" + name + ", authNo=" + authNo + "]";
+				+ nickname + ", image=" + image + ", role=" + role + ", name=" + name + ", authNo=" + authNo + ", gNo="
+				+ gNo + "]";
 	}
 }

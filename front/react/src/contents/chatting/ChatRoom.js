@@ -44,6 +44,7 @@ export default class Chat extends React.Component {
   }
 
   sendMessage(mg) {
+    console.log(this.props.gNo)
     
     let dates = new Date();
     let DateSend = (dates.getFullYear() + "-" +

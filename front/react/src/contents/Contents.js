@@ -9,8 +9,6 @@ import styles from "./Contents.css";
 export default class Contents extends React.Component {
 
   render() {
-    // console.log(this.props.showAlarm);
-    // console.log(this.state.addgroup_alarm);
     return (
       <div className={styles.contents}>
         <div className={styles.box}>
@@ -44,13 +42,27 @@ export default class Contents extends React.Component {
               distinctGroup_hash={this.props.distinctGroup_hash}
             />
               :null}
-          </div>
+           </div>
+
           {this.props.showChat ? (
-            <Chat chatListGroup={this.props.chatListGroup} users={this.props.users} clientRef={this.props.clientRef} />
+            // {true ? (
+            <Chat 
+            chatListGroup={this.props.chatListGroup} 
+            users={this.props.users} 
+            clientRef={this.props.clientRef} 
+            //group 지워짐 필터 다시 하자
+            userListInGroupByUser={this.props.userListInGroupByUser}
+            />
           ) : null}
+
           {this.props.showAlarm ?(
-           <Alarm users={this.props.users} addgroup_alarm={this.props.addgroup_alarm} SidebarGroupUpdate={this.props.SidebarGroupUpdate} AlarmAddGroup={this.props.AlarmAddGroup} />
-           ) : null}
+           <Alarm 
+            users={this.props.users} 
+            addgroup_alarm={this.props.addgroup_alarm} 
+            SidebarGroupUpdate={this.props.SidebarGroupUpdate} 
+            AlarmAddGroup={this.props.AlarmAddGroup} />
+
+          ) : null}
         </div>
         {/* <Footer /> */}
       </div>
