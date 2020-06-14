@@ -2,12 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="alarm">
 
-	<insert id="addAlarm" parameterType="alarmVo" useGeneratedKeys="true">
+	<insert id="addAlarm" parameterType="alarmVo"
+		useGeneratedKeys="true">
 	 	<![CDATA[
 			insert into alarm values(null, #{gNo}, #{chat}, now(), #{type})
 		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
-			select last_insert_id()
+			select
+			last_insert_id()
 		</selectKey>
 	</insert>
 
@@ -41,16 +43,16 @@
             order by b.no
  		]]>
 	</select>
-	
-	<update id="readCheckUpdate" parameterType="alarmvo" >
+
+	<update id="readCheckUpdate" parameterType="alarmvo">
 		<![CDATA[
 		 update accptalarm 
                set read_check = false
 			 where u_no = #{uNo}
  		]]>
 	</update>
-	
-	<update id="chatReadCheckUpdate" parameterType="alarmvo" >
+
+	<update id="chatReadCheckUpdate" parameterType="alarmvo">
 		<![CDATA[
 		update accptalarm a inner join alarm b
                  on a.noti_no = b.no
@@ -58,12 +60,21 @@
 			  where a.u_no = #{uNo} and b.g_no = #{gNo};
  		]]>
 	</update>
-	
+
 	<select id="getAlarmContents" parameterType="alarmvo"
 		resultType="alarmvo">
 		<![CDATA[
 		 select b.massage as chat,
-                b.date as date
+                date_format(b.date, '%m월 %d일 %H:%i') as date,
+                case dayofweek(b.date)
+				when '1' then '일요일'
+				when '2' then '월요일'
+				when '3' then '화요일'
+				when '4' then '수요일'
+				when '5' then '목요일'
+				when '6' then '금요일'
+				when '7' then '토요일'
+				end as week
            from accptalarm a, (select no, g_no, massage, date, type from alarm) b
 		  where a.noti_no = b.no
             and u_no= #{uNo}
@@ -72,6 +83,6 @@
             limit 10;
  		]]>
 	</select>
-	
+
 </mapper>
 	
