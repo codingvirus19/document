@@ -41,8 +41,6 @@ export default class ContentsMemoList extends React.Component {
     });
   }
 
-
-
   render() {
     return (
             <div
