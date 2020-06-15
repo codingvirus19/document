@@ -121,6 +121,7 @@ export default class ContentsMemoList extends React.Component {
               users={this.props.users}
               group_hash={this.props.group_hash}
               distinctGroup_hash={this.props.distinctGroup_hash}
+              groupInUserList={this.props.groupInUserList}
 
             />
           ))}
