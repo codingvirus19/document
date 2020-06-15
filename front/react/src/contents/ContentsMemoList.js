@@ -61,12 +61,29 @@ export default class ContentsMemoList extends React.Component {
       showPopup: !this.state.showPopup,
     });
   }
-
-
-  hoverMemo(e, chack) {
-
+  
+  DragStart(e) {
+    this.dragStart = e.currentTarget;
+    this.cpdragStart = this.dragStart.cloneNode(true);
+    e.dataTransfer.effectAllowed = "move";
+    e.target.style.opacity = 0.1;
+    e.dataTransfer.setData("text/html", this.cpdragStart);
   }
-
+  DragEnd(e) {
+    this.dragStart.style.opacity = 1;
+    if (this.dragOver == undefined) {
+      return;
+    }
+  }
+  DragOver(e) {
+    e.preventDefault();
+    if (e.currentTarget.className != `${styles.container_memo_form}`) return;
+    if (e.currentTarget.dataset.id == this.dragStart.dataset.id) return;
+    this.dragOver = e.currentTarget;
+    let from = Number(this.dragStart.dataset.id);
+    let to = Number(this.dragOver.dataset.id);
+    this.props.memo_Change(from, to);
+  }
   render() {
     if (this.props.memo_bigArr.length === 0) {
       return (
@@ -108,7 +125,10 @@ export default class ContentsMemoList extends React.Component {
               memo_hash={this.props.group_hash.filter((element) =>
                 element.memo_no === this.props.memo_bigArr[index].no)}
               index={index}
-
+              DragOver={this.DragOver.bind(this)}
+              DragStart={this.DragStart.bind(this)}
+              DragEnd={this.DragEnd.bind(this)}
+              key={this.props.memo_bigArr[index].no}
               notify={this.props.notify}
               bringMemoByGroup={this.props.bringMemoByGroup}
               memo_Change={this.props.memo_Change}
@@ -122,7 +142,6 @@ export default class ContentsMemoList extends React.Component {
               group_hash={this.props.group_hash}
               distinctGroup_hash={this.props.distinctGroup_hash}
               groupInUserList={this.props.groupInUserList}
-              key={index}
 
             />
           ))}
