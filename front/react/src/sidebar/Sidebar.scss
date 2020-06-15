@@ -113,6 +113,21 @@
 
   }
   
+  .menu-setting--container{
+	  position: absolute;
+	  bottom: 20px;
+	  width: 63px;
+	  height: 52px;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  .container__setting{
+		font-size: 1.3rem;
+		color: white;
+		cursor: pointer;
+	  }
+  }
+  
   .menu {
 
 	ol {
@@ -148,6 +163,8 @@
 		content: "\f292";
 	  }
   
+	  
+	  
 	  @for $i from 1 through 5 {
 		&:nth-child(#{$i}) > a::before {
 		  font-family: "Font Awesome 5 Free";
