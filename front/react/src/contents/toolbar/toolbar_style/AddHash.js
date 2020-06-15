@@ -72,6 +72,7 @@ export default class AddHash extends React.PureComponent {
         </button>
         {this.state.showHashSheet ? (
           <HashSheet
+          notify={this.props.notify}
             users={this.props.users}
             clientRef={this.props.clientRef}
             refChange={this.toggleContainer2}
