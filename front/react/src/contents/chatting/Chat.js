@@ -18,7 +18,8 @@ export default class Chat extends React.Component {
               users={this.props.users}
               clientRef={this.props.clientRef}
               // alarm={this.props.alarm}
-              userListInGroupByUser={this.props.userListInGroupByUser}/>
+              userListInGroupByUser={this.props.userListInGroupByUser}
+              chatAlarmNotReceive={this.props.chatAlarmNotReceive}/>
             : <div></div>}
         </Fragment>
       );
