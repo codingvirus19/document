@@ -32,6 +32,9 @@ export default class Sidebar extends React.Component {
     //   this.props.clientRef.sendMessage(`/app/userlist/connect/${g_no}`, this.props.users.no[0]);
     // }
     this.update(g_no, g_name);
+    this.setState({
+      clickGroup:false,
+    })
   }
 
   update(g_no, g_name) {
@@ -45,17 +48,23 @@ export default class Sidebar extends React.Component {
 
   clickHash(hash) {
     this.props.SidebarHashUpdate(this.props.g_no, hash)
+    this.setState({
+      clickHash:false,
+    })
   }
   
   onOpenGroup(){
     this.setState({
       clickGroup: !this.state.clickGroup,
+      clickHash: false,
     })
   }
   
   onOpenHash(){
     this.setState({
       clickHash: !this.state.clickHash,
+      clickGroup: false,
+      
     })
     
   }
