@@ -16,9 +16,6 @@ export default class EditorToolbar extends React.Component {
             memo_gNo: this.props.memo_gNo,
         }
     }
-    change(){
-        this.props.clientRef.sendMessage();
-    }
 
     render() {
         return (
@@ -55,7 +52,9 @@ export default class EditorToolbar extends React.Component {
                         // 내가 클릭한 메모의 color를 가져온다.
                         no={this.props.memo_no}
                         // 내가 클릭한 메모의 color를 가져온다.
+                        users={this.props.users}
                         color={this.state.color}
+                        clientRef={this.props.clientRef}
                         // gName,gNo : 임의의 작동을 한 그룹의 no와 name으로 콜백이동하기위한 props
                         gName={this.props.groupBySidebar.name}
                         gNo={this.props.groupBySidebar.no}
@@ -68,6 +67,8 @@ export default class EditorToolbar extends React.Component {
                     <AddHash
                         // memo 색변경 시 toolbar의 버튼도 색변경을 도와주는 props
                         // setStyle={this.props.setStyle}
+                        users={this.props.users}
+                        clientRef={this.props.clientRef}
                         distinctGroup_hash={this.props.distinctGroup_hash}
                         className={styles.button}
                         buttonName={styles.group}
