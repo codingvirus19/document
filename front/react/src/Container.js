@@ -599,6 +599,8 @@ export default class Container extends React.Component {
           alarm={this.state.alarm}
           clientRef={this.clientRef}
           users={this.Users}
+          groupInUserList={this.state.groupInUserList}
+          
         />
         <div className="body">
           <Sidebar
