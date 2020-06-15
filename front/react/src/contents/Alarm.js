@@ -64,7 +64,6 @@ export default class Alarm extends React.Component {
     }
 
     render() {
-        console.log(this.state.alarmDatas);
         return (
             <div className={styles.alarm}>
                 <h5 className={styles.alarmHeader}>알람목록</h5>
