@@ -51,5 +51,9 @@ public class AlarmService {
 	public void alarmGroupJoin(GroupUserVo groupuserVo) {
 		alarmRepository.alarmGroupJoin(groupuserVo);
 	}
+
+	public void alarmDelete(AlarmVo vo) {
+		alarmRepository.alarmDelete(vo);
+	}
 	
 }

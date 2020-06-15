@@ -72,6 +72,8 @@ export default class AddHash extends React.PureComponent {
         </button>
         {this.state.showHashSheet ? (
           <HashSheet
+            users={this.props.users}
+            clientRef={this.props.clientRef}
             refChange={this.toggleContainer2}
             //react-select에 맞는 형식으로 변환
             memo_hash={this.props.memo_hash.map((element) => {
