@@ -26,7 +26,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
 		registry.enableSimpleBroker("/api");//sub용 sub topic/public
 		registry.setApplicationDestinationPrefixes("/app");
-		System.out.println("웹 소켓 메세지 보커 들어 왔습니다.");
         //메시지 보낼 url send /app/message
 		
 	}
@@ -34,7 +33,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		registry.addEndpoint("/api/memo","/api/chat", "api/alarm", "api/userlist").setAllowedOrigins("*").withSockJS();
-		System.out.println("웹 소켓 config 들어 왔습니다.");
         // URL//chatting  <-웹소켓 연결 주소
 	}
 }

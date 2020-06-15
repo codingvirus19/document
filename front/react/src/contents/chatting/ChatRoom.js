@@ -39,22 +39,24 @@ export default class Chat extends React.Component {
     this.setState({
       contents: this.state.contents.concat(msg),
     })
-
     // this.scrollToBottom();
   }
-
   sendMessage(mg) {
-    console.log(this.props.gNo)
-
     let dates = new Date();
     let DateSend;
-    if (dates.getMonth() + 1 < 10) {
+    if (dates.getMonth() + 1 < 10 && dates.getHours() > 10) {
       DateSend = (dates.getFullYear() + "-" +
         "0" + (dates.getMonth() + 1) + "-" +
         dates.getDate() + " " +
         dates.getHours() + "시 " +
         dates.getUTCMinutes() + "분 ");
-    } else {
+    } else if(dates.getMonth() + 1 < 10 && dates.getHours() < 10){
+      DateSend = (dates.getFullYear() + "-" +
+        "0" +(dates.getMonth() + 1) + "-" +
+        dates.getDate() + " " +
+        "0" +dates.getHours() + "시 " +
+        dates.getUTCMinutes() + "분 ");
+    }else{
       DateSend = (dates.getFullYear() + "-" +
         (dates.getMonth() + 1) + "-" +
         dates.getDate() + " " +

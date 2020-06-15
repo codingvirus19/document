@@ -12,9 +12,12 @@ export default class EditorToolbar extends React.Component {
     constructor() {
         super(...arguments);
         this.state = {
-            color: "white",
+            color: this.props.color,
             memo_gNo: this.props.memo_gNo,
         }
+    }
+    change(){
+        this.props.clientRef.sendMessage();
     }
 
     render() {

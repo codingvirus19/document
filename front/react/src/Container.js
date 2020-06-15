@@ -25,14 +25,15 @@ export default class Container extends React.Component {
       showAlarm: false,
       clientRef: "",
       alarm: { basic: "", chatting: "" },
-      addgroup_alarm: { message: "", date: "", group_no: "", group_name: "", week:"" },
+      addgroup_alarm: { message: "", date: "", group_no: "", group_name: "", week: "" },
       groupInUserList: [{ user_no: "", id: "", nickname: "", img: "", auth_no: "" }],
       keyword: "",
       getProfileValue: null,
       userListInGroupByUser: null,
+      chatalarm_gNo: null
     };
     this.tempGno = null;
-    this.userlistSession =[];
+    this.userlistSession = [];
   }
 
   // search 검색 콜백함수
@@ -52,7 +53,7 @@ export default class Container extends React.Component {
     this.getGroup();
 
     // 로그인한 user를 가져오는 코드
-    let users = { no: [], name: [] ,id: []};
+    let users = { no: [], name: [], id: [] };
     // call api
     fetch(`${API_URL}/api/getUserSession`, {
       method: "post",
@@ -65,7 +66,7 @@ export default class Container extends React.Component {
         users.id.push(json.data.username);
         this.UpdateUser(users);
         //사용자가 있는 그룹들에 있는 사용자들 가져오는 함수
-    this.getUserListInGroupByUser(json.data.no)
+        this.getUserListInGroupByUser(json.data.no)
       })
       .catch((err) => console.error(err));
 
@@ -91,27 +92,27 @@ export default class Container extends React.Component {
 
   }
 
-    //사용자가 있는 그룹들에 있는 사용자들 가져오는 함수
-    getUserListInGroupByUser(no) {
-      let data = { no: no };
-      fetch(`${API_URL}/api/getUserListInGroupByUser`, {
-        method: "post",
-        headers: API_HEADERS,
-        body: JSON.stringify(data),
+  //사용자가 있는 그룹들에 있는 사용자들 가져오는 함수
+  getUserListInGroupByUser(no) {
+    let data = { no: no };
+    fetch(`${API_URL}/api/getUserListInGroupByUser`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        let userListInGroupByUser = json.data.map(element => {
+          return {
+            gNo: element.gNo,
+            nickname: element.nickname,
+            image: element.image
+          };
+        });
+        this.UpdateUserListInGroupByUser(userListInGroupByUser);
       })
-        .then((response) => response.json())
-        .then((json) => {
-          let userListInGroupByUser = json.data.map(element => {
-            return {
-              gNo: element.gNo,
-              nickname: element.nickname,
-              image: element.image
-            };
-          });
-          this.UpdateUserListInGroupByUser(userListInGroupByUser);
-        })
-        .catch((err) => console.error(err));
-    }
+      .catch((err) => console.error(err));
+  }
 
   getProfileAjax() {
     fetch(`${API_URL}/api/profile`, {
@@ -257,7 +258,7 @@ export default class Container extends React.Component {
       group: group,
     });
   }
-  UpdateChatList(group){
+  UpdateChatList(group) {
     this.setState({
       chatListGroup: group
     })
@@ -266,11 +267,11 @@ export default class Container extends React.Component {
   UpdateUser(users) {
     this.Users = users;
 
-    this.getChatListGroup();  
+    this.getChatListGroup();
   }
 
-  getChatListGroup(){
-    let group = { no: [], gname: [], readcheck: [], readcount:[] };
+  getChatListGroup() {
+    let group = { no: [], gname: [], readcheck: [], readcount: [] };
     let chatgroupDatas = null;
     // call api
     fetch(`${API_URL}/api/chatlistgroup`, {
@@ -290,8 +291,8 @@ export default class Container extends React.Component {
         this.UpdateChatList(group);
       })
       .catch((err) => console.error(err));
-      //----------------------------------------채팅 관련 그룹 가져오기
-    }
+    //----------------------------------------채팅 관련 그룹 가져오기
+  }
 
   UpdateAlarm(alarmDatas) {
     console.log(alarmDatas.gNo)
@@ -443,7 +444,6 @@ export default class Container extends React.Component {
       headers: API_HEADERS,
       body: JSON.stringify(memo_change),
     })
-
   }
 
   // GroupConnect(gNo, msg) {
@@ -473,18 +473,21 @@ export default class Container extends React.Component {
           this.clientRef.sendMessage(`/app/userlist/disconnect/${this.tempGno}`, this.Users.no[0]);
           this.clientRef.sendMessage(`/app/userlist/connect/${gNo}`, this.Users.no[0]);
           this.tempGno = gNo;
-        }else{
+        } else {
           this.clientRef.sendMessage(`/app/userlist/connect/${gNo}`, this.Users.no[0]);
           this.tempGno = gNo;
         }
       }
     }
-
-
+  }
+  chatAlarmNotReceive(data) {
+    this.setState({
+      chatalarm_gNo: data
+    })
   }
 
   alarmReceive(alarm_msg) {
-    if(alarm_msg.addgroup == null){
+    if (alarm_msg.addgroup == null) {
       this.getGroupInUser(this.state.groupBySidebar.no);
       this.userlistSession = alarm_msg;
     }
@@ -512,14 +515,17 @@ export default class Container extends React.Component {
           chatting: this.state.alarm.chatting
         }
       })
-    } else if (alarm_msg.chatting != null) {//채팅
-      this.getChatListGroup();
-      this.setState({
-        alarm: {
-          chatting: alarm_msg.chatting,
-          basic: this.state.alarm.basic
-        }
-      })
+    }
+    if (this.state.chatalarm_gNo != alarm_msg.gNo) {
+      if (alarm_msg.chatting != null) {//채팅
+        this.getChatListGroup();
+        this.setState({
+          alarm: {
+            chatting: alarm_msg.chatting,
+            basic: this.state.alarm.basic
+          }
+        })
+      }
     }
     if (alarm_msg.type == true && alarm_msg.readCheck == false) {
       this.setState({
@@ -529,7 +535,7 @@ export default class Container extends React.Component {
         }
       })
     } else if (alarm_msg.type == false && alarm_msg.readCheck == false) {
-      this.getChatListGroup();  
+      this.getChatListGroup();
       this.setState({
         alarm: {
           basic: this.state.alarm.basic,
@@ -593,6 +599,8 @@ export default class Container extends React.Component {
           alarm={this.state.alarm}
           clientRef={this.clientRef}
           users={this.Users}
+          groupInUserList={this.state.groupInUserList}
+          
         />
         <div className="body">
           <Sidebar
@@ -630,6 +638,7 @@ export default class Container extends React.Component {
             groupInUserList={this.state.groupInUserList}
             chatListGroup={this.state.chatListGroup}
             userListInGroupByUser={this.state.userListInGroupByUser}
+            chatAlarmNotReceive={this.chatAlarmNotReceive.bind(this)}
           />
         </div>
         <ToastContainer

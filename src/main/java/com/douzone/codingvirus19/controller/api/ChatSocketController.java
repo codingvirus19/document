@@ -19,10 +19,6 @@ public class ChatSocketController {
 
 	@MessageMapping("/chat/{room}")
 	public void sendMessage(ChatVo chatVo, @DestinationVariable String room) throws Exception {
-		System.out.println("웹 소켓 controller 들어 왔습니다.");
-		System.out.println(room);
-		System.out.println(chatVo);
-
 		chatService.addChatting(chatVo);
 		
 		webSocket.convertAndSend("/api/chat/" + room, chatVo);
