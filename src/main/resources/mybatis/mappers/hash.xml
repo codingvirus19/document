@@ -8,9 +8,8 @@
 			select a.no, a.g_no as gNo, a.m_no as mNo, a.name
 			  from hash a, memo b
 			 where a.m_no=b.no 
-			   and b.u_no=#{uNo}
 			   and(
-				  (#{gNo} is null and a.g_no is null)
+				  (#{gNo} is null and a.g_no is null and b.u_no=#{uNo})
 				   or
 				  (#{gNo} is not null and a.g_no=#{gNo}))
 			group by name, m_no;
@@ -52,7 +51,7 @@
 			 where no = #{no};
 		]]>
 	</delete>
-		<delete id="deleteHash2" parameterType="hashvo">
+	<delete id="deleteHash2" parameterType="hashvo">
 		<![CDATA[
 			delete
 			  from hash

@@ -39,9 +39,12 @@ export default class Chat extends React.Component {
     this.setState({
       contents: this.state.contents.concat(msg),
     })
+
     // this.scrollToBottom();
   }
+
   sendMessage(mg) {
+
     let dates = new Date();
     let DateSend;
     if (dates.getMonth() + 1 < 10 && dates.getHours() > 10) {
@@ -85,7 +88,6 @@ export default class Chat extends React.Component {
   }
   render() {
     const wsSourceUrl = "./api/chat";
-    console.log(this.props.userListInGroupByUser)
     return (
       <Fragment>
         <SockJsClient
@@ -96,30 +98,32 @@ export default class Chat extends React.Component {
         </SockJsClient>
 
         <div className={styles.top}>
-        <div className={styles.image_div}>
-                          {/* 그룹 인원 1명일때 */}
-                          {this.props.userListInGroupByUser.length === 1
-                            ? (<img
-                              className={styles.img1}
-                              src={"." + this.props.userListInGroupByUser[0].image} />)
-                            // 그룹인원 2명 이상일때
-                            : (<>
-                              <img
-                                className={styles.img2}
-                                src={"." + this.props.userListInGroupByUser[0].image} />
-                              <img
-                                className={styles.img3}
-                                src={"." + this.props.userListInGroupByUser[1].image} />
-                            </>
-                            )}
-                        </div>
+          <div className={styles.image_div}>
+            {/* 그룹 인원 1명일때 */}
+            {this.props.userListInGroupByUser.length === 1
+              ? (<img
+                className={styles.img1}
+                src={"." + this.props.userListInGroupByUser[0].image} />)
+              // 그룹인원 2명 이상일때
+              : (<>
+                <img
+                  className={styles.img2}
+                  src={"." + this.props.userListInGroupByUser[0].image} />
+                <img
+                  className={styles.img3}
+                  src={"." + this.props.userListInGroupByUser[1].image} />
+              </>
+              )}
+          </div>
           <div className={styles.title}>
-          {this.props.gName}
+            {this.props.gName}({this.props.userListInGroupByUser.length})
           </div>
           <button
             className={styles.close}
             onClick={this.props.close}>
-            ⏏
+              <img 
+              className={styles.back_btn}
+              src="http://localhost:8090/images/back.png" />
           </button>
 
         </div>
