@@ -40,7 +40,6 @@ public class MainApiController {
 
 	@PostMapping("/outGroup")
 	public JsonResult outGroup(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo ) {
-		System.out.println(vo);
 		boolean asyncTest = mainService.outGroup(vo);
 		return JsonResult.success(asyncTest);
 	}
@@ -48,7 +47,6 @@ public class MainApiController {
 	@PostMapping("/outGroupAlone")
 	public JsonResult outGroupAlone(@AuthUser SecurityUser securityUser, @RequestBody GroupUserVo vo ) {
 		vo.setuNo(securityUser.getNo());
-		System.out.println(vo);
 		boolean asyncTest = mainService.outGroupAlone(vo);
 //		UserVo userVo = new UserVo();
 		
@@ -60,7 +58,6 @@ public class MainApiController {
 	@PostMapping("/groupsession")
 	public JsonResult groupSession(@RequestBody GroupUserVo groupuserVo) {
 		List<UserVo> list = mainService.getGroupinUserSession(groupuserVo);
-		System.out.println(list);
 		return JsonResult.success(list);
 	}
 	
@@ -76,7 +73,6 @@ public class MainApiController {
 	
 	@PostMapping("/memoListByHash")
 	public JsonResult memoListByHash(@AuthUser SecurityUser securityUser, @RequestBody MemoVo memoVo) {
-		System.out.println(memoVo);
 		memoVo.setuNo(securityUser.getNo());
 		List<MemoVo> list = mainService.memoListByHash(memoVo);
 		return JsonResult.success(list);
@@ -84,7 +80,6 @@ public class MainApiController {
 
 	@PostMapping("/getUserSession")
 	public JsonResult getUserSession(@AuthUser SecurityUser securityUser) {
-//				System.out.println(securityUser);
 		return JsonResult.success(securityUser);
 	}
 

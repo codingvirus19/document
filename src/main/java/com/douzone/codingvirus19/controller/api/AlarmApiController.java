@@ -23,7 +23,7 @@ public class AlarmApiController {
 
 	@Autowired
 	private AlarmService alarmService;
-	
+
 	@PostMapping("/alarmCheck")
 	public JsonResult getAlarmCheckList(@AuthUser SecurityUser securityUser) {
 		AlarmVo vo = new AlarmVo();
@@ -31,22 +31,21 @@ public class AlarmApiController {
 		List<AlarmVo> alarmReadCheck = alarmService.getAlarmReadList(vo);
 
 		Map<String, Long> alarmlist = new HashMap<>();
-		alarmlist.put("basic",(long) 0);
-		alarmlist.put("chatting",(long) 0);
-		//기본값 셋팅
-		if(alarmReadCheck.size() == 0) {
+		alarmlist.put("basic", (long) 0);
+		alarmlist.put("chatting", (long) 0);
+		// 기본값 셋팅
+		if (alarmReadCheck.size() == 0) {
 			return JsonResult.success(alarmlist);
 		}
-		for(int i=0; i<alarmReadCheck.size(); i++) {
-			if(alarmReadCheck.get(i).isType()) {
-				alarmlist.put("basic",(long) 1);
-				//기본 알람
-			}else {
-				alarmlist.put("chatting",(long) 1);
-				//채팅알람	
+		for (int i = 0; i < alarmReadCheck.size(); i++) {
+			if (alarmReadCheck.get(i).isType()) {
+				alarmlist.put("basic", (long) 1);
+				// 기본 알람
+			} else {
+				alarmlist.put("chatting", (long) 1);
+				// 채팅알람
 			}
 		}
-		System.out.println(alarmlist);
 		return JsonResult.success(alarmlist);
 	}
 
@@ -54,14 +53,13 @@ public class AlarmApiController {
 	public JsonResult getAlarmList(@AuthUser SecurityUser securityUser) {
 		AlarmVo vo = new AlarmVo();
 		vo.setuNo(securityUser.getNo());
-		
+
 		List<AlarmVo> alarmList = alarmService.getAlarmContents(vo);
 		return JsonResult.success(alarmList);
 	}
-	
+
 	@PostMapping("/alarmGroupJoin")
 	public JsonResult AlarmGroupJoin(@RequestBody GroupUserVo groupuserVo, @AuthUser SecurityUser securityUser) {
-		System.out.println(groupuserVo);
 		groupuserVo.setuNo(securityUser.getNo());
 		alarmService.alarmGroupJoin(groupuserVo);
 		return JsonResult.success(null);
