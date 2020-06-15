@@ -27,6 +27,10 @@ export default class HashSheet extends React.Component {
   }
 
   addHash(event) {
+    if(event.label.length > 10){
+      this.props.notify("해시 이름은 최대 10자까지 가능합니다.")
+      return;
+    }
     let data = {
       gNo: this.props.memo_gNo,
       mNo: this.props.memo_no,
@@ -57,6 +61,9 @@ export default class HashSheet extends React.Component {
       mNo: this.props.memo_no,
       name: hash.value
     }
+    if(this.props.clientRef != undefined && this.props.users != undefined && this.props.memo_gNo != undefined){
+      this.props.clientRef.sendMessage(`/app/memo/update/${this.props.memo_gNo}`,JSON.stringify({update:'update',userNo:this.props.users.no[0]}));
+      }
     fetch(`${API_URL}/api/deleteHash`, {
       method: "post",
       headers: API_HEADERS,

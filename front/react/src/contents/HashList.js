@@ -24,6 +24,9 @@ export default class HashList extends React.Component {
 
   deleteHash(no) {
     let data = { no: no }
+    if(this.props.clientRef != undefined && this.props.users != undefined && this.props.groupBySidebar.no != undefined){
+      this.props.clientRef.sendMessage(`/app/memo/update/${this.props.groupBySidebar.no}`,JSON.stringify({update:'update',userNo:this.props.users.no[0]}));
+      }
     fetch(`${API_URL}/api/deleteHash`, {
       method: "post",
       headers: API_HEADERS,

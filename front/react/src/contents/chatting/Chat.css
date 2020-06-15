@@ -52,9 +52,7 @@
   height: 1.5rem;
   background-color: rgba(0, 0, 0, 0);
   border-radius: 50%;
-  /* position: absolute;
-  right: 1.5rem;
-  top: 1.3rem; */
+  padding-left: 1rem;
 }
 
 .close:hover {

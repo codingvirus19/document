@@ -9,6 +9,7 @@ $bgcolor: #ffffff;
 html,
 body {
   height: 100%;
+  overflow: hidden;
 }
 
 .container {
@@ -18,7 +19,7 @@ body {
 }
 
 .body{
-  height: 90%;
+  height: calc(100% - 84.3px);
   position: relative;
 }
 

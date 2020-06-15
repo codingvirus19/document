@@ -20,28 +20,7 @@ export default class ContentsMemoList extends React.Component {
     };
     
   }
-  DragStart(e) {
-    this.dragStart = e.target;
-    this.cpdragStart = this.dragStart.cloneNode(true);
-    e.dataTransfer.effectAllowed = "move";
-    e.target.style.opacity = 0.1;
-    e.dataTransfer.setData("text/html", this.cpdragStart);
-  }
-  DragEnd(e) {
-    this.dragStart.style.opacity = 1;
-    if (this.dragOver == undefined) {
-      return;
-    }
-  }
-  DragOver(e) {
-    e.preventDefault();
-    if (e.target.className != `${styles.container_memo_form}`) return;
-    if (e.target.dataset.id == this.dragStart.dataset.id) return;
-    this.dragOver = e.target;
-    let from = Number(this.dragStart.dataset.id);
-    let to = Number(this.dragOver.dataset.id);
-    this.props.memo_Change(from, to);
-  }
+
   setMemo_hash(memo_hash) {
     this.setState({
       memo_hash: this.state.memo_hash.concat(memo_hash),
@@ -62,6 +41,8 @@ export default class ContentsMemoList extends React.Component {
     });
   }
 
+
+
   render() {
     return (
             <div
@@ -69,9 +50,9 @@ export default class ContentsMemoList extends React.Component {
               key={this.props.no}
               data-id={this.props.index}
               draggable="true"
-              onDragStart={this.DragStart.bind(this)}
-              onDragEnd={this.DragEnd.bind(this)}
-              onDragOver={this.DragOver.bind(this)}
+              onDragStart={this.props.DragStart}
+              onDragEnd={this.props.DragEnd}
+              onDragOver={this.props.DragOver}
               onMouseEnter={(e) => this.setState({
                 hoverMemo:true
               })}
@@ -104,8 +85,10 @@ export default class ContentsMemoList extends React.Component {
                 memo_no={this.props.no}
                 setMemo_hash={this.setMemo_hash.bind(this)}
                 memo_hash={this.props.memo_hash}
+                clientRef={this.props.clientRef}
                 SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                 groupBySidebar={this.props.groupBySidebar}
+                users={this.props.users}
               />
                {(this.state.hoverMemo)?
                <Toolbar
