@@ -26,21 +26,17 @@ public class AlarmSocketController {
 	
 	@MessageMapping("/alarm/{userno}")
 	public void alarmMessage(AlarmVo alarmVo, @DestinationVariable Long userno) throws Exception {
-		System.out.println("알람 소켓 들어 왔습니다.");
 		AlarmVo alarmChak = new AlarmVo();
 		
 //		alarmChak.setReadCheck(false);기본알람
 //		alarmChak.setType(false);채팅알람
 		alarmVo.setuNo(userno);
 		if(alarmVo.isAddgroup() == true && alarmVo.isReadCheck() == true && alarmVo.isType() == true) {
-			System.out.println("그룹초대 알람 들어왔습니다.");
-			System.out.println(alarmVo);
 			webSocket.convertAndSend("/api/alarm/" + userno, alarmVo);
 			return;
 		}
 		if(alarmVo.getgNo() == null) {
 			if(alarmVo.isReadCheck() == false && alarmVo.isType() == true) {
-				System.out.println("여긴 기본 알람 읽음 처리부분입니당");
 				alarmService.readCheckUpdate(alarmVo);
 				webSocket.convertAndSend("/api/alarm/" + userno, alarmVo);
 				return;
@@ -48,8 +44,6 @@ public class AlarmSocketController {
 			return;
 		}
 		if(alarmVo.getgNo() != null && alarmVo.isReadCheck() == false && alarmVo.isType() == false) {
-			System.out.println("여긴 채팅 알람 읽음 처리부분입니당");
-			System.out.println(alarmVo.getgNo());
 			alarmService.chatReadCheckUpdate(alarmVo);
 			webSocket.convertAndSend("/api/alarm/" + userno, alarmVo);
 			return;

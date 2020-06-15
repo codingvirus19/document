@@ -30,7 +30,7 @@ public class UserApiController {
 	private UserService userService;
 	
 	static Map<String, Long> userGroup = new HashMap<>();
-	static ArrayList<String> usersessionlist = new ArrayList<>();
+	static ArrayList<String> AllUserList = new ArrayList<>();
 	
 	@PostMapping("/profile")
 	public JsonResult profile(@AuthUser SecurityUser securityUser) {
@@ -54,6 +54,12 @@ public class UserApiController {
 		return JsonResult.success(userList);
 	}
 	
+	@PostMapping("/getUserListInGroupByUser")
+	public JsonResult getUserListInGroupByUser(@RequestBody UserVo userVo) {
+		List<UserVo> list = userService.getUserListInGroupByUser(userVo.getNo());
+		return JsonResult.success(list);
+	}
+	
 	@PostMapping("/getUserListNotInGroup")
 	public JsonResult getUserListNotInGroup(@RequestBody GroupVo vo, UserVo uservo) {
 		
@@ -65,7 +71,7 @@ public class UserApiController {
 		
 		for(int i = 0; i < userList.size(); i++ ) {
 			
-			if(usersessionlist.contains(userList.get(i).getId().toString())) {
+			if(AllUserList.contains(userList.get(i).getId().toString())) {
 				pushSessionUserMap = new HashMap<String, Object>();
 				
 				pushSessionUserMap.put("user_id", userList.get(i).getId().toString());
@@ -85,23 +91,12 @@ public class UserApiController {
 	@EventListener
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
 		String username = event.getUser().getName();
-		if (!usersessionlist.contains(username)) {
-			usersessionlist.add(username);
-		}
+		AllUserList.add(username);
 	}
 
 	@EventListener
 	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
 		String username = event.getUser().getName();
-		if (usersessionlist.lastIndexOf(username) >= 0) {
-			usersessionlist.remove(usersessionlist.lastIndexOf(username));
-
-		}
-	}
-	
-	@PostMapping("/getUserListInGroupByUser")
-	public JsonResult getUserListInGroupByUser(@RequestBody UserVo userVo) {
-		List<UserVo> list = userService.getUserListInGroupByUser(userVo.getNo());
-		return JsonResult.success(list);
+		AllUserList.remove(AllUserList.lastIndexOf(username));
 	}
 }
