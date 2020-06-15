@@ -49,7 +49,6 @@ export default class Alarm extends React.Component {
             <div className={styles.alarm}>
                 <h5 className={styles.alarmHeader}>알람목록</h5>
                 <ul className={styles.alarmList}>
-
                     {(this.state.addGroupAlarm != null && this.state.addGroupAlarm.message != "") ?
                         <AlarmAddGroup addGroupAlarm={this.state.addGroupAlarm}
                             joinCancel={this.joinCancel.bind(this)} SidebarGroupUpdate={this.props.SidebarGroupUpdate}
@@ -59,7 +58,7 @@ export default class Alarm extends React.Component {
                         return (
                             <div key={index} className={styles.alarmLine}>
                                 <li>{index + 1}. {content.chat}</li>
-                                <h5>{content.date}</h5>
+                                <h6 className={styles.dates}>{content.date} ({content.week})</h6>
                             </div>
                         )
                     })}

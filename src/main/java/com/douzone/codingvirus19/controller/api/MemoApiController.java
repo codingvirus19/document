@@ -97,6 +97,7 @@ public class MemoApiController {
 	}
 	@PostMapping("/api/upload")
 	public JsonResult imgUpload(@AuthUser SecurityUser securityUser,FileUpLoadVo fileUpLoadVo) {
+		System.out.println(fileUpLoadVo);
 		return JsonResult.success(filesService.upload(fileUpLoadVo));
 	}
 	

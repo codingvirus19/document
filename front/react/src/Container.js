@@ -25,7 +25,7 @@ export default class Container extends React.Component {
       showAlarm: false,
       clientRef: "",
       alarm: { basic: "", chatting: "" },
-      addgroup_alarm: { message: "", date: "", group_no: "", group_name: "" },
+      addgroup_alarm: { message: "", date: "", group_no: "", group_name: "", week:"" },
       groupInUserList: [{ user_no: "", id: "", nickname: "", img: "", auth_no: "" }],
       keyword: "",
       getProfileValue: null,
@@ -270,7 +270,7 @@ export default class Container extends React.Component {
   }
 
   getChatListGroup(){
-    let group = { no: [], gname: [], readcheck: [] };
+    let group = { no: [], gname: [], readcheck: [], readcount:[] };
     let chatgroupDatas = null;
     // call api
     fetch(`${API_URL}/api/chatlistgroup`, {
@@ -285,6 +285,7 @@ export default class Container extends React.Component {
           group.no.push(json.gNo);
           group.gname.push(json.groupName);
           group.readcheck.push(json.readCheck);
+          group.readcount.push(json.readCount);
         });
         this.UpdateChatList(group);
       })
@@ -494,7 +495,8 @@ export default class Container extends React.Component {
           message: alarm_msg.chat,
           date: alarm_msg.date,
           group_no: alarm_msg.gNo,
-          group_name: alarm_msg.groupName
+          group_name: alarm_msg.groupName,
+          addgroup_alarm: alarm_msg.week
         },
         alarm: {
           basic: true,

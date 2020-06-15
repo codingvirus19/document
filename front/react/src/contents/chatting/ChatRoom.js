@@ -45,13 +45,22 @@ export default class Chat extends React.Component {
 
   sendMessage(mg) {
     console.log(this.props.gNo)
-    
+
     let dates = new Date();
-    let DateSend = (dates.getFullYear() + "-" +
-                    (dates.getMonth()+1) + "-" +
-                    dates.getDate() + " " +
-                    dates.getHours() + "시 " +
-                    dates.getUTCMinutes() + "분 ");
+    let DateSend;
+    if (dates.getMonth() + 1 < 10) {
+      DateSend = (dates.getFullYear() + "-" +
+        "0"+(dates.getMonth() + 1) + "-" +
+        dates.getDate() + " " +
+        dates.getHours() + "시 " +
+        dates.getUTCMinutes() + "분 ");
+    } else {
+      DateSend = (dates.getFullYear() + "-" +
+        (dates.getMonth() + 1) + "-" +
+        dates.getDate() + " " +
+        dates.getHours() + "시 " +
+        dates.getUTCMinutes() + "분 ");
+    }
 
     this.clientRef.sendMessage("/app/chat/" + this.props.gNo,
       JSON.stringify({
@@ -62,7 +71,6 @@ export default class Chat extends React.Component {
         date: DateSend,
         aCount: 1
       }));
-      let date = new Date();
 
     this.props.clientRef.sendMessage("/app/alarm/" + this.props.users.no[0],
       JSON.stringify({
@@ -94,7 +102,7 @@ export default class Chat extends React.Component {
         <div id="chatInput" className="chatInput">
           <MessageSend gNo={this.props.gNo} sendMessage={this.sendMessage.bind(this)} />
         </div>
-        
+
       </Fragment>
 
     );
