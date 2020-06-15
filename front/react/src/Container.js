@@ -567,6 +567,7 @@ export default class Container extends React.Component {
   }
 
   render() {
+    console.log(this.userlistSession);
     const wsSourceUrl = "./api/alarm";
     return (
       <div className="container">

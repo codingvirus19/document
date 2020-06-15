@@ -11,6 +11,7 @@ export default class Contents extends React.Component {
     };
   }
   open(index) {
+    console.log(this.props.chatListGroup.readcheck[index])
     if (this.props.chatListGroup.readcheck[index] == true) {
       this.props.clientRef.sendMessage(
         "/app/alarm/" + this.props.users.no[0],
@@ -26,23 +27,13 @@ export default class Contents extends React.Component {
       gNo: this.props.chatListGroup.no[index],
       gName: this.props.chatListGroup.gname[index],
     });
-    console.log(this.props.chatListGroup.no[index])
     this.props.chatAlarmNotReceive(this.props.chatListGroup.no[index]);
   }
   close() {
     this.setState({
       chatOpen: false,
     });
-    this.props.chatAlarmNotReceive(this.state.gNo);
-
-    this.props.clientRef.sendMessage(
-      "/app/alarm/" + this.props.users.no[0],
-      JSON.stringify({
-        gNo: this.state.gNo,
-        type: false,
-        readCheck: false,
-      })
-    );
+    this.props.chatAlarmNotReceive(null);
   }
 
   render() {
@@ -76,6 +67,7 @@ export default class Contents extends React.Component {
                         className={styles.chatList}
                         id={index}
                         onClick={this.open.bind(this, index)} >
+                          
                         <div className={styles.image_div}>
                           {/* 그룹 인원 1명일때 */}
                           {gmember.length === 1
@@ -100,12 +92,15 @@ export default class Contents extends React.Component {
                           <div className={styles.gmember}>
                             {gmember.map(element => element.nickname + ", ")}
                           </div>
-                        </div>
-                        {this.props.chatListGroup.readcheck[index] == true ?
-                          <span className={styles.chatalarmbell}>
-                            {this.props.chatListGroup.readcount[index]}
-                          </span>
+                          {this.props.chatListGroup.readcheck[index] == true ?
+                          <div className={styles.chatalarmbell}>
+                            <div>
+                             {this.props.chatListGroup.readcount[index]}
+                            </div>
+                          </div>
                           : null}
+                        </div>
+                        
                       </div>
                     </Fragment>
                   );
