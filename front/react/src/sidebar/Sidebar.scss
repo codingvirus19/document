@@ -18,6 +18,7 @@
 	-webkit-box-shadow: 0 0 16px rgba(0,0,0,.28);
 	box-shadow: 0 0 16px rgba(0,0,0,.28);
 	background-color: $bgcolor;
+	border-right: 1px solid $transparent-white;
   }
 .sidebar__menu{
 	position: absolute;
@@ -36,6 +37,7 @@
 		width: 100%;
 		padding-left: 20px;
 		.submenu-item{
+			transition: background 0.05s ease-in-out;
 			width: 92%;
 			height: 47px;
 			padding: 11px;
@@ -47,11 +49,15 @@
 			}
 		}
 		.submenu-item:hover{
+			cursor: pointer;
 			background-color: #073D8D;
 			border-radius: 0.5rem;
+			a{
+				color: rgb(229, 220, 220);
+			}
 		}
 		.submenu-item:active{
-			background-color: #073D8D;
+			background-color: #2C62B3;
 			border-radius: 0.5rem;
 		}
 	}
@@ -89,7 +95,7 @@
 	height: 11%;
 	padding: 12%;
 	padding-left: 15%;
-
+	
 	.container__title{
 		color:white;
 		width: 80%;
@@ -105,6 +111,26 @@
   .nav{
 	  height: 98%;
 
+  }
+  
+  .menu-setting--container{
+	  position: absolute;
+	  bottom: 20px;
+	  width: 63px;
+	  height: 52px;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  cursor: pointer;
+	//   transition: background 
+	border-radius: 0.5rem;
+	  &:hover{
+		background-color: #2C62B3;
+	  }
+	  .container__setting{
+		font-size: 1.3rem;
+		color: white;
+	  }
   }
   
   .menu {
@@ -124,11 +150,12 @@
 	}
   
 	&-item {
+		border-radius: 0.5rem;
 	  display: flex;
 	  align-items: center;
 	//   border-top: 2px solid $blue;
 	  position: relative;
-	  transition: background 0.3s ease-in-out;
+	//   transition: background 0.3s ease-in-out;
   
 	  &:nth-child(1) > a::before {
 		content: "\f007";
@@ -142,6 +169,8 @@
 		content: "\f292";
 	  }
   
+	  
+	  
 	  @for $i from 1 through 5 {
 		&:nth-child(#{$i}) > a::before {
 		  font-family: "Font Awesome 5 Free";
@@ -168,9 +197,9 @@
 		color: red;
 	  }
   
-	  &:not(:last-child) {
-		border-right: 1px solid $transparent-white;
-	  }
+	//   &:not(:last-child) {
+	// 	border-right: 1px solid $transparent-white;
+	//   }
   
 	  .sub-menu {
 		// position: absolute;
