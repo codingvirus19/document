@@ -34,6 +34,10 @@ export default class MessageList extends React.Component {
 
   onChatSubmit(event) {
     event.preventDefault();
+
+    if(this.state.message == "" || this.state.message == null || this.state.message.replace(/^\s+|\s+$/g, '') == ''){
+      return null;
+    }
     this.props.sendMessage(this.state.message, this.props.gNo);
     this.setState({
       message: "",
