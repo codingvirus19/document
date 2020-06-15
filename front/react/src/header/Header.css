@@ -42,12 +42,6 @@
   background-color: none;
 }
 
-.faPlus:hover, .faUser:hover, .faBell:hover, .faSms:hover {
-  font-size: 2rem;
-  color: black;
-  background-color: none;
-}
-
 .userbell, .account, .addmemo, .chat, .user{
   border-radius: 50%;
   background: none;
@@ -60,11 +54,16 @@
   background-color: rgba(0,0,0,0.08);
 }
 
+button:hover svg {
+  color: black;
+}
+
+button:focus svg {
+  color: black;
+}
+
 .chatClick, .userbellClick{
   color: black;
-  background-color: rgba(0,0,0,0.08);
-}
-.userbellClick{
   background-color: rgba(0,0,0,0.08);
 }
 

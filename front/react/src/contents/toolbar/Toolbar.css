@@ -1,9 +1,7 @@
 .toolbar {
   min-height: 1.8rem;
   min-width: 12rem;
-  /* display: none; */
 }
-
 
 .popover {
   position: absolute;
@@ -43,6 +41,9 @@
 .faSave:hover,
 .faFileUpload:hover,
 .faTrashAlt:hover {
+  border-radius: 50%;
+  color: black;
+  background-size: 3rem;
   background-color: rgba(0,0,0,0.12);
 }
 

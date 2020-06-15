@@ -29,6 +29,9 @@ $hover_iconcolor: #000000;
   transition: transform 0.3s linear;
   &:hover, &:active {
     background-color:$hover_bgcolor;
+    .faUserPlus {
+      color: $hover_iconcolor;
+    }
   }
 }
 
@@ -39,9 +42,6 @@ $hover_iconcolor: #000000;
   height: 3rem;
   border-radius: 50%;
   transition: transform 0.3s linear;
-  &:hover, &:active {
-    color: $hover_iconcolor;
-  }
 }
 
 .groupOut{
