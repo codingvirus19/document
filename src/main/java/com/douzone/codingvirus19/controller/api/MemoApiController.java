@@ -137,6 +137,8 @@ public class MemoApiController {
 		ArrayList<Long> version = new ArrayList<Long>();
 		String str = null;
 		Boolean first = true;
+		
+		
 		if(strList.get(memo) != null && versionList.get(memo) != null && booleanList.get(memo) != null) {
 			Collections.addAll(arrData, strList.get(memo).split(""));
 			version = versionList.get(memo);
@@ -264,5 +266,6 @@ public class MemoApiController {
 		boolean result = memoService.deleteHash(vo);
 		return JsonResult.success(result);
 	}
+	
 
 }

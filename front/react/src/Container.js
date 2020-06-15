@@ -487,6 +487,10 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
+    if(alarm_msg.update != null){
+      this.bringMemoByGroup(this.state.groupBySidebar.no);
+      return;
+    }
     if (alarm_msg.addgroup == null) {
       this.getGroupInUser(this.state.groupBySidebar.no);
       this.userlistSession = alarm_msg;

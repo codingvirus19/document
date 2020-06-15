@@ -5,29 +5,28 @@
 .top{
   width: 100%;
   height: 5%;
-  background-color: red;
+  border-bottom: 1px solid #dbdbdb;
 }
 
 .image_div {
   height: 100%;
-  width: 30%;
-  max-width: 4rem;
+  width: 3rem;
   float: left;
   position: relative;
   display: inline-block;
 }
 
 .img1 {
-  margin-top: 0.2rem;
-  height: 100%;
+  margin: 0.1rem;
+  height: 90%;
   border-radius: 50%;
 }
 
 .img2 {
   height: 70%;
   position: absolute;
-  left:0;
-  top:0;
+  left: 0.1rem;
+  top: 0.1rem;
   /* border: white 0.2rem solid; */
   border-radius: 50%; 
 }
@@ -35,8 +34,8 @@
 .img3 {
   height: 70%;
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 0.1rem;
+  bottom: 0.1rem;
   /* border: white 0.2rem solid; */
   z-index: 1;
   border-radius: 50%; 
@@ -45,16 +44,30 @@
 .title{
   display: inline-block;
   font-size: 1rem;
+  padding-top: 0.3rem;
 }
 
 .close {
-  background-color: #cccccc;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  /* position: absolute;
+  right: 1.5rem;
+  top: 1.3rem; */
 }
 
 .close:hover {
-  background-color: #a8a6a6;
+  background-color: rgba(0,0,0,0.08);
+}
+.close:hover .back_btn {
+  opacity: 1.0;
+}
+
+.back_btn {
+  width: 1rem;
+  height: 1rem;
+  opacity: 0.7;
 }
 
 .chatOutput {
