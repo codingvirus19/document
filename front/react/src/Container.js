@@ -30,10 +30,10 @@ export default class Container extends React.Component {
       keyword: "",
       getProfileValue: null,
       userListInGroupByUser: null,
-      chatalarm_gNo: null
+      chatalarm_gNo: null,
+      userlistSession:[]
     };
     this.tempGno = null;
-    this.userlistSession = [];
   }
 
   // search 검색 콜백함수
@@ -487,15 +487,19 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
-    if(alarm_msg.update != null){
+    console.log(alarm_msg);
+    if(alarm_msg.update != undefined){
       console.log(alarm_msg);
       this.bringMemoByGroup(this.state.groupBySidebar.no);
       this.getHashListByGroup(this.state.groupBySidebar.no);
       return;
     }
-    if (alarm_msg.addgroup == null) {
+    if (alarm_msg.addgroup == undefined && alarm_msg.update == undefined && alarm_msg.gNo == undefined) {
+      console.log(alarm_msg);
       this.getGroupInUser(this.state.groupBySidebar.no);
-      this.userlistSession = alarm_msg;
+      this.setState({
+        userlistSession :alarm_msg
+      })
     }
     this.state.addgroup_alarm = null;
     if (alarm_msg.addgroup == true && alarm_msg.type == true && alarm_msg.readCheck == true) { //그룹초대  
@@ -619,7 +623,7 @@ export default class Container extends React.Component {
             onCallbackKeywordChange={this.onCallbackKeywordChange.bind(this)}
           />
           <Contents
-            userlistSession={this.userlistSession}
+            userlistSession={this.state.userlistSession}
             getGroupInUser={this.getGroupInUser.bind(this)}
             notify={this.notify.bind(this)}
             memo_noSelectedByHash={this.state.memo_noSelectedByHash}

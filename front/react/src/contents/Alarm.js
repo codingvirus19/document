@@ -18,10 +18,10 @@ export default class Alarm extends React.Component {
         }
     }
     componentDidMount() {
-        this.getAlarmList();   
+        this.getAlarmList();
     }
 
-    getAlarmList(){
+    getAlarmList() {
         fetch(`${API_URL}/api/alarmList`, {
             method: "post",
             headers: API_HEADERS
@@ -50,16 +50,16 @@ export default class Alarm extends React.Component {
             })
         }
     }
-    alarmDelete(index){
+    alarmDelete(index) {
         let data = {
-            notiNo : this.state.alarmDatas[index].notiNo
+            notiNo: this.state.alarmDatas[index].notiNo
         }
         fetch(`${API_URL}/api/alarmDelete`, {
             method: "post",
             headers: API_HEADERS,
             body: JSON.stringify(data)
         })
-            .then(()=>{this.getAlarmList()})
+            .then(() => { this.getAlarmList() })
             .catch((err) => console.error(err));
     }
 
@@ -69,8 +69,10 @@ export default class Alarm extends React.Component {
                 <h5 className={styles.alarmHeader}>알람목록</h5>
                 <ul className={styles.alarmList}>
                     {(this.state.addGroupAlarm != null && this.state.addGroupAlarm.message != "") ?
-                        <AlarmAddGroup addGroupAlarm={this.state.addGroupAlarm}
-                            joinCancel={this.joinCancel.bind(this)} SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+                        <AlarmAddGroup
+                            addGroupAlarm={this.state.addGroupAlarm}
+                            joinCancel={this.joinCancel.bind(this)}
+                            SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                             AlarmAddGroup={this.props.AlarmAddGroup} /> :
                         null}
                     {this.state.alarmDatas.map((content, index) => {
