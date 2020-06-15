@@ -101,6 +101,7 @@
 		position: absolute;
 		top: 100%;
 		width: 412%;
+		height: 1300%;
 		transform-origin: top;
 		transform: rotateX(-90deg);
 		transition: transform 0.3s linear;
@@ -113,6 +114,7 @@
   
 		//그룹들
 		.menu-item {
+
 		  border-color: $transparent-white;
 		  &:hover {
 			  background-color: #ebecf0;
