@@ -14,8 +14,10 @@ export default class HashtagList extends React.PureComponent {
     return (
       <>
         <li className="menu-item 2">
-          <a>해시태그</a>
-          <ol className="sub-menu2">
+          <a>
+            {/* 해시태그 */}
+            </a>
+          {/* <ol className="sub-menu2">
             {this.props.hash.map((hash) => (
               <li
                 key={hash}
@@ -24,7 +26,7 @@ export default class HashtagList extends React.PureComponent {
                 <a>{hash}</a>
               </li>
             ))}
-          </ol>
+          </ol> */}
         </li>
       </>
     );

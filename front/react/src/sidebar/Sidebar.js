@@ -46,11 +46,13 @@ export default class Sidebar extends React.Component {
           <ol>
             <li className="menu-item">
               <a onClick={this.clickGroup.bind(this, null, null)}>
-                개인메모
+                {/* 개인메모 */}
                 </a>
             </li>
             <li className="menu-item">
-              <a>그룹메모</a>
+              <a>
+                {/* 그룹메모 */}
+                </a>
               <ol className="sub-menu">
                 {this.props.group.gname.map((name, index) => (
                   <li key={this.props.group.no[index]} className="menu-item">
