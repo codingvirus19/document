@@ -18,6 +18,7 @@
 	-webkit-box-shadow: 0 0 16px rgba(0,0,0,.28);
 	box-shadow: 0 0 16px rgba(0,0,0,.28);
 	background-color: $bgcolor;
+	border-right: 1px solid $transparent-white;
   }
 .sidebar__menu{
 	position: absolute;
@@ -36,6 +37,7 @@
 		width: 100%;
 		padding-left: 20px;
 		.submenu-item{
+			transition: background 0.05s ease-in-out;
 			width: 92%;
 			height: 47px;
 			padding: 11px;
@@ -47,11 +49,15 @@
 			}
 		}
 		.submenu-item:hover{
+			cursor: pointer;
 			background-color: #073D8D;
 			border-radius: 0.5rem;
+			a{
+				color: rgb(229, 220, 220);
+			}
 		}
 		.submenu-item:active{
-			background-color: #073D8D;
+			background-color: #2C62B3;
 			border-radius: 0.5rem;
 		}
 	}
@@ -89,7 +95,7 @@
 	height: 11%;
 	padding: 12%;
 	padding-left: 15%;
-
+	
 	.container__title{
 		color:white;
 		width: 80%;
@@ -168,9 +174,9 @@
 		color: red;
 	  }
   
-	  &:not(:last-child) {
-		border-right: 1px solid $transparent-white;
-	  }
+	//   &:not(:last-child) {
+	// 	border-right: 1px solid $transparent-white;
+	//   }
   
 	  .sub-menu {
 		// position: absolute;
