@@ -100,14 +100,14 @@
 	  .sub-menu {
 		position: absolute;
 		top: 100%;
-		width: 100%;
+		width: 412%;
 		transform-origin: top;
 		transform: rotateX(-90deg);
 		transition: transform 0.3s linear;
 		background-color: $yellow;
 		z-index: 1;
-		top: 0rem;
-		left: 9rem;
+		top: -130%;
+		left: 4rem;
 		-webkit-box-shadow: 0 0 4px rgba(0,0,0,.28);
 		box-shadow: 0 0 4px rgba(0,0,0,.28);
   
