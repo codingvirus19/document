@@ -7,11 +7,11 @@
   height: 100%;
 }
 
-.logo_img {
-  animation: App_logo_spin infinite 20s linear;
-  max-width: 3rem;
+.faVirus{
+  animation: App_logo_spin infinite 13s linear;
+    font-size: 2.7rem;
+    color: #0747A6;
 }
-
 .title {
   color: #4c71dd;
   background: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
