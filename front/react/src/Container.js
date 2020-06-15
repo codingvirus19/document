@@ -487,9 +487,7 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
-    console.log(alarm_msg);
     if(alarm_msg.update != undefined){
-      console.log(alarm_msg);
       this.bringMemoByGroup(this.state.groupBySidebar.no);
       this.getHashListByGroup(this.state.groupBySidebar.no);
       return;
