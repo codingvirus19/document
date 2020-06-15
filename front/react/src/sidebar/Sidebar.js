@@ -1,5 +1,4 @@
 import React from "react";
-import HashtagList from "./HashtagList"
 import "./Sidebar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faThumbtack, faBookmark, faHashtag, faCog } from "@fortawesome/free-solid-svg-icons";

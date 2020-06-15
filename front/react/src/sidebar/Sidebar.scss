@@ -121,10 +121,15 @@
 	  display: flex;
 	  align-items: center;
 	  justify-content: center;
+	  cursor: pointer;
+	//   transition: background 
+	border-radius: 0.5rem;
+	  &:hover{
+		background-color: #2C62B3;
+	  }
 	  .container__setting{
 		font-size: 1.3rem;
 		color: white;
-		cursor: pointer;
 	  }
   }
   
@@ -145,11 +150,12 @@
 	}
   
 	&-item {
+		border-radius: 0.5rem;
 	  display: flex;
 	  align-items: center;
 	//   border-top: 2px solid $blue;
 	  position: relative;
-	  transition: background 0.3s ease-in-out;
+	//   transition: background 0.3s ease-in-out;
   
 	  &:nth-child(1) > a::before {
 		content: "\f007";
