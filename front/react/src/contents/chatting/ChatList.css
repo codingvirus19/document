@@ -33,7 +33,7 @@
 .image_div {
     height: 100%;
     width: 30%;
-max-width: 4rem;
+    max-width: 4rem;
     float: left;
     position: relative;
     display: inline-block;
@@ -64,6 +64,7 @@ max-width: 4rem;
     z-index: 1;
     border-radius: 50%; 
 }
+
 .name{
     display: inline-block;
     width: 70%;

@@ -59,7 +59,7 @@ export default class Contents extends React.Component {
               gName={this.state.gName}
               users={this.props.users}
               userListInGroupByUser={this.props.userListInGroupByUser
-                .filter(element =>  element.gNo === this.state.gNo)}
+                .filter(element => element.gNo === this.state.gNo)}
               close={this.close.bind(this)}
               clientRef={this.props.clientRef}
             />
@@ -102,7 +102,10 @@ export default class Contents extends React.Component {
                           </div>
                         </div>
                         {this.props.chatListGroup.readcheck[index] == true ?
-                          <span className={styles.chatalarmbell}>{this.props.chatListGroup.readcount[index]}</span> : null}
+                          <span className={styles.chatalarmbell}>
+                            {this.props.chatListGroup.readcount[index]}
+                          </span>
+                          : null}
                       </div>
                     </Fragment>
                   );

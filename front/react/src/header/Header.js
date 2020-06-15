@@ -89,6 +89,7 @@ export default class Header extends React.Component {
           <div className={styles.logo}>
             <Logo />
           </div>
+
           <Serach
             groupBySidebar={this.props.groupBySidebar}
             SidebarGroupUpdate={this.props.SidebarGroupUpdate}
@@ -120,7 +121,6 @@ export default class Header extends React.Component {
                 {/* ////////////////////////////////////////////////////////////// */}
             <Dropdown aria-label="계정" className={styles.account}>
               <Dropdown.Toggle className={styles.user}>
-                {/* <FontAwesomeIcon className={styles.faUser} icon={faUser} /> */}
                 <img className={styles.imageIcon} src={"." + this.props.getProfileValue.image} />
               </Dropdown.Toggle>
               <Dropdown.Menu className={dropdownstyles.menu}>
