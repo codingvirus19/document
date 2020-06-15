@@ -44,7 +44,15 @@ export default class Contents extends React.Component {
               :null}
           </div>
           {this.props.showChat ? (
-            <Chat group={this.props.group} users={this.props.users} clientRef={this.props.clientRef} alarm={this.props.alarm} />
+            // {true ? (
+            <Chat 
+            chatListGroup={this.props.chatListGroup} 
+            users={this.props.users} 
+            clientRef={this.props.clientRef} 
+            //group 지워짐 필터 다시 하자
+            userListInGroupByUser={this.props.userListInGroupByUser}
+            chatAlarmNotReceive={this.props.chatAlarmNotReceive}
+            />
           ) : null}
           {this.props.showAlarm ?(
            <Alarm users={this.props.users} addgroup_alarm={this.props.addgroup_alarm} SidebarGroupUpdate={this.props.SidebarGroupUpdate} AlarmAddGroup={this.props.AlarmAddGroup} />
