@@ -82,7 +82,6 @@ public class UserListSocketController {
 	public void memoChange(Map<String,String> map,@DestinationVariable Long groupno) throws Exception {
 		ArrayList<Long> userNolist = new ArrayList<>();
 			userNolist = userGroupListNo.get(groupno);
-			System.out.println(map+":"+groupno);
 			map.put("gNo", groupno.toString());
 			for (Long userNo : userNolist) {
 				if (userNo != Long.parseLong(map.get("userNo"))) {
@@ -95,7 +94,7 @@ public class UserListSocketController {
 	@EventListener
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
 		String username = event.getUser().getName();
-		AllUserList.add(username);
+		AllUserList.add(username); 
 	}
 
 	@EventListener
