@@ -1,6 +1,8 @@
 import React from "react";
 import HashtagList from "./HashtagList"
 import "./Sidebar.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
 
 export default class Sidebar extends React.Component {
   constructor() {
@@ -76,13 +78,18 @@ export default class Sidebar extends React.Component {
         {this.state.clickGroup == true ? 
           <div className="sidebar__menu">
             <div className="sidebar__menu__title-container">
-              <h2 className="container__title">그룹이름</h2>
+              <p className="container__title">Group</p>
             </div>
             <ol className="sub-menu">
                   {this.props.group.gname.map((name, index) => (
-                    <li key={this.props.group.no[index]} className="menu-item">
+                    <li key={this.props.group.no[index]} className="submenu-item">
                       <a onClick={this.clickGroup.bind(this, this.props.group.no[index], name)}>
-                        {name}
+                        <span className="submenu-item__span1">
+                          <FontAwesomeIcon className="fas fa-users" icon={faUsers} />
+                          </span>
+                        <span className="submenu-item__span2">
+                          {name}
+                          </span>
                       </a>
                     </li>
                   ))}
