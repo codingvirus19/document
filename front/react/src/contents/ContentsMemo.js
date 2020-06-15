@@ -85,8 +85,10 @@ export default class ContentsMemoList extends React.Component {
                 memo_no={this.props.no}
                 setMemo_hash={this.setMemo_hash.bind(this)}
                 memo_hash={this.props.memo_hash}
+                clientRef={this.props.clientRef}
                 SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                 groupBySidebar={this.props.groupBySidebar}
+                users={this.props.users}
               />
                {(this.state.hoverMemo)?
                <Toolbar
