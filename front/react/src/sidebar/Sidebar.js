@@ -8,11 +8,13 @@ export default class Sidebar extends React.Component {
     this.state = {
       g_no: null,
       g_name: null,
+      clickGroup: false,
     };
     this.tempGno = null;
   }
 
   clickGroup(g_no, g_name) {
+    
     // console.log(this.tempGno,g_no,"왜안대!!");
     // if(g_no == this.tempGno)return;
 
@@ -39,37 +41,55 @@ export default class Sidebar extends React.Component {
     this.props.SidebarGroupUpdate(g_no, g_name);
   }
 
+  onOpenGroup(){
+    this.setState({
+      clickGroup: !this.state.clickGroup,
+    })
+  }
+  
   render() {
     return (
       <div className="sidebar">
-        <nav className="menu">
-          <ol>
-            <li className="menu-item">
-              <a onClick={this.clickGroup.bind(this, null, null)}>
-                {/* 개인메모 */}
-                </a>
-            </li>
-            <li className="menu-item">
-              <a>
-                {/* 그룹메모 */}
-                </a>
-              <ol className="sub-menu">
-                {this.props.group.gname.map((name, index) => (
-                  <li key={this.props.group.no[index]} className="menu-item">
-                    <a onClick={this.clickGroup.bind(this, this.props.group.no[index], name)}>
-                      {name}
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </li>
-            <HashtagList
-            hash={this.props.hash}
-            g_no={this.state.g_no}
-            SidebarHashUpdate={this.props.SidebarHashUpdate}
-          />
-          </ol>
+        <nav className="nav">
+          <div className="menu">
+            <ol>
+              <li className="menu-item">
+                <a onClick={this.clickGroup.bind(this, null, null)}>
+                  {/* 개인메모 */}
+                  </a>
+              </li>
+              <li className="menu-item">
+                <a onClick={this.onOpenGroup.bind(this)}>
+                  {/* 그룹메모 */}
+                  </a>
+                
+              </li>
+              <HashtagList
+              hash={this.props.hash}
+              g_no={this.state.g_no}
+              SidebarHashUpdate={this.props.SidebarHashUpdate}
+            />
+            </ol>
+          </div>
+         
         </nav>
+        {this.state.clickGroup == true ? 
+          <div className="sidebar__menu">
+            <div className="sidebar__menu__title-container">
+              <h2 className="container__title">그룹이름</h2>
+            </div>
+            <ol className="sub-menu">
+                  {this.props.group.gname.map((name, index) => (
+                    <li key={this.props.group.no[index]} className="menu-item">
+                      <a onClick={this.clickGroup.bind(this, this.props.group.no[index], name)}>
+                        {name}
+                      </a>
+                    </li>
+                  ))}
+            </ol>
+          </div> 
+        :null}
+        
       </div>
     );
   }
