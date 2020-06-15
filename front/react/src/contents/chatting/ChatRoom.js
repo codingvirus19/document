@@ -53,13 +53,13 @@ export default class Chat extends React.Component {
         dates.getDate() + " " +
         dates.getHours() + "시 " +
         dates.getUTCMinutes() + "분 ");
-    } else if(dates.getMonth() + 1 < 10 && dates.getHours() < 10){
+    } else if (dates.getMonth() + 1 < 10 && dates.getHours() < 10) {
       DateSend = (dates.getFullYear() + "-" +
-        "0" +(dates.getMonth() + 1) + "-" +
+        "0" + (dates.getMonth() + 1) + "-" +
         dates.getDate() + " " +
-        "0" +dates.getHours() + "시 " +
+        "0" + dates.getHours() + "시 " +
         dates.getUTCMinutes() + "분 ");
-    }else{
+    } else {
       DateSend = (dates.getFullYear() + "-" +
         (dates.getMonth() + 1) + "-" +
         dates.getDate() + " " +
@@ -121,7 +121,7 @@ export default class Chat extends React.Component {
           <button
             className={styles.close}
             onClick={this.props.close}>
-              <img 
+            <img
               className={styles.back_btn}
               src="http://localhost:8090/images/back.png" />
           </button>
