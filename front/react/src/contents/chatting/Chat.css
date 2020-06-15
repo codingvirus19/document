@@ -1,21 +1,53 @@
 .Chatting {
   overflow: hidden;
 }
-.chatOutput {
-  padding: 0.2rem;
-  background-color: #000;
+
+.top{
   width: 100%;
-  height: 90%;
-  margin: auto;
-  display: block;
-  z-index: 2;
-  background-color: white;
-  background-image: url("http://localhost:8090/images/chatBg.png");
-  overflow-y: scroll;
-  overflow: auto;
+  height: 5%;
+  background-color: red;
 }
+
+.image_div {
+  height: 100%;
+  width: 30%;
+  max-width: 4rem;
+  float: left;
+  position: relative;
+  display: inline-block;
+}
+
+.img1 {
+  margin-top: 0.2rem;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.img2 {
+  height: 70%;
+  position: absolute;
+  left:0;
+  top:0;
+  /* border: white 0.2rem solid; */
+  border-radius: 50%; 
+}
+
+.img3 {
+  height: 70%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  /* border: white 0.2rem solid; */
+  z-index: 1;
+  border-radius: 50%; 
+}
+
+.title{
+  display: inline-block;
+  font-size: 1rem;
+}
+
 .close {
-  width: 100%;
   background-color: #cccccc;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -23,4 +55,18 @@
 
 .close:hover {
   background-color: #a8a6a6;
+}
+
+.chatOutput {
+  padding: 0.2rem;
+  background-color: #000;
+  width: 100%;
+  height: 89%;
+  margin: auto;
+  display: block;
+  z-index: 2;
+  background-color: white;
+  /* background-image: url("http://localhost:8090/images/chatBg.png"); */
+  overflow-y: scroll;
+  overflow: auto;
 }

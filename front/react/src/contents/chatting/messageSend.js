@@ -1,6 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./messageSend.css";
 
@@ -9,13 +7,20 @@ export default class MessageList extends React.Component {
     super();
     this.state = {
       message: "",
-      //messageBox:''
+      btnClass: styles.button,
     };
     this.onChatSubmit = this.onChatSubmit.bind(this);
     this.onInputChanged = this.onInputChanged.bind(this);
   }
 
   onInputChanged(event) {
+    console.log(event.target.value)
+    if(event.target.value != ""){
+      this.setState({ btnClass: styles.button2 })
+    }
+    else {
+      this.setState({ btnClass: styles.button })
+    }
     this.setState({
       message: event.target.value,
     });
@@ -29,7 +34,6 @@ export default class MessageList extends React.Component {
 
   onChatSubmit(event) {
     event.preventDefault();
-    //this.state.messageBox.push(this.state.message);
     this.props.sendMessage(this.state.message, this.props.gNo);
     this.setState({
       message: "",
@@ -51,16 +55,12 @@ export default class MessageList extends React.Component {
             value={this.state.message}
             onChange={this.onInputChanged.bind(this)}
             onKeyPress={this.chatKeyPress.bind(this)}
+            autocomplete="off"
           />
           <button
-            className={styles.button}
+            className={this.state.btnClass}
             onClick={this.onChatSubmit.bind(this)}
           >
-            {/* {" "}
-            <FontAwesomeIcon
-              className={styles.faPaperPlane}
-              icon={faPaperPlane} */}
-            {/* /> */}
             전송
           </button>
         </div>

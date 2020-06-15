@@ -50,7 +50,7 @@ export default class Chat extends React.Component {
     let DateSend;
     if (dates.getMonth() + 1 < 10) {
       DateSend = (dates.getFullYear() + "-" +
-        "0"+(dates.getMonth() + 1) + "-" +
+        "0" + (dates.getMonth() + 1) + "-" +
         dates.getDate() + " " +
         dates.getHours() + "시 " +
         dates.getUTCMinutes() + "분 ");
@@ -83,6 +83,7 @@ export default class Chat extends React.Component {
   }
   render() {
     const wsSourceUrl = "./api/chat";
+    console.log(this.props.userListInGroupByUser)
     return (
       <Fragment>
         <SockJsClient
@@ -92,15 +93,46 @@ export default class Chat extends React.Component {
           ref={(client) => { this.clientRef = client }}>
         </SockJsClient>
 
-        <button className={styles.close} onClick={this.props.close}>⏏︎</button>
+        <div className={styles.top}>
+        <div className={styles.image_div}>
+                          {/* 그룹 인원 1명일때 */}
+                          {this.props.userListInGroupByUser.length === 1
+                            ? (<img
+                              className={styles.img1}
+                              src={"." + this.props.userListInGroupByUser[0].image} />)
+                            // 그룹인원 2명 이상일때
+                            : (<>
+                              <img
+                                className={styles.img2}
+                                src={"." + this.props.userListInGroupByUser[0].image} />
+                              <img
+                                className={styles.img3}
+                                src={"." + this.props.userListInGroupByUser[1].image} />
+                            </>
+                            )}
+                        </div>
+          <div className={styles.title}>
+          {this.props.gName}
+          </div>
+          <button
+            className={styles.close}
+            onClick={this.props.close}>
+            ⏏
+          </button>
 
+        </div>
 
         <div id={`${this.props.gNo}scroll`} className={styles.chatOutput} >
-          <MessageList gNo={this.props.gNo} users={this.props.users.name[0]} addMessage={this.state.contents} />
+          <MessageList
+            gNo={this.props.gNo}
+            users={this.props.users.name[0]}
+            addMessage={this.state.contents} />
         </div>
 
         <div id="chatInput" className="chatInput">
-          <MessageSend gNo={this.props.gNo} sendMessage={this.sendMessage.bind(this)} />
+          <MessageSend
+            gNo={this.props.gNo}
+            sendMessage={this.sendMessage.bind(this)} />
         </div>
 
       </Fragment>
