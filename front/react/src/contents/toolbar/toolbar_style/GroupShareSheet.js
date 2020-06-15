@@ -28,6 +28,7 @@ export default class GroupShareSheet extends React.Component {
 
   onClickSendShare(e) {
     e.preventDefault();
+    
     let send_memoNoAndGNo = {
       // no: 메모의 no로 db에서 content, color를 뽑아온다.
       no: this.props.no,
