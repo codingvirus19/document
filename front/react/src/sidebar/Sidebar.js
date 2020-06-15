@@ -1,8 +1,7 @@
 import React from "react";
-import HashtagList from "./HashtagList"
 import "./Sidebar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsers, faThumbtack } from "@fortawesome/free-solid-svg-icons";
+import { faUsers, faThumbtack, faBookmark, faHashtag, faCog } from "@fortawesome/free-solid-svg-icons";
 
 export default class Sidebar extends React.Component {
   constructor() {
@@ -11,6 +10,7 @@ export default class Sidebar extends React.Component {
       g_no: null,
       g_name: null,
       clickGroup: false,
+      clickHash: false,
     };
     this.tempGno = null;
   }
@@ -32,6 +32,9 @@ export default class Sidebar extends React.Component {
     //   this.props.clientRef.sendMessage(`/app/userlist/connect/${g_no}`, this.props.users.no[0]);
     // }
     this.update(g_no, g_name);
+    this.setState({
+      clickGroup:false,
+    })
   }
 
   update(g_no, g_name) {
@@ -43,10 +46,27 @@ export default class Sidebar extends React.Component {
     this.props.SidebarGroupUpdate(g_no, g_name);
   }
 
+  clickHash(hash) {
+    this.props.SidebarHashUpdate(this.props.g_no, hash)
+    this.setState({
+      clickHash:false,
+    })
+  }
+  
   onOpenGroup(){
     this.setState({
       clickGroup: !this.state.clickGroup,
+      clickHash: false,
     })
+  }
+  
+  onOpenHash(){
+    this.setState({
+      clickHash: !this.state.clickHash,
+      clickGroup: false,
+      
+    })
+    
   }
   
   render() {
@@ -64,14 +84,19 @@ export default class Sidebar extends React.Component {
                 <a onClick={this.onOpenGroup.bind(this)}>
                   {/* 그룹메모 */}
                   </a>
-                
               </li>
-              <HashtagList
-              hash={this.props.hash}
-              g_no={this.state.g_no}
-              SidebarHashUpdate={this.props.SidebarHashUpdate}
-            />
+              <li className="menu-item">
+                <a onClick={this.onOpenHash.bind(this)}>
+                  {/* 해시태그 */}
+                </a>
+              </li>
             </ol>
+            <div className="menu-setting--container">
+              <a className="container__setting">
+                {/* Settings */}
+                <FontAwesomeIcon className="fa-cog" icon={faCog} />
+              </a>
+            </div>
           </div>
          
         </nav>
@@ -82,10 +107,10 @@ export default class Sidebar extends React.Component {
             </div>
             <ol className="sub-menu">
                   {this.props.group.gname.map((name, index) => (
-                    <li key={this.props.group.no[index]} className="submenu-item">
-                      <a onClick={this.clickGroup.bind(this, this.props.group.no[index], name)}>
+                    <li key={this.props.group.no[index]} className="submenu-item" onClick={this.clickGroup.bind(this, this.props.group.no[index], name)}>
+                      <a>
                         <span className="submenu-item__span1">
-                          <FontAwesomeIcon className="fas fa-thumbtack" icon={faThumbtack} />
+                          <FontAwesomeIcon className="fas fa-bookmark" icon={faBookmark} />
                           </span>
                         <span className="submenu-item__span2">
                           {name}
@@ -96,7 +121,27 @@ export default class Sidebar extends React.Component {
             </ol>
           </div> 
         :null}
-        
+        {this.state.clickHash == true && this.props.hash != null ? 
+          <div className="sidebar__menu">
+            <div className="sidebar__menu__title-container">
+              <p className="container__title">Hash</p>
+            </div>
+            <ol className="sub-menu">
+            {this.props.hash.map((hash) => (
+              <li key={hash} className="submenu-item" onClick={this.clickHash.bind(this, hash)}>
+                <a>
+                  <span className="submenu-item__span1">
+                    <FontAwesomeIcon className="fas fa-hashtag" icon={faHashtag} />
+                  </span>
+                  <span className="submenu-item__span2">
+                    {hash}
+                  </span>
+                </a>
+              </li>
+              ))}
+            </ol>
+          </div> 
+        :null}
       </div>
     );
   }
