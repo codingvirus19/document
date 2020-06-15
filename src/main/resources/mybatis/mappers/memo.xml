@@ -17,14 +17,13 @@
 	<select id="memoListByHash" parameterType="memovo"
 		resultType="memovo">
 		<![CDATA[
-			select a.no as no, a.g_no as gNo, a.u_no as uNo, a.content, a.color, a.date, a.list_no as listNo
+			select distinct a.no as no, a.g_no as gNo, a.u_no as uNo, a.content, a.color, a.date, a.list_no as listNo
 				from memo a, hash b
 				where a.no = b.m_no
-                and a.u_no = #{uNo}
-                and ((#{gNo} is null and a.g_no is null)
+                and ((#{gNo} is null and a.g_no is null and u_no=#{uNo})
                 or
                 (#{gNo} is not null and a.g_no=#{gNo}))
-                and b.name=#{hash}
+                and b.name LIKE '%${hash}%'
                 order by listNo;
  		]]>
 	</select>
