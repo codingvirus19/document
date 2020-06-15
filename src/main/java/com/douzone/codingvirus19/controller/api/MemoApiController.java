@@ -50,7 +50,6 @@ public class MemoApiController {
 	
 	@PostMapping("/api/memo/memoposition")
 	public JsonResult memoPosition(@RequestBody Map<String,Object> dragdrop) {
-		System.out.println(dragdrop);
 		return JsonResult.success(memoService.memoPosition(dragdrop));
 	}
 	
@@ -97,7 +96,6 @@ public class MemoApiController {
 	}
 	@PostMapping("/api/upload")
 	public JsonResult imgUpload(@AuthUser SecurityUser securityUser,FileUpLoadVo fileUpLoadVo) {
-		System.out.println(fileUpLoadVo);
 		return JsonResult.success(filesService.upload(fileUpLoadVo));
 	}
 	
@@ -180,7 +178,6 @@ public class MemoApiController {
 		}
 		
 		if (version.size() > 0 && arrData.size()+1 != message.getSize()) {
-//			System.out.println(messageList);
 			if (message.getVersion() <= version.get(version.size() - 1)) {
 					if(messageList.get(messageList.size()-1).getInputIndex() <= messageList.get(messageList.size()-2).getInputIndex()) {
 						ArrayList<String> TempData = new ArrayList<String>();
@@ -202,7 +199,6 @@ public class MemoApiController {
 						arrData = memoChange(messageList.get(messageList.size()-1),arrData);
 						str = String.join("", arrData);
 						message.setKey(str);
-						System.out.println("error2");
 						return message;
 					}
 				message.setType("error");
@@ -228,7 +224,6 @@ public class MemoApiController {
 		messageHistory.put(memo,messageList);
 		versionList.put(memo,version);
 		booleanList.put(memo, first);
-		System.out.println("전송");
 		return message;
 	}
 	

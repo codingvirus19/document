@@ -26,7 +26,6 @@ public class JoinApiController {
 			return JsonResult.fail("email중복");
 		}
 		userVo.setImage("/assets/images/defaultUser.webp");
-		System.out.println(userVo);
 		userService.join(userVo);
 		return JsonResult.success(userVo);
 	}
