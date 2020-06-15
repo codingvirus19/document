@@ -52,6 +52,7 @@ export default class Contents extends React.Component {
             clientRef={this.props.clientRef} 
             //group 지워짐 필터 다시 하자
             userListInGroupByUser={this.props.userListInGroupByUser}
+            chatAlarmNotReceive={this.props.chatAlarmNotReceive}
             />
           ) : null}
 
