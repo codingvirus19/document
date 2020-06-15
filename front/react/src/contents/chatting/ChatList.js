@@ -26,11 +26,23 @@ export default class Contents extends React.Component {
       gNo: this.props.chatListGroup.no[index],
       gName: this.props.chatListGroup.gname[index],
     });
+    console.log(this.props.chatListGroup.no[index])
+    this.props.chatAlarmNotReceive(this.props.chatListGroup.no[index]);
   }
   close() {
     this.setState({
       chatOpen: false,
     });
+    this.props.chatAlarmNotReceive(this.state.gNo);
+
+    this.props.clientRef.sendMessage(
+      "/app/alarm/" + this.props.users.no[0],
+      JSON.stringify({
+        gNo: this.state.gNo,
+        type: false,
+        readCheck: false,
+      })
+    );
   }
 
   render() {
