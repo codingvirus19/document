@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
+import com.douzone.codingvirus19.dto.JsonResult;
 import com.douzone.codingvirus19.service.UserService;
 
 @Controller
@@ -51,7 +53,6 @@ public class UserListSocketController {
 		}
 		userGroupList.put(groupno, userlist);
 		userGroupListNo.put(groupno, userNolist);
-
 		for (Long userNo : userNolist) {
 			webSocket.convertAndSend("/api/alarm/" + userNo, userlist);
 		}
@@ -76,6 +77,20 @@ public class UserListSocketController {
 		userGroupList.put(groupno, userlist);
 		userGroupListNo.put(groupno, userNolist);
 	}
+	
+	@MessageMapping("/memo/update/{groupno}")
+	public void memoChange(Map<String,String> map,@DestinationVariable Long groupno) throws Exception {
+		ArrayList<Long> userNolist = new ArrayList<>();
+			userNolist = userGroupListNo.get(groupno);
+			System.out.println(map+":"+groupno);
+			map.put("gNo", groupno.toString());
+			for (Long userNo : userNolist) {
+				if (userNo != Long.parseLong(map.get("userNo"))) {
+					webSocket.convertAndSend("/api/alarm/" + userNo, map);
+				}
+			}
+	}
+	
 
 	@EventListener
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {

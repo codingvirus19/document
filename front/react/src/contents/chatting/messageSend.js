@@ -59,7 +59,7 @@ export default class MessageList extends React.Component {
             value={this.state.message}
             onChange={this.onInputChanged.bind(this)}
             onKeyPress={this.chatKeyPress.bind(this)}
-            autocomplete="off"
+            autoComplete="off"
           />
           <button
             className={this.state.btnClass}

@@ -18,10 +18,6 @@ export default class Toolbar extends React.PureComponent {
     };
   }
 
-  hoverMemo (chack){
-
-  }
-
   render() {
     return (
       <div className={styles.toolbar} >
@@ -59,6 +55,8 @@ export default class Toolbar extends React.PureComponent {
               gNo={this.props.groupBySidebar.no}
               // memo 색변경 시 toolbar의 버튼도 색변경을 도와주는 props
               setStyle={this.props.setStyle}
+              users={this.props.users}
+              clientRef={this.props.clientRef}
             />
 
             {/* 해시추가 */}
@@ -71,6 +69,8 @@ export default class Toolbar extends React.PureComponent {
               distinctGroup_hash={this.props.distinctGroup_hash}
               groupBySidebar={this.props.groupBySidebar}
               SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+              users={this.props.users}
+              clientRef={this.props.clientRef}
             />
 
             {/* 내 컴퓨터에 저장 */}
@@ -84,6 +84,7 @@ export default class Toolbar extends React.PureComponent {
 
             {/* 메모삭제 */}
             <MemoDelete
+            notify={this.props.notify}
               // SidebarGroupUpdate: delete클릭 후 수정된 메모list를 다시뿌려주기 위한 callback함수
               SidebarGroupUpdate={this.props.SidebarGroupUpdate}
               // 내가 클릭한 메모의 color를 가져온다.

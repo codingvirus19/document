@@ -47,6 +47,9 @@ export default class ColorChange extends React.Component {
     this.setState({
       color: color.hex,
     });
+    if(this.props.clientRef != undefined && this.props.users != undefined && this.props.gNo != undefined){
+      this.props.clientRef.sendMessage(`/app/memo/update/${this.props.gNo}`,JSON.stringify({update:'update',userNo:this.props.users.no[0]}));
+    }
   }
 
   ajaxChangeColor(_changedColor) {
