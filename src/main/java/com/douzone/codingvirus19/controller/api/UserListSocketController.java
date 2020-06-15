@@ -94,7 +94,7 @@ public class UserListSocketController {
 	@EventListener
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
 		String username = event.getUser().getName();
-		AllUserList.add(username);
+		AllUserList.add(username); 
 	}
 
 	@EventListener
