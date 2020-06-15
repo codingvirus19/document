@@ -3,10 +3,11 @@ import Memo from "./Memo";
 import HashList from "./HashList";
 import Toolbar from "./toolbar/Toolbar";
 import toolbar from "./toolbar/Toolbar.css";
-import styles from "./ContentsMemo.css";
+import styles from "./ContentsMemoList.css";
+import ContentsMemo from "./ContentsMemo"
 import CreateEditor from "../header/headerMemu/CreateEditor"
 
-export default class Contents extends React.Component {
+export default class ContentsMemoList extends React.Component {
   constructor(props) {
     super(...arguments);
     this.memohover = React.createRef();
@@ -62,114 +63,76 @@ export default class Contents extends React.Component {
   }
 
 
-  hoverMemo(e, chack) {
-      if (chack) {
-        e.childNodes[2].style.display ="block";
-      } else {
-        e.childNodes[2].style.display ="none";
-      }
-
-  }
 
   render() {
-    if (this.props.memo_bigArr.length === 0) {
-      return (
-        <div className={styles.memo__container} >
-          <div className={styles.memo_null}>
-            <div className={styles.memo_null__container}>
-              <h2 className={styles.container__contents1}>메모가 존재하지 않습니다.</h2>
-              <span className={styles.container__contents_span}>
-                <p>( </p>
-                <p onClick={this.togglePopup.bind(this)} className={styles.container__contents_here}>여기</p>
-                <p className={styles.container__contents}>를 클릭하여 메모를 생성하세요</p>
-                <p> )</p>
-              </span>
-              {this.state.showPopup ? (
-                <CreateEditor
-                  users={this.props.users}
-                  bringMemoByGroup={this.props.bringMemoByGroup}
-                  groupNoForGroupUser={this.props.groupBySidebar}
-                  closePopup={this.togglePopup.bind(this)}
-                  clientRef={this.props.clientRef}
-                />
-              ) : null}
-            </div>
-
-
-          </div>
-        </div>
-      )
-    }
     return (
-      <div className={styles.memo} >
-        {this.props.memo_bigArr &&
-          this.props.memo_bigArr.map((memos, index) => (
             <div
-              style={{ background: this.props.memo_bigArr[index].color }}
-              key={this.props.memo_bigArr[index].no}
-              data-id={index}
+              style={{ background: this.props.color }}
+              key={this.props.no}
+              data-id={this.props.index}
               draggable="true"
               onDragStart={this.DragStart.bind(this)}
               onDragEnd={this.DragEnd.bind(this)}
               onDragOver={this.DragOver.bind(this)}
-              onMouseEnter={(e) => this.hoverMemo(e.currentTarget,true)}
-              onMouseLeave={(e) => this.hoverMemo(e.currentTarget,false)}
+              onMouseEnter={(e) => this.setState({
+                hoverMemo:true
+              })}
+              onMouseLeave={(e) => this.setState({
+                hoverMemo:false
+            })}
               className={styles.container_memo_form}
             >
+              {/* <ContentsMemo /> */}
               <Memo
                 groupInUserList={this.props.groupInUserList}
-                memo_gNo={this.props.memo_bigArr[index].gNo}
+                memo_gNo={this.props.gNo}
                 distinctGroup_hash={this.props.distinctGroup_hash}
                 SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                 bringMemoByGroup={this.props.bringMemoByGroup}
                 groupBySidebar={this.props.groupBySidebar}
                 group={this.props.group}
                 memo_bigArr={this.props.memo_bigArr}
-                index={index}
-                no={this.props.memo_bigArr[index].no}
+                index={this.props.index}
+                no={this.props.no}
                 clientRef={this.props.clientRef}
-                content={this.props.memo_bigArr[index].content}
-                memo_hash={this.props.group_hash.filter((element) =>
-                  element.memo_no === this.props.memo_bigArr[index].no)}
-                color={this.props.memo_bigArr[index].color}
+                content={this.props.content}
+                memo_hash={this.props.memo_hash}
+                color={this.props.color}
                 group_hash={this.props.group_hash}
                 users={this.props.users}
-                setStyle={{ background: this.props.memo_bigArr[index].color }}
+                setStyle={{ background: this.props.color }}
               />
               <HashList
-                memo_no={this.props.memo_bigArr[index].no}
+                memo_no={this.props.no}
                 setMemo_hash={this.setMemo_hash.bind(this)}
-                memo_hash={this.props.group_hash.filter((element) =>
-                  element.memo_no === this.props.memo_bigArr[index].no)}
+                memo_hash={this.props.memo_hash}
                 SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                 groupBySidebar={this.props.groupBySidebar}
               />
-                <Toolbar
+               {(this.state.hoverMemo)?
+               <Toolbar
                   memohover={this.memohover}
-                  key={this.props.memo_bigArr[index].no}
-                  index={index}
+                  key={this.props.no}
+                  index={this.props.index}
                   notify={this.props.notify}
                   // SaveLocal에서 저장시킬 contents값
-                  content={this.props.memo_bigArr[index].content}
+                  content={this.props.content}
                   // 색을 변화시킬 때 툴바의 색도 함께 변화시킬 props이다.
-                  setStyle={{ background: this.props.memo_bigArr[index].color }}
+                  setStyle={{ background: this.props.color }}
                   // 선택한 메모의 no
-                  no={this.props.memo_bigArr[index].no}
-                  memo_gNo={this.props.memo_bigArr[index].gNo}
+                  no={this.props.no}
+                  memo_gNo={this.props.gNo}
                   group={this.props.group}
                   groupBySidebar={this.props.groupBySidebar}
-                  memo_hash={this.props.group_hash.filter((element) =>
-                    element.memo_no === this.props.memo_bigArr[index].no)}
-                  color={this.props.memo_bigArr[index].color}
+                  memo_hash={this.props.memo_hash}
+                  color={this.props.color}
                   SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                   clientRef={this.props.clientRef}
                   users={this.props.users}
                   distinctGroup_hash={this.props.distinctGroup_hash}
                   IsHashUpdate={this.props.IsHashUpdate}
-                />
+                /> :null}
             </div>
-          ))}
-      </div>
     );
   }
 }
