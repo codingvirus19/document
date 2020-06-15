@@ -64,4 +64,13 @@ public class AlarmApiController {
 		alarmService.alarmGroupJoin(groupuserVo);
 		return JsonResult.success(null);
 	}
+	
+	@PostMapping("/alarmDelete")
+	public JsonResult AlarmDelete(@RequestBody AlarmVo alarmVo, @AuthUser SecurityUser securityUser) {
+		AlarmVo vo = new AlarmVo();
+		vo.setuNo(securityUser.getNo());
+		vo.setNotiNo(alarmVo.getNotiNo());
+		alarmService.alarmDelete(vo);
+		return null;
+	}
 }

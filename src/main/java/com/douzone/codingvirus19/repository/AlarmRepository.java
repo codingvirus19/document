@@ -53,4 +53,8 @@ public class AlarmRepository {
 		sqlSession.insert("groupuser.alarmGroupJoin", groupuserVo);
 	}
 
+	public void alarmDelete(AlarmVo vo) {
+		sqlSession.delete("alarm.alarmDelete", vo);
+	}
+
 }
