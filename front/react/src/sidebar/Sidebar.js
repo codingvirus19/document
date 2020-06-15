@@ -2,7 +2,7 @@ import React from "react";
 import HashtagList from "./HashtagList"
 import "./Sidebar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faUsers, faThumbtack } from "@fortawesome/free-solid-svg-icons";
 
 export default class Sidebar extends React.Component {
   constructor() {
@@ -85,7 +85,7 @@ export default class Sidebar extends React.Component {
                     <li key={this.props.group.no[index]} className="submenu-item">
                       <a onClick={this.clickGroup.bind(this, this.props.group.no[index], name)}>
                         <span className="submenu-item__span1">
-                          <FontAwesomeIcon className="fas fa-users" icon={faUsers} />
+                          <FontAwesomeIcon className="fas fa-thumbtack" icon={faThumbtack} />
                           </span>
                         <span className="submenu-item__span2">
                           {name}

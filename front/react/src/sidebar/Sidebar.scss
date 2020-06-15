@@ -38,12 +38,17 @@
 		.submenu-item{
 			width: 92%;
 			height: 47px;
-			padding: 15px;
+			padding: 11px;
 			padding-left: 21px;
 			color:$contentColor;   
+			
 			a{
 				color: white;
 			}
+		}
+		.submenu-item:hover{
+			background-color: #073D8D;
+			border-radius: 0.5rem;
 		}
 	}
 
