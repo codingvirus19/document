@@ -16,6 +16,7 @@ export default class Contents extends React.Component {
         <div className={styles.box}>
           <div className={styles.contentsMemo}>
             <ContentsHeader
+              userlistSession={this.props.userlistSession}
               getGroupInUser={this.props.getGroupInUser}
               notify={this.props.notify}
               SidebarGroupUpdate={this.props.SidebarGroupUpdate}
@@ -40,6 +41,7 @@ export default class Contents extends React.Component {
               users={this.props.users}
               group_hash={this.props.group_hash}
               distinctGroup_hash={this.props.distinctGroup_hash}
+              groupInUserList={this.props.groupInUserList}
             />
               :null}
           </div>
