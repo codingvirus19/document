@@ -2,19 +2,22 @@ import React from "react";
 import Memo from "./Memo";
 import HashList from "./HashList";
 import Toolbar from "./toolbar/Toolbar";
+import toolbar from "./toolbar/Toolbar.css";
 import styles from "./ContentsMemo.css";
 import CreateEditor from "../header/headerMemu/CreateEditor"
 
 export default class Contents extends React.Component {
   constructor(props) {
     super(...arguments);
+    this.memohover = React.createRef();
     this.state = {
       memo_hash: [{ no: "", name: "", memo_no: "" }],
       color: "#ffffff",
       memo_bigArr: this.props.memo_bigArr,
-      hoverMemo: false,
       showPopup: false,
+      hoverMemo: false,
     };
+    
   }
   DragStart(e) {
     this.dragStart = e.target;
@@ -47,16 +50,26 @@ export default class Contents extends React.Component {
   componentWillReceiveProps(nextProps) {
   }
 
-onClickHere(e){
-  // e.preventDefault();
-  console.log("test");
-}
+  onClickHere(e) {
+    // e.preventDefault();
+    console.log("test");
+  }
 
-togglePopup() {
-  this.setState({
-    showPopup: !this.state.showPopup,
-  });
-}
+  togglePopup() {
+    this.setState({
+      showPopup: !this.state.showPopup,
+    });
+  }
+
+
+  hoverMemo(e, chack) {
+      if (chack) {
+        e.childNodes[2].style.display ="block";
+      } else {
+        e.childNodes[2].style.display ="none";
+      }
+
+  }
 
   render() {
     if (this.props.memo_bigArr.length === 0) {
@@ -73,17 +86,17 @@ togglePopup() {
               </span>
               {this.state.showPopup ? (
                 <CreateEditor
-                users={this.props.users}
-                bringMemoByGroup={this.props.bringMemoByGroup}
-                groupNoForGroupUser={this.props.groupBySidebar}
-                closePopup={this.togglePopup.bind(this)}
-                clientRef={this.props.clientRef}
+                  users={this.props.users}
+                  bringMemoByGroup={this.props.bringMemoByGroup}
+                  groupNoForGroupUser={this.props.groupBySidebar}
+                  closePopup={this.togglePopup.bind(this)}
+                  clientRef={this.props.clientRef}
                 />
-                ) : null}
+              ) : null}
             </div>
-            
-            
-        </div>
+
+
+          </div>
         </div>
       )
     }
@@ -99,11 +112,12 @@ togglePopup() {
               onDragStart={this.DragStart.bind(this)}
               onDragEnd={this.DragEnd.bind(this)}
               onDragOver={this.DragOver.bind(this)}
-              onMouseLeave={() => this.setState({ hoverMemo: false, index: index })}
-              onMouseEnter={() => this.setState({ hoverMemo: true, index: index })}
+              onMouseEnter={(e) => this.hoverMemo(e.currentTarget,true)}
+              onMouseLeave={(e) => this.hoverMemo(e.currentTarget,false)}
               className={styles.container_memo_form}
             >
               <Memo
+                groupInUserList={this.props.groupInUserList}
                 memo_gNo={this.props.memo_bigArr[index].gNo}
                 distinctGroup_hash={this.props.distinctGroup_hash}
                 SidebarGroupUpdate={this.props.SidebarGroupUpdate}
@@ -130,28 +144,29 @@ togglePopup() {
                 SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                 groupBySidebar={this.props.groupBySidebar}
               />
-              <Toolbar
-                // 메모 호버시 툴바 보여줌
-                hoverMemo={this.state.hoverMemo}
-                notify={this.props.notify}
-                // SaveLocal에서 저장시킬 contents값
-                content={this.props.memo_bigArr[index].content}
-                // 색을 변화시킬 때 툴바의 색도 함께 변화시킬 props이다.
-                setStyle={{ background: this.props.memo_bigArr[index].color }}
-                // 선택한 메모의 no
-                no={this.props.memo_bigArr[index].no}
-                memo_gNo={this.props.memo_bigArr[index].gNo}
-                group={this.props.group}
-                groupBySidebar={this.props.groupBySidebar}
-                memo_hash={this.props.group_hash.filter((element) =>
-                  element.memo_no === this.props.memo_bigArr[index].no)}
-                color={this.props.memo_bigArr[index].color}
-                SidebarGroupUpdate={this.props.SidebarGroupUpdate}
-                clientRef={this.props.clientRef}
-                users={this.props.users}
-                distinctGroup_hash={this.props.distinctGroup_hash}
-                IsHashUpdate={this.props.IsHashUpdate}
-              />
+                <Toolbar
+                  memohover={this.memohover}
+                  key={this.props.memo_bigArr[index].no}
+                  index={index}
+                  notify={this.props.notify}
+                  // SaveLocal에서 저장시킬 contents값
+                  content={this.props.memo_bigArr[index].content}
+                  // 색을 변화시킬 때 툴바의 색도 함께 변화시킬 props이다.
+                  setStyle={{ background: this.props.memo_bigArr[index].color }}
+                  // 선택한 메모의 no
+                  no={this.props.memo_bigArr[index].no}
+                  memo_gNo={this.props.memo_bigArr[index].gNo}
+                  group={this.props.group}
+                  groupBySidebar={this.props.groupBySidebar}
+                  memo_hash={this.props.group_hash.filter((element) =>
+                    element.memo_no === this.props.memo_bigArr[index].no)}
+                  color={this.props.memo_bigArr[index].color}
+                  SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+                  clientRef={this.props.clientRef}
+                  users={this.props.users}
+                  distinctGroup_hash={this.props.distinctGroup_hash}
+                  IsHashUpdate={this.props.IsHashUpdate}
+                />
             </div>
           ))}
       </div>

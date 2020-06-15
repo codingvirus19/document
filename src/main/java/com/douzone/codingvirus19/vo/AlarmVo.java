@@ -7,9 +7,11 @@ public class AlarmVo {
 	private String chat;
 	private String groupName;
 	private String date;
+	private String week;
 	private boolean type;
 	private boolean addgroup;
 	private boolean readCheck;
+	private Integer readCount;
 	private Long notiNo;
 	private Long uNo;
 	
@@ -43,6 +45,12 @@ public class AlarmVo {
 	public void setDate(String date) {
 		this.date = date;
 	}
+	public String getWeek() {
+		return week;
+	}
+	public void setWeek(String week) {
+		this.week = week;
+	}
 	public boolean isType() {
 		return type;
 	}
@@ -57,6 +65,12 @@ public class AlarmVo {
 	}
 	public boolean isReadCheck() {
 		return readCheck;
+	}
+	public Integer getReadCount() {
+		return readCount;
+	}
+	public void setReadCount(Integer readCount) {
+		this.readCount = readCount;
 	}
 	public void setReadCheck(boolean readCheck) {
 		this.readCheck = readCheck;
@@ -76,7 +90,7 @@ public class AlarmVo {
 	@Override
 	public String toString() {
 		return "AlarmVo [no=" + no + ", gNo=" + gNo + ", chat=" + chat + ", groupName=" + groupName + ", date=" + date
-				+ ", type=" + type + ", addgroup=" + addgroup + ", readCheck=" + readCheck + ", notiNo=" + notiNo
-				+ ", uNo=" + uNo + "]";
+				+ ", week=" + week + ", type=" + type + ", addgroup=" + addgroup + ", readCheck=" + readCheck
+				+ ", readCount=" + readCount + ", notiNo=" + notiNo + ", uNo=" + uNo + "]";
 	}
 }

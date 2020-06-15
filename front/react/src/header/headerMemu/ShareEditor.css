@@ -80,3 +80,70 @@
   padding: 9px 9px 2px 9px;
   border-bottom: 1px solid #020202;
 }
+
+.userList{
+  position: absolute;
+  width: 70px;
+  height: 450px;
+  top: 50%;
+  left: 50%;
+  transform: translate(257%, -67%);
+  border-radius: 1rem;
+  animation: fadein 0.3s;
+  -moz-animation: fadein 0.3s; /* Firefox */
+  -webkit-animation: fadein 0.3s; /* Safari and Chrome */
+  -o-animation: fadein 0.3s; /* Opera */
+}
+.users{
+  height: 62px;
+  width: 62px;
+  margin: 50px auto;
+  border-radius: 38px;
+}
+
+.userImage{
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+.userWriteImage{
+  box-shadow: blue 2px 2px 2px 2px;
+  height: 100%;
+  width: 100%;
+  opacity: 0.8;
+  border-radius: 50%;
+}
+
+
+@keyframes fadein {
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-moz-keyframes fadein { /* Firefox */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-o-keyframes fadein { /* Opera */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity: 1;
+  }
+}

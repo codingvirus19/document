@@ -64,14 +64,11 @@ public class UserApiController {
 		List<UserVo> userList = userService.getUserListNotInGroup(vo.getNo());
 		
 		for(int i = 0; i < userList.size(); i++ ) {
-			System.out.println(usersessionlist);
 			
 			if(usersessionlist.contains(userList.get(i).getId().toString())) {
 				pushSessionUserMap = new HashMap<String, Object>();
 				
-				System.out.println(userList.get(i).getId().toString());
 				pushSessionUserMap.put("user_id", userList.get(i).getId().toString());
-				System.out.println(pushSessionUserMap);
 				userSession.add(pushSessionUserMap);
 			}
 		}
@@ -79,17 +76,10 @@ public class UserApiController {
 		if(userSession.size() != 0) {
 			sessionUserMap.put("userSession", userSession);
 		
-			System.out.println(sessionUserMap);
 			List<UserVo> sessionlist = userService.getUserSessionNotInGroup(sessionUserMap);
 			return JsonResult.success(sessionlist);
 		}
 		return JsonResult.success(null);
-//		System.out.println(userList.size());
-//		System.out.println(userList);
-//		
-//		userList.get.retainAll(usersessionlist);
-		
-		
 	}
 	
 	@EventListener
@@ -105,8 +95,13 @@ public class UserApiController {
 		String username = event.getUser().getName();
 		if (usersessionlist.lastIndexOf(username) >= 0) {
 			usersessionlist.remove(usersessionlist.lastIndexOf(username));
-//			webSocket.convertAndSend("/api/userlist/" + userGroup.get(username), userlist);
-//			System.out.println(usersessionlist);
+
 		}
+	}
+	
+	@PostMapping("/getUserListInGroupByUser")
+	public JsonResult getUserListInGroupByUser(@RequestBody UserVo userVo) {
+		List<UserVo> list = userService.getUserListInGroupByUser(userVo.getNo());
+		return JsonResult.success(list);
 	}
 }

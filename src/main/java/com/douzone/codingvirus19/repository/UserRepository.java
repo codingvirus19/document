@@ -71,4 +71,8 @@ public class UserRepository {
 		return sqlSession.selectList("user.getUserSessionNotInGroup", sessionUserMap);
 	}
 
+	public List<UserVo> getUserListInGroupByUser(Long no) {
+		return sqlSession.selectList("user.getUserListInGroupByUser", no);
+	}
+
 }

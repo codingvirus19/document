@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
-import styles from "./Chat.css";
-import alarm_styles from "../../header/Header.css";
+import styles from "./ChatList.css";
 import ChatRoom from "./ChatRoom";
 
 export default class Contents extends React.Component {
@@ -11,19 +10,21 @@ export default class Contents extends React.Component {
       gNo: "",
     };
   }
-  open(e) {
-    this.props.clientRef.sendMessage(
-      "/app/alarm/" + this.props.users.no[0],
-      JSON.stringify({
-        gNo: this.props.group.no[e.target.id],
-        type: false,
-        readCheck: false,
-      })
-    );
+  open(index) {
+    if (this.props.chatListGroup.readcheck[index] == true) {
+      this.props.clientRef.sendMessage(
+        "/app/alarm/" + this.props.users.no[0],
+        JSON.stringify({
+          gNo: this.props.chatListGroup.no[index],
+          type: false,
+          readCheck: false,
+        })
+      );
+    }
     this.setState({
       chatOpen: !this.state.chatOpen,
-      gNo: this.props.group.no[e.target.id],
-      gName: this.props.group.gname[e.target.id],
+      gNo: this.props.chatListGroup.no[index],
+      gName: this.props.chatListGroup.gname[index],
     });
   }
   close() {
@@ -32,17 +33,9 @@ export default class Contents extends React.Component {
     });
   }
 
-  groupByalarm(gNo) {
-    if (this.props.alarm.g_no == gNo) {
-      if (this.props.alarm.chatting == true) {
-        return (<span className={alarm_styles.alarmbell} />);
-      }
-    }
-    return (null);
-  }
-
   render() {
-    if(this.props.users === undefined) {
+    //나중에 지우기
+    if (!this.props.userListInGroupByUser || !this.props.chatListGroup) {
       return null;
     }
     return (
@@ -59,16 +52,41 @@ export default class Contents extends React.Component {
           ) : (
               <>
                 <div className={styles.chat_title}>채팅</div>
-                {this.props.group.gname.map((gname, index) => {
+                {this.props.chatListGroup.gname.map((gname, index) => {
+                  //그룹별 멤버 
+                  let gmember = this.props.userListInGroupByUser
+                    .filter(element => element.gNo === this.props.chatListGroup.no[index]);
                   return (
                     <Fragment key={index}>
                       <div
                         className={styles.chatList}
                         id={index}
-                        onClick={this.open.bind(this)} >
-                        {gname}
-                        {this.props.users.name}
-                        {this.groupByalarm.call(this, this.props.group.no[index])}
+                        onClick={this.open.bind(this, index)} >
+                        <div className={styles.image_div}>
+                          {/* 그룹 인원 1명일때 */}
+                          {gmember.length === 1
+                            ? (<img
+                              className={styles.img1}
+                              src={"." + gmember[0].image} />)
+                              // 그룹인원 2명 이상일때
+                            : (<>
+                              <img
+                                className={styles.img2}
+                                src={"." + gmember[0].image} />
+                              <img key={index}
+                                className={styles.img3}
+                                src={"." + gmember[1].image} />
+                            </>
+                            )}
+                          </div>
+                        <div className={styles.gname}>
+                          {gname}
+                        </div>
+                        <div className={styles.gmember}>
+                          {gmember.map(element => element.nickname + ", ")}
+                        </div>
+                        {this.props.chatListGroup.readcheck[index] == true ?
+                          <span className={styles.chatalarmbell}>{this.props.chatListGroup.readcount[index]}</span>  : null}
                       </div>
                     </Fragment>
                   );

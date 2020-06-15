@@ -68,6 +68,7 @@
 			delete from groups where no= #{no};
 		]]>
 	</delete>
+	
 	<delete id="outGroupAloneDeleteHash" parameterType="groupuservo">
 		<![CDATA[
 			delete
@@ -77,11 +78,13 @@
 				and memo.g_no=#{gNo};
 		]]>
 	</delete>
+	
 	<delete id="outGroupAloneDeleteGroupUser" parameterType="groupuservo">
 		<![CDATA[
 			delete from groupuser where g_no= #{gNo} and u_no = #{uNo};
 		]]>
 	</delete>
+	
 	<delete id="outGroupAloneDeleteMemo" parameterType="groupuservo">
 		<![CDATA[
 			delete from memo where g_no= #{gNo} and u_no=#{uNo};

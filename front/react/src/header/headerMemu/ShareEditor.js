@@ -21,13 +21,16 @@ export default class Popup extends React.Component {
     this.temp = null;
     this.editor;
     this.inputposition;
+    this.count=0;
+    this.tempCount = null;
     this.state = {
       value: this.props.content,
       cursor: '',
       textSize: 0,
       version: 0,
-      name: this.props.users.no[0],
-      color: this.props.color
+      name: this.props.users.id[0],
+      color: this.props.color,
+      userList: [],
     };
   }
   boldevent() {
@@ -104,6 +107,7 @@ export default class Popup extends React.Component {
           name: this.state.name
         }))
   }
+  
   viewSet(text) {
     text = text.join('');
     text = text.split('');
@@ -155,7 +159,6 @@ export default class Popup extends React.Component {
     let input_index = e.target.selectionStart;
     let key = e.target.value.substring(input_index - 1, input_index);
     this.temp = this.getSnapshotBeforeUpdate(this.state.textSize);
-
     // this.send(input_index,textsize,key,(this.state.version));
     if (this.temp > textsize) {
       this.deleteInput(input_index, (this.temp - (e.target.value.split('').length + 1)));
@@ -211,12 +214,29 @@ export default class Popup extends React.Component {
   }
 
   receive(message) {
-    if (message.type != "error" && message.type != "allKey" && message.name != this.state.name) {
-      this.wait();
+    if(message.type == undefined){
+      this.setState({
+        userList:message
+      })
+      return;
+    }
+    //=====================================================================
+    //작성유저 표시
+      let writeUser = document.getElementById(message.name);
+      if(writeUser != undefined){
+      writeUser.className = `${styles.userWriteImage}`;
+      setTimeout(()=>{
+        writeUser = document.getElementById(message.name);
+        writeUser.className = `${styles.userImage}`;
+      },500);
+    }
+    //========================================================================
+
+
+    this.count = this.count+1;
+    if (message.type != "error3" &&message.type != "error2" && message.type != "error1" &&message.type != "error" && message.type != "allKey" && message.name != this.state.name) {
+      this.wait(this.count,message);
     } 
-
-
-
     this.setState({
       version: message.version
     })
@@ -239,21 +259,50 @@ export default class Popup extends React.Component {
       })
 
       return;
-    }
-    else if (message.type == "error") {
+    }else if (message.type == "error") {
       this.setState({
         value: message.key,
         textSize: message.key.split('').length,
         version: message.version
       })
-      // if(this.state.name == message.name){
-      //   this.inputposition = this.inputposition - message.size;
-      // }else{
-      //   this.inputposition = this.inputposition + message.size;
-      // }
-      // console.log(this.inputposition);
-      this.wait();
-      
+      this.wait(this.count,message);
+      return;
+    }
+    else if (message.type == "error1") {
+      this.setState({
+        value: message.key,
+        textSize: message.key.split('').length,
+        version: message.version
+      })
+      if(this.state.name != message.name){
+        this.inputposition = this.inputposition + message.size;
+      }else{
+        this.inputposition = this.inputposition + message.size;
+      }
+       
+      this.wait(this.count,message);
+      return;
+    }else if (message.type == "error2") {
+      this.setState({
+        value: message.key,
+        textSize: message.key.split('').length,
+        version: message.version
+      })
+      if(this.state.name == message.name){
+        this.inputposition = this.inputposition - message.size;
+      }else{
+        this.inputposition = this.inputposition + message.size;
+      }
+      this.wait(this.count,message);
+      return;
+    }
+    else if (message.type == "error3") {
+      this.setState({
+        value: message.key,
+        textSize: message.key.split('').length,
+        version: message.version
+      })
+      this.wait(this.count,message);
       return;
     } else if (message.name == this.state.name) {
       this.inputposition = message.inputIndex;
@@ -278,17 +327,20 @@ export default class Popup extends React.Component {
       this.receiveBevent2(message.inputIndex, message.size);
     }
   }
-  wait() {
-    this.editor.disabled = true;
+  wait(count,message) {
+    this.editor.readOnly = true;
+    this.tempCount = count;
+
     setTimeout(() => {
-      this.editor.disabled = false;
+      if(count == this.tempCount){
+      this.editor.readOnly = false;
       this.editor.setSelectionRange(this.inputposition, this.inputposition);
       this.editor.focus();
+    }
     }, 500);
 
   }
   memoSave() {
-    console.log(this.props);
     this.send(0, 0, this.state.color, 0, "save");
   }
   markOpen() {
@@ -312,7 +364,21 @@ export default class Popup extends React.Component {
             url='./api/memo'
             topics={[`/api/memo/${this.props.no}`]}
             onMessage={this.receive.bind(this)}
-            ref={(client) => { this.clientRef = client }} />
+            ref={(client) => { this.clientRef = client }}
+            onConnect={()=>this.props.clientRef.sendMessage(`/app/memo/connect/${this.props.no}`,this.state.name)}
+            onDisconnect={()=>this.props.clientRef.sendMessage(`/app/memo/disconnect/${this.props.no}`,this.state.name)}
+            />
+            <div className={styles.userList}>
+            {this.props.groupInUserList.map((element,index) => {
+              if(this.state.userList.indexOf(element.id)>-1){
+              return(
+              <div key={index} className={styles.users}>
+                <img id={element.id} className={styles.userImage} src={"."+element.img}/>
+              </div>
+                );
+              }
+              })}
+            </div>
           <div className={popup.inner} style={{ backgroundColor: `${this.props.color}` }} onClick={e => e.stopPropagation()}>
             <div className={styles.editor} style={{ backgroundColor: `${this.props.color}` }}>
               <div className={styles.btn}>
@@ -340,6 +406,7 @@ export default class Popup extends React.Component {
                       ref={e => this.editor = e}
                       onClick={this.editorStart.bind(this)}
                       onBlur={this.cursorEvent.bind(this)}
+                      onKeyDown={e=>{(e.key.indexOf("Arrow")!=-1)?this.inputposition = e.target.selectionStart:null;}}
                       onChange={this.editorPush.bind(this)}
                       value={this.state.value}></textarea>
                     <div className={styles.toolbar}>

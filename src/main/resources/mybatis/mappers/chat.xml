@@ -4,7 +4,7 @@
 	<select id="chattingList" parameterType="chatvo" resultType="chatvo">
 		<![CDATA[
 			  select * 
-			    from ( select c.g_no as gNo, c.message as message, c.date as date, c.count as aCount, u.nickname as nickname, u.image as image
+			    from ( select c.g_no as gNo, c.message as message, date_format(c.date, '%Y-%m-%d %H시 %i분') as date, c.count as aCount, u.nickname as nickname, u.image as image
             			 from chat c, user u
           			    where c.g_no = #{gNo}
               			  and c.u_no = u.no
@@ -19,5 +19,28 @@
 			values ( #{gNo}, #{uNo}, #{message}, now(), #{aCount});
  		]]>
 	</insert>
+	
+	<select id="chatListGroup" parameterType="alarmvo" resultType="alarmvo">
+		<![CDATA[
+		 select c.no as gNo, c.name as groupName, d.readCheck as readCheck, d.readcount as readCount
+           from user a, 
+                groupuser b, groups c Left Join 
+                   (select b.g_no as gNo,
+					       a.u_no as uNo,
+						   a.read_check as readCheck,
+						   count(a.read_check) as readcount
+						   from accptalarm a, (select no, g_no, massage, date, type 
+						   						 from alarm) as b
+						   where a.noti_no = b.no
+						     and u_no=#{no}
+                             and read_check = true
+					    group by b.g_no) as d
+             on d.gNo = c.no
+          where a.no = b.u_no
+            and c.no = b.g_no
+			and a.no=#{no}
+       group by c.no;
+ 		]]>
+	</select>
 </mapper>
 	

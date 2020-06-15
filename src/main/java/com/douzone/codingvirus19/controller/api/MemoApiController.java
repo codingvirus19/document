@@ -20,6 +20,7 @@ import com.douzone.codingvirus19.security.AuthUser;
 import com.douzone.codingvirus19.security.SecurityUser;
 import com.douzone.codingvirus19.service.FileService;
 import com.douzone.codingvirus19.service.MemoService;
+import com.douzone.codingvirus19.service.UserService;
 import com.douzone.codingvirus19.vo.EditorVo;
 import com.douzone.codingvirus19.vo.FileUpLoadVo;
 import com.douzone.codingvirus19.vo.HashVo;
@@ -35,12 +36,16 @@ public class MemoApiController {
 	private MemoService memoService;
 	
 	@Autowired
+	private UserService userService;
+	
+	@Autowired
 	private FileService filesService;
 
 	static Map<Long, String> strList = new HashMap<>();
 	static Map<Long, Boolean> booleanList = new HashMap<>();
 	static Map<Long, ArrayList<Long>> versionList = new HashMap<>();
 	static Map<Long, ArrayList<EditorVo>> messageHistory = new HashMap<>();
+	static Map<Long, ArrayList<String>> memoUserList = new HashMap<>();
 	static boolean first = true;
 	
 	@PostMapping("/api/memo/memoposition")
@@ -92,8 +97,38 @@ public class MemoApiController {
 	}
 	@PostMapping("/api/upload")
 	public JsonResult imgUpload(@AuthUser SecurityUser securityUser,FileUpLoadVo fileUpLoadVo) {
+		System.out.println(fileUpLoadVo);
 		return JsonResult.success(filesService.upload(fileUpLoadVo));
 	}
+	
+	@MessageMapping("/memo/connect/{memo}")
+	@SendTo("/api/memo/{memo}")
+	public ArrayList<String> connect(String userName, @DestinationVariable Long memo) throws Exception {
+		ArrayList<String> userList = new ArrayList<String>();
+		if(memoUserList.containsKey(memo)) {
+			userList = memoUserList.get(memo);
+		}
+		if(!userList.contains(userName)) {
+			userList.add(userName);
+		}
+		memoUserList.put(memo, userList);
+		return userList;
+	}
+	
+	@MessageMapping("/memo/disconnect/{memo}")
+	@SendTo("/api/memo/{memo}")
+	public ArrayList<String> disconnect(String userName, @DestinationVariable Long memo) throws Exception {
+		ArrayList<String> userList = new ArrayList<String>();
+		if(memoUserList.containsKey(memo)) {
+			userList = memoUserList.get(memo);
+		}
+		if(userList.contains(userName)) {
+			userList.remove(userName);
+		}
+		memoUserList.put(memo, userList);
+		return userList;
+	}
+	
 	
 	
 	@MessageMapping("/memo/{memo}")
@@ -111,6 +146,7 @@ public class MemoApiController {
 			 first = booleanList.get(memo);
 			 messageList = messageHistory.get(memo);
 		}
+		
 		messageList.add(message);
 		
 		if(message.getType().equals("save")) {
@@ -145,29 +181,29 @@ public class MemoApiController {
 		
 		if (version.size() > 0 && arrData.size()+1 != message.getSize()) {
 //			System.out.println(messageList);
-			System.out.println(message.getVersion()+"::"+version.get(version.size()-1));
 			if (message.getVersion() <= version.get(version.size() - 1)) {
-//				복잡해질 알고리즈으으
-				System.out.println(messageList.get(messageList.size()-1).getInputIndex()+"::::"+ messageList.get(messageList.size()-2).getInputIndex());
 					if(messageList.get(messageList.size()-1).getInputIndex() <= messageList.get(messageList.size()-2).getInputIndex()) {
-						//중복입력 해결!!
+						ArrayList<String> TempData = new ArrayList<String>();
+						Collections.addAll(TempData, messageList.get(messageList.size()-1).getKey().split(""));
 						arrData = memoChange(messageList.get(messageList.size()-1),arrData);
 						str = String.join("", arrData);
 						strList.put(memo,str);
-						System.out.println(str+"중복입력");
 						message.setVersion(version.get(version.size()-1)+1);
-						message.setType("error");
+						message.setSize((long)TempData.size());
+						message.setType("error1");
 						message.setKey(str);
 						return message; 
 					}else if(messageList.get(messageList.size()-1).getInputIndex() > messageList.get(messageList.size()-2).getInputIndex()) {
 						ArrayList<String> TempData = new ArrayList<String>();
 						Collections.addAll(TempData, messageList.get(messageList.size()-1).getKey().split(""));
 						//마지막 입력된 위치가더크다 
+						message.setType("error2");
 						message.setSize((long)TempData.size());
-						message.setInputIndex(message.getInputIndex()+TempData.size());
+						arrData = memoChange(messageList.get(messageList.size()-1),arrData);
+						str = String.join("", arrData);
+						message.setKey(str);
+						System.out.println("error2");
 						return message;
-					}else {
-						System.out.println("error");
 					}
 				message.setType("error");
 				str = String.join("", arrData);
@@ -177,10 +213,8 @@ public class MemoApiController {
 			}
 		}
 		if(arrData.size() > 1 &&!message.getType().equals("korean") &&!message.getType().equals("delete") && arrData.size()+1 != message.getSize()) {
-			System.out.println("통합에러");
-			message.setType("error");
+			message.setType("error3");
 			str = String.join("", arrData);
-			System.out.println(message.getName());
 			message.setKey(str);
 			message.setVersion(version.get(version.size()-1)+1);
 			return message;
@@ -199,7 +233,6 @@ public class MemoApiController {
 	}
 	
 	public ArrayList<String> memoChange(EditorVo message,ArrayList<String> arrData) {
-		System.out.println(message);
 		if (message.getType().equals("basic")) {
 			// 기본 입력
 			arrData.add(message.getInputIndex() - 1, message.getKey());
