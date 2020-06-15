@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
 import styles from "./Alarm.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import AlarmAddGroup from "./AlarmAddGroup";
 
 const API_URL = ".";
@@ -16,6 +18,11 @@ export default class Alarm extends React.Component {
         }
     }
     componentDidMount() {
+        this.getAlarmList();   
+    }
+    // 지워지는데 재랜더 안됨
+
+    getAlarmList(){
         fetch(`${API_URL}/api/alarmList`, {
             method: "post",
             headers: API_HEADERS
@@ -44,7 +51,21 @@ export default class Alarm extends React.Component {
             })
         }
     }
+    alarmDelete(index){
+        let data = {
+            notiNo : this.state.alarmDatas[index].notiNo
+        }
+        fetch(`${API_URL}/api/alarmDelete`, {
+            method: "post",
+            headers: API_HEADERS,
+            body: JSON.stringify(data)
+        })
+            .then(()=>{this.getAlarmList()})
+            .catch((err) => console.error(err));
+    }
+
     render() {
+        console.log(this.state.alarmDatas);
         return (
             <div className={styles.alarm}>
                 <h5 className={styles.alarmHeader}>알람목록</h5>
@@ -57,7 +78,11 @@ export default class Alarm extends React.Component {
                     {this.state.alarmDatas.map((content, index) => {
                         return (
                             <div key={index} className={styles.alarmLine}>
-                                <li>{index + 1}. {content.chat}</li>
+                                <li>{index + 1}. {content.chat}
+                                    <button onClick={this.alarmDelete.bind(this, index)} className={styles.alarmDelete}>
+                                        <FontAwesomeIcon className={styles.faTrash} icon={faTrash} />
+                                    </button>
+                                </li>
                                 <h6 className={styles.dates}>{content.date} ({content.week})</h6>
                             </div>
                         )

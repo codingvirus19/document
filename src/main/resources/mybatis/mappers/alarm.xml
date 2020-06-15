@@ -64,7 +64,8 @@
 	<select id="getAlarmContents" parameterType="alarmvo"
 		resultType="alarmvo">
 		<![CDATA[
-		 select b.massage as chat,
+		 select a.noti_no as notiNo,
+		 		b.massage as chat,
                 date_format(b.date, '%m월 %d일 %H:%i') as date,
                 case dayofweek(b.date)
 				when '1' then '일요일'
@@ -83,6 +84,13 @@
             limit 10;
  		]]>
 	</select>
+	
+	<delete id="alarmDelete" parameterType="alarmvo">
+		<![CDATA[
+			delete from accptalarm 
+			where u_no = #{uNo} and noti_no = #{notiNo}
+		]]>
+	</delete>
 
 </mapper>
 	

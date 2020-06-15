@@ -29,6 +29,7 @@
 .alarmLine li{
     font-weight: 700!important;
     font-size: 13px;
+    display: inline-flex;
 }
 .alarmLine h6{
     color: #999!important;
@@ -45,4 +46,20 @@
 
 .dates{
     text-align: right;
+}
+
+.alarmDelete{
+    height: 20px;
+    width: 20px;
+}
+.alarmDelete {
+    display: none;
+}
+.alarmLine:hover button {
+   display: block;
+}
+.faTrash{
+    font-size: 1rem;
+  color: #3a3b45;
+  background-color: none;
 }
