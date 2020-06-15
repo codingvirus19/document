@@ -61,6 +61,9 @@ export default class HashSheet extends React.Component {
       mNo: this.props.memo_no,
       name: hash.value
     }
+    if(this.props.clientRef != undefined && this.props.users != undefined && this.props.memo_gNo != undefined){
+      this.props.clientRef.sendMessage(`/app/memo/update/${this.props.memo_gNo}`,JSON.stringify({update:'update',userNo:this.props.users.no[0]}));
+      }
     fetch(`${API_URL}/api/deleteHash`, {
       method: "post",
       headers: API_HEADERS,

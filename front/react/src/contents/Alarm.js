@@ -20,7 +20,6 @@ export default class Alarm extends React.Component {
     componentDidMount() {
         this.getAlarmList();   
     }
-    // 지워지는데 재랜더 안됨
 
     getAlarmList(){
         fetch(`${API_URL}/api/alarmList`, {
