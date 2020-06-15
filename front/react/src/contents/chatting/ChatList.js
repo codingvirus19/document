@@ -58,6 +58,8 @@ export default class Contents extends React.Component {
               gNo={this.state.gNo}
               gName={this.state.gName}
               users={this.props.users}
+              userListInGroupByUser={this.props.userListInGroupByUser
+                .filter(element =>  element.gNo === this.state.gNo)}
               close={this.close.bind(this)}
               clientRef={this.props.clientRef}
             />
@@ -80,25 +82,27 @@ export default class Contents extends React.Component {
                             ? (<img
                               className={styles.img1}
                               src={"." + gmember[0].image} />)
-                              // 그룹인원 2명 이상일때
+                            // 그룹인원 2명 이상일때
                             : (<>
                               <img
                                 className={styles.img2}
                                 src={"." + gmember[0].image} />
-                              <img key={index}
+                              <img
                                 className={styles.img3}
                                 src={"." + gmember[1].image} />
                             </>
                             )}
-                          </div>
-                        <div className={styles.gname}>
-                          {gname}
                         </div>
-                        <div className={styles.gmember}>
-                          {gmember.map(element => element.nickname + ", ")}
+                        <div className={styles.name}>
+                          <div className={styles.gname}>
+                            {gname}
+                          </div>
+                          <div className={styles.gmember}>
+                            {gmember.map(element => element.nickname + ", ")}
+                          </div>
                         </div>
                         {this.props.chatListGroup.readcheck[index] == true ?
-                          <span className={styles.chatalarmbell}>{this.props.chatListGroup.readcount[index]}</span>  : null}
+                          <span className={styles.chatalarmbell}>{this.props.chatListGroup.readcount[index]}</span> : null}
                       </div>
                     </Fragment>
                   );
