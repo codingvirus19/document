@@ -12,11 +12,22 @@
 	width: 4rem;
 	// after는 11rem으로!!
 	height: 100%;
-	background-color: $bgcolor;
 	-webkit-box-shadow: 0 0 16px rgba(0,0,0,.28);
-    box-shadow: 0 0 16px rgba(0,0,0,.28);
+	box-shadow: 0 0 16px rgba(0,0,0,.28);
+	background-color: $bgcolor;
   }
-  
+.sidebar__menu{
+	position: absolute;
+	width: 17rem;
+	// after는 11rem으로!!
+	height: 100%;
+	background-color: $bgcolor;
+	left: 64px;
+	z-index: 1;
+	top: 0px;
+	overflow: hidden;
+	overflow-y: scroll;
+}
   *,
   *::before,
   *::after {
@@ -33,7 +44,31 @@
 	height: 100vh;
   }
   
+  .sidebar__menu__title-container{
+	width:100%;
+	// background-color: $bgcolor;
+	height: 11%;
+	padding: 12%;
+	padding-left: 15%;
+
+	.container__title{
+		color:white;
+		width: 80%;
+		height: 32px;
+	  }
+	
+	.menu-item{
+		height:30px;
+	}
+  }
+  
+  .nav{
+	  height: 98%;
+
+  }
+  
   .menu {
+
 	ol {
 	  list-style: none;
 	  padding: 0;
@@ -98,17 +133,17 @@
 	  }
   
 	  .sub-menu {
-		position: absolute;
-		top: 100%;
-		width: 412%;
-		height: 1300%;
-		transform-origin: top;
-		transform: rotateX(-90deg);
-		transition: transform 0.3s linear;
-		background-color: $yellow;
-		z-index: 1;
-		top: -130%;
-		left: 4rem;
+		// position: absolute;
+		// top: 100%;
+		// width: 412%;
+		// height: 1300%;
+		// transform-origin: top;
+		// transform: rotateX(-90deg);
+		// transition: transform 0.3s linear;
+		// background-color: $yellow;
+		// z-index: 1;
+		// top: -130%;
+		// left: 4rem;
 		-webkit-box-shadow: 0 0 4px rgba(0,0,0,.28);
 		box-shadow: 0 0 4px rgba(0,0,0,.28);
   
