@@ -84,8 +84,6 @@ export default class ContentsMemoList extends React.Component {
     let to = Number(this.dragOver.dataset.id);
     this.props.memo_Change(from, to);
   }
-
-  
   render() {
     if (this.props.memo_bigArr.length === 0) {
       return (
@@ -144,7 +142,6 @@ export default class ContentsMemoList extends React.Component {
               group_hash={this.props.group_hash}
               distinctGroup_hash={this.props.distinctGroup_hash}
               groupInUserList={this.props.groupInUserList}
-              key={index}
 
             />
           ))}
