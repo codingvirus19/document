@@ -31,7 +31,9 @@ export default class Container extends React.Component {
       getProfileValue: null,
       userListInGroupByUser: null,
       chatalarm_gNo: null,
-      userlistSession:[]
+      userlistSession:[],
+      clickGroup: false,
+      clickHash: false,
     };
     this.tempGno = null;
   }
@@ -492,6 +494,7 @@ export default class Container extends React.Component {
     })
   }
 
+  
   groupUserList(gNo) {
     if (this.Users != null) {
       if (gNo == null) {
@@ -599,7 +602,37 @@ export default class Container extends React.Component {
       progress: undefined,
     })
   }
-
+  
+  // container의 어떤부분이든 클릭시 side창이 닫히도록 하는 함수
+  onClickContainer(){
+    this.setState({
+      clickHash: false,
+      clickGroup: false,
+    })
+  }
+  // sidebar의 그룹클릭시 side창 열림
+  onOpenGroup(){
+    this.setState({
+      clickGroup: !this.state.clickGroup,
+      clickHash: false,
+    })
+  }
+  
+  // hash의 그룹클릭시 side창 열림
+  onOpenHash(){
+    this.setState({
+      clickHash: !this.state.clickHash,
+      clickGroup: false,
+    })
+  }
+  // sidebar 어떤것이든 클릭 시 side창 닫힘
+  onCloseGroupAndHash(){
+    this.setState({
+      clickGroup:false,
+      clickHash:false,
+    })
+  }
+  
   render() {
     // console.log(this.userlistSession);
     const wsSourceUrl = "./api/alarm";
@@ -621,6 +654,8 @@ export default class Container extends React.Component {
         {/*속성 memo_bigArr : 메모의 정보가 이중배열로 담겨있다.*/}
         {/*속성 SidebarGroupUpdate : delete 버튼 클릭시 콜백으로 gno와 gname이 전달된다.  */}
         <Header
+          // container의 어떤부분이든 클릭시 side창이 닫히도록 하는 함수
+          onClickContainer={this.onClickContainer.bind(this)}
           // header의 사진이 실시간으로 바뀌도록 설정
           getProfileAjax={this.getProfileAjax.bind(this)}
           notify={this.notify.bind(this)}
@@ -647,6 +682,11 @@ export default class Container extends React.Component {
         />
         <div className="body">
           <Sidebar
+            onCloseGroupAndHash={this.onCloseGroupAndHash.bind(this)}
+            onOpenGroup={this.onOpenGroup.bind(this)}
+            onOpenHash={this.onOpenHash.bind(this)}
+            clickGroup={this.state.clickGroup}
+            clickHash={this.state.clickHash}
             users={this.Users}
             hash={this.state.distinctGroup_hash}
             group={this.state.group}
@@ -655,6 +695,8 @@ export default class Container extends React.Component {
             onCallbackKeywordChange={this.onCallbackKeywordChange.bind(this)}
           />
           <Contents
+            // container의 어떤부분이든 클릭시 side창이 닫히도록 하는 함수
+            onClickContainer={this.onClickContainer.bind(this)}
             userlistSession={this.state.userlistSession}
             getGroupInUser={this.getGroupInUser.bind(this)}
             notify={this.notify.bind(this)}
