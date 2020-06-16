@@ -81,8 +81,8 @@ export default class Alarm extends React.Component {
                             : null}
                     {this.state.alarmDatas.map((content, index) => {
                         return (
-                            <div key={index} className={styles.alarmLine}>
-                                <div onClick={this.clickAlram.bind(this, content.gNo)}>
+                            <div key={index} className={styles.alarmLine} onClick={this.clickAlram.bind(this, content.gNo)}>
+                                <div>
                                     <li> {index + 1}. {content.chat} </li>
                                 </div>
                                 <button onClick={this.alarmDelete.bind(this, index)} className={styles.alarmDelete}>
