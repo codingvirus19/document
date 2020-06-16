@@ -102,9 +102,7 @@ public class MainApiController {
 	@PostMapping("/getGnameByGno")
 	public JsonResult getGnameByGno(@RequestBody GroupVo groupVo) {
 		GroupVo data = new GroupVo();
-		System.out.println(groupVo);
 		data = mainService.getGnameByGno(groupVo);
-		System.out.println(data);
 		return JsonResult.success(data);
 	}
 }
