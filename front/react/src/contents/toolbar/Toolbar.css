@@ -1,12 +1,20 @@
+.toolbarSize {
+  min-height: 1.8rem;
+  min-width: 12rem;
+}
+
 .toolbar {
   min-height: 1.8rem;
   min-width: 12rem;
+  animation: fadein 0.5s;
+  -moz-animation: fadein 0.5s; /* Firefox */
+  -webkit-animation: fadein 0.5s; /* Safari and Chrome */
+  -o-animation: fadein 0.5s; /* Opera */
 }
 
 .popover {
   position: absolute;
   z-index: 10;
-  transform: translate(2.3rem, 0.6rem);
 }
 
 .cover {
@@ -49,4 +57,39 @@
 
 .colorSelcet {
   width: 100px;
+}
+
+
+
+@keyframes fadein {
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-moz-keyframes fadein { /* Firefox */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-o-keyframes fadein { /* Opera */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity: 1;
+  }
 }
