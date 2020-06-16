@@ -254,7 +254,7 @@ export default class GroupAddOrInvite extends React.Component {
                     />
                 </div>
                 <div className={styles.inner_form_component}>
-                    <span className={styles.inner_form_container_title}>초대할 사용자 (최대 4명)</span>
+                    <span className={styles.inner_form_container_title}>초대할 사용자 (최대 4명, 접속한 사용자)</span>
                     <Select
                         value={this.state.valueUsers}
                         className={styles.inner_select}

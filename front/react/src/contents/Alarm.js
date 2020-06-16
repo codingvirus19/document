@@ -44,7 +44,7 @@ export default class Alarm extends React.Component {
 
     clickAlram(g_no) {
         this.props.SidebarGroupUpdate(g_no);
-    }    
+    }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.addgroup_alarm != null) {
@@ -54,7 +54,8 @@ export default class Alarm extends React.Component {
         }
     }
 
-    alarmDelete(index) {
+    alarmDelete(index, e) {
+        e.stopPropagation();
         let data = {
             notiNo: this.state.alarmDatas[index].notiNo
         }
@@ -77,15 +78,18 @@ export default class Alarm extends React.Component {
                             addGroupAlarm={this.state.addGroupAlarm}
                             joinCancel={this.joinCancel.bind(this)}
                             SidebarGroupUpdate={this.props.SidebarGroupUpdate}
-                            AlarmAddGroup={this.props.AlarmAddGroup} /> 
-                            : null}
+                            AlarmAddGroup={this.props.AlarmAddGroup} />
+                        : null}
                     {this.state.alarmDatas.map((content, index) => {
                         return (
                             <div key={index} className={styles.alarmLine} onClick={this.clickAlram.bind(this, content.gNo)}>
                                 <div>
                                     <li> {index + 1}. {content.chat} </li>
                                 </div>
-                                <button onClick={this.alarmDelete.bind(this, index)} className={styles.alarmDelete}>
+                                <button 
+                                // aria-label="알람 삭제"
+                                onClick={(e)=> this.alarmDelete(index, e)}
+                                className={styles.alarmDelete}>
                                     <FontAwesomeIcon className={styles.faTrash} icon={faTrash} />
                                 </button>
                                 <h6 className={styles.dates}>{content.date} ({content.week})</h6>

@@ -8,6 +8,7 @@
 .alarmList{
     list-style: none;
     background-color: #fff;
+    cursor: pointer;
 }
 .alarmHeader{
     text-align: center;
@@ -56,13 +57,19 @@
 .alarmDelete{
     height: 20px;
     width: 20px;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0);
+    position: relative;
+    float: right;
+    margin-left: 1rem;
 }
-.alarmDelete {
-    display: block;
+.alarmDelete:hover{
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.12);
 }
 
 .faTrash{
-    font-size: 1rem;
+  font-size: 1rem;
   color: #3a3b45;
   background-color: none;
 }
