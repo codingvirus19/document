@@ -15,5 +15,5 @@
 .color{
     z-index: 10;
     position: absolute;
-    transform: translate(-2.5%,12%);
+    top: 85%;
 }

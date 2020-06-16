@@ -63,6 +63,7 @@ export default class ContentsMemoList extends React.Component {
             >
               {/* <ContentsMemo /> */}
               <Memo
+                notify={this.props.notify}
                 groupInUserList={this.props.groupInUserList}
                 memo_gNo={this.props.gNo}
                 distinctGroup_hash={this.props.distinctGroup_hash}
@@ -112,7 +113,8 @@ export default class ContentsMemoList extends React.Component {
                   users={this.props.users}
                   distinctGroup_hash={this.props.distinctGroup_hash}
                   IsHashUpdate={this.props.IsHashUpdate}
-                /> :null}
+                />
+                 :<div className = {toolbar.toolbarSize}></div>}
             </div>
     );
   }
