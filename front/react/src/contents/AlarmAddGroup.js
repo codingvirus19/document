@@ -16,7 +16,7 @@ export default class AlarmAddGroup extends React.Component {
         }
     }
 
-    joinGroup() {
+    joinGroup() {    
         let data = { gNo: this.state.groupNo };
         fetch(`${API_URL}/api/alarmGroupJoin`, {
             method: "post",

@@ -60,28 +60,29 @@ export default class ContentsHeader extends React.Component {
               groupBySidebar={this.props.groupBySidebar.no}
               users={this.props.users} />
             : null}
+             <div className="groupOut">
+
+          {/* 그룹 삭제 : 그룹이 개인일때는 아래 버튼이 작동되어선 안된다! // userList에 한명밖에 없을 경우 그룹삭제만 보이도록!   */}
+          {this.props.groupBySidebar.no != null && this.props.groupInUserList[1] == undefined ?
+            <GroupOutEveryone 
+            notify={this.props.notify}
+            getGroup={this.props.getGroup} 
+            groupBySidebar={this.props.groupBySidebar} 
+            SidebarGroupUpdate={this.props.SidebarGroupUpdate} />
+            : null}
+
+          {/* 그룹 나가기 : 그룹이 개인일때는 아래 버튼이 작동되어선 안된다! // userList에 두명 이상 있을 경우 그룹나가기만 보이도록!  */}
+          {this.props.groupBySidebar.no != null && this.props.groupInUserList[1] != undefined ?
+            <GroupOutAlone
+            notify={this.props.notify} 
+            getGroup={this.props.getGroup} 
+            groupBySidebar={this.props.groupBySidebar} 
+            SidebarGroupUpdate={this.props.SidebarGroupUpdate} />
+            : null}
+          </div>
         </div>
 
-        <div className="groupOut">
-
-            {/* 그룹 삭제 : 그룹이 개인일때는 아래 버튼이 작동되어선 안된다! // userList에 한명밖에 없을 경우 그룹삭제만 보이도록!   */}
-            {this.props.groupBySidebar.no != null && this.props.groupInUserList[1] == undefined ?
-              <GroupOutEveryone 
-              notify={this.props.notify}
-              getGroup={this.props.getGroup} 
-              groupBySidebar={this.props.groupBySidebar} 
-              SidebarGroupUpdate={this.props.SidebarGroupUpdate} />
-              : null}
-
-            {/* 그룹 나가기 : 그룹이 개인일때는 아래 버튼이 작동되어선 안된다! // userList에 두명 이상 있을 경우 그룹나가기만 보이도록!  */}
-            {this.props.groupBySidebar.no != null && this.props.groupInUserList[1] != undefined ?
-              <GroupOutAlone
-              notify={this.props.notify} 
-              getGroup={this.props.getGroup} 
-              groupBySidebar={this.props.groupBySidebar} 
-              SidebarGroupUpdate={this.props.SidebarGroupUpdate} />
-              : null}
-          </div>
+       
       </Fragment>
     );
   }

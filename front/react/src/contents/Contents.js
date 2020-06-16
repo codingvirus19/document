@@ -12,7 +12,7 @@ export default class Contents extends React.Component {
     // console.log(this.props.showAlarm);
     // console.log(this.state.addgroup_alarm);
     return (
-      <div className={styles.contents}>
+      <div onClick={this.props.onClickContainer} className={styles.contents}>
         <div className={styles.box}>
           <div className={styles.contentsMemo}>
             <ContentsHeader
@@ -61,6 +61,7 @@ export default class Contents extends React.Component {
               addgroup_alarm={this.props.addgroup_alarm}
               SidebarGroupUpdate={this.props.SidebarGroupUpdate}
               AlarmAddGroup={this.props.AlarmAddGroup}
+              alarm={this.props.alarm}
             />
           ) : null}
         </div>

@@ -120,6 +120,7 @@ export default class Contents extends React.Component {
                       return null;
                     }
                     return (
+
                     <Fragment key={index}>
                       <div
                         className={styles.chatList}

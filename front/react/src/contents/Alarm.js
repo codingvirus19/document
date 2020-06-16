@@ -52,6 +52,9 @@ export default class Alarm extends React.Component {
                 addGroupAlarm: nextProps.addgroup_alarm
             })
         }
+        else if(nextProps.alarm.basic == 1){
+            this.getAlarmList();
+        }
     }
 
     alarmDelete(index, e) {
@@ -64,8 +67,8 @@ export default class Alarm extends React.Component {
             headers: API_HEADERS,
             body: JSON.stringify(data)
         })
-            .then(() => { this.getAlarmList() })
-            .catch((err) => console.error(err));
+        .then(() => { this.getAlarmList() })
+        .catch((err) => console.error(err));
     }
 
     render() {

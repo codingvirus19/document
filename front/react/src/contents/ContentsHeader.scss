@@ -4,7 +4,7 @@ $hover_iconcolor: #000000;
 
 .header {
   height: 10%;
-  width: 70%;
+  width: 100%;
   min-height: 57px;
   display: inline-flex;
   align-items: center;
@@ -15,6 +15,7 @@ $hover_iconcolor: #000000;
 
 .title {
   margin-right: 1.5rem;
+  min-width: fit-content;
 }
 
 .invite {

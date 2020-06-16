@@ -34,6 +34,8 @@
 	}
   }
 
+  
+  
 .sidebar__menu{
 	position: absolute;
 	width: 14rem;
@@ -46,8 +48,9 @@
 	overflow: hidden;
 	overflow-y: scroll;
 
-	animation-duration: 1s;
- 	animation-name: slidein;
+	animation-duration: 0.5s;
+	 animation-name: slidein;
+	 
 	
 	.sub-menu{
 		list-style: none;
@@ -95,7 +98,7 @@
     text-overflow: ellipsis;
     -webkit-line-clamp: 1;
     width: 76px;
-	height: 21px;
+	height: 24px;
 	white-space: nowrap;
 	padding-top: 3px;
 }
