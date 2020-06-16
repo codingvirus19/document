@@ -84,7 +84,7 @@ export default class Header extends React.Component {
     }
     return (
       <div className={styles.header}>
-        <div className={styles.wrapper}>
+        <div onClick={this.props.onClickContainer} className={styles.wrapper}>
 
           <div className={styles.logo}>
             <Logo />
