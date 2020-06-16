@@ -79,7 +79,6 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json.data)
         this.UpdateAlarm(json.data);
       })
       .catch((err) => console.error(err));
@@ -231,6 +230,7 @@ export default class Container extends React.Component {
   }
 
   bringMemoByHash(g_no, hash) {
+    console.log(g_no);
     let memo_bigArr;
     let data = { gNo: g_no, hash: hash };
     fetch(`${API_URL}/api/memoListByHash`, {
@@ -311,7 +311,6 @@ export default class Container extends React.Component {
   }
 
   UpdateAlarm(alarmDatas) {
-    console.log(alarmDatas.gNo)
     this.setState({
       alarm: { basic: alarmDatas.basic, chatting: alarmDatas.chatting },
     });
@@ -503,15 +502,12 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
-    console.log(alarm_msg);
     if(alarm_msg.update != undefined){
-      console.log(alarm_msg);
       this.bringMemoByGroup(this.state.groupBySidebar.no);
       this.getHashListByGroup(this.state.groupBySidebar.no);
       return;
     }
     if (alarm_msg.addgroup == undefined && alarm_msg.update == undefined && alarm_msg.gNo == undefined) {
-      console.log(alarm_msg);
       this.getGroupInUser(this.state.groupBySidebar.no);
       this.setState({
         userlistSession :alarm_msg
@@ -585,7 +581,6 @@ export default class Container extends React.Component {
   }
 
   render() {
-    console.log(this.userlistSession);
     const wsSourceUrl = "./api/alarm";
     return (
       <div className="container">
