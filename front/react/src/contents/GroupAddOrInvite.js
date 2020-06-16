@@ -61,11 +61,11 @@ export default class GroupAddOrInvite extends React.Component {
         // 그룹 추가
         if (event.__isNew__) {
             //그룹 10개 이하  생성 가능
-            if(this.props.groups.length < 10) {
+            if(this.props.groups.length < 50) {
             this.addGroup(event)
             }
             else {
-                this.notify("그룹생성 실패! 그룹은 최대 10개까지 생성 가능 합니다.")
+                this.notify("그룹생성 실패! 그룹은 최대 50개까지 생성 가능 합니다.")
             }
         }
         else {
@@ -86,9 +86,9 @@ export default class GroupAddOrInvite extends React.Component {
         let data = {
             name: event.label
         };
-        //그룹 글자수 제한 20자
-        if (data.name.length > 10) {
-            this.notify("그룹 이름이 너무 깁니다.(10자 제한)")
+        //그룹 글자수 제한 8자
+        if (data.name.length > 8) {
+            this.notify("그룹명이 너무 깁니다.(8자 제한)")
             return;
         }
         let group = { no: [], gname: [] };
@@ -254,7 +254,7 @@ export default class GroupAddOrInvite extends React.Component {
                     />
                 </div>
                 <div className={styles.inner_form_component}>
-                    <span className={styles.inner_form_container_title}>초대할 사용자 (최대 4명)</span>
+                    <span className={styles.inner_form_container_title}>초대할 사용자 (최대 4명, 접속한 사용자)</span>
                     <Select
                         value={this.state.valueUsers}
                         className={styles.inner_select}

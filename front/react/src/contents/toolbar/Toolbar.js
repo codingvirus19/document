@@ -85,10 +85,12 @@ export default class Toolbar extends React.PureComponent {
 
             {/* 메모삭제 */}
             <MemoDelete
-            notify={this.props.notify}
+              users={this.props.users}
+              notify={this.props.notify}
               // SidebarGroupUpdate: delete클릭 후 수정된 메모list를 다시뿌려주기 위한 callback함수
               SidebarGroupUpdate={this.props.SidebarGroupUpdate}
               // 내가 클릭한 메모의 color를 가져온다.
+              clientRef={this.props.clientRef}
               no={this.props.no}
               // gName,gNo : 임의의 작동을 한 그룹의 no와 name으로 콜백이동하기위한 props
               gName={this.props.groupBySidebar.name}

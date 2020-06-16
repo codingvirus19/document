@@ -49,6 +49,7 @@ export default class MemoDelete extends React.Component {
   }
 
   ajaxDeleteMemo(_deleteMemo) {
+    console.log(_deleteMemo);
     let getTrue = null;
     fetch(`${API_URL}/api/memo/delete`, {
       method: "post",
@@ -58,12 +59,14 @@ export default class MemoDelete extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         getTrue = json.data;
-        console.log(getTrue);
         // delete를 클릭시 쿼리 삭제 전에 콜백에서 메모를 뿌려주기 때문에 실시간으로 작동 x
         // 아래에서 db에서 삭제 진행 완료 후 true신호가 오면 콜백을 보내도록 설정한 코드이다.
         if (getTrue != false) {
-          this.props.notify("메모가 삭제되었습니다.")
-          this.props.SidebarGroupUpdate(this.props.gNo, this.props.gName);
+          if(this.props.clientRef != undefined && this.props.users != undefined && this.props.gNo != undefined){
+            this.props.clientRef.sendMessage(`/app/memo/update/${this.props.gNo}`,JSON.stringify({update:'update',userNo:this.props.users.no[0]}));
+            }
+            this.props.notify("메모가 삭제되었습니다.")
+            this.props.SidebarGroupUpdate(this.props.gNo, this.props.gName);
         }else if(getTrue == false){
           this.setState({
             openModal: !this.state.openModal,

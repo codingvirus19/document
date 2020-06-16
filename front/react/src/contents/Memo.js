@@ -62,6 +62,7 @@ export default class Memo extends React.Component {
             distinctGroup_hash={this.props.distinctGroup_hash}
             clientRef={this.props.clientRef}
             setStyle={this.props.setState}
+            notify={this.props.notify}
             />
           // <Editor
           //   groupBySidebar={this.props.groupBySidebar}

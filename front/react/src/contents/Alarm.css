@@ -7,6 +7,8 @@
 
 .alarmList{
     list-style: none;
+    background-color: #fff;
+    cursor: pointer;
 }
 .alarmHeader{
     text-align: center;
@@ -24,6 +26,10 @@
     line-height: 1.3rem;
     background-color: #fff;
     padding: 0.4rem;
+}
+
+.alarmLine:hover{
+    background-color: rgba(0, 0, 0, 0.12);
 }
 
 .alarmLine li{
@@ -51,15 +57,19 @@
 .alarmDelete{
     height: 20px;
     width: 20px;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0);
+    position: relative;
+    float: right;
+    margin-left: 1rem;
 }
-.alarmDelete {
-    display: none;
+.alarmDelete:hover{
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.12);
 }
-.alarmLine:hover .alarmDelete {
-   display: block;
-}
+
 .faTrash{
-    font-size: 1rem;
+  font-size: 1rem;
   color: #3a3b45;
   background-color: none;
 }

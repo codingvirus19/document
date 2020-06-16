@@ -9,8 +9,8 @@ export default class Sidebar extends React.Component {
     this.state = {
       g_no: null,
       g_name: null,
-      clickGroup: false,
-      clickHash: false,
+      clickGroup: this.props.clickGroup,
+      clickHash: this.props.clickHash,
     };
     this.tempGno = null;
   }
@@ -32,11 +32,8 @@ export default class Sidebar extends React.Component {
     //   this.props.clientRef.sendMessage(`/app/userlist/connect/${g_no}`, this.props.users.no[0]);
     // }
     this.update(g_no, g_name);
-    this.setState({
-      clickGroup:false,
-    })
   }
-
+  
   update(g_no, g_name) {
     this.setState({
       g_no: g_no,
@@ -44,29 +41,25 @@ export default class Sidebar extends React.Component {
     })
     this.props.onCallbackKeywordChange("");
     this.props.SidebarGroupUpdate(g_no, g_name);
+    this.props.onCloseGroupAndHash();
   }
 
   clickHash(hash) {
-    console.log(this.state.g_no)
     this.props.SidebarHashUpdate(this.state.g_no, hash)
-    this.setState({
-      clickHash: false,
-    })
+   this.props.onCloseGroupAndHash();
   }
   
-  onOpenGroup(){
-    this.setState({
-      clickGroup: !this.state.clickGroup,
-      clickHash: false,
-    })
+  onGroup(){
+    this.props.onOpenGroup();
+  }
+  onHash(){
+    this.props.onOpenHash();
   }
   
-  onOpenHash(){
-    this.setState({
-      clickHash: !this.state.clickHash,
-      clickGroup: false,
-    })
-  }
+  // onContainer(){
+      
+  //   })
+  // }
   
   render() {
     return (
@@ -80,12 +73,12 @@ export default class Sidebar extends React.Component {
                   </a>
               </li>
               <li className="menu-item">
-                <a onClick={this.onOpenGroup.bind(this)}>
+                <a onClick={this.onGroup.bind(this)}>
                   {/* 그룹메모 */}
                   </a>
               </li>
               <li className="menu-item">
-                <a onClick={this.onOpenHash.bind(this)}>
+                <a onClick={this.onHash.bind(this)}>
                   {/* 해시태그 */}
                 </a>
               </li>
@@ -99,7 +92,7 @@ export default class Sidebar extends React.Component {
           </div>
          
         </nav>
-        {this.state.clickGroup == true ? 
+        {this.props.clickGroup == true ? 
           <div className="sidebar__menu">
             <div className="sidebar__menu__title-container">
               <p className="container__title">Group</p>
@@ -108,19 +101,19 @@ export default class Sidebar extends React.Component {
                   {this.props.group.gname.map((name, index) => (
                     <li key={this.props.group.no[index]} className="submenu-item" onClick={this.clickGroup.bind(this, this.props.group.no[index], name)}>
                       <a>
-                        <span className="submenu-item__span1">
+                        <div className="submenu-item__span1">
                           <FontAwesomeIcon className="fas fa-bookmark" icon={faBookmark} />
-                          </span>
-                        <span className="submenu-item__span2">
+                          </div>
+                        <div className="submenu-item__span2">
                           {name}
-                          </span>
+                          </div>
                       </a>
                     </li>
                   ))}
             </ol>
           </div> 
         :null}
-        {this.state.clickHash == true && this.props.hash != null ? 
+        {this.props.clickHash == true && this.props.hash != null ? 
           <div className="sidebar__menu">
             <div className="sidebar__menu__title-container">
               <p className="container__title">Hash</p>

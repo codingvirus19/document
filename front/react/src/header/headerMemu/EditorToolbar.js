@@ -93,8 +93,15 @@ export default class EditorToolbar extends React.Component {
                 </div>
                 <div className={styles.position}>
                     <MemoDelete
+                        memoClose={this.props.memoClose}
+                        users={this.props.users}
+                        clientRef={this.props.clientRef}
                         className={styles.button}
                         buttonName={styles.group}
+                        // SidebarGroupUpdate: delete클릭 후 수정된 메모list를 다시뿌려주기 위한 callback함수
+                        SidebarGroupUpdate={this.props.SidebarGroupUpdate}
+                        // 내가 클릭한 메모의 color를 가져온다.
+                        notify={this.props.notify}
                         // SidebarGroupUpdate: delete클릭 후 수정된 메모list를 다시뿌려주기 위한 callback함수
                         SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                         // 내가 클릭한 메모의 color를 가져온다.

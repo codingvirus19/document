@@ -8,10 +8,11 @@ export default class Contents extends React.Component {
     this.state = {
       chatOpen: false,
       gNo: "",
+      keyword: "",
     };
   }
+
   open(index) {
-    console.log(this.props.chatListGroup.readcheck[index])
     if (this.props.chatListGroup.readcheck[index] == true) {
       this.props.clientRef.sendMessage(
         "/app/alarm/" + this.props.users.no[0],
@@ -29,6 +30,7 @@ export default class Contents extends React.Component {
     });
     this.props.chatAlarmNotReceive(this.props.chatListGroup.no[index]);
   }
+
   close() {
     this.setState({
       chatOpen: false,
@@ -36,8 +38,14 @@ export default class Contents extends React.Component {
     this.props.chatAlarmNotReceive(null);
   }
 
+  onInputChange(event) {
+    this.setState({
+      keyword: event.target.value
+    })
+  }
+
   render() {
-    //나중에 지우기
+    //나중에 지우기 없어도 채팅 고정으로 열어놓은 상태 아니면 될듯 아마도..
     if (!this.props.userListInGroupByUser || !this.props.chatListGroup) {
       return null;
     }
@@ -57,6 +65,14 @@ export default class Contents extends React.Component {
           ) : (
               <>
                 <div className={styles.chat_title}>채팅</div>
+                <div>
+                  <input
+                    type="text"
+                    value={this.state.keyword}
+                    onChange={this.onInputChange.bind(this)}
+                    placeholder="검색"
+                  />
+                </div>
                 {this.props.chatListGroup.gname.map((gname, index) => {
                   //그룹별 멤버 
                   let gmember = this.props.userListInGroupByUser
@@ -67,7 +83,7 @@ export default class Contents extends React.Component {
                         className={styles.chatList}
                         id={index}
                         onClick={this.open.bind(this, index)} >
-                          
+
                         <div className={styles.image_div}>
                           {/* 그룹 인원 1명일때 */}
                           {gmember.length === 1
@@ -93,14 +109,14 @@ export default class Contents extends React.Component {
                             {gmember.map(element => element.nickname + ", ")}
                           </div>
                           {this.props.chatListGroup.readcheck[index] == true ?
-                          <div className={styles.chatalarmbell}>
-                            <div>
-                             {this.props.chatListGroup.readcount[index]}
+                            <div className={styles.chatalarmbell}>
+                              <div>
+                                {this.props.chatListGroup.readcount[index]}
+                              </div>
                             </div>
-                          </div>
-                          : null}
+                            : null}
                         </div>
-                        
+
                       </div>
                     </Fragment>
                   );
