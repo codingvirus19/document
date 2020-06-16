@@ -281,7 +281,6 @@ export default class Container extends React.Component {
 
   UpdateUser(users) {
     this.Users = users;
-
     this.getChatListGroup();
   }
 
@@ -347,10 +346,10 @@ export default class Container extends React.Component {
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
   // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo , changeColor 클릭 시....
   SidebarGroupUpdate(no, name) {
-    //     // 검색창에 keyword입력 후 다시 ""로 설정되도록 하는 코드.
-    // this.onCallbackKeywordChange("");
+    this.getUserListInGroupByUser(this.Users.no[0]);
     this.bringMemoByGroup(no);
     this.getHashListByGroup(no);
+    this.getChatListGroup();
 
     this.setState({
       addgroup_alarm: null
@@ -601,7 +600,6 @@ export default class Container extends React.Component {
   }
 
   render() {
-    // console.log(this.userlistSession);
     const wsSourceUrl = "./api/alarm";
     return (
       <div className="container">
