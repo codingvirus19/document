@@ -214,7 +214,7 @@ export default class Container extends React.Component {
         //검색창의 keyword에 value를 input했을 경우 value와 memo의 content가 같은
         // 값을 memoList로 뿌려준다.
         else if (this.state.keyword != "") {
-          console.log("검색 value에 대한 memoList");
+          // console.log("검색 value에 대한 memoList");
           memo_bigArr = json.data;
           // filteredMemo_bigArr: keyword에 해당하는 memoList를 filter한 값을 Array로 종합
           filteredMemo_bigArr = memo_bigArr.filter(
@@ -311,6 +311,7 @@ export default class Container extends React.Component {
   }
 
   UpdateAlarm(alarmDatas) {
+    // console.log(alarmDatas.gNo)
     this.setState({
       alarm: { basic: alarmDatas.basic, chatting: alarmDatas.chatting },
     });
@@ -581,6 +582,7 @@ export default class Container extends React.Component {
   }
 
   render() {
+    // console.log(this.userlistSession);
     const wsSourceUrl = "./api/alarm";
     return (
       <div className="container">

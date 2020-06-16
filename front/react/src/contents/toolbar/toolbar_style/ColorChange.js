@@ -98,7 +98,7 @@ export default class ColorChange extends React.Component {
               onClick={this.handleClose.bind(this)}
             />
             <TwitterPicker
-            // triangle='top-hide'
+              triangle={'hide'}
               color={this.state.color}
               onChange={this.handleChange.bind(this)}
             />

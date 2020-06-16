@@ -4,6 +4,9 @@ import SockJsClient from "react-stomp";
 import popup from "./Popup.css";
 import styles from "./ShareEditor.css";
 import EditorToolbar from "./EditorToolbar.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { fad } from "@fortawesome/free-solid-svg-icons";
+
 
 export default class Popup extends React.Component {
   constructor(props) {
@@ -426,6 +429,7 @@ export default class Popup extends React.Component {
                         clientRef={this.props.clientRef}
                         users={this.props.users}
                         setStyle={this.props.setStyle}
+                        notify={this.props.notify}
                       />
 
                     </div>
