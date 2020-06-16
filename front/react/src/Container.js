@@ -353,6 +353,7 @@ export default class Container extends React.Component {
     // this.onCallbackKeywordChange("");
     this.bringMemoByGroup(no);
     this.getHashListByGroup(no);
+    this.getChatListGroup();
 
     this.setState({
       addgroup_alarm: null

@@ -64,8 +64,8 @@ export default class Alarm extends React.Component {
             headers: API_HEADERS,
             body: JSON.stringify(data)
         })
-            .then(() => { this.getAlarmList() })
-            .catch((err) => console.error(err));
+        .then(() => { this.getAlarmList() })
+        .catch((err) => console.error(err));
     }
 
     render() {
