@@ -55,6 +55,7 @@ public class AlarmApiController {
 		vo.setuNo(securityUser.getNo());
 
 		List<AlarmVo> alarmList = alarmService.getAlarmContents(vo);
+		System.out.println(alarmList);
 		return JsonResult.success(alarmList);
 	}
 

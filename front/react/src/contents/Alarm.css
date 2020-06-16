@@ -53,11 +53,11 @@
     width: 20px;
 }
 .alarmDelete {
-    display: none;
+    display: block;
 }
-.alarmLine:hover .alarmDelete {
+/* .alarmLine:hover .alarmDelete {
    display: block;
-}
+} */
 .faTrash{
     font-size: 1rem;
   color: #3a3b45;

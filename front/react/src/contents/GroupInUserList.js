@@ -21,7 +21,6 @@ export default class GroupInUserList extends React.Component {
             <div className={styles.groupUserList}>
                 {this.props.groupInUserList.map((element) => {
                     if (this.props.groupInUserList != null) {
-                        console.log(this.props.userlistSession);
                         if (this.props.userlistSession.indexOf(element.id) == -1) {
                             return (
                                 <ul key={element.user_no} className={styles.users}>

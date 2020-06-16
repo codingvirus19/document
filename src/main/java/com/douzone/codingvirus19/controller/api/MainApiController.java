@@ -48,10 +48,6 @@ public class MainApiController {
 	public JsonResult outGroupAlone(@AuthUser SecurityUser securityUser, @RequestBody GroupUserVo vo ) {
 		vo.setuNo(securityUser.getNo());
 		boolean asyncTest = mainService.outGroupAlone(vo);
-//		UserVo userVo = new UserVo();
-		
-//		userVo.setNo(securityUser.getNo());
-//		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
 		return JsonResult.success(asyncTest);
 	}
 
@@ -104,10 +100,12 @@ public class MainApiController {
 		return JsonResult.success(groupVo);
 	}
 	
-//	@PostMapping("/addUserToGroup")
-//	public JsonResult addUserToGroup() {
-//		boolean result = mainService.addUserToGroup();
-//		return JsonResult.success(result);
-//	}
-
+	@PostMapping("/getGnameByGno")
+	public JsonResult getGnameByGno(@RequestBody GroupVo groupVo) {
+		GroupVo data = new GroupVo();
+		System.out.println(groupVo);
+		data = mainService.getGnameByGno(groupVo);
+		System.out.println(data);
+		return JsonResult.success(data);
+	}
 }

@@ -23,6 +23,14 @@
            and a.no=#{no}; 
  		]]>
 	</select>
+	
+	<select id="getGnameByGno" resultType="groupvo" parameterType="groupvo">
+		<![CDATA[
+			select no, name 
+			from groups 
+			where no=#{no};
+ 		]]>
+	</select>
 
 	<delete id="deleteGroupuser" parameterType="groupvo">
 		<![CDATA[
@@ -89,7 +97,6 @@
 		<![CDATA[
 			delete from memo where g_no= #{gNo} and u_no=#{uNo};
 		]]>
-	</delete>
-	
+	</delete>	
 	
 </mapper>

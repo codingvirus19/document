@@ -230,7 +230,6 @@ export default class Container extends React.Component {
   }
 
   bringMemoByHash(g_no, hash) {
-    console.log(g_no);
     let memo_bigArr;
     let data = { gNo: g_no, hash: hash };
     fetch(`${API_URL}/api/memoListByHash`, {
@@ -334,6 +333,15 @@ export default class Container extends React.Component {
     })
   }
 
+  UpdateGroupBySidebar(no, name) {
+    this.setState({
+      groupBySidebar: {
+        no: no,
+        name: name,
+      },
+    });
+  }
+
   // sidebar에서 콜백된 파라미터 no와 name
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
   // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo , changeColor 클릭 시....
@@ -350,12 +358,28 @@ export default class Container extends React.Component {
     if (no != null) {
       this.getGroupInUser(no);
     }
-    this.setState({
-      groupBySidebar: {
-        no: no,
-        name: name,
-      },
-    });
+    console.log("SidebarGroupUpdate: "+name)
+    //no만 있으면 gName 찾아서 넣어줌
+    if(name === undefined){
+      this.getGnameByGno(no);
+    }
+    else {
+      this.UpdateGroupBySidebar(no, name)
+    }
+  }
+
+  getGnameByGno(no) {
+    let data = { no: no };
+    fetch(`${API_URL}/api/getGnameByGno`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(data)
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        this.UpdateGroupBySidebar(json.data.no, json.data.name)
+      })
+      .catch((err) => console.error(err));
   }
 
   getGroupInUser(no) {
@@ -460,10 +484,6 @@ export default class Container extends React.Component {
       body: JSON.stringify(memo_change),
     })
   }
-
-  // GroupConnect(gNo, msg) {
-  //   this.clientRef.sendMessage(`/userlist/connect/${gNo}`, msg);
-  // }
 
   // 접속한 유저 리스트
   GroupInUserList(getSession) {
