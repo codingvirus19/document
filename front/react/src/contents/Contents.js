@@ -60,7 +60,6 @@ export default class Contents extends React.Component {
               users={this.props.users}
               addgroup_alarm={this.props.addgroup_alarm}
               SidebarGroupUpdate={this.props.SidebarGroupUpdate}
-              // userListInGroupByUser={this.props.userListInGroupByUser}
               AlarmAddGroup={this.props.AlarmAddGroup}
             />
           ) : null}
