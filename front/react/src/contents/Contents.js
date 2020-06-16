@@ -61,6 +61,7 @@ export default class Contents extends React.Component {
               addgroup_alarm={this.props.addgroup_alarm}
               SidebarGroupUpdate={this.props.SidebarGroupUpdate}
               AlarmAddGroup={this.props.AlarmAddGroup}
+              alarm={this.props.alarm}
             />
           ) : null}
         </div>
