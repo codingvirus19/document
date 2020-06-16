@@ -24,21 +24,26 @@ export default class GroupInUserList extends React.Component {
                         if (this.props.userlistSession.indexOf(element.id) == -1) {
                             return (
                                 <ul key={element.user_no} className={styles.users}>
-                                    <button className={styles.userImage}>
-                                        <img className={styles.userImage} src={"."+element.img} />
+                                    <li>
+                                        <button className={styles.userImage}>
+                                            <img className={styles.userImage} src={"."+element.img} />
                                         </button>
-                                    <span className={styles.userNotLogin}></span><br />
-                                    <li>{element.nickname}</li>
+                                        <span className={styles.userNotLogin}></span><br />
+
+                                        <p>{element.nickname}</p>
+                                    </li>
                                 </ul>
                             );
                         } else {
                             return (
                                 <ul key={element.user_no} className={styles.users}>
-                                    <button className={styles.userImage}>
-                                    <img className={styles.userImage} src={"."+element.img} />
-                                    </button>
-                                    <span className={styles.userInLogin}></span><br />
-                                    <li>{element.nickname}</li>
+                                    <li>
+                                        <button className={styles.userImage}>
+                                            <img className={styles.userImage} src={"."+element.img} />
+                                        </button>
+                                        <span className={styles.userInLogin}></span><br />
+                                        <p>{element.nickname}</p>
+                                    </li>
                                 </ul>
                             );
                         }
