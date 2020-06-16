@@ -77,6 +77,10 @@ export default class Contents extends React.Component {
                   //그룹별 멤버 
                   let gmember = this.props.userListInGroupByUser
                     .filter(element => element.gNo === this.props.chatListGroup.no[index]);
+                    console.log(gmember[0])
+                    if((!gmember[0]) || (!gmember[1])){
+                      return null;
+                    }
                   return (
                     <Fragment key={index}>
                       <div

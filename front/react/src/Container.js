@@ -351,6 +351,7 @@ export default class Container extends React.Component {
   SidebarGroupUpdate(no, name) {
     //     // 검색창에 keyword입력 후 다시 ""로 설정되도록 하는 코드.
     // this.onCallbackKeywordChange("");
+    this.getUserListInGroupByUser(this.Users.no[0])
     this.bringMemoByGroup(no);
     this.getHashListByGroup(no);
     this.getChatListGroup();
