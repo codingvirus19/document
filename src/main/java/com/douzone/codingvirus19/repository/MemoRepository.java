@@ -69,4 +69,8 @@ public class MemoRepository {
 	public List<MemoVo> memoListByHash(MemoVo memoVo) {
 		return sqlSession.selectList("memo.memoListByHash", memoVo);
 	}
+	
+	public List<MemoVo> searchMemoByHash(MemoVo memoVo) {
+		return sqlSession.selectList("memo.searchMemoByHash", memoVo);
+	}
 }
