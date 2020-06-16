@@ -37,7 +37,7 @@ export default class AlarmAddGroup extends React.Component {
         return (
             <div className={styles.alarmLine}>
                 <li>{this.state.addGroupAlarm.message}</li>
-                <h5>{this.state.addGroupAlarm.date}</h5>
+                <h6 className={styles.dates}>{this.state.addGroupAlarm.date}</h6>
                 <button className={popupStyles.confirm_btn}
                     onClick={this.joinGroup.bind(this)} >
                     수락</button>

@@ -48,9 +48,9 @@ export default class Sidebar extends React.Component {
   }
 
   clickHash(hash) {
-    this.props.SidebarHashUpdate(this.props.g_no, hash)
+    this.props.SidebarHashUpdate(this.state.g_no, hash)
     this.setState({
-      clickHash:false,
+      clickHash: false,
     })
   }
   
@@ -65,8 +65,8 @@ export default class Sidebar extends React.Component {
     this.setState({
       clickHash: !this.state.clickHash,
       clickGroup: false,
-      
     })
+
   }
   
   onClickContainer(){

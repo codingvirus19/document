@@ -75,7 +75,8 @@
 				when '5' then '목요일'
 				when '6' then '금요일'
 				when '7' then '토요일'
-				end as week
+				end as week,
+				b.g_no as gNo
            from accptalarm a, (select no, g_no, massage, date, type from alarm) b
 		  where a.noti_no = b.no
             and u_no= #{uNo}

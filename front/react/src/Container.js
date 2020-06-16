@@ -79,7 +79,6 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json.data)
         this.UpdateAlarm(json.data);
       })
       .catch((err) => console.error(err));
@@ -215,7 +214,7 @@ export default class Container extends React.Component {
         //검색창의 keyword에 value를 input했을 경우 value와 memo의 content가 같은
         // 값을 memoList로 뿌려준다.
         else if (this.state.keyword != "") {
-          console.log("검색 value에 대한 memoList");
+          // console.log("검색 value에 대한 memoList");
           memo_bigArr = json.data;
           // filteredMemo_bigArr: keyword에 해당하는 memoList를 filter한 값을 Array로 종합
           filteredMemo_bigArr = memo_bigArr.filter(
@@ -234,6 +233,22 @@ export default class Container extends React.Component {
     let memo_bigArr;
     let data = { gNo: g_no, hash: hash };
     fetch(`${API_URL}/api/memoListByHash`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        memo_bigArr = json.data;
+        this.UpdateMemo(memo_bigArr);
+      })
+      .catch((err) => console.error(err));
+  }
+
+  searchMemoByHash(g_no, hash) {
+    let memo_bigArr;
+    let data = { gNo: g_no, hash: hash };
+    fetch(`${API_URL}/api/searchMemoByHash`, {
       method: "post",
       headers: API_HEADERS,
       body: JSON.stringify(data),
@@ -295,7 +310,7 @@ export default class Container extends React.Component {
   }
 
   UpdateAlarm(alarmDatas) {
-    console.log(alarmDatas.gNo)
+    // console.log(alarmDatas.gNo)
     this.setState({
       alarm: { basic: alarmDatas.basic, chatting: alarmDatas.chatting },
     });
@@ -319,6 +334,15 @@ export default class Container extends React.Component {
     })
   }
 
+  UpdateGroupBySidebar(no, name) {
+    this.setState({
+      groupBySidebar: {
+        no: no,
+        name: name,
+      },
+    });
+  }
+
   // sidebar에서 콜백된 파라미터 no와 name
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
   // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo , changeColor 클릭 시....
@@ -335,12 +359,28 @@ export default class Container extends React.Component {
     if (no != null) {
       this.getGroupInUser(no);
     }
-    this.setState({
-      groupBySidebar: {
-        no: no,
-        name: name,
-      },
-    });
+    console.log("SidebarGroupUpdate: "+name)
+    //no만 있으면 gName 찾아서 넣어줌
+    if(name === undefined){
+      this.getGnameByGno(no);
+    }
+    else {
+      this.UpdateGroupBySidebar(no, name)
+    }
+  }
+
+  getGnameByGno(no) {
+    let data = { no: no };
+    fetch(`${API_URL}/api/getGnameByGno`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(data)
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        this.UpdateGroupBySidebar(json.data.no, json.data.name)
+      })
+      .catch((err) => console.error(err));
   }
 
   getGroupInUser(no) {
@@ -393,7 +433,7 @@ export default class Container extends React.Component {
     // 해시일 경우 앞에 #을 자른 후 해시 저장
     let hash = keyword.slice(1);
     this.onCallbackKeywordChange(keyword)
-    this.bringMemoByHash(g_no, hash)
+    this.searchMemoByHash(g_no, hash)
   }
 
   //sidebar에서 선택된 해시
@@ -446,10 +486,6 @@ export default class Container extends React.Component {
     })
   }
 
-  // GroupConnect(gNo, msg) {
-  //   this.clientRef.sendMessage(`/userlist/connect/${gNo}`, msg);
-  // }
-
   // 접속한 유저 리스트
   GroupInUserList(getSession) {
     this.setState({
@@ -487,15 +523,12 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
-    console.log(alarm_msg);
     if(alarm_msg.update != undefined){
-      console.log(alarm_msg);
       this.bringMemoByGroup(this.state.groupBySidebar.no);
       this.getHashListByGroup(this.state.groupBySidebar.no);
       return;
     }
     if (alarm_msg.addgroup == undefined && alarm_msg.update == undefined && alarm_msg.gNo == undefined) {
-      console.log(alarm_msg);
       this.getGroupInUser(this.state.groupBySidebar.no);
       this.setState({
         userlistSession :alarm_msg
@@ -569,7 +602,7 @@ export default class Container extends React.Component {
   }
 
   render() {
-    console.log(this.userlistSession);
+    // console.log(this.userlistSession);
     const wsSourceUrl = "./api/alarm";
     return (
       <div className="container">

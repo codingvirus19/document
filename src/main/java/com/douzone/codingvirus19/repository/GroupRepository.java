@@ -79,4 +79,8 @@ public class GroupRepository {
 			return 2;
 		}
 	}
+
+	public GroupVo getGnameByGno(GroupVo groupVo) {
+		return sqlSession.selectOne("groups.getGnameByGno", groupVo);
+	}
 }
