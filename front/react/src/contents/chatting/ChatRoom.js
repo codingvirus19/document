@@ -119,6 +119,7 @@ export default class Chat extends React.Component {
             {this.props.gName}({this.props.userListInGroupByUser.length})
           </div>
           <button
+          aria-label="채팅목록"
             className={styles.close}
             onClick={this.props.close}>
             <img

@@ -359,7 +359,6 @@ export default class Container extends React.Component {
     if (no != null) {
       this.getGroupInUser(no);
     }
-    console.log("SidebarGroupUpdate: "+name)
     //no만 있으면 gName 찾아서 넣어줌
     if(name === undefined){
       this.getGnameByGno(no);
