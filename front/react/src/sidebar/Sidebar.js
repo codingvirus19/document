@@ -34,6 +34,7 @@ export default class Sidebar extends React.Component {
     this.update(g_no, g_name);
     this.setState({
       clickGroup:false,
+      clickHash:false,
     })
   }
 
@@ -64,6 +65,15 @@ export default class Sidebar extends React.Component {
     this.setState({
       clickHash: !this.state.clickHash,
       clickGroup: false,
+    })
+
+  }
+  
+  onClickContainer(){
+    this.setState({
+      clickHash: false,
+      clickGroup: false,
+      
     })
   }
   
@@ -107,12 +117,12 @@ export default class Sidebar extends React.Component {
                   {this.props.group.gname.map((name, index) => (
                     <li key={this.props.group.no[index]} className="submenu-item" onClick={this.clickGroup.bind(this, this.props.group.no[index], name)}>
                       <a>
-                        <span className="submenu-item__span1">
+                        <div className="submenu-item__span1">
                           <FontAwesomeIcon className="fas fa-bookmark" icon={faBookmark} />
-                          </span>
-                        <span className="submenu-item__span2">
+                          </div>
+                        <div className="submenu-item__span2">
                           {name}
-                          </span>
+                          </div>
                       </a>
                     </li>
                   ))}
