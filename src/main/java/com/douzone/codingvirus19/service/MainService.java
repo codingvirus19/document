@@ -46,6 +46,10 @@ public class MainService {
 	public List<MemoVo> memoListByHash(MemoVo memoVo) {
 		return memoRepository.memoListByHash(memoVo);
 	}
+	
+	public List<MemoVo> searchMemoByHash(MemoVo memoVo) {
+		return memoRepository.searchMemoByHash(memoVo);
+	}
 
 	public List<UserVo> getUserListByGroup(Long no) {
 		return userRepository.getUserListByGroup(no);

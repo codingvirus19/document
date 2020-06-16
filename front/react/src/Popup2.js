@@ -66,6 +66,29 @@ export default class Popup2 extends React.Component {
   }
 
   callBackGroupAdd() {
+
+    let dates = new Date();
+    let DateSend;
+    if (dates.getMonth() + 1 < 10 && dates.getHours() > 10) {
+      DateSend = (dates.getFullYear() + "-" +
+        "0" + (dates.getMonth() + 1) + "-" +
+        dates.getDate() + " " +
+        dates.getHours() + "시 " +
+        dates.getUTCMinutes() + "분 ");
+    } else if (dates.getMonth() + 1 < 10 && dates.getHours() < 10) {
+      DateSend = (dates.getFullYear() + "-" +
+        "0" + (dates.getMonth() + 1) + "-" +
+        dates.getDate() + " " +
+        "0" + dates.getHours() + "시 " +
+        dates.getUTCMinutes() + "분 ");
+    } else {
+      DateSend = (dates.getFullYear() + "-" +
+        (dates.getMonth() + 1) + "-" +
+        dates.getDate() + " " +
+        dates.getHours() + "시 " +
+        dates.getUTCMinutes() + "분 ");
+    }
+
     if (this.state.userList != undefined && this.state.userList.no[0] != '') {
       this.props.notify(`${this.state.userList.nickname.map(element=>element)} 를 ${this.state.groupName} 그룹에 초대하였습니다.`);
       this.state.userList.no.map((element, index) => {
@@ -74,7 +97,7 @@ export default class Popup2 extends React.Component {
             gNo: this.state.groupNo,
             chat: this.state.groupName + " 그룹에 초대되었습니다.",
             groupName : this.state.groupName,
-            date: new Date(),
+            date: DateSend,
             type: true,
             readCheck: true,
             addgroup: true

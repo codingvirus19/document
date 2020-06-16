@@ -79,7 +79,6 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json.data)
         this.UpdateAlarm(json.data);
       })
       .catch((err) => console.error(err));
@@ -231,9 +230,26 @@ export default class Container extends React.Component {
   }
 
   bringMemoByHash(g_no, hash) {
+    console.log(g_no);
     let memo_bigArr;
     let data = { gNo: g_no, hash: hash };
     fetch(`${API_URL}/api/memoListByHash`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        memo_bigArr = json.data;
+        this.UpdateMemo(memo_bigArr);
+      })
+      .catch((err) => console.error(err));
+  }
+
+  searchMemoByHash(g_no, hash) {
+    let memo_bigArr;
+    let data = { gNo: g_no, hash: hash };
+    fetch(`${API_URL}/api/searchMemoByHash`, {
       method: "post",
       headers: API_HEADERS,
       body: JSON.stringify(data),
@@ -295,7 +311,6 @@ export default class Container extends React.Component {
   }
 
   UpdateAlarm(alarmDatas) {
-    console.log(alarmDatas.gNo)
     this.setState({
       alarm: { basic: alarmDatas.basic, chatting: alarmDatas.chatting },
     });
@@ -393,7 +408,7 @@ export default class Container extends React.Component {
     // 해시일 경우 앞에 #을 자른 후 해시 저장
     let hash = keyword.slice(1);
     this.onCallbackKeywordChange(keyword)
-    this.bringMemoByHash(g_no, hash)
+    this.searchMemoByHash(g_no, hash)
   }
 
   //sidebar에서 선택된 해시
@@ -493,7 +508,6 @@ export default class Container extends React.Component {
       return;
     }
     if (alarm_msg.addgroup == undefined && alarm_msg.update == undefined && alarm_msg.gNo == undefined) {
-      console.log(alarm_msg);
       this.getGroupInUser(this.state.groupBySidebar.no);
       this.setState({
         userlistSession :alarm_msg
@@ -567,7 +581,6 @@ export default class Container extends React.Component {
   }
 
   render() {
-    console.log(this.userlistSession);
     const wsSourceUrl = "./api/alarm";
     return (
       <div className="container">

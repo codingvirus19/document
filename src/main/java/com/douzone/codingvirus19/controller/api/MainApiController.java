@@ -78,6 +78,13 @@ public class MainApiController {
 		List<MemoVo> list = mainService.memoListByHash(memoVo);
 		return JsonResult.success(list);
 	}
+	
+	@PostMapping("/searchMemoByHash")
+	public JsonResult searchMemoByHash(@AuthUser SecurityUser securityUser, @RequestBody MemoVo memoVo) {
+		memoVo.setuNo(securityUser.getNo());
+		List<MemoVo> list = mainService.searchMemoByHash(memoVo);
+		return JsonResult.success(list);
+	}
 
 	@PostMapping("/getUserSession")
 	public JsonResult getUserSession(@AuthUser SecurityUser securityUser) {
