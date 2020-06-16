@@ -55,11 +55,15 @@
 .alarmDelete {
     display: none;
 }
-.alarmLine:hover button {
+.alarmLine:hover .alarmDelete {
    display: block;
 }
 .faTrash{
     font-size: 1rem;
   color: #3a3b45;
   background-color: none;
+}
+
+.addgroupdate{
+    text-align: center;
 }
