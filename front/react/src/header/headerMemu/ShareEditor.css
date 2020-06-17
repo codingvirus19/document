@@ -17,16 +17,24 @@
   .btn .button{
     width: 2.4rem;
     height: 2.4rem;
-    margin: 13.1px;
+    margin: 6px;
+    margin-right: 10px;
     background: none;
     font-family: serif;
     border-radius: 0.6rem;
+    font-weight: 600;
   }
   .click{
     background-color: lightcoral;
   }
   .btn .button:hover{
     box-shadow: gray 1px 1px 1px 1px;
+    background-color: #EBEBEB;
+  }
+
+  .btn .button:active{
+    box-shadow: none;
+    background-color:  rgb(201, 199, 199);
   }
 
   .edit {
@@ -47,7 +55,10 @@
 
  
   .btn{
-    background: no-repeat;
+    /* background: no-repeat; */
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    padding-left: 40px;
   }
 .faPalette{
   display: inline;
@@ -55,8 +66,10 @@
 .toolbar{
   position: absolute;
   width: 100%;
-  /* text-align: center; */
-  /* border-top: 1px solid; */
+  height: 58px;
+  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  padding-left: 4px;
 }
 .file_UpLoad{ 
   width:40%;
@@ -73,7 +86,12 @@
   background: none;
 }
 .ctbutton:hover{
+  background-color: #EBEBEB;
   box-shadow: gray 1px 1px 1px 1px;
+}
+.ctbutton:active{
+  background-color: rgb(201, 199, 199);
+  box-shadow: none;
 }
 .ctbtn{
   width: 100%;

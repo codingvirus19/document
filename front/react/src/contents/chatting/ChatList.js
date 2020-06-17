@@ -158,11 +158,17 @@ export default class Contents extends React.Component {
                             )}
                         </div>
                         <div className={styles.name}>
-                          <div className={styles.gname}>
-                            {gname}
+                          <div>
+                            <div className={styles.gname}>
+                              {gname} 
+                            </div>
+                            <div className={styles.member_number}>
+                              {gmember.length === 1 ? null : gmember.length}
+                            </div>
                           </div>
                           <div className={styles.gmember}>
-                            {gmember.map(element => element.nickname + ", ")}
+                            {gmember.map((element, index) =>
+                              ((index + 1) != gmember.length) ? element.nickname + ", " : element.nickname)}
                           </div>
                           {this.props.chatListGroup.readcheck[index] == true ?
                             <div className={styles.chatalarmbell}>

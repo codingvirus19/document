@@ -83,12 +83,12 @@ export default class Sidebar extends React.Component {
                 </a>
               </li>
             </ol>
-            <div className="menu-setting--container">
+            {/* <div className="menu-setting--container">
               <a className="container__setting">
-                {/* Settings */}
+                Settings
                 <FontAwesomeIcon className="fa-cog" icon={faCog} />
               </a>
-            </div>
+            </div> */}
           </div>
          
         </nav>

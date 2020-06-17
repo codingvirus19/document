@@ -1,15 +1,30 @@
+.position{
+    padding: 17px 13px 13px 19px;
+    padding: 9px;
+    margin: 9px;
+    height: 2.4rem;
+    display: inline-block;
+    width: 2.4rem;
+}
+.position:hover{
+    border-radius: 0.5rem;
+    background-color: #EBEBEB;
+    box-shadow: gray 1px 1px 1px 1px;
+}
+
+.position:active{
+    border-radius: 0.5rem;
+    background-color: rgb(201, 199, 199);
+    box-shadow: none;
+}
 .button{
     background: none;
     /* width: 14%;
     height: 13%; */
 }
-.position{
-    padding: 13px 13px 13px 20px;
-    height: 52px;
-    display: inline-block;
-}
+
 .group{
-   font-size: 1.5rem;
+   font-size: 21px;
 }
 
 .color{
