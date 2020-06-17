@@ -7,20 +7,20 @@
     width: 2.4rem;
 }
 .position:hover{
-    /* border: 1px solid #0747A6; */
     border-radius: 0.5rem;
-    background-color: #2C62B3;
+    background-color: #EBEBEB;
     box-shadow: gray 1px 1px 1px 1px;
+}
+
+.position:active{
+    border-radius: 0.5rem;
+    background-color: rgb(201, 199, 199);
+    box-shadow: none;
 }
 .button{
     background: none;
     /* width: 14%;
     height: 13%; */
-    color: white;
-}
-
-.button:active{
-    background: gray;
 }
 
 .group{
