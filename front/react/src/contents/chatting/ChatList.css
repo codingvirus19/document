@@ -17,9 +17,9 @@
 
 .chatList {
     margin: 0.8rem;
-    width: 100%;
+    /* width: 100%; */
     text-align: start;
-    height: 5rem;
+    height: 4.5rem;
     border-radius: 5px;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .chatList:hover {
-    background-color: rgba(0, 0, 0, 0.12);
+    background-color: rgba(0,0,0,0.08);
 }
 
 .image_div {
@@ -49,8 +49,8 @@
 .img2 {
     width: 70%;
     position: absolute;
-    left:0;
-    top:0;
+    left:0.2rem;
+    top:0.2rem;
     /* border: white 0.2rem solid; */
     border-radius: 50%; 
 }
@@ -59,8 +59,8 @@
     width: 70%;
     /* height: 70%; */
     position: absolute;
-    right: 0;
-    bottom: 0;
+    right: 0.2rem;
+    bottom: 0.2rem;
     /* border: white 0.2rem solid; */
     z-index: 1;
     border-radius: 50%; 
@@ -73,6 +73,7 @@
     margin-top: 1rem;
     /* background-color: rgb(0, 89, 255); */
 }
+
 .gname {
     display: inline-block;
     width: 100%;
