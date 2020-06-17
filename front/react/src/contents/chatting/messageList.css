@@ -6,7 +6,9 @@
 }
 
 .mychat_message {
+  word-break: break-all;
   display: inline-block!important;
+  max-width: 83%;
   border-radius: 10px;
   background-color: #3a60c9;
   padding: 0.5rem 0.7rem;
@@ -38,7 +40,9 @@
 }
 
 .otherchat_message {
+  word-break: break-all;
   display: inline-block!important;
+  max-width: 83%;
   border-radius: 10px;
   background-color: #cfd2d8;
   padding: 0.5rem 0.7rem;
@@ -60,9 +64,4 @@
 .otherchat_nickname {
   font-size: 13px;
   font-weight: 600;
-}
-
-.chat__messagelist li div {
-  word-break: break-all;
-  /* display: inline-block; */
 }

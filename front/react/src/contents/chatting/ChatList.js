@@ -125,9 +125,9 @@ export default class Contents extends React.Component {
                             {gmember.map((element, index) =>
                               ((index + 1) != gmember.length) ? element.nickname + ", " : element.nickname)}
                           </div>
-                          {this.props.chatListGroup.readcheck[index] == true ?
+                          {this.props.chatListGroup.readcheck[index] ?
                             <div className={styles.chatalarmbell}>
-                              <div>
+                              <div className={styles.chatalarmbell2}>
                                 {this.props.chatListGroup.readcount[index]}
                               </div>
                             </div>
