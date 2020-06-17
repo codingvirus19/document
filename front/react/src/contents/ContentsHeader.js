@@ -48,6 +48,9 @@ export default class ContentsHeader extends React.Component {
                 group={this.props.group}
                 getGroup={this.props.getGroup}
                 clientRef={this.props.clientRef}
+                getChatListGroup={this.props.getChatListGroup}
+                getUserListInGroupByUser={this.props.getUserListInGroupByUser}
+                users={this.props.users}
               />
             ) : null}
           </div>

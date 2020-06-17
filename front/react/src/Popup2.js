@@ -141,6 +141,9 @@ export default class Popup2 extends React.Component {
         notify={this.props.notify}
           getGroup={this.props.getGroup}
           group={this.props.group}
+          getChatListGroup={this.props.getChatListGroup}
+          getUserListInGroupByUser={this.props.getUserListInGroupByUser}
+          users={this.props.users}
           groups={this.props.group.gname.map((gname, index) => {
             return {
               value: gname,

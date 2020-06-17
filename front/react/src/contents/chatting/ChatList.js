@@ -85,11 +85,10 @@ export default class Contents extends React.Component {
                   //그룹별 멤버 
                   let gmember = this.props.userListInGroupByUser
                     .filter(element => element.gNo === this.props.chatListGroup.no[index]);
-                    if((!gmember[0]) || (!gmember[1])){
+                    if((!gmember[0])){
                       return null;
                     }
                     return (
-
                     <Fragment key={index}>
                       <div
                         className={styles.chatList}

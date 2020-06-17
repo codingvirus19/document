@@ -103,6 +103,8 @@ export default class GroupAddOrInvite extends React.Component {
                 group.gname.push(json.data.name);
                 this.props.GroupAddOrInviteCallBack(group.no[0], group.gname[0])
                 this.props.getGroup();
+                this.props.getChatListGroup();
+                this.props.getUserListInGroupByUser(this.props.users.no[0])
                 this.setState({
                     // selectGroupName: event.value,
                     selectGroupNo: group.no[0]
