@@ -44,19 +44,6 @@ export default class Contents extends React.Component {
     })
   }
 
-  // componentWillMount() {
-  //   console.log("componentWillMount")
-  //   this.props.chatListGroup.gname.map((gname, index) => {
-  //     let gmember = this.props.userListInGroupByUser
-  //       .filter(element => element.gNo === this.props.chatListGroup.no[index]);
-  //       console.log(gmember[0])
-  //       if((gmember[0] === undefined) || (gmember[1] === undefined)) {
-  //         console.log("aaaaaa")
-  //         return null;
-  //       }
-  //     })
-  // }
-
   componentWillReceiveProps(nextProps) {
     if(nextProps.userListInGroupByUser != null){
       this.setState({
@@ -70,24 +57,6 @@ export default class Contents extends React.Component {
     if (!this.props.userListInGroupByUser || !this.props.chatListGroup) {
       return null;
     }
-    // console.log("render chatList")
-    // let stop = false;
-    // this.props.chatListGroup.gname.map((gname, index) => {
-    //   let gmember = this.props.userListInGroupByUser
-    //     .filter(element => element.gNo === this.props.chatListGroup.no[index]);
-    //     console.log(gmember[0])
-    //     if((gmember[0] === undefined) || (gmember[1] === undefined)) {
-    //       stop = true;
-    //       return null;
-    //     }
-    //     else {
-    //       stop = false;
-    //     }
-    // })
-    // if(stop) {
-    //   return null;
-    // }
-    // console.log("bbbbbbb")
     return (
       <Fragment>
         <div className={styles.ChatBox}>
