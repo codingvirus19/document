@@ -51,7 +51,7 @@
   padding-left: 0.6px;
 }
 
-.userbell:hover, .account:hover, .addmemo:hover, .chat:hover, .user:hover{
+.userbell:hover, .user:hover, .addmemo:hover, .chat:hover, .user:hover{
   border-radius: 50%;
   background-color: rgba(0,0,0,0.08);
 }
@@ -80,5 +80,4 @@ button:focus svg {
   width: 10px;
   height: 10px;
   border-radius: 10px;
-  background-color: #e74a3b;
 }
