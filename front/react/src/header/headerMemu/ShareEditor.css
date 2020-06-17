@@ -86,7 +86,12 @@
   background: none;
 }
 .ctbutton:hover{
+  background-color: #EBEBEB;
   box-shadow: gray 1px 1px 1px 1px;
+}
+.ctbutton:active{
+  background-color: rgb(201, 199, 199);
+  box-shadow: none;
 }
 .ctbtn{
   width: 100%;
