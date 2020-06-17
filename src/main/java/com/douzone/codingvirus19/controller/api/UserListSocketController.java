@@ -44,9 +44,13 @@ public class UserListSocketController {
 			return;
 		userlist.add(id);
 		userNolist.add(no);
-
+		
+		System.out.println(AllUserList);
+		
 		for (int i = 0; i < userNolist.size(); i++) {
 			if (!AllUserList.contains(userlist.get(i))) {
+				
+				System.out.println(userlist);
 				userlist.remove(id);
 				userNolist.remove(userNolist.get(i));
 			}
@@ -90,7 +94,6 @@ public class UserListSocketController {
 			}
 	}
 	
-
 	@EventListener
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
 		String username = event.getUser().getName();

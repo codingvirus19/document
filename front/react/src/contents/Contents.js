@@ -26,6 +26,8 @@ export default class Contents extends React.Component {
               clientRef={this.props.clientRef}
               groupInUserList={this.props.groupInUserList}
               users={this.props.users}
+              getChatListGroup={this.props.getChatListGroup}
+              getUserListInGroupByUser={this.props.getUserListInGroupByUser}
             />
             {(this.props.memo_bigArr != null) ?
               <ContentsMemoList

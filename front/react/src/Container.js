@@ -358,7 +358,6 @@ export default class Container extends React.Component {
     })
 
     if (no != null) {
-      console.log("들어오나")
       this.getGroupInUser(no);
     }
     //no만 있으면 gName 찾아서 넣어줌
@@ -723,6 +722,8 @@ export default class Container extends React.Component {
             chatListGroup={this.state.chatListGroup}
             userListInGroupByUser={this.state.userListInGroupByUser}
             chatAlarmNotReceive={this.chatAlarmNotReceive.bind(this)}
+            getChatListGroup={this.getChatListGroup.bind(this)}
+            getUserListInGroupByUser={this.getUserListInGroupByUser.bind(this)}
           />
         </div>
         <ToastContainer
