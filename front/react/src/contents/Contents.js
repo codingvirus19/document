@@ -55,6 +55,9 @@ export default class Contents extends React.Component {
               //group 지워짐 필터 다시 하자 <<이게뭘까?
               userListInGroupByUser={this.props.userListInGroupByUser}
               chatAlarmNotReceive={this.props.chatAlarmNotReceive}
+              getChatListGroup={this.props.getChatListGroup}
+              chatkeyword={this.props.chatkeyword}
+              onCallbackChattingKeywordChange={this.props.onCallbackChattingKeywordChange}
             />
           ) : null}
           {this.props.showAlarm ? (

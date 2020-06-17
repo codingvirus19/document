@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import styles from "./ChatList.css";
 import ChatRoom from "./ChatRoom";
+import "./ChatSearch.scss";
 
 export default class Contents extends React.Component {
   constructor() {
@@ -9,6 +10,7 @@ export default class Contents extends React.Component {
       chatOpen: false,
       gNo: "",
       keyword: "",
+      searchClassName: "chatsearch"
     };
   }
 
@@ -38,18 +40,44 @@ export default class Contents extends React.Component {
     this.props.chatAlarmNotReceive(null);
   }
 
-  onInputChange(event) {
-    this.setState({
-      keyword: event.target.value
-    })
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.userListInGroupByUser != null) {
       this.setState({
         userListInGroupByUser: this.props.userListInGroupByUser
       })
     }
+  }
+
+  onInputChange(event) {
+    this.props.onCallbackChattingKeywordChange(event.target.value);
+    this.UpdateKeyword(event.target.value);
+    this.search(event.target.value);
+  }
+
+  deleteKeyword(e) {
+    e.preventDefault();
+    this.props.onCallbackChattingKeywordChange("")
+    this.props.getChatListGroup();
+  }
+
+  onClickEnter(e) {
+    if (e.key == "Enter") {
+      this.onClickCallback(e);
+    }
+  }
+  onClickCallback(e) {
+    e.preventDefault();
+    this.search(this.state.keyword)
+  }
+  search(keyword) {
+    if(keyword != null){
+      this.props.getChatListGroup();
+    }
+  }
+  UpdateKeyword(keyword) {
+    this.setState({
+      keyword: keyword
+    })
   }
 
   render() {
@@ -73,16 +101,33 @@ export default class Contents extends React.Component {
           ) : (
               <>
                 <div className={styles.chat_title}>채팅</div>
-                <div>
+                <div className={this.state.searchClassName}>
                   <input
+                    className="input"
                     type="text"
-                    value={this.state.keyword}
+                    value={this.props.chatkeyword}
                     onChange={this.onInputChange.bind(this)}
+                    onKeyPress={this.onClickEnter.bind(this)}
                     placeholder="검색"
                   />
+                  <button
+                    className="delete"
+                    onClick={this.deleteKeyword.bind(this)}>
+                    <i className="fas fa-times"></i>
+                  </button>
+                  <button
+                    type="submit"
+                    className="submit"
+                    value="검색"
+                    onClick={this.onClickCallback.bind(this)}
+                  >
+                    <i className="fa fa-search"></i>
+                  </button>
                 </div>
+
                 {this.props.chatListGroup.gname.map((gname, index) => {
                   //그룹별 멤버 
+                  
                   let gmember = this.props.userListInGroupByUser
                     .filter(element => element.gNo === this.props.chatListGroup.no[index]);
                   if ((!gmember[0]) || (gmember.length != 1 && (!gmember[1]))) {

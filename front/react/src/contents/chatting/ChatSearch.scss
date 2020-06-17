@@ -1,0 +1,83 @@
+$bgcolorHover: #ffffff;
+$bgcolor: #eeeeee;
+$bordercolor: #dfe1e5;
+$subcolor: rgb(89, 130, 234);
+
+.div {
+  display: inline-block;
+}
+
+.form {
+  width: 100%;
+}
+
+.chatsearch {
+  min-width: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  &:hover{
+    transition: background 0.3s ease-in-out;
+    border-radius: 10px;
+    border: 1px solid $bordercolor;
+    .input {
+      transition: background 0.3s ease-in-out;
+      background-color: $bgcolorHover !important;
+    }
+    .delete {
+      transition: background 0.3s ease-in-out;
+      background-color: $bgcolorHover !important;
+    }
+    .fa-search:before {
+      transition: background 0.3s ease-in-out;
+      color: $bgcolorHover;
+    }
+    .fa-times:before {
+      display: inline;
+    }
+    .submit{
+      background-color: $subcolor;
+    }
+  }
+}
+  
+.chatsearch .input {
+  background-color: $bgcolor !important;
+  height: 2rem;
+    border: 0 !important;
+    font-size: 0.7rem;
+    padding: 0 0.75rem;
+    border-radius: 10px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: 100%;
+    min-width: 6rem;
+}
+
+.chatsearch  .delete {
+  background-color: $bgcolor !important;
+  padding: 0.6rem;
+  width: 2.5rem;
+  height: 2rem;
+}
+
+.chatsearch  .fa-times:before {
+  font-size: large;
+  display: none;
+}
+
+.chatsearch  .submit {
+  width: 3rem;
+  height: 2rem;
+  border: 1px solid transparent;
+  background-color: $subcolor;
+  border-color: $subcolor;
+  border-radius: 0.35rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.chatsearch  .fa-search:before {
+  color: $bgcolor;
+  font-size: large;
+}
