@@ -24,6 +24,7 @@
   transform: translate(-58%, -65%);
   background: white;
   border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,.2);
   animation: fadein 0.3s;
   -moz-animation: fadein 0.3s; /* Firefox */
   -webkit-animation: fadein 0.3s; /* Safari and Chrome */

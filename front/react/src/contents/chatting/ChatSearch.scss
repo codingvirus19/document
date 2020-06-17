@@ -12,9 +12,10 @@ $subcolor: rgb(89, 130, 234);
 }
 
 .chatsearch {
-  margin: 1rem;
+  margin: 0.3rem 1rem 1rem 1rem;
   min-width: 50px;
   display: flex;
+  border: 1px solid rgba(0, 0, 0, 0);
   justify-content: center;
   &:hover{
     transition: background 0.3s ease-in-out;
@@ -56,7 +57,7 @@ $subcolor: rgb(89, 130, 234);
 
 .chatsearch  .delete {
   background-color: $bgcolor !important;
-  padding: 0.6rem;
+  padding: 0.4rem;
   width: 2.5rem;
   height: 2rem;
 }
