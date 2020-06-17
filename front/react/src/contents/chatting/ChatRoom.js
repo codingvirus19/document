@@ -51,20 +51,20 @@ export default class Chat extends React.Component {
       DateSend = (dates.getFullYear() + "-" +
         "0" + (dates.getMonth() + 1) + "-" +
         dates.getDate() + " " +
-        dates.getHours() + "시 " +
-        dates.getUTCMinutes() + "분 ");
+        dates.getHours() + ":" +
+        dates.getUTCMinutes());
     } else if (dates.getMonth() + 1 < 10 && dates.getHours() < 10) {
       DateSend = (dates.getFullYear() + "-" +
         "0" + (dates.getMonth() + 1) + "-" +
         dates.getDate() + " " +
-        "0" + dates.getHours() + "시 " +
-        dates.getUTCMinutes() + "분 ");
+        "0" + dates.getHours() + ":" +
+        dates.getUTCMinutes());
     } else {
       DateSend = (dates.getFullYear() + "-" +
         (dates.getMonth() + 1) + "-" +
         dates.getDate() + " " +
-        dates.getHours() + "시 " +
-        dates.getUTCMinutes() + "분 ");
+        dates.getHours() + ":" +
+        dates.getUTCMinutes());
     }
 
     this.clientRef.sendMessage("/app/chat/" + this.props.gNo,
@@ -124,7 +124,7 @@ export default class Chat extends React.Component {
             </div>
           </div>
           <button
-            aria-label="채팅목록"
+            aria-label="목록"
             className={styles.close}
             onClick={this.props.close}>
             <img
