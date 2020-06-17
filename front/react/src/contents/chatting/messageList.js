@@ -1,5 +1,4 @@
 import React from "react";
-
 import styles from "./messageList.css";
 
 export default class MessageList extends React.Component {
