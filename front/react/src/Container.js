@@ -348,9 +348,9 @@ export default class Container extends React.Component {
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
   // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo , changeColor 클릭 시....
   SidebarGroupUpdate(no, name) {
-    this.getUserListInGroupByUser(this.Users.no[0]);
     this.bringMemoByGroup(no);
     this.getHashListByGroup(no);
+    this.getUserListInGroupByUser(this.Users.no[0]);
     this.getChatListGroup();
 
     this.setState({
@@ -358,6 +358,7 @@ export default class Container extends React.Component {
     })
 
     if (no != null) {
+      console.log("들어오나")
       this.getGroupInUser(no);
     }
     //no만 있으면 gName 찾아서 넣어줌
@@ -543,7 +544,7 @@ export default class Container extends React.Component {
           date: alarm_msg.date,
           group_no: alarm_msg.gNo,
           group_name: alarm_msg.groupName,
-          addgroup_alarm: alarm_msg.week
+          week: alarm_msg.week
         },
         alarm: {
           basic: true,
