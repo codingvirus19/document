@@ -49,6 +49,8 @@ export default class Search extends React.Component {
   deleteKeyword(e) {
     e.preventDefault();
     this.props.onCallbackKeywordChange("");
+    this.props.SearchHash(this.props.groupBySidebar.no, "")
+    this.props.SidebarGroupUpdate(this.props.groupBySidebar.no, this.props.groupBySidebar.name);
   }
 
   render() {

@@ -28,6 +28,7 @@ export default class Container extends React.Component {
       addgroup_alarm: { message: "", date: "", group_no: "", group_name: "", week: "" },
       groupInUserList: [{ user_no: "", id: "", nickname: "", img: "", auth_no: "" }],
       keyword: "",
+      chatkeyword:"",
       getProfileValue: null,
       userListInGroupByUser: null,
       chatalarm_gNo: null,
@@ -42,6 +43,12 @@ export default class Container extends React.Component {
   onCallbackKeywordChange(keyword) {
     this.setState({
       keyword: keyword,
+    });
+  }
+// chatsearch 검색 콜백함수
+  onCallbackChattingKeywordChange(chatkeyword) {
+    this.setState({
+      chatkeyword: chatkeyword,
     });
   }
 
@@ -209,9 +216,11 @@ export default class Container extends React.Component {
 
         // 검색keyword가 ""이고, sidebar의 해쉬를 클릭하지 않았을 때는
         // 전체 memoList를 뿌려준다.
+        
         if (this.state.keyword == "") {
           memo_bigArr = json.data;
           this.UpdateMemo(memo_bigArr);
+          console.log(memo_bigArr);
         }
         //검색창의 keyword에 value를 input했을 경우 value와 memo의 content가 같은
         // 값을 memoList로 뿌려준다.
@@ -289,21 +298,35 @@ export default class Container extends React.Component {
   getChatListGroup() {
     let group = { no: [], gname: [], readcheck: [], readcount: [] };
     let chatgroupDatas = null;
-    // call api
+    let filterchatgroupDatas = null;
+
     fetch(`${API_URL}/api/chatlistgroup`, {
       method: "post",
       headers: API_HEADERS,
     })
       .then((response) => response.json())
       .then((json) => {
-        chatgroupDatas = json.data;
-        // group의 데이터값으로 sidebar를 불러오는 함수
-        chatgroupDatas.map((json) => {
-          group.no.push(json.gNo);
-          group.gname.push(json.groupName);
-          group.readcheck.push(json.readCheck);
-          group.readcount.push(json.readCount);
-        });
+        if (this.state.chatkeyword == "") {
+          chatgroupDatas = json.data;
+          // group의 데이터값으로 sidebar를 불러오는 함수
+          chatgroupDatas.map((json) => {
+            group.no.push(json.gNo);
+            group.gname.push(json.groupName);
+            group.readcheck.push(json.readCheck);
+            group.readcount.push(json.readCount);
+          });
+        } else if (this.state.chatkeyword != "") {
+          chatgroupDatas = json.data;
+          filterchatgroupDatas = chatgroupDatas.filter(
+            (element) => element.groupName.indexOf(this.state.chatkeyword) != -1
+          );
+          filterchatgroupDatas.map((json) => {
+            group.no.push(json.gNo);
+            group.gname.push(json.groupName);
+            group.readcheck.push(json.readCheck);
+            group.readcount.push(json.readCount);
+          });
+        }
         this.UpdateChatList(group);
       })
       .catch((err) => console.error(err));
@@ -708,6 +731,7 @@ export default class Container extends React.Component {
             memo_Change={this.memo_Change.bind(this)}
             users={this.Users}
             showChat={this.state.showChat}
+            chatkeyword={this.state.chatkeyword}
             showAlarm={this.state.showAlarm}
             alarm={this.state.alarm}
             clientRef={this.clientRef}
@@ -724,6 +748,7 @@ export default class Container extends React.Component {
             chatAlarmNotReceive={this.chatAlarmNotReceive.bind(this)}
             getChatListGroup={this.getChatListGroup.bind(this)}
             getUserListInGroupByUser={this.getUserListInGroupByUser.bind(this)}
+            onCallbackChattingKeywordChange={this.onCallbackChattingKeywordChange.bind(this)}
           />
         </div>
         <ToastContainer
