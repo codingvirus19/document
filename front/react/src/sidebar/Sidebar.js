@@ -122,12 +122,12 @@ export default class Sidebar extends React.Component {
             {this.props.hash.map((hash) => (
               <li key={hash} className="submenu-item" onClick={this.clickHash.bind(this, hash)}>
                 <a>
-                  <span className="submenu-item__span1">
+                  <div className="submenu-item__span1">
                     <FontAwesomeIcon className="fas fa-hashtag" icon={faHashtag} />
-                  </span>
-                  <span className="submenu-item__span2">
+                  </div>
+                  <div className="submenu-item__span2">
                     {hash}
-                  </span>
+                  </div>
                 </a>
               </li>
               ))}
