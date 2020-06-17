@@ -21,7 +21,7 @@ export default class MessageList extends React.Component {
                 <div className={styles.mychat_message}>
                   <span>{message.message}</span>
                 </div>
-                <h6>{message.date}</h6>
+                <h6 className={styles.time}>{message.date}</h6>
               </li>
             )
           }
@@ -29,10 +29,10 @@ export default class MessageList extends React.Component {
             //상대방 메세지
             return (
               <li key={index} className={styles.otherchat} ref={e => { (e != undefined) ? e.parentNode.parentNode.scrollTop = e.parentNode.parentNode.scrollHeight : null }}>
-                <div className={styles.otherchat_profile_image}>
-                  <img className={styles.profile_image} src={"." + message.image} />
-                </div>
                 <div>
+                  <div className={styles.otherchat_profile_image}>
+                    <img className={styles.profile_image} src={"." + message.image} />
+                  </div>
                   <div className={styles.otherchat_nickname}>
                     {message.nickname}{" "}
                   </div>

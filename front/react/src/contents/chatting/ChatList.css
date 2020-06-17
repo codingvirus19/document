@@ -16,11 +16,10 @@
 }
 
 .chatList {
-    margin: 0.8rem;
-    /* width: 100%; */
+    padding: 0.3rem 0.3rem 0 2%;
     text-align: start;
     height: 4.5rem;
-    border-radius: 5px;
+    /* border-radius: 5px; */
 }
 
 .chatList:first-child {
@@ -34,14 +33,13 @@
 .image_div {
     height: 100%;
     width: 30%;
-    max-width: 4rem;
+    width: 4rem;
     float: left;
     position: relative;
     display: inline-block;
 }
 
 .img1 {
-    margin-top: 0.2rem;
     width: 100%;
     border-radius: 50%;
 }
@@ -70,15 +68,20 @@
     display: inline-block;
     width: 70%;
     padding-left: 3%;
-    margin-top: 1rem;
-    /* background-color: rgb(0, 89, 255); */
+    margin-top: 0.7rem;
 }
 
 .gname {
     display: inline-block;
-    width: 100%;
     font-size: 1rem;
     font-weight: 500;
+}
+
+.member_number {
+    display: inline-block;
+    color: #888;
+    font-size: 0.95rem;
+    padding-left: 2%;
 }
 
 .gmember{

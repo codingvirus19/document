@@ -45,7 +45,7 @@ export default class Contents extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.userListInGroupByUser != null){
+    if (nextProps.userListInGroupByUser != null) {
       this.setState({
         userListInGroupByUser: this.props.userListInGroupByUser
       })
@@ -85,10 +85,10 @@ export default class Contents extends React.Component {
                   //그룹별 멤버 
                   let gmember = this.props.userListInGroupByUser
                     .filter(element => element.gNo === this.props.chatListGroup.no[index]);
-                    if((!gmember[0]) || (gmember.length != 1 && (!gmember[1]))){
-                      return null;
-                    }
-                    return (
+                  if ((!gmember[0]) || (gmember.length != 1 && (!gmember[1]))) {
+                    return null;
+                  }
+                  return (
                     <Fragment key={index}>
                       <div
                         className={styles.chatList}
@@ -113,11 +113,17 @@ export default class Contents extends React.Component {
                             )}
                         </div>
                         <div className={styles.name}>
-                          <div className={styles.gname}>
-                            {gname}
+                          <div>
+                            <div className={styles.gname}>
+                              {gname} 
+                            </div>
+                            <div className={styles.member_number}>
+                              {gmember.length === 1 ? null : gmember.length}
+                            </div>
                           </div>
                           <div className={styles.gmember}>
-                            {gmember.map(element => element.nickname + ", ")}
+                            {gmember.map((element, index) =>
+                              ((index + 1) != gmember.length) ? element.nickname + ", " : element.nickname)}
                           </div>
                           {this.props.chatListGroup.readcheck[index] == true ?
                             <div className={styles.chatalarmbell}>
