@@ -14,4 +14,5 @@
 	</div>
 	 <script src="http://localhost:8090/bundle.js"></script> 
 	 <!--<script src="http://192.168.1.18:8090/bundle.js"></script>-->
+<!-- 	  <script src="http://192.168.1.34:8090/bundle.js"></script> -->
 </body>

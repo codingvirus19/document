@@ -116,17 +116,21 @@ export default class Chat extends React.Component {
               )}
           </div>
           <div className={styles.title}>
-            {this.props.gName}({this.props.userListInGroupByUser.length})
+            <div className={styles.group_name}>
+              {this.props.gName}
+            </div>
+            <div className={styles.member_number}>
+              ({this.props.userListInGroupByUser.length})
+            </div>
           </div>
           <button
-          aria-label="채팅목록"
+            aria-label="채팅목록"
             className={styles.close}
             onClick={this.props.close}>
             <img
               className={styles.back_btn}
               src="http://localhost:8090/images/back.png" />
           </button>
-
         </div>
 
         <div id={`${this.props.gNo}scroll`} className={styles.chatOutput} >

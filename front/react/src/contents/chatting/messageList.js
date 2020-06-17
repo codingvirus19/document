@@ -1,5 +1,4 @@
 import React from "react";
-
 import styles from "./messageList.css";
 
 export default class MessageList extends React.Component {
@@ -12,6 +11,7 @@ export default class MessageList extends React.Component {
   }
 
   render() {
+    //내 메세지
     return (
       <ul className={styles.chat__messagelist} ref="messageBox" >
         {this.props.addMessage.map((message, index) => {
@@ -26,6 +26,7 @@ export default class MessageList extends React.Component {
             )
           }
           else {
+            //상대방 메세지
             return (
               <li key={index} className={styles.otherchat} ref={e => { (e != undefined) ? e.parentNode.parentNode.scrollTop = e.parentNode.parentNode.scrollHeight : null }}>
                 <div className={styles.otherchat_profile_image}>
@@ -38,7 +39,7 @@ export default class MessageList extends React.Component {
                   <div className={styles.otherchat_message}>
                     <span>{message.message}</span>
                   </div>
-                  <h6>{message.date}</h6>
+                  <h6 className={styles.otherchat_time}>{message.date}</h6>
                 </div>
               </li>
             )

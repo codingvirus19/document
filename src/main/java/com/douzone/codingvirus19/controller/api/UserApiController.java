@@ -1,5 +1,6 @@
 package com.douzone.codingvirus19.controller.api;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,6 +70,7 @@ public class UserApiController {
 		
 		List<UserVo> userList = userService.getUserListNotInGroup(vo.getNo());
 		
+		System.out.println(AllUserList);
 		for(int i = 0; i < userList.size(); i++ ) {
 			
 			if(AllUserList.contains(userList.get(i).getId().toString())) {
@@ -78,11 +80,12 @@ public class UserApiController {
 				userSession.add(pushSessionUserMap);
 			}
 		}
-		
 		if(userSession.size() != 0) {
 			sessionUserMap.put("userSession", userSession);
 		
 			List<UserVo> sessionlist = userService.getUserSessionNotInGroup(sessionUserMap);
+			System.out.println(sessionUserMap);
+			System.out.println(sessionlist);
 			return JsonResult.success(sessionlist);
 		}
 		return JsonResult.success(null);
@@ -97,6 +100,7 @@ public class UserApiController {
 	@EventListener
 	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
 		String username = event.getUser().getName();
+		System.out.println(AllUserList);
 		AllUserList.remove(AllUserList.lastIndexOf(username));
 	}
 }

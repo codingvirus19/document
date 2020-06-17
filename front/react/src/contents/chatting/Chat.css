@@ -4,8 +4,10 @@
 
 .top{
   width: 100%;
-  height: 5%;
+  height: 6%;
+  min-height: 3rem;
   border-bottom: 1px solid #dbdbdb;
+  padding: 0.2rem;
 }
 
 .image_div {
@@ -44,7 +46,17 @@
 .title{
   display: inline-block;
   font-size: 1rem;
-  padding-top: 0.3rem;
+  padding-top: 0.7rem;
+  height: 100%;
+}
+
+.group_name {
+  display: inline-block;
+}
+
+.member_number {
+  display: inline-block;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .close {
@@ -66,18 +78,24 @@
   width: 1rem;
   height: 1rem;
   opacity: 0.7;
+  margin: 0.5rem;
+    float: right;
 }
 
 .chatOutput {
   padding: 0.2rem 0.2rem 0.2rem 0rem;
   background-color: #000;
   width: 100%;
-  height: 89%;
+  height: 87%;
   margin: auto;
   display: block;
   z-index: 2;
   background-color: white;
-  /* background-image: url("http://localhost:8090/images/chatBg.png"); */
   overflow-y: scroll;
   overflow: auto;
+  padding: 0.8rem;
+}
+
+.chatInput {
+  min-width: 2rem;
 }

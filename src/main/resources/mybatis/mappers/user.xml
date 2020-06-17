@@ -83,14 +83,14 @@
 		]]>
 	</select>
 	
-	<select id="getUserSessionNotInGroup" resultType="uservo">
+	<select id="getUserSessionNotInGroup" resultType="uservo" parameterType="java.util.HashMap">
 		<![CDATA[
 			select no, id, email, nickname, image
 			  from user
-			  where id = 
+			  where 
 		]]>
-		<foreach collection="userSession" item="item">
-			#{ item.user_id }
+		<foreach collection="userSession" item="item" open="(" close=")" separator="or">
+			id = #{ item.user_id }
 		</foreach>
 	</select>
 	
