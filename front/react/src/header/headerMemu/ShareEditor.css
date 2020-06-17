@@ -1,68 +1,70 @@
 .editor {
-    width: 100%;
-    height: 84%;
-    margin: 0 auto;
-    /* border: 1px solid #020202; */
-    border-radius: 1rem;
-  }
+  width: 100%;
+  height: 84%;
+  margin: 0 auto;
+  /* border: 1px solid #020202; */
+  border-radius: 1rem;
+}
 
-  .btn {
-    /* border-bottom: 1px solid #020202; */
-    width: 100%;
-    height: 60px;
-    padding: 6px;
+.btn {
+  /* border-bottom: 1px solid #020202; */
+  width: 100%;
+  height: 60px;
+  padding: 6px;
 
-  }
+}
 
-  .btn .button{
-    width: 2.4rem;
-    height: 2.4rem;
-    margin: 6px;
-    margin-right: 10px;
-    background: none;
-    font-family: serif;
-    border-radius: 0.6rem;
-    font-weight: 600;
-  }
-  .click{
-    background-color: lightcoral;
-  }
-  .btn .button:hover{
-    box-shadow: gray 1px 1px 1px 1px;
-    background-color: #EBEBEB;
-  }
+.btn .button{
+  width: 2.4rem;
+  height: 2.4rem;
+  margin: 6px;
+  margin-right: 10px;
+  background: none;
+  font-family: serif;
+  border-radius: 0.6rem;
+  font-weight: 600;
+}
+.click{
+  background-color: lightcoral;
+}
+.btn .button:hover{
+  box-shadow: gray 1px 1px 1px 1px;
+  background-color: #EBEBEB;
+}
 
-  .btn .button:active{
-    box-shadow: none;
-    background-color:  rgb(201, 199, 199);
-  }
+.btn .button:active{
+  box-shadow: none;
+  background-color:  rgb(201, 199, 199);
+}
 
-  .edit {
-    width: 100%;
-    height: 90%;
-    padding:3%;
-    resize: none;
-    border:0;
-  }
+.edit {
+  width: 100%;
+  height: 90%;
+  padding:3%;
+  resize: none;
+  border:0;
+}
 
-  .markDownView {
-    width: 100%;
-    height: 90%;
-    padding:3%;
-    border-radius: 1rem;
-    WORD-BREAK: break-all;
-  }
+.markDownView {
+  width: 100%;
+  height: 90%;
+  padding:3%;
+  border-radius: 1rem;
+  WORD-BREAK: break-all;
+}
 
- 
-  .btn{
-    /* background: no-repeat; */
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-    padding-left: 40px;
-  }
+
+.btn{
+  /* background: no-repeat; */
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  padding-left: 40px;
+}
+
 .faPalette{
   display: inline;
 }
+
 .toolbar{
   position: absolute;
   width: 100%;
@@ -71,9 +73,11 @@
   border-bottom-left-radius: 1rem;
   padding-left: 4px;
 }
+
 .file_UpLoad{ 
   width:40%;
 }
+
 .file_UpLoad:no-button{
   width:8%;
 }
@@ -82,21 +86,23 @@
   width: 2rem;
   height: 2rem;
   margin: 5px;
-  border-radius: 0.6rem;
+  border-radius: 50%;
   background: none;
 }
+
 .ctbutton:hover{
-  background-color: #EBEBEB;
-  box-shadow: gray 1px 1px 1px 1px;
+  background-color: rgba(0, 0, 0, 0.08);
+  /* box-shadow: gray 1px 1px 1px 1px; */
 }
+
 .ctbutton:active{
-  background-color: rgb(201, 199, 199);
-  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.08);
+  /* box-shadow: none; */
 }
+
 .ctbtn{
   width: 100%;
   padding: 9px 9px 2px 9px;
-  border-bottom: 1px solid #020202;
 }
 
 .userList{

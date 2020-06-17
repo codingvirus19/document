@@ -193,12 +193,14 @@ export default class Popup extends React.Component {
           <div className={styles.editor}>
             <div className={styles.ctbtn}>
 
-              <button className={styles.ctbutton} onClick={this.hevent.bind(this, 1)}>H1</button>
-              <button className={styles.ctbutton} onClick={this.hevent.bind(this, 2)}>H2</button>
-              <button className={styles.ctbutton} onClick={this.hevent.bind(this, 3)}>H3</button>
-              <button className={styles.ctbutton} onClick={this.hevent.bind(this, 4)}>H4</button>
-              <button className={styles.ctbutton} onClick={this.boldevent.bind(this)}>B</button>
-              {(this.state.markOpen) ? <button className={`${styles.click} ${styles.ctbutton}`} onClick={this.markOpen.bind(this)}>E</button> : <button className={styles.ctbutton} onClick={this.markOpen.bind(this)}>M</button>}
+              <button aria-label="헤더1" className={styles.ctbutton} onClick={this.hevent.bind(this, 1)}>H1</button>
+              <button aria-label="헤더2" className={styles.ctbutton} onClick={this.hevent.bind(this, 2)}>H2</button>
+              <button aria-label="헤더3" className={styles.ctbutton} onClick={this.hevent.bind(this, 3)}>H3</button>
+              <button aria-label="헤더4" className={styles.ctbutton} onClick={this.hevent.bind(this, 4)}>H4</button>
+              <button aria-label="굵게" className={styles.ctbutton} onClick={this.boldevent.bind(this)}>B</button>
+              {(this.state.markOpen) ? 
+              <button className={`${styles.click} ${styles.ctbutton}`} onClick={this.markOpen.bind(this)}>E</button> 
+              : <button className={styles.ctbutton} onClick={this.markOpen.bind(this)}>M</button>}
 
               <FileUpload className={styles.ctbutton} File={e => this.FileUpload(e)} image={this.state.image} save={this.ImageSave.bind(this)} />
 
