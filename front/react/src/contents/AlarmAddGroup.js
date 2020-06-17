@@ -16,7 +16,7 @@ export default class AlarmAddGroup extends React.Component {
         }
     }
 
-    joinGroup() {    
+    joinGroup() {
         let data = { gNo: this.state.groupNo };
         fetch(`${API_URL}/api/alarmGroupJoin`, {
             method: "post",
@@ -24,9 +24,10 @@ export default class AlarmAddGroup extends React.Component {
             body: JSON.stringify(data),
         })
         .then(()=> this.props.AlarmAddGroup())
+        .then(()=> this.joinCancelGroup())
         .then(()=> this.props.SidebarGroupUpdate(this.state.addGroupAlarm.group_no,
                    this.state.addGroupAlarm.group_name ))
-        this.joinCancelGroup();
+        
     }
     joinCancelGroup(){
         this.props.joinCancel(null);

@@ -44,6 +44,14 @@ export default class Contents extends React.Component {
     })
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.userListInGroupByUser != null){
+      this.setState({
+        userListInGroupByUser: this.props.userListInGroupByUser
+      })
+    }
+  }
+
   render() {
     //나중에 지우기 없어도 채팅 고정으로 열어놓은 상태 아니면 될듯 아마도..
     if (!this.props.userListInGroupByUser || !this.props.chatListGroup) {
@@ -77,7 +85,11 @@ export default class Contents extends React.Component {
                   //그룹별 멤버 
                   let gmember = this.props.userListInGroupByUser
                     .filter(element => element.gNo === this.props.chatListGroup.no[index]);
-                  return (
+                    if((!gmember[0]) || (!gmember[1])){
+                      return null;
+                    }
+                    return (
+
                     <Fragment key={index}>
                       <div
                         className={styles.chatList}
