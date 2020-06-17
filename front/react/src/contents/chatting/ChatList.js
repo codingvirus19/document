@@ -128,7 +128,6 @@ export default class Contents extends React.Component {
                             </div>
                             : null}
                         </div>
-
                       </div>
                     </Fragment>
                   );

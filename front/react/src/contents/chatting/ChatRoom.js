@@ -116,7 +116,12 @@ export default class Chat extends React.Component {
               )}
           </div>
           <div className={styles.title}>
-            {this.props.gName}({this.props.userListInGroupByUser.length})
+            <div className={styles.groupname}>
+            {this.props.gName}
+            </div>
+            <div className={styles.group}>
+              ({this.props.userListInGroupByUser.length})
+            </div>
           </div>
           <button
           aria-label="채팅목록"
