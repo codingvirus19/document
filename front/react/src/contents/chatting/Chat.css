@@ -85,7 +85,7 @@
 }
 
 .chatOutput {
-  padding: 3%;
+  padding: 3% 3% 0 3%;
   height: 87%;
   width: 99%;
   margin-right: 0.3rem;

@@ -4,7 +4,7 @@
 	<select id="chattingList" parameterType="chatvo" resultType="chatvo">
 		<![CDATA[
 			  select * 
-			    from ( select c.g_no as gNo, c.message as message, date_format(c.date, '%Y-%m-%d %H시 %i분') as date, c.count as aCount, u.nickname as nickname, u.image as image
+			    from ( select c.g_no as gNo, c.message as message, date_format(c.date, '%m-%d %H:%i') as date, c.count as aCount, u.nickname as nickname, u.image as image
             			 from chat c, user u
           			    where c.g_no = #{gNo}
               			  and c.u_no = u.no
