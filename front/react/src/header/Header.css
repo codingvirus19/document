@@ -47,6 +47,8 @@
   background: none;
   width: 2.9rem;
   height: 2.9rem;
+  padding-top: 1.6px;
+  padding-left: 0.6px;
 }
 
 .userbell:hover, .user:hover, .addmemo:hover, .chat:hover, .user:hover{
