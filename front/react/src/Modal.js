@@ -17,7 +17,6 @@ export default class Modal extends React.Component {
     // 그룹삭제 실행 함수
     onAjaxOutGroup(e){
         e.preventDefault();
-        console.log(this.props.groupBySidebar.no)
         let groupNoForDelete = null;
     
         // group의 no는 개인이기 때문에 그룹 나가기가 작동되어선 안된다.
@@ -36,10 +35,8 @@ export default class Modal extends React.Component {
           })
             .then((response) => response.json())
             .then((json) => {
-              console.log(json.data)
               let getTrue = json.data;
               if (getTrue != false) {
-                // console.log("그룹 삭제 정상작동")
                 this.props.notify(`${this.props.groupBySidebar.name} 그룹이 삭제되었습니다.`)
                 this.props.SidebarGroupUpdate(null, null);
                 this.props.getGroup();
@@ -47,7 +44,6 @@ export default class Modal extends React.Component {
             })
             .catch((err) => console.error(err));
         }else{
-          // console.log("개인은 그룹나가기하면 안됩니다!")
           this.props.notify("개인은 그룹나가기를 할 수 없습니다.")
         }
       }
@@ -74,15 +70,13 @@ export default class Modal extends React.Component {
               console.log(json.data)
               let getTrue = json.data;
               if (getTrue != false) {
-                // console.log("그룹나가기 정상작동")
-                this.props.notify(`${this.props.groupBySidebar.name} 그룹에 나가셨습니다.`)
+                this.props.notify(`${this.props.groupBySidebar.name} 그룹에서 나가셨습니다.`)
                 this.props.SidebarGroupUpdate(null, null);
                 this.props.getGroup();
               }
             })
             .catch((err) => console.error(err));
         }else{
-          // console.log("개인은 그룹나가기하면 안됩니다!")
           this.props.notify("개인은 그룹나가기를 할 수 없습니다.")
         }
       }

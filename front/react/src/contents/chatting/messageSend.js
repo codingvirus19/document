@@ -15,7 +15,6 @@ export default class MessageList extends React.Component {
   }
 
   onInputChanged(event) {
-    console.log(event.target.value)
     if (event.target.value != "") {
       this.setState({ btnClass: styles.button2 })
     }
@@ -45,7 +44,6 @@ export default class MessageList extends React.Component {
     });
   }
   componentWillReceiveProps(props) {
-    console.log(props.chatdragStart);
     if (props.chatdragStart != null) {
       this.setState({
         message: props.chatdragStart

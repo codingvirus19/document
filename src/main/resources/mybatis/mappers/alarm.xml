@@ -36,7 +36,7 @@
 		<![CDATA[
 		 select a.read_check as readCheck,
 		 		b.type as type
-           from accptalarm a, (select no, g_no, massage, date, type from alarm) b
+           from accptalarm a, (select no, g_no, type from alarm) b
 		  where a.noti_no = b.no
             and read_check = true
             and u_no=#{uNo}
@@ -65,7 +65,7 @@
 		resultType="alarmvo">
 		<![CDATA[
 		 select a.noti_no as notiNo,
-		 		b.massage as chat,
+		 		b.message as chat,
                 date_format(b.date, '%m월 %d일 %H:%i') as date,
                 case dayofweek(b.date)
 				when '1' then '일요일'
@@ -77,7 +77,7 @@
 				when '7' then '토요일'
 				end as week,
 				b.g_no as gNo
-           from accptalarm a, (select no, g_no, massage, date, type from alarm) b
+           from accptalarm a, (select no, g_no, message, date, type from alarm) b
 		  where a.noti_no = b.no
             and u_no= #{uNo}
             and type not in(0)
