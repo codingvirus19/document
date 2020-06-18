@@ -9,7 +9,7 @@ import { faPlus, faBell, faSms, } from "@fortawesome/free-solid-svg-icons";
 import dropdownstyles from "./Dropdown.css";
 import styles from "./Header.css";
 
-const API_URL = "."; 
+const API_URL = ".";
 const API_HEADERS = {
   "Content-Type": "application/json",
 };
@@ -24,7 +24,7 @@ export default class Header extends React.Component {
       redirect: false,
       showAlarm: false,
       alarm: this.props.alarm,
-      ClickGetProfileValue : null,
+      ClickGetProfileValue: null,
     };
   }
 
@@ -79,7 +79,7 @@ export default class Header extends React.Component {
   }
 
   render() {
-    if(this.props.getProfileValue ==null){
+    if (this.props.getProfileValue == null) {
       return null;
     }
     return (
@@ -110,15 +110,15 @@ export default class Header extends React.Component {
               </button>
               {this.state.showPopup ? (
                 <CreateEditor
-                users={this.props.users}
-                bringMemoByGroup={this.props.bringMemoByGroup}
-                groupNoForGroupUser={this.props.groupBySidebar}
-                closePopup={this.togglePopup.bind(this)}
-                clientRef={this.props.clientRef}
+                  users={this.props.users}
+                  bringMemoByGroup={this.props.bringMemoByGroup}
+                  groupNoForGroupUser={this.props.groupBySidebar}
+                  closePopup={this.togglePopup.bind(this)}
+                  clientRef={this.props.clientRef}
                 />
-                ) : null}
+              ) : null}
             </div>
-                {/* ////////////////////////////////////////////////////////////// */}
+            {/* ////////////////////////////////////////////////////////////// */}
             <Dropdown className={styles.account}>
               <Dropdown.Toggle aria-label="계정" className={styles.user}>
                 <img className={styles.imageIcon} src={"." + this.props.getProfileValue.image} />
@@ -130,31 +130,42 @@ export default class Header extends React.Component {
                 <Dropdown.Item onClick={this.setRedirect.bind(this)} className={dropdownstyles.item2}>
                   로그아웃
                 </Dropdown.Item>
-                </Dropdown.Menu>
-                {this.state.showProfile == true && this.state.ClickGetProfileValue != null ? (
-                  <Popup2
-                    getProfileAjax={this.props.getProfileAjax}
-                    getGroup={this.props.getGroup}
-                    notify={this.props.notify}
-                    ClickGetProfileValue={this.state.ClickGetProfileValue}
-                    inner_header="프로필정보"
-                    contents={"profile"}
-                    closePopup={this.toggleShowProfile.bind(this)}
-                    clientRef={this.props.clientRef}
-                  />
-                ) : null}
-              </Dropdown>
+              </Dropdown.Menu>
+              {this.state.showProfile == true && this.state.ClickGetProfileValue != null ? (
+                <Popup2
+                  getProfileAjax={this.props.getProfileAjax}
+                  getGroup={this.props.getGroup}
+                  notify={this.props.notify}
+                  ClickGetProfileValue={this.state.ClickGetProfileValue}
+                  inner_header="프로필정보"
+                  contents={"profile"}
+                  closePopup={this.toggleShowProfile.bind(this)}
+                  clientRef={this.props.clientRef}
+                />
+              ) : null}
+            </Dropdown>
 
-              <div>
-              <button aria-label="채팅" className={(this.state.showChat) ? `${styles.chat} ${styles.chatClick}` : styles.chat} onClick={this.chattingClick.bind(this)}>
+            <div>
+              <button
+                aria-label="채팅"
+                className={(this.state.showChat) ? 
+                  `${styles.chatClick} ${styles.chat}`
+                  : styles.chat}
+                onClick={this.chattingClick.bind(this)}>
                 {(this.props.alarm.chatting) ? <span className={styles.alarmbell} /> : null}
                 <FontAwesomeIcon className={styles.faSms} icon={faSms} />
               </button>
             </div>
-            
+
             <Dropdown>
-              <Dropdown.Toggle aria-label="알람" onClick={this.alarmClick.bind(this)} className={(this.state.showAlarm) ? `${styles.userbellClick} ${styles.userbell}` : styles.userbell}  >
-                {(this.props.alarm.basic) ? <span className={styles.alarmbell} /> : null}
+              <Dropdown.Toggle
+                aria-label="알람"
+                className={(this.state.showAlarm) ? 
+                  `${styles.userbellClick} ${styles.userbell}`
+                  : styles.userbell}
+                onClick={this.alarmClick.bind(this)}>
+                {(this.props.alarm.basic) ? 
+                <span className={styles.alarmbell} /> : null}
                 <FontAwesomeIcon className={styles.faBell} icon={faBell} />
               </Dropdown.Toggle>
             </Dropdown>

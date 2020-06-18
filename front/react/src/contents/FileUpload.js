@@ -21,7 +21,7 @@ const FileUpload = (props) => {
 
     return (
         <Fragment>
-            <button className={className} onClick={() => PopupChange(true)}>{value}</button>
+            <button aria-label="이미지 추가" className={className} onClick={() => PopupChange(true)}>{value}</button>
             <Popup open={popupChange} close={() => PopupChange()} >
                 <div className={styles.upload}>
                     <button className={styles.upload_btn} onClick={FileUploadBtn}>이미지추가</button>
