@@ -82,6 +82,9 @@ export default class Header extends React.Component {
     if (this.props.getProfileValue == null) {
       return null;
     }
+    // if(this.props.alarm.basic) {
+    //   this.props.notify("알람이왔ㅇ어ㅛ")
+    // }
     return (
       <div className={styles.header}>
         <div onClick={this.props.onClickContainer} className={styles.wrapper}>
