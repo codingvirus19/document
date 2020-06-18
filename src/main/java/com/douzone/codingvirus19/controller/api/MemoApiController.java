@@ -156,6 +156,15 @@ public class MemoApiController {
 			message.setVersion(version.get(version.size() - 1));
 			message.setKey(str);
 			return message;
+		} else if (message.getType().equals("save")) {
+			if (str == null)
+				return null;
+			MemoVo memoVo = new MemoVo();
+			memoVo.setNo(memo);
+			memoVo.setContent(str);
+			memoVo.setColor(message.getKey());
+			memoService.memoUpdate(memoVo);
+			return message;
 		}
 
 		if (version.size() > 1) {
