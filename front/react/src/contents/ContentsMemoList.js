@@ -20,28 +20,28 @@ export default class ContentsMemoList extends React.Component {
     };
 
   }
-  DragStart(e) {
-    this.dragStart = e.target;
-    this.cpdragStart = this.dragStart.cloneNode(true);
-    e.dataTransfer.effectAllowed = "move";
-    e.target.style.opacity = 0.1;
-    e.dataTransfer.setData("text/html", this.cpdragStart);
-  }
-  DragEnd(e) {
-    this.dragStart.style.opacity = 1;
-    if (this.dragOver == undefined) {
-      return;
-    }
-  }
-  DragOver(e) {
-    e.preventDefault();
-    if (e.target.className != `${styles.container_memo_form}`) return;
-    if (e.target.dataset.id == this.dragStart.dataset.id) return;
-    this.dragOver = e.target;
-    let from = Number(this.dragStart.dataset.id);
-    let to = Number(this.dragOver.dataset.id);
-    this.props.memo_Change(from, to);
-  }
+  // DragStart(e) {
+  //   this.dragStart = e.target;
+  //   this.cpdragStart = this.dragStart.cloneNode(true);
+  //   e.dataTransfer.effectAllowed = "move";
+  //   e.target.style.opacity = 0.1;
+  //   e.dataTransfer.setData("text/html", this.cpdragStart);
+  // }
+  // DragEnd(e) {
+  //   this.dragStart.style.opacity = 1;
+  //   if (this.dragOver == undefined) {
+  //     return;
+  //   }
+  // }
+  // DragOver(e) {
+  //   e.preventDefault();
+  //   if (e.target.className != `${styles.container_memo_form}`) return;
+  //   if (e.target.dataset.id == this.dragStart.dataset.id) return;
+  //   this.dragOver = e.target;
+  //   let from = Number(this.dragStart.dataset.id);
+  //   let to = Number(this.dragOver.dataset.id);
+  //   this.props.memo_Change(from, to);
+  // }
   setMemo_hash(memo_hash) {
     this.setState({
       memo_hash: this.state.memo_hash.concat(memo_hash),
@@ -61,8 +61,13 @@ export default class ContentsMemoList extends React.Component {
       showPopup: !this.state.showPopup,
     });
   }
+
+  DragDropContents(contents){
+    console.log(contents)
+  }
   
   DragStart(e) {
+    this.props.ChattingDragStart(e.currentTarget);
     this.dragStart = e.currentTarget;
     this.cpdragStart = this.dragStart.cloneNode(true);
     e.dataTransfer.effectAllowed = "move";
@@ -84,6 +89,7 @@ export default class ContentsMemoList extends React.Component {
     let to = Number(this.dragOver.dataset.id);
     this.props.memo_Change(from, to);
   }
+
   render() {
     if (this.props.memo_bigArr.length === 0) {
       return (
@@ -107,11 +113,10 @@ export default class ContentsMemoList extends React.Component {
                 />
               ) : null}
             </div>
-
-
           </div>
         </div>
       )
+
     } 
     return (
       <div className={styles.memo} >
@@ -128,6 +133,7 @@ export default class ContentsMemoList extends React.Component {
               DragOver={this.DragOver.bind(this)}
               DragStart={this.DragStart.bind(this)}
               DragEnd={this.DragEnd.bind(this)}
+              ChattingDragOver={this.props.ChattingDragOver}
               key={this.props.memo_bigArr[index].no}
               notify={this.props.notify}
               bringMemoByGroup={this.props.bringMemoByGroup}
@@ -142,10 +148,10 @@ export default class ContentsMemoList extends React.Component {
               group_hash={this.props.group_hash}
               distinctGroup_hash={this.props.distinctGroup_hash}
               groupInUserList={this.props.groupInUserList}
-
+              DragDropContents={this.DragDropContents.bind(this)}
             />
           ))}
       </div>
     );
   }
-}
+}//
