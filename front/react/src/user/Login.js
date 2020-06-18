@@ -21,10 +21,11 @@ export default class login extends React.Component {
       password: "",
       result: false,
       showJoin: false,
-      nickname: '',
-      id: '',
-      email: '',
-      JoinPassword: '',
+      nickname: "",
+      id: "",
+      email: "",
+      JoinPassword: "",
+      JoinPassword2: "",
       Error: false,
       Errormessage: "",  //비밀번호불일치, id중복, email중복
       JoinSuccess: false
@@ -79,6 +80,7 @@ export default class login extends React.Component {
   }
 
   handleChangePasswordCheck(e) {
+    this.handleChange(e)
     this.UpdateError(this.state.JoinPassword !== e.target.value, "패스워드가 일치하지 않습니다")
     // 비밀번호 일치시 박스색 다르게 className줘서
   }
@@ -105,13 +107,13 @@ export default class login extends React.Component {
 
   Join(e) {
     e.preventDefault();
-    //이메일 확인
-    if (!this.chkEmail(this.state.email)) {
-      this.UpdateError(true, "이메일 형식이 유효하지 않습니다.");
-      this.setState({
-        email: ""
-      })
-    } 
+    //빈값 확인
+    if(this.state.id === "") {
+      this.UpdateError(true, "id를 입력해 주세요")
+    }
+    else if(this.state.nickname === "") {
+      this.UpdateError(true, "닉네임을 입력해 주세요")
+    }
     //닉네임 8자 미만 제한
     else if(this.state.nickname > 8){
       this.UpdateError(true, "닉네임은 8자 미만으로 해주십시오");
@@ -119,6 +121,25 @@ export default class login extends React.Component {
         nickname: ""
       })
     } 
+    else if(this.state.email === "") {
+      this.UpdateError(true, "이메일을 입력해 주세요")
+    }
+    //이메일 확인
+    else if (!this.chkEmail(this.state.email)) {
+      this.UpdateError(true, "이메일 형식이 유효하지 않습니다.");
+      this.setState({
+        email: ""
+      })
+    } 
+    else if(this.state.JoinPassword === "") {
+      this.UpdateError(true, "비밀번호를 입력해 주세요")
+    }
+    else if(this.state.JoinPassword2 === "") {
+      this.UpdateError(true, "비밀번호를 확인해 주세요")
+    }
+    else if(this.state.Error && this.state.Errormessage === "패스워드가 일치하지 않습니다"){
+      return;
+    }
     else {
       let joinData = {
         nickname: this.state.nickname,
@@ -174,7 +195,7 @@ export default class login extends React.Component {
               onChange={this.handleChange.bind(this)} name="email" placeholder="Email" />
             <input type="password" className={`${styles.fadeIn}`} value={this.state.JoinPassword}
               onChange={this.handleChange.bind(this)} name="JoinPassword" placeholder="Password" />
-            <input type="password" className={`${styles.fadeIn}`}
+            <input type="password" className={`${styles.fadeIn}`} value={this.state.JoinPassword2}
               onChange={this.handleChangePasswordCheck.bind(this)} name="JoinPassword2" placeholder="Password confirm" />
             <div className={styles.formFooter}>
               {this.Errormessage()}
