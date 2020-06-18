@@ -29,12 +29,12 @@ public class WebConfig implements WebMvcConfigurer {
 	private Environment env;
 
 	
-	@Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:8090");
-//                .allowedOrigins("http://localhost:8080");
-    }
+//	@Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .allowedOrigins("http://localhost:8090");
+////                .allowedOrigins("http://localhost:8080");
+//    }
 	
 	@Bean
 	public AuthUserHandlerMethodArgumentResolver authUserHandlerMethodArgumentResolver() {

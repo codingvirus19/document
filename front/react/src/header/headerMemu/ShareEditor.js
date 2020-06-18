@@ -204,6 +204,12 @@ export default class Popup extends React.Component {
       return;
     }
 
+    //=================================MemoUpdate=============================
+
+    if (message.type == "save") {
+      this.props.bringMemoByGroup(this.props.gNo == undefined ? null : this.props.gNo);
+    }
+
     //=====================================================================
     //작성유저 표시
     let writeUser = document.getElementById(message.name);
@@ -285,7 +291,10 @@ export default class Popup extends React.Component {
   //=====================================receive=================================
 
   memoSave() {
-    this.send(0, 0, this.state.color, 0, "save");
+    this.send(0, 0, this.state.color, "save");
+    if(this.props.gNo !=null){
+    this.props.clientRef.sendMessage(`/app/memo/update/${this.props.gNo}`, JSON.stringify({update:'update',userNo:this.props.users.no[0]}));
+  }
   }
 
   markOpen() {
