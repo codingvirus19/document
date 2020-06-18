@@ -3,8 +3,22 @@
     min-width: 13rem;
     width: 25%;
     overflow-y: hidden;
+    transform-origin: right;
+    /* transform: rotateX(0deg); */
+    animation-duration: 0.8s;
+	 animation-name: slidein;
 }
-
+@keyframes slidein {
+	from {
+		transform-origin: top;
+		transform: rotateX(90deg);
+	}
+  
+	to {
+		transform-origin: top;
+		transform: rotateX(0deg);
+	}
+  }
 .alarmList{
     list-style: none;
     background-color: #fff;
