@@ -20,7 +20,6 @@ export default class ContentsMemoList extends React.Component {
     };
     
   }
-
   setMemo_hash(memo_hash) {
     this.setState({
       memo_hash: this.state.memo_hash.concat(memo_hash),
@@ -40,8 +39,6 @@ export default class ContentsMemoList extends React.Component {
       showPopup: !this.state.showPopup,
     });
   }
-
-
 
   render() {
     return (

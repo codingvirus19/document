@@ -56,5 +56,8 @@ public class MemoService {
 	public boolean chageMemoListNo(MemoVo memoVo) {
 		return 1 == memoRepository.chageMemoListNo(memoVo);
 	}
+	public MemoVo memoFind(Long memo) {
+		return memoRepository.memoFind(memo);
+	}
 }
 
