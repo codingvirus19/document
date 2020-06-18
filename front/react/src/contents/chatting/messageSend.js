@@ -4,10 +4,11 @@ import styles from "./messageSend.css";
 
 export default class MessageList extends React.Component {
   constructor() {
-    super();
+    super(...arguments);
     this.state = {
       message: "",
       btnClass: styles.button,
+      dragChat: ""
     };
     this.onChatSubmit = this.onChatSubmit.bind(this);
     this.onInputChanged = this.onInputChanged.bind(this);
@@ -15,7 +16,7 @@ export default class MessageList extends React.Component {
 
   onInputChanged(event) {
     console.log(event.target.value)
-    if(event.target.value != ""){
+    if (event.target.value != "") {
       this.setState({ btnClass: styles.button2 })
     }
     else {
@@ -35,13 +36,21 @@ export default class MessageList extends React.Component {
   onChatSubmit(event) {
     event.preventDefault();
 
-    if(this.state.message == "" || this.state.message == null || this.state.message.replace(/^\s+|\s+$/g, '') == ''){
+    if (this.state.message == "" || this.state.message == null || this.state.message.replace(/^\s+|\s+$/g, '') == '') {
       return null;
     }
     this.props.sendMessage(this.state.message, this.props.gNo);
     this.setState({
       message: "",
     });
+  }
+  componentWillReceiveProps(props) {
+    console.log(props.chatdragStart);
+    if (props.chatdragStart != null) {
+      this.setState({
+        message: props.chatdragStart
+      })
+    }
   }
 
   render() {

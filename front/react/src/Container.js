@@ -654,7 +654,7 @@ export default class Container extends React.Component {
       clickHash:false,
     })
   }
-  
+
   render() {
     const wsSourceUrl = "./api/alarm";
     return (

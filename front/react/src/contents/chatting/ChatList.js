@@ -97,6 +97,8 @@ export default class Contents extends React.Component {
                 .filter(element => element.gNo === this.state.gNo)}
               close={this.close.bind(this)}
               clientRef={this.props.clientRef}
+              dragStart={this.props.dragStart}
+              content={this.props.content}
             />
           ) : (
               <>
