@@ -30,7 +30,7 @@ const FileUpload = (props) => {
                     <input type="file" id="hiddenFileInput" onChange={e => FileUploads(e)} style={{ display: 'none' }} />
                     {(props.image == null) ? null : <img className={styles.image} src={`.${props.image}`} />}
                 </div>
-                {props.image}
+                
                 {value =="I"? <button className={styles.save} onClick={() => {props.save(true);  PopupChange(false) }}>저장</button> 
                 : <button className={styles.save} onClick={() =>{setValue(props.image); PopupChange(false) }}>저장</button>}
                 
