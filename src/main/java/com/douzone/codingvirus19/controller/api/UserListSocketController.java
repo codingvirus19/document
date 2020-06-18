@@ -85,6 +85,7 @@ public class UserListSocketController {
 	@MessageMapping("/memo/update/{groupno}")
 	public void memoChange(Map<String,String> map,@DestinationVariable Long groupno) throws Exception {
 		ArrayList<Long> userNolist = new ArrayList<>();
+		System.out.println(map+"map입니다");
 			userNolist = userGroupListNo.get(groupno);
 			map.put("gNo", groupno.toString());
 			for (Long userNo : userNolist) {
