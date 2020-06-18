@@ -8,7 +8,29 @@ import styles from "./Contents.css";
 
 export default class Contents extends React.Component {
 
+  constructor(){
+    super(...arguments)
+    this.state={
+      dragStart: ''
+    
+    }
+  }
+
+  ChattingDragStart(e){
+    this.setState({
+      dragStart : e
+    })
+  }
+
+
+  content(index){
+    return this.props.memo_bigArr[index].content
+  }
+
   render() {
+    console.log(this.state.dragStart)
+    // console.log(this.props.showAlarm);
+    // console.log(this.state.addgroup_alarm);
     return (
       <div onClick={this.props.onClickContainer} className={styles.contents}>
         <div className={styles.box}>
@@ -32,6 +54,7 @@ export default class Contents extends React.Component {
                 notify={this.props.notify}
                 bringMemoByGroup={this.props.bringMemoByGroup}
                 memo_Change={this.props.memo_Change}
+                ChattingDragStart={this.ChattingDragStart.bind(this)}
                 callbackFromToolbar={this.props.callbackFromToolbar}
                 SidebarGroupUpdate={this.props.SidebarGroupUpdate}
                 groupBySidebar={this.props.groupBySidebar}
@@ -56,6 +79,8 @@ export default class Contents extends React.Component {
               getChatListGroup={this.props.getChatListGroup}
               chatkeyword={this.props.chatkeyword}
               onCallbackChattingKeywordChange={this.props.onCallbackChattingKeywordChange}
+              dragStart={this.state.dragStart}
+              content={this.content.bind(this)}
             />
           ) : null}
           {this.props.showAlarm ? (
