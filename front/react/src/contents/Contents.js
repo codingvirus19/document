@@ -22,7 +22,6 @@ export default class Contents extends React.Component {
     })
   }
 
-
   content(index){
     return this.props.memo_bigArr[index].content
   }
