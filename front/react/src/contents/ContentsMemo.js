@@ -62,7 +62,7 @@ export default class ContentsMemoList extends React.Component {
               className={styles.container_memo_form}
             >
               {/* <ContentsMemo /> */}
-              <Memo
+              <Memo 
                 notify={this.props.notify}
                 groupInUserList={this.props.groupInUserList}
                 memo_gNo={this.props.gNo}
