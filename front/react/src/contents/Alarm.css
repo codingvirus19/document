@@ -2,11 +2,11 @@
     height: 100%;
     min-width: 13rem;
     width: 25%;
+    border-left: 1px solid #e3e6f0;
     overflow-y: hidden;
     transform-origin: right;
-    /* transform: rotateX(0deg); */
     animation-duration: 0.8s;
-	 animation-name: slidein;
+	animation-name: slidein;
 }
 @keyframes slidein {
 	from {
@@ -34,7 +34,6 @@
 }
 
 .alarmLine{
-    border-left: 1px solid #e3e6f0;
     border-right: 1px solid #e3e6f0;
     border-bottom: 1px solid #e3e6f0;
     line-height: 1.3rem;

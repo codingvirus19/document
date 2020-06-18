@@ -52,7 +52,7 @@ export default class Alarm extends React.Component {
                 addGroupAlarm: nextProps.addgroup_alarm
             })
         }
-        if(nextProps.alarm.basic == true){
+        if (nextProps.alarm.basic == true) {
             this.getAlarmList();
         }
     }
@@ -67,8 +67,8 @@ export default class Alarm extends React.Component {
             headers: API_HEADERS,
             body: JSON.stringify(data)
         })
-        .then(() => { this.getAlarmList() })
-        .catch((err) => console.error(err));
+            .then(() => { this.getAlarmList() })
+            .catch((err) => console.error(err));
     }
 
     render() {
@@ -89,10 +89,10 @@ export default class Alarm extends React.Component {
                                 <div>
                                     <li> {index + 1}. {content.chat} </li>
                                 </div>
-                                <button 
-                                // aria-label="알람 삭제"
-                                onClick={(e)=> this.alarmDelete(index, e)}
-                                className={styles.alarmDelete}>
+                                <button
+                                    // aria-label="알람 삭제"
+                                    onClick={(e) => this.alarmDelete(index, e)}
+                                    className={styles.alarmDelete}>
                                     <FontAwesomeIcon className={styles.faTrash} icon={faTrash} />
                                 </button>
                                 <h6 className={styles.dates}>{content.date} ({content.week})</h6>

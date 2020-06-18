@@ -1,11 +1,8 @@
 .contents {
   display: inline-block;
   position: absolute;
-
   left: 4rem;
-
   right: 0rem;
-  top: 20px;
   height: 100%;
 }
 
