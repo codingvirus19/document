@@ -29,6 +29,7 @@ export default class Alarm extends React.Component {
         })
             .then((response) => response.json())
             .then((json) => {
+                console.log(json.data)
                 this.setState({
                     alarmDatas: json.data
                 });
@@ -67,7 +68,10 @@ export default class Alarm extends React.Component {
             headers: API_HEADERS,
             body: JSON.stringify(data)
         })
-            .then(() => { this.getAlarmList() })
+            .then(() => {
+                this.getAlarmList();
+                this.props.notify("알람이 삭제되었습니다.");
+            })
             .catch((err) => console.error(err));
     }
 

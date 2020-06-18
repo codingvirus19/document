@@ -579,6 +579,7 @@ export default class Container extends React.Component {
           chatting: this.state.alarm.chatting
         }
       })
+      this.notify("새로운 알람이 왔습니다.");
     }
     if (this.state.chatalarm_gNo != alarm_msg.gNo) {
       if (alarm_msg.chatting != null) {//채팅
