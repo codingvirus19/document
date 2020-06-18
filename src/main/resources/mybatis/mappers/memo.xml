@@ -27,7 +27,13 @@
                 order by listNo;
  		]]>
 	</select>
-	
+
+	<select id="memofind" parameterType="long" resultType="memovo">
+		<![CDATA[
+			select * from memo where no = #{memo};
+ 		]]>
+	</select>
+
 	<select id="searchMemoByHash" parameterType="memovo"
 		resultType="memovo">
 		<![CDATA[
@@ -66,7 +72,7 @@
 			delete from memo where no=#{no} and g_no= #{gNo} and u_no=#{uNo};
  		]]>
 	</delete>
-	
+
 	<delete id="deleteHash" parameterType="memovo">
 		<![CDATA[
 			delete from hash where g_no=#{gNo}

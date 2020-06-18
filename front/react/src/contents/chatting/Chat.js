@@ -16,7 +16,10 @@ export default class Chat extends React.Component {
               chatAlarmNotReceive={this.props.chatAlarmNotReceive}
               getChatListGroup={this.props.getChatListGroup}
               chatkeyword={this.props.chatkeyword}
-              onCallbackChattingKeywordChange={this.props.onCallbackChattingKeywordChange}/>
+              onCallbackChattingKeywordChange={this.props.onCallbackChattingKeywordChange}
+              dragStart={this.props.dragStart}
+              content={this.props.content}
+              />
             : <div></div>}
         </Fragment>
       );

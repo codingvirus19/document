@@ -73,4 +73,7 @@ public class MemoRepository {
 	public List<MemoVo> searchMemoByHash(MemoVo memoVo) {
 		return sqlSession.selectList("memo.searchMemoByHash", memoVo);
 	}
+	public MemoVo memoFind(Long memo) {
+		return sqlSession.selectOne("memo.memofind", memo);
+	}
 }

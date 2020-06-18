@@ -87,6 +87,28 @@ export default class Chat extends React.Component {
         readCheck: true
       }));
   }
+
+  DragEnd(e) {
+    this.dragStart.style.opacity = 1;
+    if (this.dragOver == undefined) {
+      return;
+    }
+  }
+
+  DragOver(e){
+    e.preventDefault();
+    this.dragOver = e.currentTarget;
+    const content = this.props.content(this.props.dragStart.dataset.id);
+    this.setState({
+      chatdragStart: content
+    })
+  }
+  DragDrop(){
+    this.setState({
+      chatdragStart: null
+    })
+  }
+
   render() {
     const wsSourceUrl = "./api/chat";
     return (
@@ -134,17 +156,21 @@ export default class Chat extends React.Component {
           </button>
         </div>
 
-        <div id={`${this.props.gNo}scroll`} className={styles.chatOutput} >
+        <div id={`${this.props.gNo}scroll`} className={styles.chatOutput} 
+        onDrop={this.DragDrop.bind(this)}
+        onDragEnd={this.DragEnd.bind(this)} onDragOver={this.DragOver.bind(this)}>
           <MessageList
             gNo={this.props.gNo}
             users={this.props.users.name[0]}
             addMessage={this.state.contents} />
         </div>
 
-        <div id="chatInput" className="chatInput">
+        <div id="chatInput" className="chatInput" >
           <MessageSend
             gNo={this.props.gNo}
-            sendMessage={this.sendMessage.bind(this)} />
+            sendMessage={this.sendMessage.bind(this)}
+            chatdragStart={this.state.chatdragStart}
+            />
         </div>
 
       </Fragment>
