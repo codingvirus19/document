@@ -9,8 +9,6 @@ import styles from "./Contents.css";
 export default class Contents extends React.Component {
 
   render() {
-    // console.log(this.props.showAlarm);
-    // console.log(this.state.addgroup_alarm);
     return (
       <div onClick={this.props.onClickContainer} className={styles.contents}>
         <div className={styles.box}>
