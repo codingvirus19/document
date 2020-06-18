@@ -6,12 +6,23 @@
     background-color: white;
     overflow: auto;
     box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
+    animation-duration: 0.8s;
+     animation-name: slidein;
 }
-
+@keyframes slidein {
+	from {
+		transform-origin: top;
+		transform: rotateX(90deg);
+	}
+  
+	to {
+		transform-origin: top;
+		transform: rotateX(0deg);
+	}
+  }
 .chat_title {
     font-size: 1.4rem;
     font-weight: 900;
-    padding-bottom: 1rem;
     padding: 0.8rem;
 }
 
@@ -19,7 +30,6 @@
     padding: 0.3rem 0.3rem 0 2%;
     text-align: start;
     height: 4.5rem;
-    /* border-radius: 5px; */
 }
 
 .chatList:first-child {
@@ -32,7 +42,6 @@
 
 .image_div {
     height: 100%;
-    width: 30%;
     width: 4rem;
     float: left;
     position: relative;
@@ -41,11 +50,16 @@
 
 .img1 {
     width: 100%;
+    height: 100%;
+    max-height: 4rem;
     border-radius: 50%;
 }
 
 .img2 {
     width: 70%;
+    max-width: 2.8rem;
+    height: 70%;
+    max-height: 2.8rem;
     position: absolute;
     left:0.2rem;
     top:0.2rem;
@@ -55,13 +69,21 @@
 
 .img3 {
     width: 70%;
-    /* height: 70%; */
+    max-width: 2.8rem;
+    height: 70%;
+    max-height: 2.8rem;
     position: absolute;
     right: 0.2rem;
     bottom: 0.2rem;
     /* border: white 0.2rem solid; */
     z-index: 1;
     border-radius: 50%; 
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
 }
 
 .name{
@@ -81,7 +103,7 @@
     display: inline-block;
     color: #888;
     font-size: 0.95rem;
-    padding-left: 2%;
+    padding-left: 3%;
 }
 
 .gmember{
@@ -95,19 +117,18 @@
 }
 
 .chatalarmbell{
-    width: 29%;
-    height: 100%;
-    border-radius: 31%;
-    font-size: 12px;
+    font-size: 0.8rem;
     color: #fff;
-    display: inline-flex;
+    display: inline-block;
+    float: right;
     position: relative;
 }
 
-.chatalarmbell div{
+.chatalarmbell2{
     position: relative;
     display: flex;
-    padding: 0 4px 0 4px;
-    border-radius: 7px;
+    padding: 0 3px;
+    border: 0.1rem solid red;
+    border-radius: 50%;
     background-color: red;
 }

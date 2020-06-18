@@ -70,7 +70,7 @@ export default class Contents extends React.Component {
     this.search(this.state.keyword)
   }
   search(keyword) {
-    if(keyword != null){
+    if (keyword != null) {
       this.props.getChatListGroup();
     }
   }
@@ -127,7 +127,7 @@ export default class Contents extends React.Component {
 
                 {this.props.chatListGroup.gname.map((gname, index) => {
                   //그룹별 멤버 
-                  
+
                   let gmember = this.props.userListInGroupByUser
                     .filter(element => element.gNo === this.props.chatListGroup.no[index]);
                   if ((!gmember[0]) || (gmember.length != 1 && (!gmember[1]))) {
@@ -143,24 +143,30 @@ export default class Contents extends React.Component {
                         <div className={styles.image_div}>
                           {/* 그룹 인원 1명일때 */}
                           {gmember.length === 1
-                            ? (<img
-                              className={styles.img1}
-                              src={"." + gmember[0].image} />)
+                            ? (<div className={styles.img1}>
+                              <img
+                              className={styles.img}
+                              src={"." + gmember[0].image} />
+                              </div>)
                             // 그룹인원 2명 이상일때
                             : (<>
-                              <img
-                                className={styles.img2}
+                              <div className={styles.img2}>
+                                <img
+                                className={styles.img}
                                 src={"." + gmember[0].image} />
-                              <img
-                                className={styles.img3}
+                                </div>
+                              <div className={styles.img3}>
+                                <img
+                                className={styles.img}
                                 src={"." + gmember[1].image} />
+                                </div>
                             </>
                             )}
                         </div>
                         <div className={styles.name}>
                           <div>
                             <div className={styles.gname}>
-                              {gname} 
+                              {gname}
                             </div>
                             <div className={styles.member_number}>
                               {gmember.length === 1 ? null : gmember.length}
@@ -170,9 +176,9 @@ export default class Contents extends React.Component {
                             {gmember.map((element, index) =>
                               ((index + 1) != gmember.length) ? element.nickname + ", " : element.nickname)}
                           </div>
-                          {this.props.chatListGroup.readcheck[index] == true ?
+                          {this.props.chatListGroup.readcheck[index] ?
                             <div className={styles.chatalarmbell}>
-                              <div>
+                              <div className={styles.chatalarmbell2}>
                                 {this.props.chatListGroup.readcount[index]}
                               </div>
                             </div>
