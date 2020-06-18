@@ -36,6 +36,7 @@ export default class Chat extends React.Component {
   }
 
   onMessageReceive(msg) {
+    console.log(msg)
     this.setState({
       contents: this.state.contents.concat(msg),
     })
@@ -48,19 +49,19 @@ export default class Chat extends React.Component {
     let dates = new Date();
     let DateSend;
     if (dates.getMonth() + 1 < 10 && dates.getHours() > 10) {
-      DateSend = (dates.getFullYear() + "-" +
+      DateSend = (
         "0" + (dates.getMonth() + 1) + "-" +
         dates.getDate() + " " +
         dates.getHours() + ":" +
         dates.getUTCMinutes());
     } else if (dates.getMonth() + 1 < 10 && dates.getHours() < 10) {
-      DateSend = (dates.getFullYear() + "-" +
+      DateSend = (
         "0" + (dates.getMonth() + 1) + "-" +
         dates.getDate() + " " +
         "0" + dates.getHours() + ":" +
         dates.getUTCMinutes());
     } else {
-      DateSend = (dates.getFullYear() + "-" +
+      DateSend = (
         (dates.getMonth() + 1) + "-" +
         dates.getDate() + " " +
         dates.getHours() + ":" +

@@ -11,11 +11,11 @@ $subcolor: rgb(89, 130, 234);
   width: 100%;
 }
 
-.search {
-  min-width: 150px;
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0);
+.chatsearch {
+  margin: 0.3rem 1rem 1rem 1rem;
+  min-width: 50px;
   display: flex;
+  border: 1px solid rgba(0, 0, 0, 0);
   justify-content: center;
   &:hover{
     transition: background 0.3s ease-in-out;
@@ -41,60 +41,35 @@ $subcolor: rgb(89, 130, 234);
     }
   }
 }
-
-.searchFocus {
-  min-width: 150px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  border-radius: 10px;
-  transition: background 0.3s ease-in-out;
-  border: 1px solid $bordercolor;
-    .input {
-      transition: background 0.3s ease-in-out;
-      background-color: $bgcolorHover !important;
-    }
-    .delete {
-      transition: background 0.3s ease-in-out;
-      background-color: $bgcolorHover !important;
-    }
-    .fa-search:before {
-      transition: background 0.3s ease-in-out;
-      color: $bgcolorHover;
-    }
-    .fa-times:before {
-      display: inline;
-    }
-  }
   
-.input {
-  height: 3rem;
-  border: 0 !important;
+.chatsearch .input {
   background-color: $bgcolor !important;
-  font-size: 0.85rem;
-  padding: 0 0.75rem;
-  border-radius: 10px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  width: 100%;
-  min-width: 6rem;
+  height: 2rem;
+    border: 0 !important;
+    font-size: 0.7rem;
+    padding: 0 0.75rem;
+    border-radius: 10px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: 100%;
+    min-width: 6rem;
 }
 
-.delete {
+.chatsearch  .delete {
   background-color: $bgcolor !important;
-  padding: 0.6rem;
+  padding: 0.4rem;
   width: 2.5rem;
-  height: 3rem;
+  height: 2rem;
 }
 
-.fa-times:before {
+.chatsearch  .fa-times:before {
   font-size: large;
   display: none;
 }
 
-.submit {
+.chatsearch  .submit {
   width: 3rem;
-  height: 3rem;
+  height: 2rem;
   border: 1px solid transparent;
   background-color: $subcolor;
   border-color: $subcolor;
@@ -103,7 +78,7 @@ $subcolor: rgb(89, 130, 234);
   border-bottom-left-radius: 0;
 }
 
-.fa-search:before {
+.chatsearch  .fa-search:before {
   color: $bgcolor;
   font-size: large;
 }

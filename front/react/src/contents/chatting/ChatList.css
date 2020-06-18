@@ -23,7 +23,6 @@
 .chat_title {
     font-size: 1.4rem;
     font-weight: 900;
-    padding-bottom: 1rem;
     padding: 0.8rem;
 }
 
@@ -31,7 +30,6 @@
     padding: 0.3rem 0.3rem 0 2%;
     text-align: start;
     height: 4.5rem;
-    /* border-radius: 5px; */
 }
 
 .chatList:first-child {
@@ -93,7 +91,7 @@
     display: inline-block;
     color: #888;
     font-size: 0.95rem;
-    padding-left: 2%;
+    padding-left: 3%;
 }
 
 .gmember{
@@ -107,19 +105,18 @@
 }
 
 .chatalarmbell{
-    width: 29%;
-    height: 100%;
-    border-radius: 31%;
-    font-size: 12px;
+    font-size: 0.8rem;
     color: #fff;
-    display: inline-flex;
+    display: inline-block;
+    float: right;
     position: relative;
 }
 
-.chatalarmbell div{
+.chatalarmbell2{
     position: relative;
     display: flex;
-    padding: 0 4px 0 4px;
-    border-radius: 7px;
+    padding: 0 3px;
+    border: 0.1rem solid red;
+    border-radius: 50%;
     background-color: red;
 }

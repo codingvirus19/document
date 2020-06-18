@@ -1,7 +1,9 @@
 .contents {
   display: inline-block;
   position: absolute;
-  left: 5rem;
+
+  left: 4rem;
+
   right: 0rem;
   top: 20px;
   height: 100%;
@@ -14,7 +16,8 @@
 }
 
 .contentsMemo{
-  height:90%;
+  /* 90%에서 footer 빼면 100%로 바꿈 */
+  height: 100%;
   width: 100%;
 }
 
