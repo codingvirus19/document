@@ -112,7 +112,7 @@ export default class ContentsMemoList extends React.Component {
           </div>
         </div>
       )
-    }
+    } 
     return (
       <div className={styles.memo} >
         {this.props.memo_bigArr &&
