@@ -72,7 +72,8 @@ public class GroupRepository {
 	public int outGroupAlone(GroupUserVo vo) {
 		int deleteHash = sqlSession.delete("groups.outGroupAloneDeleteHash", vo);
 		int deleteGroupuser = sqlSession.delete("groups.outGroupAloneDeleteGroupUser", vo);
-		if(deleteHash != -1 && deleteGroupuser != -1 ) {
+		int deleteAcceptAlarm = sqlSession.delete("groups.outGroupAlonedeleteAcceptAlarm", vo);
+		if(deleteHash != -1 && deleteGroupuser != -1 && deleteAcceptAlarm != -1  ) {
 			int deleteMemo = sqlSession.delete("groups.outGroupAloneDeleteMemo", vo);
 			return deleteMemo;
 		}else {
