@@ -164,7 +164,8 @@ export default class Header extends React.Component {
                   `${styles.userbellClick} ${styles.userbell}`
                   : styles.userbell}
                 onClick={this.alarmClick.bind(this)}>
-                {(this.props.alarm.basic) ? <span className={styles.alarmbell} /> : null}
+                {(this.props.alarm.basic) ? 
+                <span className={styles.alarmbell} /> : null}
                 <FontAwesomeIcon className={styles.faBell} icon={faBell} />
               </Dropdown.Toggle>
             </Dropdown>
