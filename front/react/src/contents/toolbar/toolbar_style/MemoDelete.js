@@ -102,7 +102,8 @@ export default class MemoDelete extends React.Component {
           <FontAwesomeIcon className={this.buttonName} icon={faTrashAlt} />
         </button>
         
-        {this.state.openModal == true ? <Modal contents={this.state.contents} onClickDelete={this.onClickDelete.bind(this)} onClickFalse={this.onClickFalse.bind(this)} getGroup={this.props.getGroup} groupBySidebar={this.props.groupBySidebar} SidebarGroupUpdate={this.props.SidebarGroupUpdate}/> 
+        {this.state.openModal == true ? 
+        <Modal contents={this.state.contents} onClickDelete={this.onClickDelete.bind(this)} onClickFalse={this.onClickFalse.bind(this)} getGroup={this.props.getGroup} groupBySidebar={this.props.groupBySidebar} SidebarGroupUpdate={this.props.SidebarGroupUpdate}/> 
         :null }
       </Fragment>
     );
