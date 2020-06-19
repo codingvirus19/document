@@ -62,7 +62,7 @@ export default class Container extends React.Component {
     this.getGroup();
 
     // 로그인한 user를 가져오는 코드
-    let users = { no: [], name: [], id: [] };
+    let users = { no: [], name: [], id: [], image:[] };
     // call api
     fetch(`${API_URL}/api/getUserSession`, {
       method: "post",
@@ -73,6 +73,7 @@ export default class Container extends React.Component {
         users.no.push(json.data.no);
         users.name.push(json.data.name);
         users.id.push(json.data.username);
+        users.image.push(json.data.image)
         this.UpdateUser(users);
         //사용자가 있는 그룹들에 있는 사용자들 가져오는 함수
         this.getUserListInGroupByUser(json.data.no)

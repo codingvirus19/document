@@ -74,6 +74,7 @@ export default class Chat extends React.Component {
         uNo: this.props.users.no[0],
         nickname: this.props.users.name[0],
         message: mg,
+        image: this.props.users.image[0],
         date: DateSend,
         aCount: 1
       }));
