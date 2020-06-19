@@ -12,7 +12,12 @@
 <body>
 	<div id ='container' style="width: 100%; height:100%">
 	</div>
+<<<<<<< HEAD
+ 	  <script src="http://${pageContext.request.localAddr}:8090/bundle.js"></script> 
+ 	 <%-- <script src="${pageContext.request.contextPath}/assets/js/bundle.js"></script> --%>   
+=======
  	 <script src="http://${pageContext.request.localAddr}:8090/bundle.js"></script>
 <%--  	 <script src="${pageContext.request.contextPath}/assets/js/bundle.js"></script>   --%>
+>>>>>>> 85e88ecf47c76d3038be6a02bfe31b8c9c5f0b8d
 	
 </body>
