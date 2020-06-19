@@ -16,6 +16,7 @@ export default class Chat extends React.Component {
       contents: [],
       scrollBottom: true
     }
+    this.chatInputRef = React.createRef();
   }
 
   componentDidMount() {
@@ -36,7 +37,6 @@ export default class Chat extends React.Component {
   }
 
   onMessageReceive(msg) {
-    console.log(msg)
     this.setState({
       contents: this.state.contents.concat(msg),
     })
@@ -107,6 +107,7 @@ export default class Chat extends React.Component {
     this.setState({
       chatdragStart: null
     })
+    this.chatInputRef.current.childNodes[0][0].focus();
   }
 
   render() {
@@ -165,7 +166,7 @@ export default class Chat extends React.Component {
             addMessage={this.state.contents} />
         </div>
 
-        <div id="chatInput" className="chatInput" >
+        <div id="chatInput" className="chatInput" ref={this.chatInputRef} >
           <MessageSend
             gNo={this.props.gNo}
             sendMessage={this.sendMessage.bind(this)}

@@ -89,6 +89,7 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         this.UpdateAlarm(json.data);
+        console.log(json.data)
       })
       .catch((err) => console.error(err));
     // 알람 가져올 때, type이 true이면 기본 알람, false이면 채팅 알람 구별
@@ -665,7 +666,7 @@ export default class Container extends React.Component {
         {this.Users != undefined ? (
           <SockJsClient
             url={wsSourceUrl}
-            topics={[`/api/alarm/${this.Users.no}`]}
+            topics={[`/api/alarm/${this.Users.no[0]}`]}
             onMessage={this.alarmReceive.bind(this)}
             ref={(client) => {
               this.clientRef = client;

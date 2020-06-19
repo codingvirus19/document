@@ -43,7 +43,7 @@ export default class ContentsMemoList extends React.Component {
   render() {
     return (
             <div
-              style={{ background: this.props.color }}
+              style={{ background: this.props.color}}
               key={this.props.no}
               data-id={this.props.index}
               draggable="true"
@@ -59,7 +59,7 @@ export default class ContentsMemoList extends React.Component {
               className={styles.container_memo_form}
             >
               {/* <ContentsMemo /> */}
-              <Memo
+              <Memo 
                 notify={this.props.notify}
                 groupInUserList={this.props.groupInUserList}
                 memo_gNo={this.props.gNo}

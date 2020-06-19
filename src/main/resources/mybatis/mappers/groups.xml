@@ -92,6 +92,15 @@
 			delete from groupuser where g_no= #{gNo} and u_no = #{uNo};
 		]]>
 	</delete>
+	<delete id="outGroupAlonedeleteAcceptAlarm" parameterType="groupuservo">
+		<![CDATA[
+			delete 
+				from accptalarm using accptalarm
+				inner join alarm on alarm.no = accptalarm.noti_no
+				where alarm.g_no= #{gNo}
+				and accptalarm.u_no= #{uNo};
+		]]>
+	</delete>
 	
 	<delete id="outGroupAloneDeleteMemo" parameterType="groupuservo">
 		<![CDATA[

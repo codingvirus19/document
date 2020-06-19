@@ -27,9 +27,10 @@ public class UserListSocketController {
 	private UserService userService;
 
 	static Map<Long, ArrayList<String>> userGroupList = new HashMap<>();
+	static Map<String, Long> userGroup = new HashMap<>();
+	static Map<String, Long> userNo = new HashMap<>();
 	static Map<Long, ArrayList<Long>> userGroupListNo = new HashMap<>();
 	static ArrayList<String> AllUserList = new ArrayList<>();
-
 
 	@MessageMapping("/userlist/connect/{groupno}")
 	public void userConnect(@DestinationVariable Long groupno, Long no) throws Exception {
@@ -40,21 +41,21 @@ public class UserListSocketController {
 			userNolist = userGroupListNo.get(groupno);
 		}
 		String id = userService.getUser(no);
+		userNo.put(id, no);
 		if (userlist.contains(id))
 			return;
 		userlist.add(id);
 		userNolist.add(no);
-		
-		System.out.println(AllUserList);
-		
+		userGroup.put(id, groupno);
+
 		for (int i = 0; i < userNolist.size(); i++) {
 			if (!AllUserList.contains(userlist.get(i))) {
-				
 				System.out.println(userlist);
 				userlist.remove(id);
 				userNolist.remove(userNolist.get(i));
 			}
 		}
+
 		userGroupList.put(groupno, userlist);
 		userGroupListNo.put(groupno, userNolist);
 		for (Long userNo : userNolist) {
@@ -81,28 +82,45 @@ public class UserListSocketController {
 		userGroupList.put(groupno, userlist);
 		userGroupListNo.put(groupno, userNolist);
 	}
-	
+
 	@MessageMapping("/memo/update/{groupno}")
-	public void memoChange(Map<String,String> map,@DestinationVariable Long groupno) throws Exception {
+	public void memoChange(Map<String, String> map, @DestinationVariable Long groupno) throws Exception {
 		ArrayList<Long> userNolist = new ArrayList<>();
-			userNolist = userGroupListNo.get(groupno);
-			map.put("gNo", groupno.toString());
-			for (Long userNo : userNolist) {
-				if (userNo != Long.parseLong(map.get("userNo"))) {
-					webSocket.convertAndSend("/api/alarm/" + userNo, map);
-				}
+		System.out.println(map + "map입니다");
+		userNolist = userGroupListNo.get(groupno);
+		map.put("gNo", groupno.toString());
+
+		for (Long userNo : userNolist) {
+			if (userNo != Long.parseLong(map.get("userNo"))) {
+				webSocket.convertAndSend("/api/alarm/" + userNo, map);
 			}
+		}
 	}
-	
+
 	@EventListener
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
 		String username = event.getUser().getName();
-		AllUserList.add(username); 
+		AllUserList.add(username);
 	}
 
 	@EventListener
 	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
 		String username = event.getUser().getName();
+		if (userGroup.get(username) != null) {
+			Long gNo = userGroup.get(username);
+			ArrayList<Long> userNolist = userGroupListNo.get(gNo);
+			ArrayList<String> userlist = userGroupList.get(gNo);
+			userNolist = userGroupListNo.get(gNo);
+			userNolist.remove(userNolist.indexOf(userNo.get(username)));
+			userlist.remove(userlist.indexOf(username));
+			userGroupList.put(gNo,userlist);
+			userGroupListNo.put(gNo,userNolist);
+			userGroup.put(username, null);
+			
+			for (Long userNo : userNolist) {
+					webSocket.convertAndSend("/api/alarm/" + userNo, userlist);
+			}
+		}
 		AllUserList.remove(AllUserList.lastIndexOf(username));
 	}
 
