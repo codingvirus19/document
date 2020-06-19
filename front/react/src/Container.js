@@ -62,7 +62,7 @@ export default class Container extends React.Component {
     this.getGroup();
 
     // 로그인한 user를 가져오는 코드
-    let users = { no: [], name: [], id: [] };
+    let users = { no: [], name: [], id: [], image:[] };
     // call api
     fetch(`${API_URL}/api/getUserSession`, {
       method: "post",
@@ -73,6 +73,7 @@ export default class Container extends React.Component {
         users.no.push(json.data.no);
         users.name.push(json.data.name);
         users.id.push(json.data.username);
+        users.image.push(json.data.image)
         this.UpdateUser(users);
         //사용자가 있는 그룹들에 있는 사용자들 가져오는 함수
         this.getUserListInGroupByUser(json.data.no)
@@ -390,6 +391,12 @@ export default class Container extends React.Component {
     }
   }
 
+//프로필을 변경할때 업데이트 되는 함수
+  profileUpdate(){
+    this.getGroupInUser(this.state.groupBySidebar.no);
+    this.getUserListInGroupByUser(this.Users.no[0]);
+  }
+
   getGnameByGno(no) {
     let data = { no: no };
     fetch(`${API_URL}/api/getGnameByGno`, {
@@ -513,7 +520,6 @@ export default class Container extends React.Component {
       groupInUserList: getSession
     })
   }
-
   
   groupUserList(gNo) {
     if (this.Users != null) {
@@ -538,6 +544,7 @@ export default class Container extends React.Component {
       }
     }
   }
+
   chatAlarmNotReceive(data) {
     this.setState({
       chatalarm_gNo: data
@@ -698,7 +705,8 @@ export default class Container extends React.Component {
           clientRef={this.clientRef}
           users={this.Users}
           groupInUserList={this.state.groupInUserList}
-          
+          // 프로필을 업데이트할때 바뀌는 함수
+          profileUpdate={this.profileUpdate.bind(this)}
         />
         <div className="body">
           <Sidebar

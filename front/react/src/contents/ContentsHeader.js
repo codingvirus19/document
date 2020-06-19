@@ -54,6 +54,10 @@ export default class ContentsHeader extends React.Component {
               />
             ) : null}
           </div>
+          {/* <div>
+            <img
+              src="../defaultUser.webp" />
+          </div> */}
 
           {(this.props.groupBySidebar.no != null) ?
             <GroupInUserList

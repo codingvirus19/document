@@ -175,6 +175,12 @@ export default class login extends React.Component {
     }
   }
 
+  loginEnter(event){
+    if(event.key === "Enter"){
+      this.Login();
+    }
+  }
+
   View() {
     if (this.state.showJoin) {//회원가입
       return (
@@ -219,7 +225,7 @@ export default class login extends React.Component {
           <h2 className={`${styles.inactive} ${styles.underlineHover}`} onClick={this.ViewChange.bind(this)} >Sign Up </h2>
           {/* <form> */}
           <input type="text" id="login" className={`${styles.fadeIn}`} name="username" value={this.state.username} onChange={this.handleChange.bind(this)} placeholder="id" ></input>
-          <input type="password" id="password" className={`${styles.fadeIn}`} name="password" value={this.state.password} onChange={this.handleChange.bind(this)} placeholder="password" />
+          <input type="password" id="password" className={`${styles.fadeIn}`} name="password" value={this.state.password} onChange={this.handleChange.bind(this)} placeholder="password" onKeyPress={this.loginEnter.bind(this)} />
           <input type="submit" className={`${styles.fadeIn}`} value="Log In" onClick={this.Login.bind(this)} />
           {/* </form> */}
 

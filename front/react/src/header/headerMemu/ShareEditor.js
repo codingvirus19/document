@@ -118,7 +118,6 @@ export default class Popup extends React.Component {
   }
 
   send(input_index, size, key, type) {
-    console.log(this.version);
     this.clientRef
       .sendMessage('/app/memo/' + this.props.no,
         JSON.stringify({
@@ -140,7 +139,6 @@ export default class Popup extends React.Component {
     this.setState({
       textSize: text.length,
       value: text.join(''),
-      cursor: this.cursor
     })
   }
 
@@ -156,7 +154,9 @@ export default class Popup extends React.Component {
     }
     let AllKey = this.getSnapshotBeforeUpdate(e.target.value.split(""));
     let prevAllKey = this.getSnapshotBeforeUpdate(this.state.value);
+    if(!isNaN(e.target.selectionStart)){
     this.cursor = this.getSnapshotBeforeUpdate(e.target.selectionStart);
+    }
     let textSize = AllKey.length - prevAllKey.split("").length; // 입력된 textSize 저장
 
     if (AllKey.length == prevAllKey.split("").length + 1) {
@@ -262,16 +262,12 @@ export default class Popup extends React.Component {
         break; //기본입력!!
       case "korean":
         text.splice(message.inputIndex - 1, 1, message.key);
-        console.log("korean", message);
         break;
       case "copy":
         text.splice(message.inputIndex - Math.abs(message.size), 0, message.key);
-        console.log("copy", message);
         break;
       case "delete":
-        console.log(message);
         text.splice(message.inputIndex, Math.abs(message.size));
-        console.log("delete", message);
         break;
       case "hevent":
         text.splice(message.inputIndex, 0, message.key);
@@ -310,11 +306,11 @@ export default class Popup extends React.Component {
   }
   keyDown(e) {
     this.keyChack = true;
-
-    if (!this.state.focus) {
-
-      this.cursor = e.target.selectionStart;
+    if (!this.state.focus && !isNaN(e.target.selectionStart)) {
+      this.cursor = this.getSnapshotBeforeUpdate(e.target.selectionStart)
     }
+
+
     // console.log(e.currentTarget.selectionStart);
     // console.log(e.keyCode,"코드");
     if (47 < e.keyCode && e.keyCode < 112 || e.keyCode == 229 || 187 < e.keyCode && e.keyCode < 223) {
@@ -329,25 +325,19 @@ export default class Popup extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.editor.current != null) {
-      if (!this.state.focus) {
+    if (this.editor.current != null ) {
+      if (!this.state.focus&&!isNaN(this.cursor)) {
         setTimeout(() => {
           this.editor.current.focus();
-          this.editor.current.setSelectionRange(this.cursor, this.cursor);
+          if(!isNaN(this.cursor)){
+            this.editor.current.setSelectionRange(this.cursor, this.cursor);
+          }
         }, 0)
       }
     }
   }
+
   render() {
-    // console.log(this.cursor);
-    // if (this.editor.current != null) {
-    //   if (!this.state.focus) {
-    //     setTimeout(() => {
-    //       this.editor.current.focus();
-    //       this.editor.current.setSelectionRange(this.cursor, this.cursor);
-    //     }, 0)
-    //   }
-    // }
     return (
       <Fragment>
         <div className={popup.popup} onClick={(e) => { this.props.memoClose }}>
@@ -395,7 +385,7 @@ export default class Popup extends React.Component {
                       cols="20"
                       className={styles.edit}
                       ref={this.editor}
-                      onClick={(e) => {(!this.state.focus)?this.cursor = e.target.selectionStart : null}}
+                      onClick={(e) => {(!this.state.focus && !isNaN(e.target.selectionStart))?this.cursor = this.getSnapshotBeforeUpdate(e.target.selectionStart) : null}}
                       onKeyDown={(e) => this.keyDown(e)}
                       onKeyUp={(e) => this.keyUp(e)}
                       disabled={(this.state.focus) ? true : false}

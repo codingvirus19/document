@@ -10,7 +10,6 @@ export default class Memo extends React.Component {
   constructor() {
     super(...arguments)
     this.state = {
-      showPopup: false,
       shareEditorPopup: false,
     }
     this.md = new Remarkable('full', {
@@ -26,11 +25,6 @@ export default class Memo extends React.Component {
     });
   }
 
-  viewPopup(popdown) {
-    this.setState({
-      showPopup: !this.state.showPopup,
-    })
-  }
 
   getReMarkDown() {
     return { __html: this.md.render(this.props.content) };
@@ -38,13 +32,12 @@ export default class Memo extends React.Component {
 
   render() {
     return (
-      <div onClick={this.viewPopup.bind(this)} id={this.props.index} name={this.props.no} value={this.props.content}
+      <div onClick={this.props.viewPopup} id={this.props.index} name={this.props.no} value={this.props.content}
         className={styles.memo}>
         <div
           dangerouslySetInnerHTML={this.getReMarkDown()} />
 
-        {this.state.showPopup ? (
-
+        {this.props.showPopup ? (
           <ShareEditor
             groupInUserList={this.props.groupInUserList}
             users={this.props.users}
@@ -57,7 +50,7 @@ export default class Memo extends React.Component {
             content={this.props.content} 
             group_hash={this.props.group_hash}
             memo_hash={this.props.memo_hash}
-            memoClose={this.viewPopup.bind(this)}
+            memoClose={this.props.viewPopup}
             SidebarGroupUpdate={this.props.SidebarGroupUpdate}
             distinctGroup_hash={this.props.distinctGroup_hash}
             clientRef={this.props.clientRef}
