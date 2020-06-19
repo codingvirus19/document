@@ -390,6 +390,11 @@ export default class Container extends React.Component {
     }
   }
 
+//프로필을 변경할때 업데이트 되는 함수
+  profileUpdate(){
+    this.getGroupInUser(this.state.groupBySidebar.no);
+  }
+
   getGnameByGno(no) {
     let data = { no: no };
     fetch(`${API_URL}/api/getGnameByGno`, {
@@ -513,7 +518,6 @@ export default class Container extends React.Component {
       groupInUserList: getSession
     })
   }
-
   
   groupUserList(gNo) {
     if (this.Users != null) {
@@ -538,6 +542,7 @@ export default class Container extends React.Component {
       }
     }
   }
+
   chatAlarmNotReceive(data) {
     this.setState({
       chatalarm_gNo: data
@@ -698,7 +703,8 @@ export default class Container extends React.Component {
           clientRef={this.clientRef}
           users={this.Users}
           groupInUserList={this.state.groupInUserList}
-          
+          // 프로필을 업데이트할때 바뀌는 함수
+          profileUpdate={this.profileUpdate.bind(this)}
         />
         <div className="body">
           <Sidebar

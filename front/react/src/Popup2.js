@@ -49,7 +49,6 @@ export default class Popup2 extends React.Component {
   }
 
   ajaxModifyProfile(_modifyProfile) {
-    console.log(_modifyProfile.image)
     fetch(`${API_URL}/api/profile/modify`, {
       method: "post",
       headers: API_HEADERS,
@@ -63,6 +62,8 @@ export default class Popup2 extends React.Component {
       }
     })
     .catch((err) => console.error(err));
+    //프로필 수정 후 프로필이 쓰인 다른 곳들도 업데이트
+    this.props.profileUpdate();
   }
 
   callBackGroupAdd() {
@@ -131,6 +132,7 @@ export default class Popup2 extends React.Component {
         <Profile 
           callBackFromProfile={this.callBackFromProfile.bind(this)}
           ClickGetProfileValue={this.props.ClickGetProfileValue}
+          profileUpdate={this.props.profileUpdate}
         />
       );
       popup2_confirm_btn = "수정";
