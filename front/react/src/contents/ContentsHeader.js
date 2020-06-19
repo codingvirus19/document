@@ -34,7 +34,7 @@ export default class ContentsHeader extends React.Component {
           <div className="invite">
             <button
               className="btns"
-              aria-label="그룹생성 및 초대"
+              aria-label="그룹생성 및 사용자 초대"
               onClick={this.toggleGroupAddOrInvite.bind(this)}
             >
               <FontAwesomeIcon className="faUserPlus" icon={faUserPlus} />
@@ -54,6 +54,10 @@ export default class ContentsHeader extends React.Component {
               />
             ) : null}
           </div>
+          {/* <div>
+            <img
+              src="../defaultUser.webp" />
+          </div> */}
 
           {(this.props.groupBySidebar.no != null) ?
             <GroupInUserList

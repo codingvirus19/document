@@ -141,6 +141,7 @@ export default class Header extends React.Component {
                   contents={"profile"}
                   closePopup={this.toggleShowProfile.bind(this)}
                   clientRef={this.props.clientRef}
+                  profileUpdate={this.props.profileUpdate}
                 />
               ) : null}
             </Dropdown>
