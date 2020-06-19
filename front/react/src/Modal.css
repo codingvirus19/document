@@ -19,6 +19,7 @@
     width: 30rem;
     height: 19rem;
     border-radius: 0.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,.2);
     animation: fadein 0.3s;
   -moz-animation: fadein 0.3s; /* Firefox */
   -webkit-animation: fadein 0.3s; /* Safari and Chrome */
@@ -86,7 +87,6 @@
 
 .close__icon:hover{
     background-color:rgb(89, 130, 234);
-    box-shadow: gray 1px 1px 1px 1px;
 }
 
 .close__icon:active{
@@ -99,8 +99,7 @@
     width: 92%;
     color: white;
     float: left;
-    /* padding-top: 7px;
-    margin-left: 31%; */
+    padding-left: 8%;
     display: flex;
     justify-content: center;
     align-items: center; 

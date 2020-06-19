@@ -16,21 +16,6 @@ export default class Sidebar extends React.Component {
   }
 
   clickGroup(g_no, g_name) {
-    
-    // console.log(this.tempGno,g_no,"왜안대!!");
-    // if(g_no == this.tempGno)return;
-
-    // if(this.tempGno == null && g_no==null){ //최초접근시 그룹이 없을때
-    // }else if(this.tempGno == null && g_no!=null){//처음 그룹선택시 tempGno 에 그룹 주입
-    //   this.tempGno = g_no;
-    //   this.props.clientRef.sendMessage(`/app/userlist/connect/${g_no}`, this.props.users.no[0]);
-    // }else if(this.tempGno != null && g_no == null){// 그룹에서 개인메모 이동시
-    //   this.props.clientRef.sendMessage(`/app/userlist/disconnect/${this.tempGno}`, this.props.users.no[0]);
-    //   this.tempGno = null;
-    // }else if(this.tempGno != null && g_no != null){//그룹에서 그룹이동시
-    //   this.props.clientRef.sendMessage(`/app/userlist/disconnect/${this.tempGno}`, this.props.users.no[0]);
-    //   this.props.clientRef.sendMessage(`/app/userlist/connect/${g_no}`, this.props.users.no[0]);
-    // }
     this.update(g_no, g_name);
   }
   
@@ -55,11 +40,6 @@ export default class Sidebar extends React.Component {
   onHash(){
     this.props.onOpenHash();
   }
-  
-  // onContainer(){
-      
-  //   })
-  // }
   
   render() {
     return (

@@ -52,9 +52,6 @@ export default class Popup extends React.Component {
     return text;
   }
 
-
-
-
   boldevent() {
     let input_index = this.getSnapshotBeforeUpdate(this.cursor);
     let line_index = 0;
@@ -142,8 +139,6 @@ export default class Popup extends React.Component {
     })
   }
 
-
-
   editorWrite(e) {
     if (!this.keyChack) { return; }
     if (this.keyIndex == null) {//최초 입력시 focus위치 저장
@@ -154,8 +149,8 @@ export default class Popup extends React.Component {
     }
     let AllKey = this.getSnapshotBeforeUpdate(e.target.value.split(""));
     let prevAllKey = this.getSnapshotBeforeUpdate(this.state.value);
-    if(!isNaN(e.target.selectionStart)){
-    this.cursor = this.getSnapshotBeforeUpdate(e.target.selectionStart);
+    if (!isNaN(e.target.selectionStart)) {
+      this.cursor = this.getSnapshotBeforeUpdate(e.target.selectionStart);
     }
     let textSize = AllKey.length - prevAllKey.split("").length; // 입력된 textSize 저장
 
@@ -183,11 +178,11 @@ export default class Popup extends React.Component {
     // console.log(this.keyIndex, textSize, this.key.join(""), this.type);
     this.send(this.keyIndex, textSize, this.key.join(""), this.type);
 
-    if(!this.state.focus){
-    this.setState({
-      value: e.target.value,
-    });
-  }
+    if (!this.state.focus) {
+      this.setState({
+        value: e.target.value,
+      });
+    }
 
   }
 
@@ -242,14 +237,11 @@ export default class Popup extends React.Component {
         focus: true
       })
       setTimeout(() => {
-        // this.editor.current.readOnly = false;
-        // this.editor.current.focus();
         this.setState({
           focus: false
         })
       }, 900);
     }
-
 
     text = text.split("");
     switch (message.type) {
@@ -288,9 +280,9 @@ export default class Popup extends React.Component {
 
   memoSave() {
     this.send(0, 0, this.state.color, "save");
-    if(this.props.gNo !=null){
-    this.props.clientRef.sendMessage(`/app/memo/update/${this.props.gNo}`, JSON.stringify({update:'update',userNo:this.props.users.no[0]}));
-  }
+    if (this.props.gNo != null) {
+      this.props.clientRef.sendMessage(`/app/memo/update/${this.props.gNo}`, JSON.stringify({ update: 'update', userNo: this.props.users.no[0] }));
+    }
   }
 
   markOpen() {
@@ -310,14 +302,8 @@ export default class Popup extends React.Component {
       this.cursor = this.getSnapshotBeforeUpdate(e.target.selectionStart)
     }
 
-
-    // console.log(e.currentTarget.selectionStart);
-    // console.log(e.keyCode,"코드");
     if (47 < e.keyCode && e.keyCode < 112 || e.keyCode == 229 || 187 < e.keyCode && e.keyCode < 223) {
-      // console.log(e.key);
-      // console.log(e.keyCode);
     }
-
 
   }
   keyUp(e) {
@@ -325,11 +311,11 @@ export default class Popup extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.editor.current != null ) {
-      if (!this.state.focus&&!isNaN(this.cursor)) {
+    if (this.editor.current != null) {
+      if (!this.state.focus && !isNaN(this.cursor)) {
         setTimeout(() => {
           this.editor.current.focus();
-          if(!isNaN(this.cursor)){
+          if (!isNaN(this.cursor)) {
             this.editor.current.setSelectionRange(this.cursor, this.cursor);
           }
         }, 0)
@@ -363,12 +349,14 @@ export default class Popup extends React.Component {
           <div className={popup.inner} style={{ backgroundColor: `${this.props.color}` }} onClick={e => e.stopPropagation()}>
             <div className={styles.editor} style={{ backgroundColor: `${this.props.color}` }}>
               <div className={styles.btn}>
-                <button className={styles.button} onClick={this.hevent.bind(this, 1)}>H1</button>
-                <button className={styles.button} onClick={this.hevent.bind(this, 2)}>H2</button>
-                <button className={styles.button} onClick={this.hevent.bind(this, 3)}>H3</button>
-                <button className={styles.button} onClick={this.hevent.bind(this, 4)}>H4</button>
-                <button className={styles.button} onClick={this.boldevent.bind(this)}>B</button>
-                {(this.state.markOpen) ? <button className={`${styles.click} ${styles.button}`} onClick={this.markOpen.bind(this)}>E</button> : <button className={styles.button} onClick={this.markOpen.bind(this)}>M</button>}
+                <button aria-label="헤더1" className={styles.button} onClick={this.hevent.bind(this, 1)}>H1</button>
+                <button aria-label="헤더2" className={styles.button} onClick={this.hevent.bind(this, 2)}>H2</button>
+                <button aria-label="헤더3" className={styles.button} onClick={this.hevent.bind(this, 3)}>H3</button>
+                <button aria-label="헤더4" className={styles.button} onClick={this.hevent.bind(this, 4)}>H4</button>
+                <button aria-label="굵게" className={styles.button} onClick={this.boldevent.bind(this)}>B</button>
+                {(this.state.markOpen) ? 
+                <button aria-label="마크다운 작성" className={`${styles.click} ${styles.button}`} onClick={this.markOpen.bind(this)}>E</button> 
+                : <button aria-label="미리보기" className={styles.button} onClick={this.markOpen.bind(this)}>M</button>}
               </div>
               {(this.state.markOpen) ? (
                 <div
@@ -385,7 +373,7 @@ export default class Popup extends React.Component {
                       cols="20"
                       className={styles.edit}
                       ref={this.editor}
-                      onClick={(e) => {(!this.state.focus && !isNaN(e.target.selectionStart))?this.cursor = this.getSnapshotBeforeUpdate(e.target.selectionStart) : null}}
+                      onClick={(e) => { (!this.state.focus && !isNaN(e.target.selectionStart)) ? this.cursor = this.getSnapshotBeforeUpdate(e.target.selectionStart) : null }}
                       onKeyDown={(e) => this.keyDown(e)}
                       onKeyUp={(e) => this.keyUp(e)}
                       disabled={(this.state.focus) ? true : false}

@@ -118,6 +118,7 @@ export default class Container extends React.Component {
             image: element.image
           };
         });
+        console.log(userListInGroupByUser)
         this.UpdateUserListInGroupByUser(userListInGroupByUser);
       })
       .catch((err) => console.error(err));

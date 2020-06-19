@@ -153,7 +153,7 @@ export default class Chat extends React.Component {
             onClick={this.props.close}>
             <img
               className={styles.back_btn}
-              src="http://localhost:8090/images/back.png" />
+              src="./assets/images/back.png" />
           </button>
         </div>
 
