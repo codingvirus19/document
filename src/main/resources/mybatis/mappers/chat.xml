@@ -28,7 +28,7 @@
                    (select b.g_no as gNo,
 					       a.u_no as uNo,
 						   a.read_check as readCheck,
-						   count(a.read_check) as readcount
+						   count(a.read_check) as readcount 
 						   from accptalarm a, (select no, g_no from alarm) as b
 						   where a.noti_no = b.no
 						     and u_no=#{no}

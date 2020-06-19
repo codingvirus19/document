@@ -93,8 +93,10 @@
 }
 
 .Toastify__toast--default {
-  background: #3498db;
-  color: #000;
+  border-radius: 0.5rem;
+  background: #0747A6;
+  color: #fff;
+ text-align: center;
 }
 
 .Toastify__toast--info {
