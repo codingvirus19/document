@@ -43,7 +43,7 @@ export default class ContentsMemoList extends React.Component {
   render() {
     return (
             <div
-              style={{ background: this.props.color }}
+              style={{ background: this.props.color}}
               key={this.props.no}
               data-id={this.props.index}
               draggable="true"
