@@ -393,6 +393,7 @@ export default class Container extends React.Component {
 //프로필을 변경할때 업데이트 되는 함수
   profileUpdate(){
     this.getGroupInUser(this.state.groupBySidebar.no);
+    this.getUserListInGroupByUser(this.Users.no[0]);
   }
 
   getGnameByGno(no) {
