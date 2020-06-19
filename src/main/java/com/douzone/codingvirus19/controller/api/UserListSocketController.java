@@ -40,6 +40,7 @@ public class UserListSocketController {
 			userlist = userGroupList.get(groupno);
 			userNolist = userGroupListNo.get(groupno);
 		}
+		
 		String id = userService.getUser(no);
 		userNo.put(id, no);
 		if (userlist.contains(id))
@@ -50,7 +51,7 @@ public class UserListSocketController {
 
 		for (int i = 0; i < userNolist.size(); i++) {
 			if (!AllUserList.contains(userlist.get(i))) {
-				System.out.println(userlist);
+
 				userlist.remove(id);
 				userNolist.remove(userNolist.get(i));
 			}
@@ -67,6 +68,7 @@ public class UserListSocketController {
 	public void userDisConnect(@DestinationVariable Long groupno, Long no) throws Exception {
 		ArrayList<String> userlist = new ArrayList<>();
 		ArrayList<Long> userNolist = new ArrayList<>();
+
 		if (userGroupList.get(groupno) != null) {
 			userlist = userGroupList.get(groupno);
 			userNolist = userGroupListNo.get(groupno);
@@ -86,7 +88,6 @@ public class UserListSocketController {
 	@MessageMapping("/memo/update/{groupno}")
 	public void memoChange(Map<String, String> map, @DestinationVariable Long groupno) throws Exception {
 		ArrayList<Long> userNolist = new ArrayList<>();
-		System.out.println(map + "map입니다");
 		userNolist = userGroupListNo.get(groupno);
 		map.put("gNo", groupno.toString());
 
@@ -101,27 +102,30 @@ public class UserListSocketController {
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
 		String username = event.getUser().getName();
 		AllUserList.add(username);
+		System.out.println(AllUserList+"소켓접속");
 	}
 
 	@EventListener
 	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
 		String username = event.getUser().getName();
-		if (userGroup.get(username) != null) {
-			Long gNo = userGroup.get(username);
-			ArrayList<Long> userNolist = userGroupListNo.get(gNo);
-			ArrayList<String> userlist = userGroupList.get(gNo);
-			userNolist = userGroupListNo.get(gNo);
-			userNolist.remove(userNolist.indexOf(userNo.get(username)));
-			userlist.remove(userlist.indexOf(username));
-			userGroupList.put(gNo,userlist);
-			userGroupListNo.put(gNo,userNolist);
-			userGroup.put(username, null);
-			
-			for (Long userNo : userNolist) {
+		AllUserList.remove(AllUserList.lastIndexOf(username));
+		System.out.println(AllUserList+"소켓나감");
+		if (AllUserList.indexOf(username) < 0) {
+			if (userGroup.get(username) != null) {
+				Long gNo = userGroup.get(username);
+				ArrayList<Long> userNolist = userGroupListNo.get(gNo);
+				ArrayList<String> userlist = userGroupList.get(gNo);
+				userNolist = userGroupListNo.get(gNo);
+				userNolist.remove(userNolist.indexOf(userNo.get(username)));
+				userlist.remove(userlist.indexOf(username));
+				userGroupList.put(gNo, userlist);
+				userGroupListNo.put(gNo, userNolist);
+				userGroup.put(username, null);
+				for (Long userNo : userNolist) {
 					webSocket.convertAndSend("/api/alarm/" + userNo, userlist);
+				}
 			}
 		}
-		AllUserList.remove(AllUserList.lastIndexOf(username));
 	}
 
 }

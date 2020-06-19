@@ -166,6 +166,7 @@ public class MemoApiController {
 			memoService.memoUpdate(memoVo);
 			return message;
 		}
+		
 
 		if (version.size() > 1) {
 			if (message.getVersion() < version.get(version.size() - 1)) {

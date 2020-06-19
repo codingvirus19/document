@@ -34,10 +34,11 @@ export default class ContentsMemoList extends React.Component {
     console.log("test");
   }
 
-  togglePopup() {
+
+  viewPopup() {
     this.setState({
       showPopup: !this.state.showPopup,
-    });
+    })
   }
 
   render() {
@@ -46,7 +47,7 @@ export default class ContentsMemoList extends React.Component {
               style={{ background: this.props.color}}
               key={this.props.no}
               data-id={this.props.index}
-              draggable="true"
+              draggable={(!this.state.showPopup)?"true":"false"}
               onDragStart={this.props.DragStart}
               onDragEnd={this.props.DragEnd}
               onDragOver={this.props.DragOver}
@@ -78,6 +79,8 @@ export default class ContentsMemoList extends React.Component {
                 group_hash={this.props.group_hash}
                 users={this.props.users}
                 setStyle={{ background: this.props.color }}
+                viewPopup={this.viewPopup.bind(this)}
+                showPopup={this.state.showPopup}
               />
               <HashList
                 memo_no={this.props.no}
