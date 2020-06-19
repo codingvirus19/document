@@ -98,6 +98,11 @@
   color: #fff;
  text-align: center;
 }
+.Toastify__toast--default button {
+ 
+  color: #fff;
+ 
+}
 
 .Toastify__toast--info {
   background: #3498db;
@@ -141,7 +146,7 @@
 }
 
 .Toastify__close-button--default {
-  color: #000;
+  color: #fff;
   opacity: 0.3;
 }
 
