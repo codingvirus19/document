@@ -62,7 +62,7 @@ export default class Container extends React.Component {
     this.getGroup();
 
     // 로그인한 user를 가져오는 코드
-    let users = { no: [], name: [], id: [] };
+    let users = { no: [], name: [], id: [], image:[] };
     // call api
     fetch(`${API_URL}/api/getUserSession`, {
       method: "post",
@@ -73,6 +73,7 @@ export default class Container extends React.Component {
         users.no.push(json.data.no);
         users.name.push(json.data.name);
         users.id.push(json.data.username);
+        users.image.push(json.data.image)
         this.UpdateUser(users);
         //사용자가 있는 그룹들에 있는 사용자들 가져오는 함수
         this.getUserListInGroupByUser(json.data.no)
@@ -555,10 +556,13 @@ export default class Container extends React.Component {
     if(alarm_msg.update != undefined){
       this.bringMemoByGroup(this.state.groupBySidebar.no);
       this.getHashListByGroup(this.state.groupBySidebar.no);
+      
       return;
     }
     if (alarm_msg.addgroup == undefined && alarm_msg.update == undefined && alarm_msg.gNo == undefined) {
       this.getGroupInUser(this.state.groupBySidebar.no);
+      this.getChatListGroup();
+      this.getUserListInGroupByUser(this.Users.no[0]);
       this.setState({
         userlistSession :alarm_msg
       })
@@ -578,6 +582,7 @@ export default class Container extends React.Component {
           chatting: false
         }
       })
+      this.notify("그룹초대 알람이 왔습니다.");
     }
     if (alarm_msg.basic != null) { //기본
       this.bringMemoByGroup(this.state.groupBySidebar.no);
@@ -592,6 +597,7 @@ export default class Container extends React.Component {
     if (this.state.chatalarm_gNo != alarm_msg.gNo) {
       if (alarm_msg.chatting != null) {//채팅
         this.getChatListGroup();
+        this.getUserListInGroupByUser(this.Users.no[0]);
         this.setState({
           alarm: {
             chatting: alarm_msg.chatting,

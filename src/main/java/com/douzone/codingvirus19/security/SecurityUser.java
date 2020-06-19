@@ -12,6 +12,7 @@ public class SecurityUser implements UserDetails {
     private String username;  // principal - biz name : email
     private String password;  // credential
     private Long no;
+    private String image;
     // etc
     private String name;  // biz data
 
@@ -30,9 +31,18 @@ public class SecurityUser implements UserDetails {
     public String getUsername() {
         return username;
     }
+    
 
 
-    // -------------- 계정에 대한 디테일한 설정 -----------------
+    public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	// -------------- 계정에 대한 디테일한 설정 -----------------
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -84,7 +94,7 @@ public class SecurityUser implements UserDetails {
 	@Override
 	public String toString() {
 		return "SecurityUser [authorities=" + authorities + ", username=" + username + ", password=" + password
-				+ ", no=" + no + ", name=" + name + "]";
+				+ ", no=" + no + ", image=" + image + ", name=" + name + "]";
 	}
     
     
