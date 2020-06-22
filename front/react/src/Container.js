@@ -184,11 +184,47 @@ export default class Container extends React.Component {
             memo_no: element.mNo,
           };
         });
+
+        // let count;
+        // let name;
+        // let distinctGroup_hashTest = group_hash.map(function (val, index) {
+        //   name = val.name;
+        //   return ({
+        //     name: name,
+        //     count: count,
+        //   })
+        // })
+        // distinctGroup_hashTest.filter((val, index, arr)=>{
+        //   return arr.indexOf(name) === index;
+        // });
+
+        // .filter(function (val, index, arr) {
+        //   // val : 각 element의 name값
+        //   // index : arr의 위치(0부터 시작)
+        //   // arr : val을 array화 한 것!
+          
+        //   console.log(arr.indexOf(val) === index);
+
+        //   // if(arr.indexOf(val) !== index){
+        //   //   count = arr[]
+        //   // }
+          
+        //   return arr.indexOf(name) === index;
+        // });
+        // console.log(distinctGroup_hashTest);
+
         distinctGroup_hash = group_hash.map(function (val, index) {
           return val['name'];
         }).filter(function (val, index, arr) {
+          // val : 각 element의 name값
+          // index : arr의 위치(0부터 시작)
+          // arr : val을 array화 한 것!
+          console.log(arr.indexOf(val));
+          // map.push(val,map.get(val))
+          // map.put(val,map.get(val)+1);
           return arr.indexOf(val) === index;
         });
+        console.log(distinctGroup_hash)
         this.UpdateDistinctGroupHash(distinctGroup_hash);
         this.UpdateGroupHash(group_hash);
       })
