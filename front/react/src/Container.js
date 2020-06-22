@@ -44,6 +44,7 @@ export default class Container extends React.Component {
 
   // search 검색 콜백함수
   onCallbackKeywordChange(keyword) {
+    console.log("onCallbackKeywordChange")
     this.setState({
       keyword: keyword,
     });
@@ -184,47 +185,16 @@ export default class Container extends React.Component {
             memo_no: element.mNo,
           };
         });
-
-        // let count;
-        // let name;
-        // let distinctGroup_hashTest = group_hash.map(function (val, index) {
-        //   name = val.name;
-        //   return ({
-        //     name: name,
-        //     count: count,
-        //   })
-        // })
-        // distinctGroup_hashTest.filter((val, index, arr)=>{
-        //   return arr.indexOf(name) === index;
-        // });
-
-        // .filter(function (val, index, arr) {
-        //   // val : 각 element의 name값
-        //   // index : arr의 위치(0부터 시작)
-        //   // arr : val을 array화 한 것!
-          
-        //   console.log(arr.indexOf(val) === index);
-
-        //   // if(arr.indexOf(val) !== index){
-        //   //   count = arr[]
-        //   // }
-          
-        //   return arr.indexOf(name) === index;
-        // });
-        // console.log(distinctGroup_hashTest);
-
         distinctGroup_hash = group_hash.map(function (val, index) {
           return val['name'];
         }).filter(function (val, index, arr) {
           // val : 각 element의 name값
           // index : arr의 위치(0부터 시작)
           // arr : val을 array화 한 것!
-          console.log(arr.indexOf(val));
           // map.push(val,map.get(val))
           // map.put(val,map.get(val)+1);
           return arr.indexOf(val) === index;
         });
-        console.log(distinctGroup_hash)
         this.UpdateDistinctGroupHash(distinctGroup_hash);
         this.UpdateGroupHash(group_hash);
       })
@@ -233,11 +203,13 @@ export default class Container extends React.Component {
 
   // group의 no와 Session no로 memoList를 뿌리는 함수
   bringMemoByGroup(_groupNumbers) {
+    console.log("bringMemoByGroup")
+    console.log(_groupNumbers)
     let data = { no: _groupNumbers, };
     let memo_bigArr;
 
     this.groupUserList(_groupNumbers);
-
+// console.log("fetch 전",_groupNumbers)
     fetch(`${API_URL}/api/memoList`, {
       method: "post",
       headers: API_HEADERS,
@@ -246,7 +218,8 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         memo_bigArr = json.data;
-
+//         console.log("json.data")
+// console.log(memo_bigArr)
         //색 뽑아줌(searchColor용)
         let distinctColor = memo_bigArr.map(function (val, index) {
           return val['color'];
@@ -267,7 +240,6 @@ export default class Container extends React.Component {
             (element) => element.content.indexOf(this.state.keyword) != -1
           );
         }
-
         //색상 검색
         else if(this.state.searchColor != "") {
           memo_bigArr = memo_bigArr.filter(
@@ -277,6 +249,7 @@ export default class Container extends React.Component {
         // 검색keyword가 ""이고, sidebar의 해쉬를 클릭하지 않았을 때는
         // 전체 memoList를 뿌려준다.
         this.UpdateMemo(memo_bigArr);
+        // console.log(memo_bigArr)
       })
       .catch((err) => console.error(err));
     // 그룹의 data로 memo의 db를 가져오는 코드
@@ -399,11 +372,11 @@ export default class Container extends React.Component {
     })
   }
 
-  UpdateSearchColor(searchColor) {
+  UpdateSearchColor(searchColor, g_no) {
     this.setState({
       searchColor: searchColor
     })
-    this.search(this.state.groupBySidebar.no);
+    this.search(g_no);
   }
 
   UpdateUserListInGroupByUser(userListInGroupByUser) {
@@ -425,6 +398,8 @@ export default class Container extends React.Component {
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
   // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo , changeColor 클릭 시....
   SidebarGroupUpdate(no, name) {
+    console.log("SidebarGroupUpdate")
+    console.log(no)
     this.bringMemoByGroup(no);
     this.getHashListByGroup(no);
     this.getUserListInGroupByUser(this.Users.no[0]);
@@ -451,13 +426,7 @@ export default class Container extends React.Component {
     this.getGroupInUser(this.state.groupBySidebar.no);
     this.getUserListInGroupByUser(this.Users.no[0]);
   }
-
-  //Search할때 업데이트 되는 함수
-  search(gNo) {
-    this.bringMemoByGroup(gNo);
-  }
-
-
+  
   getGnameByGno(no) {
     let data = { no: no };
     fetch(`${API_URL}/api/getGnameByGno`, {
@@ -523,6 +492,10 @@ export default class Container extends React.Component {
     let hash = keyword.slice(1);
     this.onCallbackKeywordChange(keyword)
     this.searchMemoByHash(g_no, hash)
+  }
+
+  search(g_no) {
+    this.bringMemoByGroup(g_no);
   }
 
   //sidebar에서 선택된 해시
