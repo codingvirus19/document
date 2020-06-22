@@ -147,7 +147,6 @@
   
   .sidebar__menu__title-container{
 	width:100%;
-	// background-color: $bgcolor;
 	height: 11%;
 	padding: 12%;
 	padding-left: 15%;
@@ -167,28 +166,7 @@
   .nav{
 	  z-index: 5;
 	  height: 98%;
-
   }
-  
-//   .menu-setting--container{
-// 	  position: absolute;
-// 	  bottom: 20px;
-// 	  width: 63px;
-// 	  height: 52px;
-// 	  display: flex;
-// 	  align-items: center;
-// 	  justify-content: center;
-// 	  cursor: pointer;
-// 	//   transition: background 
-// 	border-radius: 0.5rem;
-// 	  &:hover{
-// 		background-color: #2C62B3;
-// 	  }
-// 	  .container__setting{
-// 		font-size: 1.3rem;
-// 		color: white;
-// 	  }
-//   }
   
   .menu {
 
@@ -207,12 +185,10 @@
 	}
   
 	&-item {
-		border-radius: 0.5rem;
+	  border-radius: 0.5rem;
 	  display: flex;
 	  align-items: center;
-	//   border-top: 2px solid $blue;
 	  position: relative;
-	//   transition: background 0.3s ease-in-out;
   
 	  &:nth-child(1) > a::before {
 		content: "\f007";
@@ -230,14 +206,11 @@
 		content: "\f53f";
 	  }
   
-	  
-	  
 	  @for $i from 1 through 5 {
 		&:nth-child(#{$i}) > a::before {
 		  font-family: "Font Awesome 5 Free";
 		  font-size: 1.2rem;
 		  display: block;
-		//   margin-bottom: 0.5rem;
 		  font-weight: 900;
 		  -moz-osx-font-smoothing: grayscale;
 		  -webkit-font-smoothing: antialiased;
@@ -246,41 +219,35 @@
 		  font-variant: normal;
 		  text-rendering: auto;
 		  line-height: 1;
-		//   color: $blue;
   
 		  @media (min-width: 768px) {
 			font-size: 1.3rem;
 		  }
 		}
 	  }
+	  .menu-title {
+		display: none;
+		animation: fadein 0.5s;
+		-moz-animation: fadein 0.5s; /* Firefox */
+		-webkit-animation: fadein 0.5s; /* Safari and Chrome */
+		-o-animation: fadein 0.5s; /* Opera */
+	  }
+	  &:hover .menu-title {
+		  display: block
+	  }
 	  .color_btn {
-		  margin: auto;
-		  width: 2rem;
-		  height: 2rem;
-		  border-radius: 50%;
-		  border: 0.01rem solid #aaaaaa
+		margin: auto;
+		width: 2rem;
+		height: 2rem;
+		border-radius: 50%;
+		border: 0.01rem solid #aaaaaa
 	  }
   
 	  .sub-menu > a {
 		color: red;
 	  }
   
-	//   &:not(:last-child) {
-	// 	border-right: 1px solid $transparent-white;
-	//   }
-  
 	  .sub-menu {
-		// position: absolute;
-		// top: 100%;
-		// width: 412%;
-		// height: 1300%;
-		// transform-origin: top;
-		// transform: rotateX(-90deg);
-		// transition: transform 0.3s linear;
-		// background-color: $yellow;
-		// z-index: 1;
-		// top: -130%;
-		// left: 4rem;
 		-webkit-box-shadow: 0 0 4px rgba(0,0,0,.28);
 		box-shadow: 0 0 4px rgba(0,0,0,.28);
   
@@ -296,7 +263,6 @@
 		  }
   
 		  a {
-			// color: $subcolor;
 			padding: 0.3rem;
 		  }
 		  a::before {
@@ -316,6 +282,10 @@
 		width: 100%;
 		animation-duration: 0.5s;
 		animation-name: slidedown;
+		// animation: fadein 0.5s;
+		// -moz-animation: fadein 0.5s; /* Firefox */
+		// -webkit-animation: fadein 0.5s; /* Safari and Chrome */
+		// -o-animation: fadein 0.5s; /* Opera */
   
 		.menu-item {
 			border: 0;
@@ -361,11 +331,44 @@
 		text-decoration: none;
 		height: 100%;
 		width: 100%;
-		padding: 1em 0.5em;
+		padding: 1rem 0em;
   
 		@media (min-width: 768px) {
 		  font-size: 1rem;
 		}
 	  }
+	}
+  }
+
+  @keyframes fadein {
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+  }
+  @-moz-keyframes fadein { /* Firefox */
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+  }
+  @-webkit-keyframes fadein { /* Safari and Chrome */
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+  }
+  @-o-keyframes fadein { /* Opera */
+	from {
+		opacity:0;
+	}
+	to {
+		opacity: 1;
 	}
   }

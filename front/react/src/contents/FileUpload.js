@@ -21,10 +21,10 @@ const FileUpload = (props) => {
 
     return (
         <Fragment>
-            <button aria-label="사진 변경" className={className} onClick={() => PopupChange(true)}>{value}</button>
+            <button aria-label="사진 추가" className={className} onClick={() => PopupChange(true)}>{value}</button>
             <Popup open={popupChange} close={() => PopupChange()} >
                 <div className={styles.upload}>
-                    <button className={styles.upload_btn} onClick={FileUploadBtn}>사진 변경</button>
+                    <button className={styles.upload_btn} onClick={FileUploadBtn}>사진 추가</button>
                 </div>
                 <div className={styles.upload_img}>
                     <input type="file" id="hiddenFileInput" onChange={e => FileUploads(e)} style={{ display: 'none' }} />

@@ -28,6 +28,7 @@ export default class Sidebar extends React.Component {
     this.props.onCallbackKeywordChange("");
     this.props.SidebarGroupUpdate(g_no, g_name);
     this.props.onCloseGroupAndHash();
+    this.props.UpdateSearchColor("", g_no);
   }
 
   clickHash(hash) {
@@ -35,7 +36,7 @@ export default class Sidebar extends React.Component {
     this.props.onCloseGroupAndHash();
   }
   clickColor(color) {
-    this.props.UpdateSearchColor(color.color);
+    this.props.UpdateSearchColor(color.color, this.state.g_no);
   }
 
   onGroup() {
@@ -49,7 +50,6 @@ export default class Sidebar extends React.Component {
   }
 
   render() {
-    
     return (
       <div className="sidebar">
         <nav className="nav">
@@ -57,50 +57,44 @@ export default class Sidebar extends React.Component {
             <ol>
               <li className="menu-item">
                 <a onClick={this.clickGroup.bind(this, null, null)}>
-                  {/* 개인메모 */}
+                  <div className="menu-title">개인메모</div>
                 </a>
               </li>
               <li className="menu-item">
                 <a onClick={this.onGroup.bind(this)}>
-                  {/* 그룹메모 */}
+                <div className="menu-title">그룹메모</div>
                 </a>
               </li>
               <li className="menu-item">
                 <a onClick={this.onHash.bind(this)}>
-                  {/* 해시태그 */}
+                <div className="menu-title">해시태그</div>
                 </a>
               </li>
               <li className="menu-item">
                 <a onClick={this.onColor.bind(this)}>
-                  {/* 색상검색 */}
+                <div className="menu-title">색상검색</div>
                 </a>
-              </li>
-              {this.props.clickColor ?
-                <li className="menu-item">
+                {/* 색상검색 */}
+                {this.props.clickColor ?
                   <ol className="sub-menu2">
                   {this.props.distinctColor.map((color) =>
                   <li 
+                  key={color}
                   className="menu-item"
                   onClick={this.clickColor.bind(this, { color })} >
                     <div
-                      key={color}
                       className="color_btn"
                       style={{ backgroundColor: color }} 
                       />
                       </li>
                   )}
                   </ol>
-                </li>
                 : null}
+              </li>
             </ol>
-            {/* <div className="menu-setting--container">
-              <a className="container__setting">
-                Settings
-                <FontAwesomeIcon className="fa-cog" icon={faCog} />
-              </a>
-            </div> */}
           </div>
         </nav>
+        {/* 그룹메모 */}
         {this.props.clickGroup == true ?
           <div className="sidebar__menu">
             <div className="sidebar__menu__title-container">
@@ -125,6 +119,7 @@ export default class Sidebar extends React.Component {
             </ol>
           </div>
           : null}
+          {/* 해시태그 */}
         {this.props.clickHash == true && this.props.hash != null ?
           <div className="sidebar__menu">
             <div className="sidebar__menu__title-container">
