@@ -22,6 +22,7 @@ export default class EditorToolbar extends React.Component {
             <Fragment>
                 <div className={styles.position}>
                     <GroupShare
+                    notify={this.props.notify}
                         className={styles.button}
                         buttonName={styles.group}
                         // gName,gNo : 임의의 작동을 한 그룹의 no와 name으로 콜백이동하기위한 props
@@ -65,6 +66,7 @@ export default class EditorToolbar extends React.Component {
                 {/* 해시추가 */}
                 <div className={styles.position}>
                     <AddHash
+                    notify={this.props.notify}
                         // memo 색변경 시 toolbar의 버튼도 색변경을 도와주는 props
                         // setStyle={this.props.setStyle}
                         users={this.props.users}
@@ -95,6 +97,7 @@ export default class EditorToolbar extends React.Component {
                     <MemoDelete
                         memoClose={this.props.memoClose}
                         users={this.props.users}
+                        notify={this.props.notify}
                         clientRef={this.props.clientRef}
                         className={styles.button}
                         buttonName={styles.group}

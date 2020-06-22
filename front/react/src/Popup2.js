@@ -5,7 +5,7 @@ import popupStyles from "./Popup2.css";
 
 const API_URL = ".";
 const API_HEADERS = {
-"Content-Type": "application/json",
+  "Content-Type": "application/json",
 };
 
 export default class Popup2 extends React.Component {
@@ -27,23 +27,23 @@ export default class Popup2 extends React.Component {
 
   // FileUpload와 profile에서 값이 변경되었을 때 해당 콜백함수에 값이 담긴다.
   callBackFromProfile(_id, _email, _password, _nickname, _image) {
-    (_id != null)? this.id= _id :null;
-    (_id != null)? this.email= _email :null;
-    (_id != null)? this.password= _password :null;
-    (_id != null)? this.nickname= _nickname :null;
-    (_id != null)? this.image= _image :null;
-    
-      this.modifyProfile = {
-          id: this.id,
-          email: this.email,
-          password: this.password,
-          nickname: this.nickname,
-          image: this.image,
-      }
+    (_id != null) ? this.id = _id : null;
+    (_id != null) ? this.email = _email : null;
+    (_id != null) ? this.password = _password : null;
+    (_id != null) ? this.nickname = _nickname : null;
+    (_id != null) ? this.image = _image : null;
+
+    this.modifyProfile = {
+      id: this.id,
+      email: this.email,
+      password: this.password,
+      nickname: this.nickname,
+      image: this.image,
+    }
   }
 
   // profile의 현재value or 변경된 value를 modifyProfile에 담고 통신으로 전달. 
-  getModifiedValue(){
+  getModifiedValue() {
     this.props.notify("프로필을 수정하였습니다.");
     this.ajaxModifyProfile(this.modifyProfile);
   }
@@ -54,14 +54,14 @@ export default class Popup2 extends React.Component {
       headers: API_HEADERS,
       body: JSON.stringify(_modifyProfile),
     }).then((response) => response.json())
-    .then((json) => {
-      let asyncTrue=json.data;
-      if(asyncTrue == true){
-        this.props.getProfileAjax();
-        this.props.closePopup()
-      }
-    })
-    .catch((err) => console.error(err));
+      .then((json) => {
+        let asyncTrue = json.data;
+        if (asyncTrue == true) {
+          this.props.getProfileAjax();
+          this.props.closePopup()
+        }
+      })
+      .catch((err) => console.error(err));
     //프로필 수정 후 프로필이 쓰인 다른 곳들도 업데이트
     this.props.profileUpdate();
   }
@@ -91,13 +91,13 @@ export default class Popup2 extends React.Component {
     }
 
     if (this.state.userList.no[0] != undefined || this.state.userList.nickname.length != 0) {
-      this.props.notify(`${this.state.userList.nickname.map(element=>element)} 를 ${this.state.groupName} 그룹에 초대하였습니다.`);
+      this.props.notify(`${this.state.userList.nickname.map(element => element)} 를 ${this.state.groupName} 그룹에 초대하였습니다.`);
       this.state.userList.no.map((element, index) => {
         this.props.clientRef.sendMessage("/app/alarm/" + this.state.userList.no[index],
           JSON.stringify({
             gNo: this.state.groupNo,
             chat: this.state.groupName + " 그룹에 초대되었습니다.",
-            groupName : this.state.groupName,
+            groupName: this.state.groupName,
             date: DateSend,
             type: true,
             readCheck: true,
@@ -129,7 +129,7 @@ export default class Popup2 extends React.Component {
 
     if (this.props.contents === "profile") {
       contents = (
-        <Profile 
+        <Profile
           callBackFromProfile={this.callBackFromProfile.bind(this)}
           ClickGetProfileValue={this.props.ClickGetProfileValue}
           profileUpdate={this.props.profileUpdate}
@@ -140,7 +140,7 @@ export default class Popup2 extends React.Component {
     if (this.props.contents === "groupAddOrInvite") {
       contents = (
         <GroupAddOrInvite
-        notify={this.props.notify}
+          notify={this.props.notify}
           getGroup={this.props.getGroup}
           group={this.props.group}
           getChatListGroup={this.props.getChatListGroup}
@@ -168,13 +168,14 @@ export default class Popup2 extends React.Component {
 
           <div className={popupStyles.inner_form_container}>
             {contents}
-            </div>
+          </div>
 
           <div className={popupStyles.btns}>
             <button
               onClick={
-                (this.props.contents === "profile") ? ()=>{this.getModifiedValue()}
-                : this.callBackGroupAdd.bind(this)}
+                (this.props.contents === "profile") ?
+                  () => { this.getModifiedValue() }
+                  : this.callBackGroupAdd.bind(this)}
               className={popupStyles.confirm_btn}>
               {popup2_confirm_btn}
             </button>

@@ -44,6 +44,7 @@ export default class MessageList extends React.Component {
     });
   }
   componentWillReceiveProps(props) {
+    console.log(props.chatdragStart)
     if (props.chatdragStart != null) {
       this.setState({
         message: props.chatdragStart

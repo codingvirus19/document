@@ -154,7 +154,7 @@ export default class Chat extends React.Component {
             onClick={this.props.close}>
             <img
               className={styles.back_btn}
-              src="http://localhost:8090/images/back.png" />
+              src="./assets/images/back.png" />
           </button>
         </div>
 
@@ -167,7 +167,7 @@ export default class Chat extends React.Component {
             addMessage={this.state.contents} />
         </div>
 
-        <div id="chatInput" className="chatInput" ref={this.chatInputRef} >
+        <div id="chatInput" className="chatInput" ref={this.chatInputRef}>
           <MessageSend
             gNo={this.props.gNo}
             sendMessage={this.sendMessage.bind(this)}

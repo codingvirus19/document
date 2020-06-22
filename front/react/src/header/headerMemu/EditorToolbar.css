@@ -1,5 +1,3 @@
-
-
 @media (max-width:768px) { 
     .position{
         padding: 17px 13px 13px 19px;
@@ -21,20 +19,16 @@
   }
 
 .position:hover{
-    border-radius: 0.5rem;
-    background-color: #EBEBEB;
-    box-shadow: gray 1px 1px 1px 1px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.08);
 }
 
 .position:active{
-    border-radius: 0.5rem;
-    background-color: rgb(201, 199, 199);
-    box-shadow: none;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.08);
 }
 .button{
     background: none;
-    /* width: 14%;
-    height: 13%; */
 }
 
 .group{
