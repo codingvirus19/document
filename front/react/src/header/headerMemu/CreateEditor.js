@@ -4,7 +4,6 @@ import popup from "./Popup.css";
 import styles from "./ShareEditor.css";
 import FileUpload from "../../contents/FileUpload.js";
 
-
 export default class Popup extends React.Component {
   constructor(props) {
     super(props);
@@ -179,8 +178,7 @@ export default class Popup extends React.Component {
       height: "200px",
       background: "#ff2",
     };
-    console.log(this.props.groupNoForGroupUser)
-    console.log(this.props.users)
+
     return (
       <div className={popup.popup} onClick={this.props.closePopup}>
         <div
@@ -199,8 +197,8 @@ export default class Popup extends React.Component {
               <button aria-label="헤더4" className={styles.ctbutton} onClick={this.hevent.bind(this, 4)}>H4</button>
               <button aria-label="굵게" className={styles.ctbutton} onClick={this.boldevent.bind(this)}>B</button>
               {(this.state.markOpen) ? 
-              <button className={`${styles.click} ${styles.ctbutton}`} onClick={this.markOpen.bind(this)}>E</button> 
-              : <button className={styles.ctbutton} onClick={this.markOpen.bind(this)}>M</button>}
+              <button aria-label="마크다운 작성"className={`${styles.click} ${styles.ctbutton}`} onClick={this.markOpen.bind(this)}>E</button> 
+              : <button  aria-label="미리보기"className={styles.ctbutton} onClick={this.markOpen.bind(this)}>M</button>}
 
               <FileUpload className={styles.ctbutton} File={e => this.FileUpload(e)} image={this.state.image} save={this.ImageSave.bind(this)} />
 

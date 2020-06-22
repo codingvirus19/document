@@ -20,21 +20,17 @@
   margin: 6px;
   margin-right: 10px;
   background: none;
-  font-family: serif;
-  border-radius: 0.6rem;
-  font-weight: 600;
+  border-radius: 50%;
 }
 .click{
   background-color: lightcoral;
 }
 .btn .button:hover{
-  box-shadow: gray 1px 1px 1px 1px;
-  background-color: #EBEBEB;
+  background-color: rgba(0, 0, 0, 0.08);
 }
 
 .btn .button:active{
-  box-shadow: none;
-  background-color:  rgb(201, 199, 199);
+  background-color: rgba(0, 0, 0, 0.08);
 }
 
 .edit {
@@ -52,7 +48,6 @@
   border-radius: 1rem;
   WORD-BREAK: break-all;
 }
-
 
 .btn{
   /* background: no-repeat; */
@@ -92,12 +87,10 @@
 
 .ctbutton:hover{
   background-color: rgba(0, 0, 0, 0.08);
-  /* box-shadow: gray 1px 1px 1px 1px; */
 }
 
 .ctbutton:active{
   background-color: rgba(0, 0, 0, 0.08);
-  /* box-shadow: none; */
 }
 
 .ctbtn{

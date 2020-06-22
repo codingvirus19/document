@@ -7,7 +7,7 @@ export default class JoinSuccess extends React.Component {
             <div>
                 <img
                     className={styles.check_img}
-                    src="http://localhost:8090/images/check.webp"
+                    src="./assets/images/check.webp"
                 />
                 <h4 className={styles.header}>회원가입이 완료되었습니다.</h4>
             </div>

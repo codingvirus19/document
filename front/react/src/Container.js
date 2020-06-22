@@ -119,6 +119,7 @@ export default class Container extends React.Component {
             image: element.image
           };
         });
+        console.log(userListInGroupByUser)
         this.UpdateUserListInGroupByUser(userListInGroupByUser);
       })
       .catch((err) => console.error(err));
@@ -591,10 +592,13 @@ export default class Container extends React.Component {
     if(alarm_msg.update != undefined){
       this.bringMemoByGroup(this.state.groupBySidebar.no);
       this.getHashListByGroup(this.state.groupBySidebar.no);
+      
       return;
     }
     if (alarm_msg.addgroup == undefined && alarm_msg.update == undefined && alarm_msg.gNo == undefined) {
       this.getGroupInUser(this.state.groupBySidebar.no);
+      this.getChatListGroup();
+      this.getUserListInGroupByUser(this.Users.no[0]);
       this.setState({
         userlistSession :alarm_msg
       })
@@ -614,6 +618,7 @@ export default class Container extends React.Component {
           chatting: false
         }
       })
+      this.notify("그룹초대 알람이 왔습니다.");
     }
     if (alarm_msg.basic != null) { //기본
       this.bringMemoByGroup(this.state.groupBySidebar.no);
@@ -628,6 +633,7 @@ export default class Container extends React.Component {
     if (this.state.chatalarm_gNo != alarm_msg.gNo) {
       if (alarm_msg.chatting != null) {//채팅
         this.getChatListGroup();
+        this.getUserListInGroupByUser(this.Users.no[0]);
         this.setState({
           alarm: {
             chatting: alarm_msg.chatting,

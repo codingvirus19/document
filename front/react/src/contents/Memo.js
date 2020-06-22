@@ -25,7 +25,6 @@ export default class Memo extends React.Component {
     });
   }
 
-
   getReMarkDown() {
     return { __html: this.md.render(this.props.content) };
   }
