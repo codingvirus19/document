@@ -167,7 +167,7 @@ export default class Chat extends React.Component {
             addMessage={this.state.contents} />
         </div>
 
-        <div id="chatInput" className="chatInput" ref={this.chatInputRef} >
+        <div id="chatInput" className="chatInput" ref={this.chatInputRef}>
           <MessageSend
             gNo={this.props.gNo}
             sendMessage={this.sendMessage.bind(this)}

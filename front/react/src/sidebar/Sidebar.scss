@@ -21,7 +21,6 @@
 	border-right: 1px solid $transparent-white;
   }
 
-
 @keyframes slidein {
 	from {
 		transform-origin: left;
@@ -34,8 +33,18 @@
 	}
   }
 
+  @keyframes slidedown {
+	from {
+		transform-origin: top;
+		transform: rotateX(-90deg);
+	}
   
-  
+	to {
+		transform-origin: top;
+		transform: rotateX(0deg);
+	}
+  }
+
 .sidebar__menu{
 	position: absolute;
 	width: 14rem;
@@ -50,7 +59,6 @@
 
 	animation-duration: 0.5s;
 	 animation-name: slidein;
-	 
 	
 	.sub-menu{
 		list-style: none;
@@ -83,7 +91,6 @@
 			border-radius: 0.5rem;
 		}
 	}
-
 }
 
 .submenu-item__span1{
@@ -198,6 +205,10 @@
 	  &:nth-child(3) > a::before {
 		content: "\f292";
 	  }
+
+	  &:nth-child(4) > a::before {
+		content: "\f53f";
+	  }
   
 	  
 	  
@@ -221,6 +232,13 @@
 			font-size: 1.3rem;
 		  }
 		}
+	  }
+	  .color_btn {
+		  margin: auto;
+		  width: 2rem;
+		  height: 2rem;
+		  border-radius: 50%;
+		  border: 0.01rem solid #aaaaaa
 	  }
   
 	  .sub-menu > a {
@@ -248,7 +266,7 @@
   
 		//그룹들
 		.menu-item {
-
+		  padding: 0.5rem;
 		  border-color: $transparent-white;
 		  &:hover {
 			  background-color: #ebecf0;
@@ -271,25 +289,32 @@
 		}
 	  }
   
-	  //해시태그
+	  //색상선택
 	  .sub-menu2 {
 		position: absolute;
 		top: 100%;
 		width: 100%;
-		transform-origin: top;
-		transition: transform 0.3s linear;
-		background-color: #3a60c9;
-		z-index: 1;
+		animation-duration: 0.5s;
+		animation-name: slidedown;
   
 		.menu-item {
-		  border: 0;
-		  a {
-			padding: 0.3rem;
+			border: 0;
+			padding: 0.5rem;
+			&:hover {
+				background-color: #073D8D;
+			  a {
+				color: #0052cc;
+			  }
+			  .color_btn {
+				border: 0.01rem solid #333333
+			  }
+			}
+
+			a::before {
+			  content: "";
+			}
+
 		  }
-		  a::before {
-			content: "";
-		  }
-		}
 	  }
   
 	  &:hover {

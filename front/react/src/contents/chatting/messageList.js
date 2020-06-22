@@ -19,7 +19,9 @@ export default class MessageList extends React.Component {
             return (
               <li key={index} className={styles.mychat} ref={e => { (e != undefined) ? e.parentNode.parentNode.scrollTop = e.parentNode.parentNode.scrollHeight : null }}>
                 <div className={styles.mychat_message}>
-                  <span>{message.message}</span>
+                  <span className={styles.message}>
+                    {message.message}
+                  </span>
                 </div>
                 <h6 className={styles.time}>{message.date}</h6>
               </li>
@@ -37,7 +39,9 @@ export default class MessageList extends React.Component {
                     {message.nickname}{" "}
                   </div>
                   <div className={styles.otherchat_message}>
-                    <span>{message.message}</span>
+                    <span className={styles.message}>
+                      {message.message}
+                      a</span>
                   </div>
                   <h6 className={styles.otherchat_time}>{message.date}</h6>
                 </div>

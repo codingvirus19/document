@@ -18,6 +18,7 @@ export default class Container extends React.Component {
       group: { no: [], gname: [] },
       group_hash: [{ no: "", name: "", memo_no: "" }],
       distinctGroup_hash: [""],
+      distinctColor: null,
       SelectedHash: null,
       memo_bigArr: null,
       groupBySidebar: { no: null, name: null },
@@ -28,13 +29,15 @@ export default class Container extends React.Component {
       addgroup_alarm: { message: "", date: "", group_no: "", group_name: "", week: "" },
       groupInUserList: [{ user_no: "", id: "", nickname: "", img: "", auth_no: "" }],
       keyword: "",
-      chatkeyword:"",
+      searchColor: "",
+      chatkeyword: "",
       getProfileValue: null,
       userListInGroupByUser: null,
       chatalarm_gNo: null,
-      userlistSession:[],
+      userlistSession: [],
       clickGroup: false,
       clickHash: false,
+      clickColor: false,
     };
     this.tempGno = null;
   }
@@ -45,7 +48,7 @@ export default class Container extends React.Component {
       keyword: keyword,
     });
   }
-// chatsearch 검색 콜백함수
+  // chatsearch 검색 콜백함수
   onCallbackChattingKeywordChange(chatkeyword) {
     this.setState({
       chatkeyword: chatkeyword,
@@ -62,7 +65,7 @@ export default class Container extends React.Component {
     this.getGroup();
 
     // 로그인한 user를 가져오는 코드
-    let users = { no: [], name: [], id: [], image:[] };
+    let users = { no: [], name: [], id: [], image: [] };
     // call api
     fetch(`${API_URL}/api/getUserSession`, {
       method: "post",
@@ -90,7 +93,6 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         this.UpdateAlarm(json.data);
-        console.log(json.data)
       })
       .catch((err) => console.error(err));
     // 알람 가져올 때, type이 true이면 기본 알람, false이면 채팅 알람 구별
@@ -119,7 +121,6 @@ export default class Container extends React.Component {
             image: element.image
           };
         });
-        console.log(userListInGroupByUser)
         this.UpdateUserListInGroupByUser(userListInGroupByUser);
       })
       .catch((err) => console.error(err));
@@ -198,8 +199,6 @@ export default class Container extends React.Component {
   bringMemoByGroup(_groupNumbers) {
     let data = { no: _groupNumbers, };
     let memo_bigArr;
-    let filteredMemo_bigArr;
-    // call api
 
     this.groupUserList(_groupNumbers);
 
@@ -210,32 +209,38 @@ export default class Container extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        // 설명
-        // keyword가 "" 일 때는 전체 memolist를 뿌려준다.
-        // keyword가 변화할 때는 검색한 내용에 대한 memolist를 뿌려준다.
-        // memo_no가 null일때는 전체 memoList를 뿌려준다.
-        // memo_no가 null이 아닐때는 해당메모의 no로 등록된 해시태그를 뿌려준다.
-        // 설명
+        memo_bigArr = json.data;
 
-        // 검색keyword가 ""이고, sidebar의 해쉬를 클릭하지 않았을 때는
-        // 전체 memoList를 뿌려준다.
-        
-        if (this.state.keyword == "") {
-          memo_bigArr = json.data;
-          this.UpdateMemo(memo_bigArr);
-        }
+        //색 뽑아줌(searchColor용)
+        let distinctColor = memo_bigArr.map(function (val, index) {
+          return val['color'];
+        }).filter(function (val, index, arr) {
+          return arr.indexOf(val) === index;
+        });
+        this.UpdateDistinctColor(distinctColor);
+        // keyword가 변화할 때는 검색한 내용에 대한 memolist를 뿌려준다.
+        // memo_no가 null이 아닐때는 해당메모의 no로 등록된 해시태그를 뿌려준다.
+
         //검색창의 keyword에 value를 input했을 경우 value와 memo의 content가 같은
         // 값을 memoList로 뿌려준다.
-        else if (this.state.keyword != "") {
-          memo_bigArr = json.data;
-          // filteredMemo_bigArr: keyword에 해당하는 memoList를 filter한 값을 Array로 종합
-          filteredMemo_bigArr = memo_bigArr.filter(
+        if (this.state.keyword != "") {
+          // keyword에 해당하는 memoList를 filter한 값을 Array로 종합
+          memo_bigArr = memo_bigArr.filter(
             //indexOf() 메서드는 호출한 String 객체에서 주어진 값과
             //일치하는 첫 번째 인덱스를 반환. 일치하는 값이 없으면 -1을 반환
             (element) => element.content.indexOf(this.state.keyword) != -1
           );
-          this.UpdateMemo(filteredMemo_bigArr);
         }
+
+        //색상 검색
+        else if(this.state.searchColor != "") {
+          memo_bigArr = memo_bigArr.filter(
+            (element) => element.color === this.state.searchColor
+          )
+        }
+        // 검색keyword가 ""이고, sidebar의 해쉬를 클릭하지 않았을 때는
+        // 전체 memoList를 뿌려준다.
+        this.UpdateMemo(memo_bigArr);
       })
       .catch((err) => console.error(err));
     // 그룹의 data로 memo의 db를 가져오는 코드
@@ -352,6 +357,19 @@ export default class Container extends React.Component {
     });
   }
 
+  UpdateDistinctColor(distinctColor) {
+    this.setState({
+      distinctColor : distinctColor,
+    })
+  }
+
+  UpdateSearchColor(searchColor) {
+    this.setState({
+      searchColor: searchColor
+    })
+    this.search(this.state.groupBySidebar.no);
+  }
+
   UpdateUserListInGroupByUser(userListInGroupByUser) {
     this.setState({
       userListInGroupByUser: userListInGroupByUser,
@@ -384,7 +402,7 @@ export default class Container extends React.Component {
       this.getGroupInUser(no);
     }
     //no만 있으면 gName 찾아서 넣어줌
-    if(name === undefined){
+    if (name === undefined) {
       this.getGnameByGno(no);
     }
     else {
@@ -392,11 +410,17 @@ export default class Container extends React.Component {
     }
   }
 
-//프로필을 변경할때 업데이트 되는 함수
-  profileUpdate(){
+  //프로필을 변경할때 업데이트 되는 함수
+  profileUpdate() {
     this.getGroupInUser(this.state.groupBySidebar.no);
     this.getUserListInGroupByUser(this.Users.no[0]);
   }
+
+  //Search할때 업데이트 되는 함수
+  search(gNo) {
+    this.bringMemoByGroup(gNo);
+  }
+
 
   getGnameByGno(no) {
     let data = { no: no };
@@ -521,7 +545,7 @@ export default class Container extends React.Component {
       groupInUserList: getSession
     })
   }
-  
+
   groupUserList(gNo) {
     if (this.Users != null) {
       if (gNo == null) {
@@ -553,10 +577,10 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
-    if(alarm_msg.update != undefined){
+    if (alarm_msg.update != undefined) {
       this.bringMemoByGroup(this.state.groupBySidebar.no);
       this.getHashListByGroup(this.state.groupBySidebar.no);
-      
+
       return;
     }
     if (alarm_msg.addgroup == undefined && alarm_msg.update == undefined && alarm_msg.gNo == undefined) {
@@ -564,7 +588,7 @@ export default class Container extends React.Component {
       this.getChatListGroup();
       this.getUserListInGroupByUser(this.Users.no[0]);
       this.setState({
-        userlistSession :alarm_msg
+        userlistSession: alarm_msg
       })
     }
     this.state.addgroup_alarm = null;
@@ -636,34 +660,40 @@ export default class Container extends React.Component {
       progress: undefined,
     })
   }
-  
+
   // container의 어떤부분이든 클릭시 side창이 닫히도록 하는 함수
-  onClickContainer(){
+  onClickContainer() {
     this.setState({
       clickHash: false,
       clickGroup: false,
     })
   }
   // sidebar의 그룹클릭시 side창 열림
-  onOpenGroup(){
+  onOpenGroup() {
     this.setState({
       clickGroup: !this.state.clickGroup,
       clickHash: false,
     })
   }
-  
   // hash의 그룹클릭시 side창 열림
-  onOpenHash(){
+  onOpenHash() {
     this.setState({
       clickHash: !this.state.clickHash,
       clickGroup: false,
     })
   }
-  // sidebar 어떤것이든 클릭 시 side창 닫힘
-  onCloseGroupAndHash(){
+  onOpenColor() {
     this.setState({
-      clickGroup:false,
-      clickHash:false,
+      clickColor: !this.state.clickColor,
+      clickGroup: false,
+      clickHash: false,
+    })
+  }
+  // sidebar 어떤것이든 클릭 시 side창 닫힘
+  onCloseGroupAndHash() {
+    this.setState({
+      clickGroup: false,
+      clickHash: false,
     })
   }
 
@@ -719,8 +749,12 @@ export default class Container extends React.Component {
             onCloseGroupAndHash={this.onCloseGroupAndHash.bind(this)}
             onOpenGroup={this.onOpenGroup.bind(this)}
             onOpenHash={this.onOpenHash.bind(this)}
+            onOpenColor={this.onOpenColor.bind(this)}
             clickGroup={this.state.clickGroup}
             clickHash={this.state.clickHash}
+            clickColor={this.state.clickColor}
+            distinctColor={this.state.distinctColor}
+            UpdateSearchColor={this.UpdateSearchColor.bind(this)}
             users={this.Users}
             hash={this.state.distinctGroup_hash}
             group={this.state.group}
