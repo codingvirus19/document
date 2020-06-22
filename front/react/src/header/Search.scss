@@ -6,38 +6,71 @@ $subcolor: rgb(89, 130, 234);
 .div {
   display: inline-block;
 }
-
 .form {
-  width: 100%;
+  width: 90%;
 }
-
-.search {
-  min-width: 150px;
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0);
-  display: flex;
-  justify-content: center;
-  &:hover{
-    transition: background 0.3s ease-in-out;
-    border-radius: 10px;
-    border: 1px solid $bordercolor;
-    .input {
+@media (max-width: 768px) {
+  .search {
+    min-width: 150px;
+    width: 95%;
+    border: 1px solid rgba(0, 0, 0, 0);
+    display: flex;
+    justify-content: center;
+    margin-left: 0.4rem;
+    &:hover {
       transition: background 0.3s ease-in-out;
-      background-color: $bgcolorHover !important;
+      border-radius: 10px;
+      border: 1px solid $bordercolor;
+      .input {
+        transition: background 0.3s ease-in-out;
+        background-color: $bgcolorHover !important;
+      }
+      .delete {
+        transition: background 0.3s ease-in-out;
+        background-color: $bgcolorHover !important;
+      }
+      .fa-search:before {
+        transition: background 0.3s ease-in-out;
+        color: $bgcolorHover;
+      }
+      .fa-times:before {
+        display: inline;
+      }
+      .submit {
+        background-color: $subcolor;
+      }
     }
-    .delete {
+  }
+}
+@media (min-width: 768px) {
+  .search {
+    min-width: 150px;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0);
+    display: flex;
+    justify-content: center;
+    &:hover {
       transition: background 0.3s ease-in-out;
-      background-color: $bgcolorHover !important;
-    }
-    .fa-search:before {
-      transition: background 0.3s ease-in-out;
-      color: $bgcolorHover;
-    }
-    .fa-times:before {
-      display: inline;
-    }
-    .submit{
-      background-color: $subcolor;
+      border-radius: 10px;
+      border: 1px solid $bordercolor;
+      .input {
+        transition: background 0.3s ease-in-out;
+        background-color: $bgcolorHover !important;
+      }
+      .delete {
+        transition: background 0.3s ease-in-out;
+        background-color: $bgcolorHover !important;
+      }
+      .fa-search:before {
+        transition: background 0.3s ease-in-out;
+        color: $bgcolorHover;
+      }
+      .fa-times:before {
+        display: inline;
+      }
+      .submit {
+        background-color: $subcolor;
+      }
     }
   }
 }
@@ -50,57 +83,95 @@ $subcolor: rgb(89, 130, 234);
   border-radius: 10px;
   transition: background 0.3s ease-in-out;
   border: 1px solid $bordercolor;
-    .input {
-      transition: background 0.3s ease-in-out;
-      background-color: $bgcolorHover !important;
-    }
-    .delete {
-      transition: background 0.3s ease-in-out;
-      background-color: $bgcolorHover !important;
-    }
-    .fa-search:before {
-      transition: background 0.3s ease-in-out;
-      color: $bgcolorHover;
-    }
-    .fa-times:before {
-      display: inline;
-    }
+  .input {
+    transition: background 0.3s ease-in-out;
+    background-color: $bgcolorHover !important;
   }
-  
-.input {
-  height: 3rem;
-  border: 0 !important;
-  background-color: $bgcolor !important;
-  font-size: 0.85rem;
-  padding: 0 0.75rem;
-  border-radius: 10px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  width: 100%;
-  min-width: 6rem;
+  .delete {
+    transition: background 0.3s ease-in-out;
+    background-color: $bgcolorHover !important;
+  }
+  .fa-search:before {
+    transition: background 0.3s ease-in-out;
+    color: $bgcolorHover;
+  }
+  .fa-times:before {
+    display: inline;
+  }
 }
 
-.delete {
-  background-color: $bgcolor !important;
-  padding: 0.6rem;
-  width: 2.5rem;
-  height: 3rem;
-}
+@media (max-width: 768px) {
+  .input {
+    height: 2rem;
+    border: 0 !important;
+    background-color: $bgcolor !important;
+    font-size: 0.6rem;
+    padding: 0 0.55rem;
+    border-radius: 10px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: 100%;
+    min-width: 6rem;
+  }
 
-.fa-times:before {
-  font-size: large;
-  display: none;
-}
+  .delete {
+    background-color: $bgcolor !important;
+    width: 2rem;
+    height: 2rem;
+  }
 
-.submit {
-  width: 3rem;
-  height: 3rem;
-  border: 1px solid transparent;
-  background-color: $subcolor;
-  border-color: $subcolor;
-  border-radius: 0.35rem;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  .fa-times:before {
+    font-size: large;
+    display: none;
+  }
+
+  .submit {
+    width: 2.5rem;
+    height: 2rem;
+    border: 1px solid transparent;
+    background-color: $subcolor;
+    border-color: $subcolor;
+    border-radius: 0.35rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+@media (min-width: 768px) {
+  .input {
+    height: 3rem;
+    border: 0 !important;
+    background-color: $bgcolor !important;
+    font-size: 0.85rem;
+    padding: 0 0.75rem;
+    border-radius: 10px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: 100%;
+    min-width: 6rem;
+  }
+
+  .delete {
+    background-color: $bgcolor !important;
+    padding: 0.6rem;
+    width: 2.5rem;
+    height: 3rem;
+  }
+
+  .fa-times:before {
+    font-size: large;
+    display: none;
+  }
+
+  .submit {
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid transparent;
+    background-color: $subcolor;
+    border-color: $subcolor;
+    border-radius: 0.35rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }
 
 .fa-search:before {

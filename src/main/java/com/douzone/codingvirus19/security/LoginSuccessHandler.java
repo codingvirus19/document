@@ -60,8 +60,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 			jsonConverter.write(jsonResult, jsonMimeType, new ServletServerHttpResponse(response));
 		}
 		
-		
-
 	}
 
 	public void setRequestCache(RequestCache requestCache) {

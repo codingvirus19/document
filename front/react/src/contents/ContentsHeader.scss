@@ -2,20 +2,53 @@ $iconcolor: #3a3b45;
 $hover_bgcolor:rgba(0,0,0,0.08);
 $hover_iconcolor: #000000;
 
-.header {
-  height: 10%;
-  width: 100%;
-  min-height: 57px;
-  display: inline-flex;
-  align-items: center;
-  padding-left: 4%;
-  z-index: 0;
-  min-width: 370px;
+@media (max-width: 768px) {
+  .header {
+    height: 10%;
+    width: 100%;
+    min-height: 57px;
+    display: inline-flex;
+    align-items: center;
+    z-index: 0;
+    min-width: 370px;
+  }
+  .title {
+    margin-right: 1.5rem;
+    min-width: fit-content;
+    font-size: 0.8rem;
+  }
+  .faUserPlus {
+    font-size: 1.5rem;
+    color: $iconcolor;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    transition: transform 0.3s linear;
+  }
 }
-
-.title {
-  margin-right: 1.5rem;
-  min-width: fit-content;
+@media (min-width: 768px) {
+  .header {
+    height: 10%;
+    width: 100%;
+    min-height: 57px;
+    display: inline-flex;
+    align-items: center;
+    padding-left: 4%;
+    z-index: 0;
+    min-width: 370px;
+  }
+  .title {
+    margin-right: 1.5rem;
+    min-width: fit-content;
+  }
+  .faUserPlus {
+    font-size: xx-large;
+    color: $iconcolor;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    transition: transform 0.3s linear;
+  }
 }
 
 .invite {
@@ -34,15 +67,6 @@ $hover_iconcolor: #000000;
       color: $hover_iconcolor;
     }
   }
-}
-
-.faUserPlus {
-  font-size: xx-large;
-  color: $iconcolor;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  transition: transform 0.3s linear;
 }
 
 .groupOut{

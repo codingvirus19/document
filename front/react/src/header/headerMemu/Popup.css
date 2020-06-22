@@ -14,24 +14,40 @@
     flex-direction: column;
   }
 
-.inner {
-  position: absolute;
-  width: 400px;
-  height: 500px;
-  /* height: 80%; */
-  top: 50%;
-  left: 50%;
-  transform: translate(-58%, -65%);
-  background: white;
-  border-radius: 1rem;
-  box-shadow: 0 4px 16px rgba(0,0,0,.2);
-  animation: fadein 0.3s;
-  -moz-animation: fadein 0.3s; /* Firefox */
-  -webkit-animation: fadein 0.3s; /* Safari and Chrome */
-  -o-animation: fadein 0.3s; /* Opera */
-}
-
-
+  @media (max-width:768px) { 
+    .inner {
+      width: 17rem;
+      height: 500px;
+      /* height: 80%; */
+      top: 50%;
+      left: 50%;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,.2);
+      animation: fadein 0.3s;
+      -moz-animation: fadein 0.3s; /* Firefox */
+      -webkit-animation: fadein 0.3s; /* Safari and Chrome */
+      -o-animation: fadein 0.3s; /* Opera */
+    }
+  }
+  @media (min-width:768px) { 
+    .inner {
+      position: absolute;
+      width: 400px;
+      height: 500px;
+      /* height: 80%; */
+      top: 50%;
+      left: 50%;
+      transform: translate(-58%, -65%);
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,.2);
+      animation: fadein 0.3s;
+      -moz-animation: fadein 0.3s; /* Firefox */
+      -webkit-animation: fadein 0.3s; /* Safari and Chrome */
+      -o-animation: fadein 0.3s; /* Opera */
+    }
+  }
 
 
 @keyframes fadein {
