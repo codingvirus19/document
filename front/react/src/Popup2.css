@@ -141,17 +141,32 @@
   margin-bottom: 8rem;
 }
 
-
-
-.input {
-  height: 11%;
-  width: 80%;
-  border-radius: 0.25rem;
-  border: 0.05rem solid #aaa;
-  background-color: #fff;
-  text-align:center;
-  font-weight: 600;
+@media (max-width: 768px) {
+  .input {
+    height: 11%;
+    width: 80%;
+    border-radius: 0.25rem;
+    border: 0.05rem solid #aaa;
+    background-color: #fff;
+    text-align:center;
+    font-weight: 600;
+    overflow: hidden;
+  }
+  
 }
+@media (min-width: 768px) {
+  .input {
+    height: 11%;
+    width: 80%;
+    border-radius: 0.25rem;
+    border: 0.05rem solid #aaa;
+    background-color: #fff;
+    text-align:center;
+    font-weight: 600;
+  }
+  
+}
+
 
 .input:hover {
   border: 0.05rem solid rgb(48, 47, 47);
