@@ -62,6 +62,7 @@ export default class Sidebar extends React.Component {
   // }
   
   render() {
+    
     return (
       <div className="sidebar">
         <nav className="nav">
@@ -127,6 +128,9 @@ export default class Sidebar extends React.Component {
                   </div>
                   <div className="submenu-item__span2">
                     {hash}
+                  </div>
+                  <div className="submenu-item__span3">
+                    <p>2</p>
                   </div>
                 </a>
               </li>
