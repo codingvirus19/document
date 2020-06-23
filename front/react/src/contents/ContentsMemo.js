@@ -18,7 +18,6 @@ export default class ContentsMemoList extends React.Component {
       showPopup: false,
       hoverMemo: false,
     };
-    
   }
   setMemo_hash(memo_hash) {
     this.setState({
@@ -33,7 +32,6 @@ export default class ContentsMemoList extends React.Component {
     // e.preventDefault();
     console.log("test");
   }
-
 
   viewPopup() {
     this.setState({

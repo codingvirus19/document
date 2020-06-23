@@ -44,11 +44,21 @@ export default class MessageList extends React.Component {
     });
   }
   componentWillReceiveProps(props) {
-    console.log(props.chatdragStart)
     if (props.chatdragStart != null) {
       this.setState({
         message: props.chatdragStart
       })
+    }
+    this.messageBtn()
+  }
+
+  messageBtn() {
+    console.log(this.state.message)
+    if (this.state.message != "") {
+      this.setState({ btnClass: styles.button2 })
+    }
+    else {
+      this.setState({ btnClass: styles.button })
     }
   }
 

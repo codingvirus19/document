@@ -126,7 +126,6 @@
     border-radius: 9px;
     text-align: center;
     font-weight: 600;
-
 }
 
   *,
@@ -189,7 +188,6 @@
 	  display: flex;
 	  align-items: center;
 	  position: relative;
-  
 	  &:nth-child(1) > a::before {
 		content: "\f007";
 	  }
@@ -205,7 +203,7 @@
 	  &:nth-child(4) > a::before {
 		content: "\f53f";
 	  }
-  
+
 	  @for $i from 1 through 5 {
 		&:nth-child(#{$i}) > a::before {
 		  font-family: "Font Awesome 5 Free";
@@ -226,6 +224,7 @@
 		}
 	  }
 	  .menu-title {
+		font-size: 0.9rem;
 		display: none;
 		animation: fadein 0.5s;
 		-moz-animation: fadein 0.5s; /* Firefox */
@@ -240,7 +239,7 @@
 		width: 2rem;
 		height: 2rem;
 		border-radius: 50%;
-		border: 0.01rem solid #aaaaaa
+		border: 0.01rem solid #aaaaaa;
 	  }
   
 	  .sub-menu > a {
@@ -282,10 +281,6 @@
 		width: 100%;
 		animation-duration: 0.5s;
 		animation-name: slidedown;
-		// animation: fadein 0.5s;
-		// -moz-animation: fadein 0.5s; /* Firefox */
-		// -webkit-animation: fadein 0.5s; /* Safari and Chrome */
-		// -o-animation: fadein 0.5s; /* Opera */
   
 		.menu-item {
 			border: 0;
@@ -303,7 +298,24 @@
 			a::before {
 			  content: "";
 			}
-
+			//색상 선택시
+			&-click {
+				border-radius: 0.5rem;
+				border: 0;
+				padding: 0.5rem;
+				border-color: $transparent-white;
+				background-color: #073D8D;
+				a {
+					color: #0052cc;
+				  }
+					  .color_btn {
+						margin: auto;
+						width: 2rem;
+						height: 2rem;
+						border-radius: 50%;
+						border: 0.01rem solid #333333
+					}
+				}
 		  }
 	  }
   
@@ -339,6 +351,178 @@
 	  }
 	}
   }
+
+//   메뉴 클릭 시
+.menu {
+	&-item-click {
+	  border-radius: 0.5rem;
+	  display: flex;
+	  align-items: center;
+	  position: relative;
+	  &:nth-child(1) > a::before {
+		content: "\f007";
+	  }
+  
+	  &:nth-child(2) > a::before {
+		content: "\f0c0";
+	  }
+  
+	  &:nth-child(3) > a::before {
+		content: "\f292";
+	  }
+
+	  &:nth-child(4) > a::before {
+		content: "\f53f";
+	  }
+
+	  @for $i from 1 through 5 {
+		&:nth-child(#{$i}) > a::before {
+		  font-family: "Font Awesome 5 Free";
+		  font-size: 1.2rem;
+		  display: block;
+		  font-weight: 900;
+		  -moz-osx-font-smoothing: grayscale;
+		  -webkit-font-smoothing: antialiased;
+		  display: inline-block;
+		  font-style: normal;
+		  font-variant: normal;
+		  text-rendering: auto;
+		  line-height: 1;
+  
+		  @media (min-width: 768px) {
+			font-size: 1.3rem;
+		  }
+		}
+	  }
+	  .menu-title {
+		font-size: 0.9rem;
+		display: none;
+		animation: fadein 0.5s;
+		-moz-animation: fadein 0.5s; /* Firefox */
+		-webkit-animation: fadein 0.5s; /* Safari and Chrome */
+		-o-animation: fadein 0.5s; /* Opera */
+	  }
+	  & .menu-title {
+		  display: block
+	  }
+	  .color_btn {
+		margin: auto;
+		width: 2rem;
+		height: 2rem;
+		border-radius: 50%;
+		border: 0.01rem solid #aaaaaa;
+	  }
+  
+	  .sub-menu > a {
+		color: red;
+	  }
+  
+	  .sub-menu {
+		-webkit-box-shadow: 0 0 4px rgba(0,0,0,.28);
+		box-shadow: 0 0 4px rgba(0,0,0,.28);
+  
+		//그룹들
+		.menu-item {
+		  padding: 0.5rem;
+		  border-color: $transparent-white;
+		  &:hover {
+			  background-color: #ebecf0;
+			a {
+			  color: #0052cc;
+			}
+		  }
+  
+		  a {
+			padding: 0.3rem;
+		  }
+		  a::before {
+			content: "";
+		  }
+  
+		  &:first-child {
+			border: 0;
+		  }
+		}
+	  }
+  
+	  //색상선택
+	  .sub-menu2 {
+		position: absolute;
+		top: 100%;
+		width: 100%;
+		animation-duration: 0.5s;
+		animation-name: slidedown;
+  
+		.menu-item {
+			border: 0;
+			padding: 0.5rem;
+			&:hover {
+				background-color: #073D8D;
+			  a {
+				color: #0052cc;
+			  }
+			  .color_btn {
+				border: 0.01rem solid #333333
+			  }
+			}
+
+			a::before {
+			  content: "";
+			}
+			//색상 선택시
+			&-click {
+				border-radius: 0.5rem;
+				border: 0;
+				padding: 0.5rem;
+				border-color: $transparent-white;
+				background-color: #073D8D;
+				a {
+					color: #0052cc;
+				  }
+					  .color_btn {
+						margin: auto;
+						width: 2rem;
+						height: 2rem;
+						border-radius: 50%;
+						border: 0.01rem solid #333333
+					}
+				}
+		  }
+	  }
+  
+	  & {
+		border-top: 2px solid #3a60c9;
+		background-color: $transparent-white;
+		cursor: pointer;
+
+		a::before {
+		  color: white;
+		}
+	  }
+  
+	  &:hover .sub-menu {
+		transform: rotateX(0deg);
+		cursor: pointer;
+	  }
+  
+	  a {
+		font-size: 0.8rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		color: #fff;
+		text-decoration: none;
+		height: 100%;
+		width: 100%;
+		padding: 1rem 0em;
+  
+		@media (min-width: 768px) {
+		  font-size: 1rem;
+		}
+	  }
+	}
+  }
+//   메뉴 클릭시
 
   @keyframes fadein {
 	from {

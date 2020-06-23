@@ -5,16 +5,17 @@
     height: 2.4rem;
     display: inline-block;
     width: 2.4rem;
+    background: none;
 }
 
 .position:hover{
     border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: rgba(0, 0, 0, 0.12);
 }
 
 .position:active{
     border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: rgba(0, 0, 0, 0.12);
 }
 .button{
     background: none;

@@ -35,16 +35,20 @@ export default class Container extends React.Component {
       userListInGroupByUser: null,
       chatalarm_gNo: null,
       userlistSession: [],
+      // sidebar
       clickGroup: false,
       clickHash: false,
       clickColor: false,
+      classMenuIndi: "menu-item",
+      classMenuGroup: "menu-item",
+      classMenuHash: "menu-item",
+      classMenuColor: "menu-item",
     };
     this.tempGno = null;
   }
 
   // search 검색 콜백함수
   onCallbackKeywordChange(keyword) {
-    console.log("onCallbackKeywordChange")
     this.setState({
       keyword: keyword,
     });
@@ -203,13 +207,10 @@ export default class Container extends React.Component {
 
   // group의 no와 Session no로 memoList를 뿌리는 함수
   bringMemoByGroup(_groupNumbers) {
-    console.log("bringMemoByGroup")
-    console.log(_groupNumbers)
     let data = { no: _groupNumbers, };
     let memo_bigArr;
 
     this.groupUserList(_groupNumbers);
-// console.log("fetch 전",_groupNumbers)
     fetch(`${API_URL}/api/memoList`, {
       method: "post",
       headers: API_HEADERS,
@@ -218,8 +219,7 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         memo_bigArr = json.data;
-//         console.log("json.data")
-// console.log(memo_bigArr)
+
         //색 뽑아줌(searchColor용)
         let distinctColor = memo_bigArr.map(function (val, index) {
           return val['color'];
@@ -249,7 +249,6 @@ export default class Container extends React.Component {
         // 검색keyword가 ""이고, sidebar의 해쉬를 클릭하지 않았을 때는
         // 전체 memoList를 뿌려준다.
         this.UpdateMemo(memo_bigArr);
-        // console.log(memo_bigArr)
       })
       .catch((err) => console.error(err));
     // 그룹의 data로 memo의 db를 가져오는 코드
@@ -398,8 +397,6 @@ export default class Container extends React.Component {
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
   // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo , changeColor 클릭 시....
   SidebarGroupUpdate(no, name) {
-    console.log("SidebarGroupUpdate")
-    console.log(no)
     this.bringMemoByGroup(no);
     this.getHashListByGroup(no);
     this.getUserListInGroupByUser(this.Users.no[0]);
@@ -675,21 +672,47 @@ export default class Container extends React.Component {
     this.setState({
       clickHash: false,
       clickGroup: false,
+      clickColor: false
     })
+    this.onCloseSidebarBtn()
   }
   // sidebar의 그룹클릭시 side창 열림
   onOpenGroup() {
     this.setState({
       clickGroup: !this.state.clickGroup,
       clickHash: false,
+      clickColor: false
     })
+    if(!this.state.clickGroup){
+      this.setState({
+        classMenuIndi: "menu-item",
+        classMenuGroup: "menu-item-click",
+        classMenuHash: "menu-item",
+        classMenuColor: "menu-item",
+      })
+    }
+    else {
+      this.onCloseSidebarBtn()
+    }
   }
   // hash의 그룹클릭시 side창 열림
   onOpenHash() {
     this.setState({
       clickHash: !this.state.clickHash,
       clickGroup: false,
+      clickColor: false
     })
+    if(!this.state.clickHash){
+      this.setState({
+        classMenuIndi: "menu-item",
+        classMenuGroup: "menu-item",
+        classMenuHash: "menu-item-click",
+        classMenuColor: "menu-item",
+      })
+    }
+    else {
+      this.onCloseSidebarBtn()
+    }
   }
   onOpenColor() {
     this.setState({
@@ -697,12 +720,33 @@ export default class Container extends React.Component {
       clickGroup: false,
       clickHash: false,
     })
+    if(!this.state.clickColor){
+      this.setState({
+        classMenuIndi: "menu-item",
+        classMenuGroup: "menu-item",
+        classMenuHash: "menu-item",
+        classMenuColor: "menu-item-click",
+      })
+    }
+    else {
+      this.onCloseSidebarBtn()
+    }
   }
   // sidebar 어떤것이든 클릭 시 side창 닫힘
   onCloseGroupAndHash() {
     this.setState({
       clickGroup: false,
       clickHash: false,
+      clickColor: false
+    })
+    this.onCloseSidebarBtn()
+  }
+  onCloseSidebarBtn() {
+    this.setState({
+      classMenuIndi: "menu-item",
+      classMenuGroup: "menu-item",
+      classMenuHash: "menu-item",
+      classMenuColor: "menu-item",
     })
   }
 
@@ -764,6 +808,11 @@ export default class Container extends React.Component {
             clickColor={this.state.clickColor}
             distinctColor={this.state.distinctColor}
             UpdateSearchColor={this.UpdateSearchColor.bind(this)}
+            searchColor={this.state.searchColor}
+            classMenuIndi={this.state.classMenuIndi}
+            classMenuGroup={this.state.classMenuGroup}
+            classMenuHash={this.state.classMenuHash}
+            classMenuColor={this.state.classMenuColor}
             users={this.Users}
             hash={this.state.distinctGroup_hash}
             group={this.state.group}
