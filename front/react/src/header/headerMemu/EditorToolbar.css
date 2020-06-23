@@ -1,3 +1,4 @@
+
 @media (max-width:768px) { 
     .position{
         padding: 17px 13px 13px 19px;
@@ -20,12 +21,12 @@
 
 .position:hover{
     border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: rgba(0, 0, 0, 0.12);
 }
 
 .position:active{
     border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: rgba(0, 0, 0, 0.12);
 }
 .button{
     background: none;

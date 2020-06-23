@@ -1,4 +1,5 @@
 import React from "react";
+import ColorSearch from "./ColorSearch"
 import "./Sidebar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faThumbtack, faBookmark, faHashtag, faCog } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +13,7 @@ export default class Sidebar extends React.Component {
       clickGroup: this.props.clickGroup,
       clickHash: this.props.clickHash,
       clickColor: this.props.clickColor,
+      // classClickColor: "menu-item"
     };
     this.tempGno = null;
   }
@@ -35,9 +37,10 @@ export default class Sidebar extends React.Component {
     this.props.SidebarHashUpdate(this.state.g_no, hash)
     this.props.onCloseGroupAndHash();
   }
-  clickColor(color) {
-    this.props.UpdateSearchColor(color.color, this.state.g_no);
-  }
+  // clickColor(color) {
+  //   this.props.UpdateSearchColor(color.color, this.state.g_no);
+  //   this.setState({classClickColor: "menu-item-click"})
+  // }
 
   onGroup() {
     this.props.onOpenGroup();
@@ -55,41 +58,39 @@ export default class Sidebar extends React.Component {
         <nav className="nav">
           <div className="menu">
             <ol>
-              <li className="menu-item">
+              <li className={this.props.classMenuIndi}>
                 <a onClick={this.clickGroup.bind(this, null, null)}>
                   <div className="menu-title">개인메모</div>
                 </a>
               </li>
-              <li className="menu-item">
+              <li className={this.props.classMenuGroup}>
                 <a onClick={this.onGroup.bind(this)}>
-                <div className="menu-title">그룹메모</div>
+                  <div className="menu-title">그룹메모</div>
                 </a>
               </li>
-              <li className="menu-item">
+              <li className={this.props.classMenuHash}>
                 <a onClick={this.onHash.bind(this)}>
-                <div className="menu-title">해시태그</div>
+                  <div className="menu-title">해시태그</div>
                 </a>
               </li>
-              <li className="menu-item">
+              <li className={this.props.classMenuColor}>
                 <a onClick={this.onColor.bind(this)}>
-                <div className="menu-title">색상검색</div>
+                  <div className="menu-title">색상검색</div>
                 </a>
                 {/* 색상검색 */}
                 {this.props.clickColor ?
                   <ol className="sub-menu2">
-                  {this.props.distinctColor.map((color) =>
-                  <li 
-                  key={color}
-                  className="menu-item"
-                  onClick={this.clickColor.bind(this, { color })} >
-                    <div
-                      className="color_btn"
-                      style={{ backgroundColor: color }} 
-                      />
-                      </li>
-                  )}
+                    {this.props.distinctColor.map((color) =>
+                    <ColorSearch 
+                    key={color}
+                    g_no={this.state.g_no}
+                    color={color}
+                    searchColor={this.props.searchColor}
+                    UpdateSearchColor={this.props.UpdateSearchColor}
+                    />
+                    )}
                   </ol>
-                : null}
+                  : null}
               </li>
             </ol>
           </div>
@@ -119,28 +120,27 @@ export default class Sidebar extends React.Component {
             </ol>
           </div>
           : null}
-          {/* 해시태그 */}
+        {/* 해시태그 */}
         {this.props.clickHash == true && this.props.hash != null ?
           <div className="sidebar__menu">
             <div className="sidebar__menu__title-container">
               <p className="container__title">Hash</p>
             </div>
             <ol className="sub-menu">
-            {this.props.hash.map((hash) => (
-              <li key={hash} className="submenu-item" onClick={this.clickHash.bind(this, hash)}>
-                <a>
-                  <div className="submenu-item__span1">
-                    <FontAwesomeIcon className="fas fa-hashtag" icon={faHashtag} />
-                  </div>
-                  <div className="submenu-item__span2">
-                    {hash}
-                  </div>
-                  <div className="submenu-item__span3">
-                    <p>2</p>
-                  </div>
-                </a>
-              </li>
-
+              {this.props.hash.map((hash) => (
+                <li key={hash} className="submenu-item" onClick={this.clickHash.bind(this, hash)}>
+                  <a>
+                    <div className="submenu-item__span1">
+                      <FontAwesomeIcon className="fas fa-hashtag" icon={faHashtag} />
+                    </div>
+                    <div className="submenu-item__span2">
+                      {hash}
+                    </div>
+                    <div className="submenu-item__span3">
+                      <p>2</p>
+                    </div>
+                  </a>
+                </li>
               ))}
             </ol>
           </div>
