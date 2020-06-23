@@ -44,6 +44,7 @@ export default class Container extends React.Component {
       classMenuHash: "menu-item",
       classMenuColor: "menu-item",
       classMenuColorSelect: "menu-item",
+      HashToSidebar: null,
     };
     this.tempGno = null;
   }
@@ -190,22 +191,49 @@ export default class Container extends React.Component {
             memo_no: element.mNo,
           };
         });
+
+        let hashcoutarr= new Map();
+        let hashlist = [{value:"", count:""}]
         distinctGroup_hash = group_hash.map(function (val, index) {
-          return val['name'];
+          return val['name']
         }).filter(function (val, index, arr) {
-          // val : 각 element의 name값
-          // index : arr의 위치(0부터 시작)
-          // arr : val을 array화 한 것!
-          // map.push(val,map.get(val))
-          // map.put(val,map.get(val)+1);
+          
+          (hashlist.indexOf(val)<0)
+          ?hashlist[hashlist.length] = val :null; 
+
+          if(group_hash.indexOf(val) <0){
+            if(hashcoutarr.get(val) != null){
+              hashcoutarr.set(val,hashcoutarr.get(val)+1);
+            }else{
+              hashcoutarr.set(val,1);
+            }
+          }
           return arr.indexOf(val) === index;
         });
+       
+        let ArrToSidebar= hashlist.map((value,index)=>{ 
+          return {
+            value:value,
+            count: hashcoutarr.get(value),
+          }
+        })
+        ArrToSidebar.splice(0,1);
+        
+        // sendHashToSidebar: sidebar에 보낼 hash정보와 중첩되는 count 
+        this.sendHashToSidebar(ArrToSidebar);
+        // content의 hash에 전달되는 값
         this.UpdateDistinctGroupHash(distinctGroup_hash);
         this.UpdateGroupHash(group_hash);
       })
       .catch((err) => console.error(err));
   }
 
+  sendHashToSidebar(_ArrToSidebar){
+    this.setState({
+      HashToSidebar: _ArrToSidebar
+    })
+  }
+  
   // group의 no와 Session no로 memoList를 뿌리는 함수
   bringMemoByGroup(_groupNumbers) {
     let data = { no: _groupNumbers, };
@@ -809,6 +837,7 @@ export default class Container extends React.Component {
         />
         <div className="body">
           <Sidebar
+            HashToSidebar={this.state.HashToSidebar}
             onCloseGroupAndHash={this.onCloseGroupAndHash.bind(this)}
             onOpenGroup={this.onOpenGroup.bind(this)}
             onOpenHash={this.onOpenHash.bind(this)}

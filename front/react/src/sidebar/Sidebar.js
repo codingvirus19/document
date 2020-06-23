@@ -117,29 +117,30 @@ export default class Sidebar extends React.Component {
                 </li>
               ))}
             </ol>
-          </div>
-          : null}
-        {/* 해시태그 */}
-        {this.props.clickHash == true && this.props.hash != null ?
+          </div> 
+        :null}
+        {this.props.clickHash == true && this.props.HashToSidebar != null ? 
           <div className="sidebar__menu">
             <div className="sidebar__menu__title-container">
               <p className="container__title">Hash</p>
             </div>
             <ol className="sub-menu">
-              {this.props.hash.map((hash) => (
-                <li key={hash} className="submenu-item" onClick={this.clickHash.bind(this, hash)}>
-                  <a>
-                    <div className="submenu-item__span1">
-                      <FontAwesomeIcon className="fas fa-hashtag" icon={faHashtag} />
-                    </div>
-                    <div className="submenu-item__span2">
-                      {hash}
-                    </div>
-                    <div className="submenu-item__span3">
-                      <p>2</p>
-                    </div>
-                  </a>
-                </li>
+
+            {this.props.HashToSidebar.map((hash) => (
+              <li key={hash.value} className="submenu-item" onClick={this.clickHash.bind(this, hash.value)}>
+                <a>
+                  <div className="submenu-item__span1">
+                    <FontAwesomeIcon className="fas fa-hashtag" icon={faHashtag} />
+                  </div>
+                  <div className="submenu-item__span2">
+                    {hash.value}
+                  </div>
+                  <div className="submenu-item__span3">
+                    <p>{hash.count}</p>
+                  </div>
+                </a>
+              </li>
+
               ))}
             </ol>
           </div>
