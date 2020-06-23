@@ -43,6 +43,7 @@ export default class Container extends React.Component {
       classMenuGroup: "menu-item",
       classMenuHash: "menu-item",
       classMenuColor: "menu-item",
+      classMenuColorSelect: "menu-item",
     };
     this.tempGno = null;
   }
@@ -377,6 +378,12 @@ export default class Container extends React.Component {
     })
     this.search(g_no);
   }
+  SearchColordelete() {
+    this.setState({
+      searchColor: null
+    })
+  }
+
 
   UpdateUserListInGroupByUser(userListInGroupByUser) {
     this.setState({
@@ -689,6 +696,7 @@ export default class Container extends React.Component {
         classMenuGroup: "menu-item-click",
         classMenuHash: "menu-item",
         classMenuColor: "menu-item",
+        classMenuColorSelect: "menu-item",
       })
     }
     else {
@@ -708,6 +716,7 @@ export default class Container extends React.Component {
         classMenuGroup: "menu-item",
         classMenuHash: "menu-item-click",
         classMenuColor: "menu-item",
+        classMenuColorSelect: "menu-item",
       })
     }
     else {
@@ -747,6 +756,7 @@ export default class Container extends React.Component {
       classMenuGroup: "menu-item",
       classMenuHash: "menu-item",
       classMenuColor: "menu-item",
+      classMenuColorSelect: "menu-item",
     })
   }
 
@@ -808,11 +818,13 @@ export default class Container extends React.Component {
             clickColor={this.state.clickColor}
             distinctColor={this.state.distinctColor}
             UpdateSearchColor={this.UpdateSearchColor.bind(this)}
+            SearchColordelete={this.SearchColordelete.bind(this)}
             searchColor={this.state.searchColor}
             classMenuIndi={this.state.classMenuIndi}
             classMenuGroup={this.state.classMenuGroup}
             classMenuHash={this.state.classMenuHash}
             classMenuColor={this.state.classMenuColor}
+            classMenuColorSelect={this.state.classMenuColorSelect}
             users={this.Users}
             hash={this.state.distinctGroup_hash}
             group={this.state.group}
