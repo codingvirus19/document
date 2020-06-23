@@ -228,6 +228,9 @@ export default class login extends React.Component {
           <input type="password" id="password" className={`${styles.fadeIn}`} name="password" value={this.state.password} onChange={this.handleChange.bind(this)} placeholder="password" onKeyPress={this.loginEnter.bind(this)} />
           <input type="submit" className={`${styles.fadeIn}`} value="Log In" onClick={this.Login.bind(this)} />
           {/* </form> */}
+          <a href={"/codingvirus19/oauth2/authorization/kakao"}>
+            <input type="submit" className={styles.kakaologinbutton} value="KAKAO Login" ></input>
+          </a>
 
           <div className={styles.formFooter}>
             {this.loginFail()}

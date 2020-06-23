@@ -1,12 +1,23 @@
-.position{
-    padding: 17px 13px 13px 19px;
-    padding: 9px;
-    margin: 9px;
-    height: 2.4rem;
-    display: inline-block;
-    width: 2.4rem;
-    background: none;
-}
+
+@media (max-width:768px) { 
+    .position{
+        padding: 17px 13px 13px 19px;
+        padding: 9px;
+        height: 2.4rem;
+        display: inline-block;
+        width: 2.4rem;
+    }
+  }
+  @media (min-width:768px) { 
+    .position{
+        padding: 17px 13px 13px 19px;
+        padding: 9px;
+        margin: 9px;
+        height: 2.4rem;
+        display: inline-block;
+        width: 2.4rem;
+    }
+  }
 
 .position:hover{
     border-radius: 50%;
