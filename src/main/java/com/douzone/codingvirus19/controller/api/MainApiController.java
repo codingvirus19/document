@@ -60,11 +60,13 @@ public class MainApiController {
 	
 	@PostMapping("/memoList")
 	public JsonResult contents(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo) {
+		System.out.println(vo);
 		MemoVo memoVo = new MemoVo();
 		// uNo와 gNo를 memoVo에 담아서 전달
 		memoVo.setuNo(securityUser.getNo());
 		memoVo.setgNo(vo.getNo());
 		List<MemoVo> list = mainService.findAllMemo(memoVo);
+		System.out.println(list);
 		return JsonResult.success(list);
 	}
 	

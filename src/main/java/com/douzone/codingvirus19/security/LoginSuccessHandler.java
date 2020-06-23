@@ -28,12 +28,13 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
+		System.out.println(authentication+"기존로그인success");
 		SavedRequest savedRequest = requestCache.getRequest(request, response);
 		if (savedRequest != null) {
 			requestCache.removeRequest(request, response);
 			clearAuthenticationAttributes(request);
 		}
-
+		
 		String accept = request.getHeader("accept");
 		SecurityUser securityUser = null;
 		if (SecurityContextHolder.getContext().getAuthentication() != null) {

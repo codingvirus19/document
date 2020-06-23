@@ -4,56 +4,146 @@
   height: 84px;
 }
 
-.wrapper {
-  width: 100%;
-  height: 100%;
-  padding: 5px 0px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: center;
+@media (max-width: 768px) {
+  .logo {
+    display: inline-block;
+    justify-self: left;
+    width: 4.5rem;
+    height: 100%;
+  }
+  .wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 5px 0px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+  }
+}
+@media (min-width: 768px) {
+  .logo {
+    display: inline-block;
+    justify-self: left;
+    width: 9rem;
+    height: 100%;
+  }
+  .wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 5px 0px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+  }
 }
 
-.logo {
-  display: inline-block;
-  justify-self: left;
-  width: 9rem;
-  height: 100%;
+@media (max-width: 768px) {
+  .right_header {
+    justify-self: end;
+    width: auto;
+    display: flex;
+  }
+  .addmemo,
+  .account,
+  .chat {
+    margin-right: 0.3rem;
+  }
+
+  .faPlus,
+  .faUser,
+  .faBell,
+  .faSms {
+    font-size: 1.3rem;
+    color: #3a3b45;
+    background-color: none;
+  }
+  .addmemo {
+    margin-left: 0.3rem;
+  }
+
+  .userbell,
+  .account,
+  .addmemo,
+  .chat,
+  .user {
+    border-radius: 50%;
+    background: none;
+    width: 2.9rem;
+    height: 2.9rem;
+    padding-top: 1.6px;
+    padding-left: 0.6px;
+  }
+  .imageIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+  }
+  .alarmbell {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: red;
+  }
 }
 
-.right_header {
-  justify-self: end;
-  width: auto;
-  right: 2rem;
-  display: flex;
-  margin: 0rem 2rem 0rem 1rem;
+@media (min-width: 768px) {
+  .right_header {
+    justify-self: end;
+    width: auto;
+    right: 2rem;
+    display: flex;
+    margin: 0rem 2rem 0rem 1rem;
+  }
+  /*rigth-header*/
+  .addmemo,
+  .account,
+  .chat {
+    margin-right: 1.8rem;
+  }
+  .faPlus,
+  .faUser,
+  .faBell,
+  .faSms {
+    font-size: 2rem;
+    color: #3a3b45;
+    background-color: none;
+  }
+  .userbell,
+  .account,
+  .addmemo,
+  .chat,
+  .user {
+    border-radius: 50%;
+    background: none;
+    width: 2.9rem;
+    height: 2.9rem;
+    padding-top: 1.6px;
+    padding-left: 0.6px;
+  }
+  .imageIcon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+  }
+  .alarmbell {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: red;
+  }
 }
 
-/*rigth-header*/
-.addmemo,
-.account,
-.chat {
-  margin-right: 1.8rem;
-}
-
-.faPlus, .faUser, .faBell, .faSms {
-  font-size: 2rem;
-  color: #3a3b45;
-  background-color: none;
-}
-
-.userbell, .account, .addmemo, .chat, .user{
+.userbell:hover,
+.user:hover,
+.addmemo:hover,
+.chat:hover,
+.user:hover {
   border-radius: 50%;
-  background: none;
-  width: 2.9rem;
-  height: 2.9rem;
-  padding-top: 1.6px;
-  padding-left: 0.6px;
-}
-
-.userbell:hover, .user:hover, .addmemo:hover, .chat:hover, .user:hover{
-  border-radius: 50%;
-  background-color: rgba(0,0,0,0.08);
+  background-color: rgba(0, 0, 0, 0.08);
 }
 
 button:hover svg {
@@ -64,21 +154,8 @@ button:focus svg {
   color: black;
 }
 
-.chatClick, .userbellClick{
+.chatClick,
+.userbellClick {
   color: black;
-  background-color: rgba(0,0,0,0.08);
-}
-
-.imageIcon {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-}
-
-.alarmbell {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 10px;
-  background-color: red;
+  background-color: rgba(0, 0, 0, 0.08);
 }
