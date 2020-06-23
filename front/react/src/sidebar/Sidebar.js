@@ -42,7 +42,7 @@ export default class Sidebar extends React.Component {
   }
   
   render() {
-    
+    console.log(this.props.HashToSidebar);
     return (
       <div className="sidebar">
         <nav className="nav">
@@ -94,23 +94,23 @@ export default class Sidebar extends React.Component {
             </ol>
           </div> 
         :null}
-        {this.props.clickHash == true && this.props.hash != null ? 
+        {this.props.clickHash == true && this.props.HashToSidebar != null ? 
           <div className="sidebar__menu">
             <div className="sidebar__menu__title-container">
               <p className="container__title">Hash</p>
             </div>
             <ol className="sub-menu">
-            {this.props.hash.map((hash) => (
-              <li key={hash} className="submenu-item" onClick={this.clickHash.bind(this, hash)}>
+            {this.props.HashToSidebar.map((hash) => (
+              <li key={hash.value} className="submenu-item" onClick={this.clickHash.bind(this, hash.value)}>
                 <a>
                   <div className="submenu-item__span1">
                     <FontAwesomeIcon className="fas fa-hashtag" icon={faHashtag} />
                   </div>
                   <div className="submenu-item__span2">
-                    {hash}
+                    {hash.value}
                   </div>
                   <div className="submenu-item__span3">
-                    <p>2</p>
+                    <p>{hash.count}</p>
                   </div>
                 </a>
               </li>

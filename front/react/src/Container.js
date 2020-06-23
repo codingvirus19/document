@@ -35,6 +35,7 @@ export default class Container extends React.Component {
       userlistSession:[],
       clickGroup: false,
       clickHash: false,
+      HashToSidebar: null,
     };
     this.tempGno = null;
   }
@@ -90,7 +91,6 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         this.UpdateAlarm(json.data);
-        console.log(json.data)
       })
       .catch((err) => console.error(err));
     // 알람 가져올 때, type이 true이면 기본 알람, false이면 채팅 알람 구별
@@ -119,7 +119,6 @@ export default class Container extends React.Component {
             image: element.image
           };
         });
-        console.log(userListInGroupByUser)
         this.UpdateUserListInGroupByUser(userListInGroupByUser);
       })
       .catch((err) => console.error(err));
@@ -183,46 +182,47 @@ export default class Container extends React.Component {
             memo_no: element.mNo,
           };
         });
-
-        // let count;
-        // let name;
-        // let distinctGroup_hashTest = group_hash.map(function (val, index) {
-        //   name = val.name;
-        //   return ({
-        //     name: name,
-        //     count: count,
-        //   })
-        // })
-        // distinctGroup_hashTest.filter((val, index, arr)=>{
-        //   return arr.indexOf(name) === index;
-        // });
-
-        // .filter(function (val, index, arr) {
-        //   // val : 각 element의 name값
-        //   // index : arr의 위치(0부터 시작)
-        //   // arr : val을 array화 한 것!
-          
-        //   console.log(arr.indexOf(val) === index);
-
-        //   // if(arr.indexOf(val) !== index){
-        //   //   count = arr[]
-        //   // }
-          
-        //   return arr.indexOf(name) === index;
-        // });
-        // console.log(distinctGroup_hashTest);
-
-        distinctGroup_hash = group_hash.map(function (val, index) {
+        let testdist=group_hash.map(function(val,index){
           return val['name'];
+        });
+
+        let hashcoutarr= new Map();
+        let hashlist = [{value:"", count:""}]
+        distinctGroup_hash = group_hash.map(function (val, index) {
+          return val['name']
         }).filter(function (val, index, arr) {
-          // val : 각 element의 name값
-          // index : arr의 위치(0부터 시작)
-          // arr : val을 array화 한 것!
-          console.log(arr.indexOf(val));
-          // map.push(val,map.get(val))
-          // map.put(val,map.get(val)+1);
+          
+          (hashlist.indexOf(val)<0)
+          ?hashlist[hashlist.length] = val :null; 
+
+          if(group_hash.indexOf(val) <0){
+            if(hashcoutarr.get(val) != null){
+              hashcoutarr.set(val,hashcoutarr.get(val)+1);
+            }else{
+              hashcoutarr.set(val,1);
+            }
+          }
           return arr.indexOf(val) === index;
         });
+        
+       
+        let testArr= hashlist.map((value,index)=>{ 
+          return {
+            value:value,
+            count: hashcoutarr.get(value),
+          }
+        })
+        testArr.splice(0,1);
+        console.log(testArr);
+        this.sendHashToSidebar(testArr);
+
+
+        // distinctGroup_hash = group_hash.map(function (val, index) {
+        //   return val['name']
+        // }).filter(function (val, index, arr) {
+        //   return arr.indexOf(val) === index;
+        // });
+
         console.log(distinctGroup_hash)
         this.UpdateDistinctGroupHash(distinctGroup_hash);
         this.UpdateGroupHash(group_hash);
@@ -230,6 +230,12 @@ export default class Container extends React.Component {
       .catch((err) => console.error(err));
   }
 
+  sendHashToSidebar(_testArr){
+    this.setState({
+      HashToSidebar: _testArr
+    })
+  }
+  
   // group의 no와 Session no로 memoList를 뿌리는 함수
   bringMemoByGroup(_groupNumbers) {
     let data = { no: _groupNumbers, };
@@ -752,6 +758,7 @@ export default class Container extends React.Component {
         />
         <div className="body">
           <Sidebar
+            HashToSidebar={this.state.HashToSidebar}
             onCloseGroupAndHash={this.onCloseGroupAndHash.bind(this)}
             onOpenGroup={this.onOpenGroup.bind(this)}
             onOpenHash={this.onOpenHash.bind(this)}
