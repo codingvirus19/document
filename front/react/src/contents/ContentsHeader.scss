@@ -13,7 +13,7 @@ $hover_iconcolor: #000000;
     min-width: 370px;
   }
   .title {
-    margin-right: 1.5rem;
+    margin-right: 0.5rem;
     min-width: fit-content;
     font-size: 0.8rem;
   }
@@ -24,6 +24,9 @@ $hover_iconcolor: #000000;
     height: 3rem;
     border-radius: 50%;
     transition: transform 0.3s linear;
+  }
+  .invite {
+    margin-right: 0.5rem;
   }
 }
 @media (min-width: 768px) {
@@ -49,11 +52,11 @@ $hover_iconcolor: #000000;
     border-radius: 50%;
     transition: transform 0.3s linear;
   }
+  .invite {
+    margin-right: 1rem;
+  }
 }
 
-.invite {
-  margin-right: 1rem;
-}
 
 .btns{
   background: none;
