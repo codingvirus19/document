@@ -13,13 +13,14 @@ export default class Sidebar extends React.Component {
       clickGroup: this.props.clickGroup,
       clickHash: this.props.clickHash,
       clickColor: this.props.clickColor,
-      // classClickColor: "menu-item"
     };
     this.tempGno = null;
   }
 
   clickGroup(g_no, g_name) {
+    this.props.SearchColordelete();
     this.update(g_no, g_name);
+
   }
 
   update(g_no, g_name) {
@@ -34,13 +35,10 @@ export default class Sidebar extends React.Component {
   }
 
   clickHash(hash) {
+    this.props.SearchColordelete();
     this.props.SidebarHashUpdate(this.state.g_no, hash)
     this.props.onCloseGroupAndHash();
   }
-  // clickColor(color) {
-  //   this.props.UpdateSearchColor(color.color, this.state.g_no);
-  //   this.setState({classClickColor: "menu-item-click"})
-  // }
 
   onGroup() {
     this.props.onOpenGroup();
@@ -87,6 +85,7 @@ export default class Sidebar extends React.Component {
                     color={color}
                     searchColor={this.props.searchColor}
                     UpdateSearchColor={this.props.UpdateSearchColor}
+                    classMenuColorSelect={this.props.classMenuColorSelect}
                     />
                     )}
                   </ol>
