@@ -191,10 +191,6 @@ export default class Container extends React.Component {
           };
         });
 
-        let testdist=group_hash.map(function(val,index){
-          return val['name'];
-        });
-
         let hashcoutarr= new Map();
         let hashlist = [{value:"", count:""}]
         distinctGroup_hash = group_hash.map(function (val, index) {
@@ -213,35 +209,27 @@ export default class Container extends React.Component {
           }
           return arr.indexOf(val) === index;
         });
-        
        
-        let testArr= hashlist.map((value,index)=>{ 
+        let ArrToSidebar= hashlist.map((value,index)=>{ 
           return {
             value:value,
             count: hashcoutarr.get(value),
           }
         })
-        testArr.splice(0,1);
-        console.log(testArr);
-        this.sendHashToSidebar(testArr);
-
-
-        // distinctGroup_hash = group_hash.map(function (val, index) {
-        //   return val['name']
-        // }).filter(function (val, index, arr) {
-        //   return arr.indexOf(val) === index;
-        // });
-
-        console.log(distinctGroup_hash)
+        ArrToSidebar.splice(0,1);
+        
+        // sendHashToSidebar: sidebar에 보낼 hash정보와 중첩되는 count 
+        this.sendHashToSidebar(ArrToSidebar);
+        // content의 hash에 전달되는 값
         this.UpdateDistinctGroupHash(distinctGroup_hash);
         this.UpdateGroupHash(group_hash);
       })
       .catch((err) => console.error(err));
   }
 
-  sendHashToSidebar(_testArr){
+  sendHashToSidebar(_ArrToSidebar){
     this.setState({
-      HashToSidebar: _testArr
+      HashToSidebar: _ArrToSidebar
     })
   }
   
