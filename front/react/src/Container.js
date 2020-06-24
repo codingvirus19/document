@@ -521,9 +521,12 @@ export default class Container extends React.Component {
   //해시 검색 (ex) #~~~)
   SearchHash(g_no, keyword) {
     // 해시일 경우 앞에 #을 자른 후 해시 저장
-    let hash = keyword.slice(1);
-    this.onCallbackKeywordChange(keyword)
+    let hash
+    if (keyword[0] == "#") {
+    hash = keyword.slice(1);
     this.searchMemoByHash(g_no, hash)
+    }
+    this.onCallbackKeywordChange(keyword)
   }
 
   search(g_no) {
