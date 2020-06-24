@@ -9,3 +9,7 @@
   overflow-y: scroll;
   overflow-wrap: anywhere;
 }
+.markmemo {
+  width: 100px;
+  height: 100px;
+}
