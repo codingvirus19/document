@@ -90,7 +90,6 @@ public class UserListSocketController {
 		ArrayList<Long> userNolist = new ArrayList<>();
 		userNolist = userGroupListNo.get(groupno);
 		map.put("gNo", groupno.toString());
-
 		for (Long userNo : userNolist) {
 			if (userNo != Long.parseLong(map.get("userNo"))) {
 				webSocket.convertAndSend("/api/alarm/" + userNo, map);

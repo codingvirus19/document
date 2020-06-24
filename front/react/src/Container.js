@@ -580,7 +580,12 @@ export default class Container extends React.Component {
       method: "post",
       headers: API_HEADERS,
       body: JSON.stringify(memo_change),
-    })
+    }).then(()=>{
+  if (this.state.groupBySidebar.no != null) {
+              this.clientRef.sendMessage(`/app/memo/update/${this.state.groupBySidebar.no}`, JSON.stringify({ update: 'update', userNo: this.Users.no[0] }));
+           }
+    });
+
   }
 
   // 접속한 유저 리스트
