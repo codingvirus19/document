@@ -9,7 +9,7 @@
   overflow-y: scroll;
   overflow-wrap: anywhere;
 }
-.markMemo img{
+.memo img{
   width: 100px;
   height: 100px;
 }
