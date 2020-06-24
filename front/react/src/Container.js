@@ -35,16 +35,22 @@ export default class Container extends React.Component {
       userListInGroupByUser: null,
       chatalarm_gNo: null,
       userlistSession: [],
+      // sidebar
       clickGroup: false,
       clickHash: false,
       clickColor: false,
+      classMenuIndi: "menu-item",
+      classMenuGroup: "menu-item",
+      classMenuHash: "menu-item",
+      classMenuColor: "menu-item",
+      classMenuColorSelect: "menu-item",
+      HashToSidebar: null,
     };
     this.tempGno = null;
   }
 
   // search 검색 콜백함수
   onCallbackKeywordChange(keyword) {
-    console.log("onCallbackKeywordChange")
     this.setState({
       keyword: keyword,
     });
@@ -185,31 +191,55 @@ export default class Container extends React.Component {
             memo_no: element.mNo,
           };
         });
+
+        let hashcoutarr= new Map();
+        let hashlist = [{value:"", count:""}]
         distinctGroup_hash = group_hash.map(function (val, index) {
-          return val['name'];
+          return val['name']
         }).filter(function (val, index, arr) {
-          // val : 각 element의 name값
-          // index : arr의 위치(0부터 시작)
-          // arr : val을 array화 한 것!
-          // map.push(val,map.get(val))
-          // map.put(val,map.get(val)+1);
+          
+          (hashlist.indexOf(val)<0)
+          ?hashlist[hashlist.length] = val :null; 
+
+          if(group_hash.indexOf(val) <0){
+            if(hashcoutarr.get(val) != null){
+              hashcoutarr.set(val,hashcoutarr.get(val)+1);
+            }else{
+              hashcoutarr.set(val,1);
+            }
+          }
           return arr.indexOf(val) === index;
         });
+       
+        let ArrToSidebar= hashlist.map((value,index)=>{ 
+          return {
+            value:value,
+            count: hashcoutarr.get(value),
+          }
+        })
+        ArrToSidebar.splice(0,1);
+        
+        // sendHashToSidebar: sidebar에 보낼 hash정보와 중첩되는 count 
+        this.sendHashToSidebar(ArrToSidebar);
+        // content의 hash에 전달되는 값
         this.UpdateDistinctGroupHash(distinctGroup_hash);
         this.UpdateGroupHash(group_hash);
       })
       .catch((err) => console.error(err));
   }
 
+  sendHashToSidebar(_ArrToSidebar){
+    this.setState({
+      HashToSidebar: _ArrToSidebar
+    })
+  }
+  
   // group의 no와 Session no로 memoList를 뿌리는 함수
   bringMemoByGroup(_groupNumbers) {
-    console.log("bringMemoByGroup")
-    console.log(_groupNumbers)
     let data = { no: _groupNumbers, };
     let memo_bigArr;
 
     this.groupUserList(_groupNumbers);
-// console.log("fetch 전",_groupNumbers)
     fetch(`${API_URL}/api/memoList`, {
       method: "post",
       headers: API_HEADERS,
@@ -218,8 +248,7 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         memo_bigArr = json.data;
-//         console.log("json.data")
-// console.log(memo_bigArr)
+
         //색 뽑아줌(searchColor용)
         let distinctColor = memo_bigArr.map(function (val, index) {
           return val['color'];
@@ -249,7 +278,6 @@ export default class Container extends React.Component {
         // 검색keyword가 ""이고, sidebar의 해쉬를 클릭하지 않았을 때는
         // 전체 memoList를 뿌려준다.
         this.UpdateMemo(memo_bigArr);
-        // console.log(memo_bigArr)
       })
       .catch((err) => console.error(err));
     // 그룹의 data로 memo의 db를 가져오는 코드
@@ -378,6 +406,12 @@ export default class Container extends React.Component {
     })
     this.search(g_no);
   }
+  SearchColordelete() {
+    this.setState({
+      searchColor: null
+    })
+  }
+
 
   UpdateUserListInGroupByUser(userListInGroupByUser) {
     this.setState({
@@ -398,8 +432,6 @@ export default class Container extends React.Component {
   // sitebar에서 클릭 할 때마다 groupNo에 해당하는 memo를 뿌려준다.
   // callback함수 사용처 : sidebar클릭시, delete 클릭 시, shareMemo , changeColor 클릭 시....
   SidebarGroupUpdate(no, name) {
-    console.log("SidebarGroupUpdate")
-    console.log(no)
     this.bringMemoByGroup(no);
     this.getHashListByGroup(no);
     this.getUserListInGroupByUser(this.Users.no[0]);
@@ -489,9 +521,12 @@ export default class Container extends React.Component {
   //해시 검색 (ex) #~~~)
   SearchHash(g_no, keyword) {
     // 해시일 경우 앞에 #을 자른 후 해시 저장
-    let hash = keyword.slice(1);
-    this.onCallbackKeywordChange(keyword)
+    let hash
+    if (keyword[0] == "#") {
+    hash = keyword.slice(1);
     this.searchMemoByHash(g_no, hash)
+    }
+    this.onCallbackKeywordChange(keyword)
   }
 
   search(g_no) {
@@ -675,21 +710,49 @@ export default class Container extends React.Component {
     this.setState({
       clickHash: false,
       clickGroup: false,
+      clickColor: false
     })
+    this.onCloseSidebarBtn()
   }
   // sidebar의 그룹클릭시 side창 열림
   onOpenGroup() {
     this.setState({
       clickGroup: !this.state.clickGroup,
       clickHash: false,
+      clickColor: false
     })
+    if(!this.state.clickGroup){
+      this.setState({
+        classMenuIndi: "menu-item",
+        classMenuGroup: "menu-item-click",
+        classMenuHash: "menu-item",
+        classMenuColor: "menu-item",
+        classMenuColorSelect: "menu-item",
+      })
+    }
+    else {
+      this.onCloseSidebarBtn()
+    }
   }
   // hash의 그룹클릭시 side창 열림
   onOpenHash() {
     this.setState({
       clickHash: !this.state.clickHash,
       clickGroup: false,
+      clickColor: false
     })
+    if(!this.state.clickHash){
+      this.setState({
+        classMenuIndi: "menu-item",
+        classMenuGroup: "menu-item",
+        classMenuHash: "menu-item-click",
+        classMenuColor: "menu-item",
+        classMenuColorSelect: "menu-item",
+      })
+    }
+    else {
+      this.onCloseSidebarBtn()
+    }
   }
   onOpenColor() {
     this.setState({
@@ -697,12 +760,34 @@ export default class Container extends React.Component {
       clickGroup: false,
       clickHash: false,
     })
+    if(!this.state.clickColor){
+      this.setState({
+        classMenuIndi: "menu-item",
+        classMenuGroup: "menu-item",
+        classMenuHash: "menu-item",
+        classMenuColor: "menu-item-click",
+      })
+    }
+    else {
+      this.onCloseSidebarBtn()
+    }
   }
   // sidebar 어떤것이든 클릭 시 side창 닫힘
   onCloseGroupAndHash() {
     this.setState({
       clickGroup: false,
       clickHash: false,
+      clickColor: false
+    })
+    this.onCloseSidebarBtn()
+  }
+  onCloseSidebarBtn() {
+    this.setState({
+      classMenuIndi: "menu-item",
+      classMenuGroup: "menu-item",
+      classMenuHash: "menu-item",
+      classMenuColor: "menu-item",
+      classMenuColorSelect: "menu-item",
     })
   }
 
@@ -755,6 +840,7 @@ export default class Container extends React.Component {
         />
         <div className="body">
           <Sidebar
+            HashToSidebar={this.state.HashToSidebar}
             onCloseGroupAndHash={this.onCloseGroupAndHash.bind(this)}
             onOpenGroup={this.onOpenGroup.bind(this)}
             onOpenHash={this.onOpenHash.bind(this)}
@@ -764,6 +850,13 @@ export default class Container extends React.Component {
             clickColor={this.state.clickColor}
             distinctColor={this.state.distinctColor}
             UpdateSearchColor={this.UpdateSearchColor.bind(this)}
+            SearchColordelete={this.SearchColordelete.bind(this)}
+            searchColor={this.state.searchColor}
+            classMenuIndi={this.state.classMenuIndi}
+            classMenuGroup={this.state.classMenuGroup}
+            classMenuHash={this.state.classMenuHash}
+            classMenuColor={this.state.classMenuColor}
+            classMenuColorSelect={this.state.classMenuColorSelect}
             users={this.Users}
             hash={this.state.distinctGroup_hash}
             group={this.state.group}

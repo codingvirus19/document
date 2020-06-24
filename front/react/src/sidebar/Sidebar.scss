@@ -159,6 +159,24 @@ $transparent-white: rgba(255, 255, 255, 0.15);
     -webkit-line-clamp: 1;
     white-space: nowrap;
   }
+
+  .submenu-item__span3{
+    position: absolute;
+    font-size: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    right: 0px;
+    white-space: nowrap;
+    margin-left: 81px;
+    background: #ffffff;
+    color: #2C62B3;
+    width: 11px;
+    height: 11px;
+    border-radius: 9px;
+    text-align: center;
+    font-weight: 600;
+  }
 }
 @media (min-width: 768px) {
   .submenu-item__span1 {
@@ -175,6 +193,24 @@ $transparent-white: rgba(255, 255, 255, 0.15);
     -webkit-line-clamp: 1;
     height: 24px;
     white-space: nowrap;
+  }
+
+  .submenu-item__span3{
+	position: absolute;
+	font-size: 14px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 1;
+	right: 9px;
+	white-space: nowrap;
+	margin-left: 81px;
+	background: #ffffff;
+	color: #2C62B3;
+	width: 18px;
+	height: 18px;
+	border-radius: 9px;
+	text-align: center;
+	font-weight: 600;
   }
 }
 
@@ -227,7 +263,6 @@ body {
       height: 32px;
       font-size: 32px;
     }
-
     .menu-item {
       height: 30px;
     }
@@ -238,26 +273,6 @@ body {
   z-index: 5;
   height: 98%;
 }
-
-//   .menu-setting--container{
-// 	  position: absolute;
-// 	  bottom: 20px;
-// 	  width: 63px;
-// 	  height: 52px;
-// 	  display: flex;
-// 	  align-items: center;
-// 	  justify-content: center;
-// 	  cursor: pointer;
-// 	//   transition: background
-// 	border-radius: 0.5rem;
-// 	  &:hover{
-// 		background-color: #2C62B3;
-// 	  }
-// 	  .container__setting{
-// 		font-size: 1.3rem;
-// 		color: white;
-// 	  }
-//   }
 
 .menu {
   ol {
@@ -278,9 +293,7 @@ body {
     border-radius: 0.5rem;
     display: flex;
     align-items: center;
-    //   border-top: 2px solid $blue;
     position: relative;
-    //   transition: background 0.3s ease-in-out;
 
     &:nth-child(1) > a::before {
       content: "\f007";
@@ -292,7 +305,11 @@ body {
 
     &:nth-child(3) > a::before {
       content: "\f292";
-    }
+	}
+	
+    &:nth-child(4) > a::before {
+		content: "\f53f";
+	  }
 
     @for $i from 1 through 5 {
       &:nth-child(#{$i}) > a::before {
@@ -314,28 +331,48 @@ body {
           font-size: 1.3rem;
         }
       }
-    }
+  }
+  @media (max-width: 768px) {
+    .menu-title {
+      font-size: 0.5rem;
+      display: none;
+      animation: fadein 0.5s;
+      -moz-animation: fadein 0.5s; /* Firefox */
+      -webkit-animation: fadein 0.5s; /* Safari and Chrome */
+      -o-animation: fadein 0.5s; /* Opera */
+      }
+      &:hover .menu-title {
+        display: block
+      }
+  }
+  @media (min-width: 768px) {
+    .menu-title {
+      font-size: 0.9rem;
+      display: none;
+      animation: fadein 0.5s;
+      -moz-animation: fadein 0.5s; /* Firefox */
+      -webkit-animation: fadein 0.5s; /* Safari and Chrome */
+      -o-animation: fadein 0.5s; /* Opera */
+      }
+      &:hover .menu-title {
+        display: block
+      }
+  }
+
+	
+	  // .color_btn {
+		// margin: auto;
+		// width: 2rem;
+		// height: 2rem;
+		// border-radius: 50%;
+		// border: 0.01rem solid #aaaaaa;
+	  // }
 
     .sub-menu > a {
       color: red;
     }
 
-    //   &:not(:last-child) {
-    // 	border-right: 1px solid $transparent-white;
-    //   }
-
     .sub-menu {
-      // position: absolute;
-      // top: 100%;
-      // width: 412%;
-      // height: 1300%;
-      // transform-origin: top;
-      // transform: rotateX(-90deg);
-      // transition: transform 0.3s linear;
-      // background-color: $yellow;
-      // z-index: 1;
-      // top: -130%;
-      // left: 4rem;
       -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.28);
       box-shadow: 0 0 4px rgba(0, 0, 0, 0.28);
 
@@ -361,28 +398,28 @@ body {
           border: 0;
         }
       }
-    }
+	}
 
-    //해시태그
-    .sub-menu2 {
-      position: absolute;
-      top: 100%;
-      width: 100%;
-      transform-origin: top;
-      transition: transform 0.3s linear;
-      background-color: #3a60c9;
-      z-index: 1;
+    // //해시태그
+    // .sub-menu2 {
+    //   position: absolute;
+    //   top: 100%;
+    //   width: 100%;
+    //   transform-origin: top;
+    //   transition: transform 0.3s linear;
+    //   background-color: #3a60c9;
+    //   z-index: 1;
 
-      .menu-item {
-        border: 0;
-        a {
-          padding: 0.3rem;
-        }
-        a::before {
-          content: "";
-        }
-      }
-    }
+    //   .menu-item {
+    //     border: 0;
+    //     a {
+    //       padding: 0.3rem;
+    //     }
+    //     a::before {
+    //       content: "";
+    //     }
+    //   }
+    // }
 
     &:hover {
       border-top: 2px solid #3a60c9;
@@ -408,11 +445,251 @@ body {
       text-decoration: none;
       height: 100%;
       width: 100%;
-      padding: 1em 0.5em;
+      padding: 1rem 0rem;
 
       @media (min-width: 768px) {
         font-size: 1rem;
       }
     }
+  }
+}
+
+
+
+//메뉴 클릭 시
+.menu {  
+	&-item-click {
+	  border-radius: 0.5rem;
+	  display: flex;
+	  align-items: center;
+	  position: relative;
+  
+	  &:nth-child(1) > a::before {
+		content: "\f007";
+	  }
+  
+	  &:nth-child(2) > a::before {
+		content: "\f0c0";
+	  }
+  
+	  &:nth-child(3) > a::before {
+		content: "\f292";
+	  }
+	  
+	  &:nth-child(4) > a::before {
+		  content: "\f53f";
+		}
+  
+	  @for $i from 1 through 5 {
+		&:nth-child(#{$i}) > a::before {
+		  font-family: "Font Awesome 5 Free";
+		  font-size: 1.2rem;
+		  display: block;
+		  //   margin-bottom: 0.5rem;
+		  font-weight: 900;
+		  -moz-osx-font-smoothing: grayscale;
+		  -webkit-font-smoothing: antialiased;
+		  display: inline-block;
+		  font-style: normal;
+		  font-variant: normal;
+		  text-rendering: auto;
+		  line-height: 1;
+		  //   color: $blue;
+  
+		  @media (min-width: 768px) {
+			font-size: 1.3rem;
+		  }
+		}
+    }
+    @media (max-width: 768px) {
+      .menu-title {
+        font-size: 0.5rem;
+        display: block;
+        animation: fadein 0.5s;
+        -moz-animation: fadein 0.5s; /* Firefox */
+        -webkit-animation: fadein 0.5s; /* Safari and Chrome */
+        -o-animation: fadein 0.5s; /* Opera */
+      }
+    }
+    @media (min-width: 768px) {
+      .menu-title {
+        font-size: 0.9rem;
+        display: block;
+        animation: fadein 0.5s;
+        -moz-animation: fadein 0.5s; /* Firefox */
+        -webkit-animation: fadein 0.5s; /* Safari and Chrome */
+        -o-animation: fadein 0.5s; /* Opera */
+      }
+    }
+
+	  
+		.color_btn {
+		  margin: auto;
+		  width: 2rem;
+		  height: 2rem;
+		  border-radius: 50%;
+		  border: 0.01rem solid #aaaaaa;
+		}
+  
+	  .sub-menu > a {
+		color: red;
+	  }
+  
+	  .sub-menu {
+		-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.28);
+		box-shadow: 0 0 4px rgba(0, 0, 0, 0.28);
+  
+		//그룹들
+		.menu-item {
+		// padding: 0.5rem;
+		  border-color: $transparent-white;
+		  &:hover {
+        background-color: #ebecf0;
+        a {
+          color: #0052cc;
+        }
+		  }
+  
+		  a {
+        padding: 0.3rem;
+		  }
+		  a::before {
+        content: "";
+		  }
+  
+		  &:first-child {
+			border: 0;
+		  }
+		}
+	  }
+	  
+	  //색상선택 //나중에 확인후 지우기
+	  .sub-menu2 {
+	  position: absolute;
+	  top: 100%;
+	  width: 100%;
+	  animation-duration: 0.5s;
+	  animation-name: slidedown;
+  
+	  .menu-item {
+		  border: 0;
+		  padding: 0.5rem;
+		  &:hover {
+			  background-color: #073D8D;
+			  a {
+			  color: #0052cc;
+			  }
+			  .color_btn {
+			  border: 0.01rem solid #333333
+			  }
+		  }
+  
+		  a::before {
+			  content: "";
+		  }
+		  //색상 선택시
+		  &-click {
+			  border-radius: 0.5rem;
+			  border: 0;
+			  padding: 0.5rem;
+			  border-color: $transparent-white;
+			  background-color: #073D8D;
+			  a {
+				  color: #0052cc;
+				  }
+					  .color_btn {
+              margin: auto;
+              width: 2rem;
+              height: 2rem;
+              border-radius: 50%;
+              border: 0.01rem solid #333333
+				  }
+			  }
+		  }
+	  }
+  
+	//   //해시태그
+	//   .sub-menu2 {
+	//     position: absolute;
+	//     top: 100%;
+	//     width: 100%;
+	//     transform-origin: top;
+	//     transition: transform 0.3s linear;
+	//     background-color: #3a60c9;
+	//     z-index: 1;
+  
+	//     .menu-item {
+	//       border: 0;
+	//       a {
+	//         padding: 0.3rem;
+	//       }
+	//       a::before {
+	//         content: "";
+	//       }
+	//     }
+	//   }
+  
+	  & {
+		border-top: 2px solid #3a60c9;
+		background-color: $transparent-white;
+		cursor: pointer;
+  
+		a::before {
+		  color: white;
+		}
+	  }
+  
+	  & .sub-menu {
+		transform: rotateX(0deg);
+		cursor: pointer;
+	  }
+  
+	  a {
+		font-size: 0.8rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		color: #fff;
+		text-decoration: none;
+		height: 100%;
+		width: 100%;
+		padding: 1rem 0rem;
+  
+		@media (min-width: 768px) {
+		  font-size: 1rem;
+		}
+	  }
+	}
+  }
+  @keyframes fadein {
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-moz-keyframes fadein { /* Firefox */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+}
+@-o-keyframes fadein { /* Opera */
+  from {
+      opacity:0;
+  }
+  to {
+      opacity: 1;
   }
 }

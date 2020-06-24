@@ -27,7 +27,7 @@ const FileUpload = (props) => {
                     <button className={styles.upload_btn} onClick={FileUploadBtn}>사진 추가</button>
                 </div>
                 <div className={styles.upload_img}>
-                    <input type="file" id="hiddenFileInput" onChange={e => FileUploads(e)} style={{ display: 'none' }} />
+                    <input type="file" id="hiddenFileInput" accept="image/*" onChange={e => FileUploads(e)} style={{ display: 'none' }} />
                     {(props.image == null) ? null : <img className={styles.image} src={`.${props.image}`} />}
                 </div>
                 
