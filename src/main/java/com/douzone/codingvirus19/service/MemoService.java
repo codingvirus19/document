@@ -22,7 +22,6 @@ public class MemoService {
 	public boolean personDeleteMemo(MemoVo vo) {
 		int asyncTestCount = memoRepository.personDeleteMemo(vo);
 		return asyncTestCount == 1;
-
 	}
 
 	public boolean peopleDeleteMemo(MemoVo vo) {
