@@ -39,8 +39,6 @@ public class AuthUserHandlerMethodArgumentResolver implements HandlerMethodArgum
         	OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
             
             String id = String.valueOf(oauth2User.getAttributes().get("id"));
-        	
-            
             UserVo vo = userSevice.findById(id);
             vo.setRole("ROLE_GUEST");
         	securityUser.setImage(vo.getImage());
@@ -51,7 +49,6 @@ public class AuthUserHandlerMethodArgumentResolver implements HandlerMethodArgum
             authorities.add(new SimpleGrantedAuthority(vo.getRole()));
         	securityUser.setAuthorities(authorities);
         	principal = securityUser;
-        	
         	}else {
             principal = authentication.getPrincipal();
         	}
