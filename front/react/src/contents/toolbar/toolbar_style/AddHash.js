@@ -21,29 +21,42 @@ export default class AddHash extends React.PureComponent {
     } else {
       this.buttonName = styles.faHashtag;
     }
-    this.toggleContainer2 = React.createRef();
-    this.onClickOutsideHandler = this.onClickOutsideHandler.bind(this);
-  }
-
-  componentDidMount() {
-    window.addEventListener("click", this.onClickOutsideHandler);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("click", this.onClickOutsideHandler);
-  }
-
-  onClickOutsideHandler(event) {
-    if (this.state.clickHashButton) {
-      this.setState({
-        clickHashButton: !this.state.clickHashButton,
-      });
-    } else if (
-      this.state.showHashSheet &&
-      !this.toggleContainer2.current.contains(event.target)
-    ) {
-      this.closeHashSheet();
+    if (this.props.colorName != null) {
+      this.colorName = this.props.colorName;
+    } else {
+      this.colorName = styles.popover;
     }
+    this.toggleContainer2 = React.createRef();
+    // this.onClickOutsideHandler = this.onClickOutsideHandler.bind(this);
+  }
+
+  // componentDidMount() {
+  //   window.addEventListener("click", this.onClickOutsideHandler);
+  // }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener("click", this.onClickOutsideHandler);
+  // }
+
+  // onClickOutsideHandler(event) {
+  //   if (this.state.clickHashButton) {
+  //     this.setState({
+  //       clickHashButton: !this.state.clickHashButton,
+  //     });
+  //   } else if (
+  //     this.state.showHashSheet &&
+  //     !this.toggleContainer2.current.contains(event.target)
+  //   ) {
+  //     this.closeHashSheet();
+  //   }
+  // }
+
+  handleClick() {
+    this.setState({ showHashSheet: !this.state.showHashSheet });
+  }
+
+  handleClose() {
+    this.setState({ showHashSheet: false });
   }
 
   toggleHashSheet(e) {
@@ -71,6 +84,11 @@ export default class AddHash extends React.PureComponent {
           <FontAwesomeIcon className={this.buttonName} icon={faHashtag} />
         </button>
         {this.state.showHashSheet ? (
+          <div className={this.colorName}>
+          <div
+            className={styles.cover}
+            onClick={this.handleClose.bind(this)}
+          />
           <HashSheet
             notify={this.props.notify}
             users={this.props.users}
@@ -96,6 +114,7 @@ export default class AddHash extends React.PureComponent {
             SidebarGroupUpdate={this.props.SidebarGroupUpdate}
             closeHashSheet={this.closeHashSheet.bind(this)}
           />
+          </div>
         ) : null}
       </>
     );

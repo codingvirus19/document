@@ -34,6 +34,7 @@ export default class ContentsMemoList extends React.Component {
   }
 
   viewPopup() {
+    console.log("viewPopup")
     this.setState({
       showPopup: !this.state.showPopup,
     })
