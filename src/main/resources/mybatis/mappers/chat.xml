@@ -8,8 +8,8 @@
             			 from chat c, user u
           			    where c.g_no = #{gNo}
               			  and c.u_no = u.no
-        			    order by c.no desc
-            			limit 100) as b
+        			    order by c.NO asc
+            			limit 100) as b	
             order by b.date asc;
  		]]>
 	</select>
