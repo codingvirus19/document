@@ -34,9 +34,9 @@ export default class HashSheet extends React.Component {
     let data = {
       mNo: this.props.memo_no
     }
-    // if (this.props.clientRef != undefined && this.props.users != undefined && this.props.memo_gNo != undefined) {
-    //   this.props.clientRef.sendMessage(`/app/memo/update/${this.props.memo_gNo}`, JSON.stringify({ update: 'update', userNo: this.props.users.no[0] }));
-    // }
+    if (this.props.clientRef != undefined && this.props.users != undefined && this.props.memo_gNo != undefined) {
+      this.props.clientRef.sendMessage(`/app/memo/update/${this.props.memo_gNo}`, JSON.stringify({ update: 'update', userNo: this.props.users.no[0] }));
+    }
     fetch(`${API_URL}/api/deleteAllHash`, {
       method: "post",
       headers: API_HEADERS,
@@ -105,13 +105,12 @@ export default class HashSheet extends React.Component {
     }
     return (
       <div className={styles.hashSheet} ref={this.props.refChange}>
-        <div className={styles.closebutton}>
-          <button onClick={this.props.closeHashSheet}>
-            <i className="fas fa-times-circle"></i>
-          </button>
-        </div>
         <div className={styles.container}>
-          <div className={styles.title}>해시 추가</div>
+          <div className={styles.title}>해시 추가
+          <button className={styles.closeBtn} onClick={this.props.closeHashSheet}>
+              <i className="fas fa-times-circle"></i>
+            </button>
+          </div>
           <div onClick={(e) => e.stopPropagation()} className={styles.contents}>
             <CreatableSelect
               ref={(e) => (e != null) ? (e.select.select.menuListRef.parentNode.style.position = "relative") : null}

@@ -22,7 +22,7 @@ export default class EditorToolbar extends React.Component {
             <Fragment>
                 <div className={styles.position}>
                     <GroupShare
-                    notify={this.props.notify}
+                        notify={this.props.notify}
                         className={styles.button}
                         buttonName={styles.group}
                         // gName,gNo : 임의의 작동을 한 그룹의 no와 name으로 콜백이동하기위한 props
