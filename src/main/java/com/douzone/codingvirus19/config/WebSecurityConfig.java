@@ -69,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.usernameParameter("username").passwordParameter("password")
 				.failureHandler(authenticationFailureHandler()).successHandler(authenticationSuccessHandler()).and()
 				.oauth2Login()
-				.successHandler(new MyOAuth2SuccessHandler()).defaultSuccessUrl("/main", true).failureUrl("/")
+				.successHandler(new MyOAuth2SuccessHandler()).defaultSuccessUrl("/main", true)
 				.and()
 				.logout().logoutUrl("/logout") // default
 				
