@@ -16,7 +16,7 @@
 	<insert id="insert" parameterType="chatvo">
 		<![CDATA[
 			insert into chat 
-			values ( #{gNo}, #{uNo}, #{message}, now(), #{aCount});
+			values ( null,#{gNo}, #{uNo}, #{message}, now(), #{aCount});
  		]]>
 	</insert>
 	
