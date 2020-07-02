@@ -56,7 +56,7 @@ export default class ContentsMemoList extends React.Component {
               onMouseLeave={(e) => this.setState({
                 hoverMemo:false
             })}
-              className={styles.container_memo_form}
+              className={(this.props.myMemo)?styles.container_memo_form2:styles.container_memo_form}
             >
               {/* <ContentsMemo /> */}
               <Memo 
