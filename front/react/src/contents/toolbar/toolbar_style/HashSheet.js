@@ -9,13 +9,17 @@ const API_HEADERS = {
 
 export default class HashSheet extends React.Component {
 
-  handleOnChange(event) {
+  handleOnChange(event, { action, removedValue }) {
     //event가 null일 경우 event.length 처리를 위해 []으로 세팅
     if (event === null) {
       event = [];
     }
+    // 해시 전체 삭제
+    if (action == "clear") {
+      this.deleteAllHash();
+    }
     // 기존 메모해시가 새 메모해시보다 길면 = 메모해시가 삭제되면 
-    if (this.props.memo_hash.length > event.length) {
+    else if (this.props.memo_hash.length > event.length) {
       let deleteHash = this.props.memo_hash.filter(x => !event.some(y => x.value === y.value));
       this.deleteHash(deleteHash);
     }
@@ -26,8 +30,27 @@ export default class HashSheet extends React.Component {
     }
   }
 
+  deleteAllHash() {
+    let data = {
+      mNo: this.props.memo_no
+    }
+    if (this.props.clientRef != undefined && this.props.users != undefined && this.props.memo_gNo != undefined) {
+      this.props.clientRef.sendMessage(`/app/memo/update/${this.props.memo_gNo}`, JSON.stringify({ update: 'update', userNo: this.props.users.no[0] }));
+    }
+    fetch(`${API_URL}/api/deleteAllHash`, {
+      method: "post",
+      headers: API_HEADERS,
+      body: JSON.stringify(data)
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        this.props.SidebarGroupUpdate(this.props.groupBySidebar.no, this.props.groupBySidebar.name);
+      })
+      .catch((err) => console.error(err));
+  }
+
   addHash(event) {
-    if(event.label.length > 8){
+    if (event.label.length > 8) {
       this.props.notify("해시 이름은 최대 8자까지 가능합니다.")
       return;
     }
@@ -38,8 +61,8 @@ export default class HashSheet extends React.Component {
     };
 
     let hash = { value: "", label: "" };
-    if(this.props.clientRef != undefined && this.props.users != undefined && this.props.memo_gNo != undefined){
-    this.props.clientRef.sendMessage(`/app/memo/update/${this.props.memo_gNo}`,JSON.stringify({update:'update',userNo:this.props.users.no[0]}));
+    if (this.props.clientRef != undefined && this.props.users != undefined && this.props.memo_gNo != undefined) {
+      this.props.clientRef.sendMessage(`/app/memo/update/${this.props.memo_gNo}`, JSON.stringify({ update: 'update', userNo: this.props.users.no[0] }));
     }
     fetch(`${API_URL}/api/addHash`, {
       method: "post",
@@ -61,9 +84,9 @@ export default class HashSheet extends React.Component {
       mNo: this.props.memo_no,
       name: hash.value
     }
-    if(this.props.clientRef != undefined && this.props.users != undefined && this.props.memo_gNo != undefined){
-      this.props.clientRef.sendMessage(`/app/memo/update/${this.props.memo_gNo}`,JSON.stringify({update:'update',userNo:this.props.users.no[0]}));
-      }
+    if (this.props.clientRef != undefined && this.props.users != undefined && this.props.memo_gNo != undefined) {
+      this.props.clientRef.sendMessage(`/app/memo/update/${this.props.memo_gNo}`, JSON.stringify({ update: 'update', userNo: this.props.users.no[0] }));
+    }
     fetch(`${API_URL}/api/deleteHash`, {
       method: "post",
       headers: API_HEADERS,
@@ -82,13 +105,12 @@ export default class HashSheet extends React.Component {
     }
     return (
       <div className={styles.hashSheet} ref={this.props.refChange}>
-        <div className={styles.closebutton}>
-          <button onClick={this.props.closeHashSheet}>
-            <i className="fas fa-times-circle"></i>
-          </button>
-        </div>
         <div className={styles.container}>
-          <div className={styles.title}>해시 추가</div>
+          <div className={styles.title}>해시 추가
+          <button className={styles.closeBtn} onClick={this.props.closeHashSheet}>
+              <i className="fas fa-times-circle"></i>
+            </button>
+          </div>
           <div onClick={(e) => e.stopPropagation()} className={styles.contents}>
             <CreatableSelect
               ref={(e) => (e != null) ? (e.select.select.menuListRef.parentNode.style.position = "relative") : null}

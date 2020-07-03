@@ -34,4 +34,8 @@ public class HashRepository {
 		}
 	}
 
+	public int deleteAllHash(HashVo vo) {
+		return sqlSession.delete("hash.deleteAllHash", vo);
+	}
+
 }

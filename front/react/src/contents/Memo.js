@@ -31,7 +31,11 @@ export default class Memo extends React.Component {
 
   render() {
     return (
-      <div onClick={this.props.viewPopup} id={this.props.index} name={this.props.no} value={this.props.content}
+      <div 
+      onClick={this.props.viewPopup} 
+      id={this.props.index} 
+      name={this.props.no} 
+      value={this.props.content}
         className={styles.memo}>
         <div
           dangerouslySetInnerHTML={this.getReMarkDown()} />

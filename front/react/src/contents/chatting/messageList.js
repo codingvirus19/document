@@ -41,7 +41,7 @@ export default class MessageList extends React.Component {
                   <div className={styles.otherchat_message}>
                     <span className={styles.message}>
                       {message.message}
-                      a</span>
+                      </span>
                   </div>
                   <h6 className={styles.otherchat_time}>{message.date}</h6>
                 </div>

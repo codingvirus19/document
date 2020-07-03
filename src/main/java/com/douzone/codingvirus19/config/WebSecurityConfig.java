@@ -72,6 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.successHandler(new MyOAuth2SuccessHandler()).defaultSuccessUrl("/main", true)
 				.and()
 				.logout().logoutUrl("/logout") // default
+				
 				.logoutSuccessUrl("/").permitAll().and();
 	}
 	
