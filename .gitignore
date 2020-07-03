@@ -10,5 +10,6 @@
 **/node_modules
 **/logback.xml
 **/.log
+.idea
 /.log
 /Users/이상휘/eclipse-workspace/log/codingvirus19/exception.log

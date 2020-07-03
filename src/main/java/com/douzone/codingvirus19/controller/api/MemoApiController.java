@@ -170,9 +170,6 @@ public class MemoApiController {
 
 		if (version.size() > 1) {
 			if (message.getVersion() < version.get(version.size() - 1)) {
-//				System.out.println("Sync 맞추기");
-//				System.out.println(
-//						message.getInputIndex() + "::::" + messageList.get(messageList.size() - 2).getInputIndex());
 				if (message.getInputIndex() > messageList.get(messageList.size() - 2).getInputIndex()) {
 					message.setInputIndex(
 							(int) (message.getInputIndex() + messageList.get(messageList.size() - 2).getSize()));
@@ -232,7 +229,7 @@ public class MemoApiController {
 		return message;
 	}
 
-	// 프론트에서 안쓰는듯
+	// 프론트에서 안쓰는듯 <<?
 	@PostMapping("/api/chageMemoListNo")
 	public JsonResult chageMemoListNo(@RequestBody MemoVo memoVo) {
 		boolean result = memoService.chageMemoListNo(memoVo);

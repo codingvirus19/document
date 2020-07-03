@@ -31,5 +31,11 @@ public class ToolbarApiController {
 		toolbarService.addHash(hashVo);
 		return JsonResult.success(hashVo);
 	}
+	
+	@PostMapping("/deleteAllHash")
+	public JsonResult deleteAllHash(@RequestBody HashVo vo) {
+		boolean result = toolbarService.deleteAllHash(vo);
+		return JsonResult.success(result);
+	}
 
 }

@@ -23,4 +23,8 @@ public class ToolbarService {
 		return count == 1;
 	}
 
+	public boolean deleteAllHash(HashVo vo) {
+		return 1 == hashRepository.deleteAllHash(vo);
+	}
+
 }

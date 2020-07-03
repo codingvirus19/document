@@ -61,5 +61,13 @@
 					 or ( #{gNo} is not null and g_no=#{gNo}) );
 		]]>
 	</delete>
+	
+	<delete id="deleteAllHash" parameterType="hashvo">
+		<![CDATA[
+			delete 
+			  from hash 
+			 where m_no = #{mNo};
+		]]>
+	</delete>
 
 </mapper>

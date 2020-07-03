@@ -20,7 +20,7 @@
 }
 
 .hashSheet {
-  padding: 0.2rem 1rem 1rem 1rem;
+  padding: 1rem 1rem 1rem 1rem;
   width: 15rem;
 }
 .searchHash {
@@ -28,11 +28,6 @@
 }
 .shareSheet {
   margin-left: 5rem;
-}
-
-.closebutton {
-  text-align: right;
-  display: block;
 }
 
 /*container*/
@@ -43,6 +38,10 @@
 .title {
   border-bottom: 1px solid rgba(20, 20, 20, 0.15);
   height: 15%;
+}
+
+.closeBtn {
+  float: right;
 }
 
 .contents {

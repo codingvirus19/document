@@ -399,7 +399,6 @@ export default class Popup extends React.Component {
                         setStyle={this.props.setStyle}
                         notify={this.props.notify}
                       />
-
                     </div>
                   </Fragment>
                 )

@@ -92,7 +92,7 @@ a {
 .kakaologinbutton {
   background-color: #fae100;
   border: none;
-  color: white;
+  color: #3b1e1e;
   padding: 15px 80px;
   text-align: center;
   text-decoration: none;
@@ -112,7 +112,7 @@ a {
 }
 
 .kakaologinbutton:hover {
-  background-color: #fff000;
+  background-color: #dfd000;
 }
 /* FORM TYPOGRAPHY*/
 
