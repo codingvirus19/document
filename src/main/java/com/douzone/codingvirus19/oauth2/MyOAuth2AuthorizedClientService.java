@@ -1,15 +1,9 @@
 package com.douzone.codingvirus19.oauth2;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.jaas.SecurityContextLoginModule;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
