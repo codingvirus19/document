@@ -396,6 +396,7 @@ export default class Popup extends React.Component {
                         distinctGroup_hash={this.props.distinctGroup_hash}
                         clientRef={this.props.clientRef}
                         users={this.props.users}
+                        content={this.state.value}
                         setStyle={this.props.setStyle}
                         notify={this.props.notify}
                       />
