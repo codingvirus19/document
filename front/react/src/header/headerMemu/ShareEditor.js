@@ -301,9 +301,7 @@ export default class Popup extends React.Component {
     if (!this.state.focus && !isNaN(e.target.selectionStart)) {
       this.cursor = this.getSnapshotBeforeUpdate(e.target.selectionStart)
     }
-
-    if (47 < e.keyCode && e.keyCode < 112 || e.keyCode == 229 || 187 < e.keyCode && e.keyCode < 223) {
-    }
+   
 
   }
   keyUp(e) {
@@ -341,6 +339,7 @@ export default class Popup extends React.Component {
                 return (
                   <div key={index} className={styles.users}>
                     <img id={element.id} className={styles.userImage} src={"." + element.img} />
+                    <p className={styles.nickname}>{element.nickname}</p>
                   </div>
                 );
               }
@@ -354,9 +353,9 @@ export default class Popup extends React.Component {
                 <button aria-label="헤더3" className={styles.button} onClick={this.hevent.bind(this, 3)}>H3</button>
                 <button aria-label="헤더4" className={styles.button} onClick={this.hevent.bind(this, 4)}>H4</button>
                 <button aria-label="굵게" className={styles.button} onClick={this.boldevent.bind(this)}>B</button>
-                {(this.state.markOpen) ? 
-                <button aria-label="마크다운 작성" className={`${styles.click} ${styles.button}`} onClick={this.markOpen.bind(this)}>E</button> 
-                : <button aria-label="미리보기" className={styles.button} onClick={this.markOpen.bind(this)}>M</button>}
+                {(this.state.markOpen) ?
+                  <button aria-label="마크다운 작성" className={`${styles.click} ${styles.button}`} onClick={this.markOpen.bind(this)}>E</button>
+                  : <button aria-label="미리보기" className={styles.button} onClick={this.markOpen.bind(this)}>M</button>}
               </div>
               {(this.state.markOpen) ? (
                 <div
