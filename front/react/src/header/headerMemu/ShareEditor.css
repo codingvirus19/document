@@ -15,6 +15,9 @@
 }
 .nickname {
   text-align: center;
+  color: white;
+  font-weight: bold;
+  overflow: hidden;
 }
 
 .btn .button{
