@@ -101,14 +101,14 @@ public class UserListSocketController {
 	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
 		String username = event.getUser().getName();
 		AllUserList.add(username);
-		System.out.println(AllUserList+"소켓접속");
+//		System.out.println(AllUserList+"소켓접속");
 	}
 
 	@EventListener
 	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
 		String username = event.getUser().getName();
 		AllUserList.remove(AllUserList.lastIndexOf(username));
-		System.out.println(AllUserList+"소켓나감");
+//		System.out.println(AllUserList+"소켓나감");
 		if (AllUserList.indexOf(username) < 0) {
 			if (userGroup.get(username) != null) {
 				Long gNo = userGroup.get(username);

@@ -26,7 +26,7 @@ public class MainApiController {
 	
 	@PostMapping("/container")
 	public JsonResult getGroupList(@AuthUser SecurityUser securityUser) {
-		System.out.println(securityUser);
+//		System.out.println(securityUser);
 		UserVo userVo = new UserVo();
 		userVo.setNo(securityUser.getNo());
 		List<GroupVo> returnValue = mainService.getGroupByAuth(userVo);
@@ -60,13 +60,13 @@ public class MainApiController {
 	
 	@PostMapping("/memoList")
 	public JsonResult contents(@AuthUser SecurityUser securityUser, @RequestBody GroupVo vo) {
-		System.out.println(vo);
+//		System.out.println(vo);
 		MemoVo memoVo = new MemoVo();
 		// uNo와 gNo를 memoVo에 담아서 전달
 		memoVo.setuNo(securityUser.getNo());
 		memoVo.setgNo(vo.getNo());
 		List<MemoVo> list = mainService.findAllMemo(memoVo);
-		System.out.println(list);
+//		System.out.println(list);
 		return JsonResult.success(list);
 	}
 	

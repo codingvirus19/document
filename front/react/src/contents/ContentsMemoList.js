@@ -123,7 +123,7 @@ export default class ContentsMemoList extends React.Component {
         {this.props.memo_bigArr &&
           this.props.memo_bigArr.map((memos, index) => (
             <ContentsMemo
-              myMemo={(this.props.memo_bigArr[index].uNo == this.props.users.no)?true:false}
+              myMemo={(this.props.user != undefined)?(this.props.memo_bigArr[index].uNo == this.props.users.no)?true:false:null}
               gNo={this.props.memo_bigArr[index].gNo}
               no={this.props.memo_bigArr[index].no}
               content={this.props.memo_bigArr[index].content}
