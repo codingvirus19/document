@@ -541,6 +541,7 @@ export default class Container extends React.Component {
   chattingPopup(showChatClick) {
     this.setState({
       showChat: !showChatClick,
+      chatalarm_gNo: null,
     });
   }
   AlarmPopup(showAlarmClick) {
@@ -629,7 +630,6 @@ export default class Container extends React.Component {
     if (alarm_msg.update != undefined) {
       this.bringMemoByGroup(this.state.groupBySidebar.no);
       this.getHashListByGroup(this.state.groupBySidebar.no);
-
       return;
     }
     if (alarm_msg.addgroup == undefined && alarm_msg.update == undefined && alarm_msg.gNo == undefined) {

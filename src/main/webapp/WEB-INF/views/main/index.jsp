@@ -12,6 +12,6 @@
 <body>
 	<div id ='container' style="width: 100%; height:100%">
 	</div>
-<%-- 	  <script src="http://${pageContext.request.localAddr}:8090/bundle.js"></script>  --%>
-    	 <script src="${pageContext.request.contextPath}/assets/js/bundle.js"></script>
+	  <script src="http://${pageContext.request.localAddr}:8090/bundle.js"></script> 
+<%--     	 <script src="${pageContext.request.contextPath}/assets/js/bundle.js"></script> --%>
 </body>
