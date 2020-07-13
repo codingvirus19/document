@@ -52,8 +52,6 @@ export default class ContentsMemoList extends React.Component {
   }
 
   onClickHere(e) {
-    // e.preventDefault();
-    console.log("test");
   }
 
   togglePopup() {
@@ -63,7 +61,6 @@ export default class ContentsMemoList extends React.Component {
   }
 
   DragDropContents(contents){
-    console.log(contents)
   }
   
   DragStart(e) {
