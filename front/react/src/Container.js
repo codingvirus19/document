@@ -627,11 +627,9 @@ export default class Container extends React.Component {
   }
 
   alarmReceive(alarm_msg) {
-    console.log("chat",alarm_msg);
     if (alarm_msg.update != undefined) {
       this.bringMemoByGroup(this.state.groupBySidebar.no);
       this.getHashListByGroup(this.state.groupBySidebar.no);
-      console.log("update");
       return;
     }
     if (alarm_msg.addgroup == undefined && alarm_msg.update == undefined && alarm_msg.gNo == undefined) {
