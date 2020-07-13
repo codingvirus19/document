@@ -469,7 +469,7 @@ export default class Container extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         this.UpdateGroupBySidebar(json.data.no, json.data.name)
-      })
+      }).then(()=>this.getUserListInGroupByUser(this.Users.no[0]))
       .catch((err) => console.error(err));
   }
 

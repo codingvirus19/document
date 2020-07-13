@@ -16,6 +16,14 @@ export default class GroupInUserList extends React.Component {
             userlistSession: userSession
         });
     }
+    shouldComponentUpdate(prev){
+        console.log(prev.groupInUserList);
+        if(prev.groupInUserList.length == 0 ){
+            return false;
+        }else{
+            return true;
+        }
+    }
     render() {
         return (
             <div className={styles.groupUserList}>
