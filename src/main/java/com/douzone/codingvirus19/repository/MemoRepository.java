@@ -26,7 +26,7 @@ public class MemoRepository {
 	}
 
 	public int peopleDeleteMemo(MemoVo vo) {
-		int deleteHash = sqlSession.delete("memo.deleteHash", vo);
+		int deleteHash = sqlSession.delete("memo.memoHashDeleteMemo", vo);
 		if(deleteHash != -1) {
 			int asyncTest = sqlSession.delete("memo.peopleDeleteMemo", vo);
 			return asyncTest;

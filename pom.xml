@@ -185,7 +185,7 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<configuration>
-					<url>http://192.168.1.222:8080/manager/text</url>
+					<url>http://192.168.0.222:8080/manager/text</url>
 					<path>/codingvirus19</path>
 					<username>admin</username>
 					<password>admin</password>

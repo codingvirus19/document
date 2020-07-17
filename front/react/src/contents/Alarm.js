@@ -45,6 +45,7 @@ export default class Alarm extends React.Component {
 
     clickAlram(g_no) {
         this.props.SidebarGroupUpdate(g_no);
+        this.props.getGroupInUser(g_no);
     }
 
     componentWillReceiveProps(nextProps) {

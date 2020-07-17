@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -70,14 +71,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.failureHandler(authenticationFailureHandler()).successHandler(authenticationSuccessHandler()).and()
 				.oauth2Login()
 				.successHandler(new MyOAuth2SuccessHandler()).defaultSuccessUrl("/main", true)
+				.failureHandler(new MyOAuth2FaileHandler())
 				.and()
 				.logout().logoutUrl("/logout") // default
 				
 				.logoutSuccessUrl("/").permitAll().and();
 	}
 	
-	public class MyOAuth2SuccessHandler implements AuthenticationSuccessHandler {
+	
+	
+	public class MyOAuth2FaileHandler implements AuthenticationFailureHandler{
 
+		@Override
+		public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+				AuthenticationException exception) throws IOException, ServletException {
+			response.sendRedirect("/");
+		}
+		
+	}
+	public class MyOAuth2SuccessHandler implements AuthenticationSuccessHandler {
+		
+		
 	    @Override
 	    public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse res, Authentication authentication) {
 	        String id = authentication.getName();

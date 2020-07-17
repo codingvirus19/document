@@ -15,7 +15,6 @@
   border: 2px solid gray;
   border-radius: 0.5rem;
   margin: auto;
-  margin-bottom: 280px;
 }
 
 .memo_null__container{
@@ -101,7 +100,7 @@
 .container_memo_form {
   padding: 1rem 1rem 0.4rem;
   width: 13.5rem;
-  display: inline-table;
+  display: inline-grid;
   margin: 0.6%;
   border-radius: 0.7rem;
   border: 1px solid transparent;
@@ -115,7 +114,7 @@
 .container_memo_form2 {
   padding: 1rem 1rem 0.4rem;
   width: 13.5rem;
-  display: inline-table;
+  display: inline-grid;
   margin: 0.6%;
   border-radius: 0.7rem;
   border: 1px solid transparent;
